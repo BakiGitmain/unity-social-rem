@@ -44,3 +44,6 @@ next-env.d.ts
 .env.local
 .vercel
 .env*
+lessons-inbox/
+# lesson PDFs dropped in for "add this lesson"
+lessons-inbox/

@@ -1,0 +1,145 @@
+import { cacheLife, cacheTag } from "next/cache";
+import { createPublicClient } from "@/lib/supabase/public";
+import type { Grade, Lesson, LessonSection, LessonSummary, MainTopic, Subject, Unit } from "@/lib/types";
+
+/*
+ * All reads are public content that only changes through migrations, so every
+ * query is cached ("use cache") and fetched per page, never all at once.
+ */
+
+const LESSON_SUMMARY_COLUMNS =
+  "id, unit_id, code, slug, sort_order, section_code, section_title_en, section_title_am, title_en, title_am, summary_en, summary_am, minutes";
+
+export type SubjectCard = Subject & { unitCount: number; lessonCount: number };
+export type UnitWithLessons = Unit & { lessons: LessonSummary[] };
+export type GradeWithUnits = Grade & { units: UnitWithLessons[] };
+export type SubjectTree = Subject & { grades: GradeWithUnits[] };
+export type QuizMeta = {
+  id: string;
+  title_en: string;
+  title_am: string;
+  description_en: string;
+  description_am: string;
+  questionCount: number;
+};
+
+const byNumber = (a: { number: number }, b: { number: number }) => a.number - b.number;
+const bySort = (a: { sort_order: number }, b: { sort_order: number }) => a.sort_order - b.sort_order;
+
+/** Home page: the 4 subjects with how much content each has. */
+export async function getSubjects(): Promise<SubjectCard[]> {
+  "use cache";
+  cacheLife("hours");
+  cacheTag("content");
+
+  const { data, error } = await createPublicClient()
+    .from("subjects")
+    .select("*, grades(id, units(id, lessons(id)))")
+    .order("sort_order");
+  if (error) throw new Error(`Could not load subjects: ${error.message}`);
+
+  type Row = Subject & { grades: { units: { lessons: { id: string }[] }[] }[] };
+  return (data as Row[]).map(({ grades, ...s }) => {
+    const units = grades.flatMap((g) => g.units);
+    return { ...s, unitCount: units.length, lessonCount: units.reduce((n, u) => n + u.lessons.length, 0) };
+  });
+}
+
+/** One subject with its grades, units and lesson titles (no lesson content). */
+export async function getSubjectTree(subjectSlug: string): Promise<SubjectTree | null> {
+  "use cache";
+  cacheLife("hours");
+  cacheTag("content");
+
+  const { data, error } = await createPublicClient()
+    .from("subjects")
+    .select(`*, grades(*, units(*, lessons(${LESSON_SUMMARY_COLUMNS})))`)
+    .eq("slug", subjectSlug)
+    .maybeSingle();
+  if (error) throw new Error(`Could not load subject ${subjectSlug}: ${error.message}`);
+  if (!data) return null;
+
+  const tree = data as SubjectTree;
+  tree.grades.sort(byNumber);
+  for (const g of tree.grades) {
+    g.units.sort(byNumber);
+    for (const u of g.units) u.lessons.sort(bySort);
+  }
+  return tree;
+}
+
+/** The full content of one lesson: note sections, main topics and quiz info (not the questions). */
+export async function getLessonContent(
+  lessonId: string,
+): Promise<{ sections: LessonSection[]; mainTopics: MainTopic[]; quiz: QuizMeta | null }> {
+  "use cache";
+  cacheLife("hours");
+  cacheTag("content");
+
+  const { data, error } = await createPublicClient()
+    .from("lessons")
+    .select(
+      "main_topics, lesson_sections(id, sort_order, title_en, title_am, icon, blocks), quizzes(id, title_en, title_am, description_en, description_am, quiz_questions(count))",
+    )
+    .eq("id", lessonId)
+    .single();
+  if (error) throw new Error(`Could not load lesson ${lessonId}: ${error.message}`);
+
+  type Row = Pick<Lesson, "main_topics" | "lesson_sections"> & {
+    quizzes: (Omit<QuizMeta, "questionCount"> & { quiz_questions: { count: number }[] }) | null;
+  };
+  const row = data as unknown as Row;
+  const q = row.quizzes;
+  return {
+    sections: [...row.lesson_sections].sort(bySort),
+    mainTopics: row.main_topics,
+    quiz: q
+      ? {
+          id: q.id,
+          title_en: q.title_en,
+          title_am: q.title_am,
+          description_en: q.description_en,
+          description_am: q.description_am,
+          questionCount: q.quiz_questions[0]?.count ?? 0,
+        }
+      : null,
+  };
+}
+
+/* ---------------- static params (prerendered at build time) ---------------- */
+
+async function getAllPaths() {
+  "use cache";
+  cacheLife("hours");
+  cacheTag("content");
+
+  const { data, error } = await createPublicClient()
+    .from("subjects")
+    .select("slug, grades(slug, units(slug, lessons(slug)))");
+  if (error) throw new Error(`Could not load paths: ${error.message}`);
+  return data as { slug: string; grades: { slug: string; units: { slug: string; lessons: { slug: string }[] }[] }[] }[];
+}
+
+export async function getSubjectParams() {
+  return (await getAllPaths()).map((s) => ({ subject: s.slug }));
+}
+
+export async function getGradeParams() {
+  return (await getAllPaths()).flatMap((s) => s.grades.map((g) => ({ subject: s.slug, grade: g.slug })));
+}
+
+export async function getUnitParams() {
+  return (await getAllPaths()).flatMap((s) =>
+    s.grades.flatMap((g) => g.units.map((u) => ({ subject: s.slug, grade: g.slug, unit: u.slug }))),
+  );
+}
+
+export async function getLessonParams() {
+  return (await getAllPaths()).flatMap((s) =>
+    s.grades.flatMap((g) =>
+      g.units.flatMap((u) =>
+        u.lessons.map((l) => ({ subject: s.slug, grade: g.slug, unit: u.slug, lesson: l.slug })),
+      ),
+    ),
+  );
+}
