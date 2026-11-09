@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx supabase migration new:*)",
+      "Bash(npx supabase migration list:*)",
+      "Bash(npx supabase db push:*)",
+      "Bash(vercel env add:*)",
+      "Bash(vercel env ls:*)",
+      "Bash(vercel --prod:*)",
+      "Bash(npm run:*)",
+      "Bash(npm install:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "PowerShell(npx supabase migration new:*)",
+      "PowerShell(npx supabase migration list:*)",
+      "PowerShell(npx supabase db push:*)",
+      "PowerShell(vercel env add:*)",
+      "PowerShell(vercel env ls:*)",
+      "PowerShell(vercel --prod:*)",
+      "PowerShell(npm run:*)",
+      "PowerShell(npm install:*)",
+      "PowerShell(git add:*)",
+      "PowerShell(git commit:*)",
+      "PowerShell(git push:*)",
+      "PowerShell(git status:*)",
+      "PowerShell(git diff:*)",
+      "PowerShell(git log:*)"
+    ]
+  }
+}
