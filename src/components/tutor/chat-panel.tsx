@@ -29,6 +29,9 @@ type AnyPart = RemMessage["parts"][number] & { state?: string; input?: unknown; 
 
 const spring = { type: "spring", stiffness: 420, damping: 34, mass: 0.9 } as const;
 
+/** "Explain further" requests already sent (survives closing/reopening the chat). */
+const sentAsks = new Set<number>();
+
 /* ------------------------------------------------------------------ helpers */
 
 /** Splits the trailing "FOLLOWUPS: a | b | c" line off an answer (also hides it while it is still streaming in). */
@@ -441,11 +444,15 @@ function Chat({
     };
   }, [resetRef, stop, setMessages, save, clearError]);
 
-  // A question from "Explain further" (or another trigger) is sent once history has loaded.
+  // A question from "Explain further" (or another trigger) is sent ONCE, after history has loaded.
+  // `sentAsks` lives outside the component: closing the chat unmounts it, and reopening must NOT resend
+  // the last question (that wasted an AI call every time).
   useEffect(() => {
-    if (!ready || !ask || handled.current === ask.id || busy) return;
+    if (!ready || !ask || busy || sentAsks.has(ask.id)) return;
+    sentAsks.add(ask.id);
     handled.current = ask.id;
-    send(ask.text, ask.intent, ask.selectionContext);
+    const t = setTimeout(() => send(ask.text, ask.intent, ask.selectionContext), 0);
+    return () => clearTimeout(t);
   }, [ready, ask, busy, send]);
 
   // Keep the newest message in view.

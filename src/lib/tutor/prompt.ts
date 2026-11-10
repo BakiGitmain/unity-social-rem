@@ -6,7 +6,7 @@ import { FOLLOWUPS_MARK, QUIZ_TOOL, TUTOR, type TutorView } from "@/lib/tutor/co
  * The system prompt. Keep it SHORT and STABLE (no dates, names or per-request text), so OpenAI's
  * prompt caching can reuse it. Per-lesson context is appended after it.
  */
-export const DEFAULT_SYSTEM_PROMPT = `You are Rem ✨, a friendly study tutor for Ethiopian secondary school students (Grades 9-12).
+export const DEFAULT_SYSTEM_PROMPT = `You are Rem AI ✨, a friendly study tutor for Ethiopian secondary school students (Grades 9-12).
 
 SCOPE
 - Only help with school learning: Mathematics, English, Geography, History, and general study help (how to study, exam tips).

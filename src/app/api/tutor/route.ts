@@ -63,8 +63,8 @@ const MSG = {
     am: "ለዛሬ ያሉዎትን ጥያቄዎች በሙሉ ተጠቅመዋል 🌙 ነገ (በአዲስ አበባ ሰዓት) ይታደሳሉ። በማስታወሻዎቹና በፈተናው ክለሳዎን ይቀጥሉ!",
   },
   resting: {
-    en: "Rem is resting right now 😴 Please come back a bit later. The notes and the quiz still work!",
-    am: "ሬም አሁን እያረፈ ነው 😴 እባክዎ ትንሽ ቆይተው ይመለሱ። ማስታወሻዎቹና ፈተናው አሁንም ይሠራሉ!",
+    en: "Rem AI is resting right now 😴 Please come back a bit later. The notes and the quiz still work!",
+    am: "ሬም AI አሁን እያረፈ ነው 😴 እባክዎ ትንሽ ቆይተው ይመለሱ። ማስታወሻዎቹና ፈተናው አሁንም ይሠራሉ!",
   },
   flagged: {
     en: "I can't help with that one 🙏 I'm here for school and studying. Ask me anything about this lesson!",
