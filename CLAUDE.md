@@ -16,12 +16,51 @@ in English, Amharic, or both.
 
 ## Structure
 - Subjects (only 4): mathematics, english, geography, history. Subject → Grade → Unit → Lesson.
-- Routes: `/[subject]/[grade]/[unit]/[lesson]`, e.g. `/geography/grade-9/unit-1/1-1-1`.
-- Tables: subjects, grades, units, lessons, lesson_sections, quizzes, quiz_questions. All text is `*_en` / `*_am`;
-  note blocks are JSON (`src/lib/types.ts`). RLS: public read only; content is only written by migrations.
+- Routes live under `src/app/[locale]/` (`en` | `am`): `/[locale]/[subject]/[grade]/[unit]/[lesson]`, plus
+  `/[locale]/login` and `/[locale]/signup`. Visitors never see the locale: `src/proxy.ts` rewrites
+  `/geography` → `/en/geography` (or `/am/...`) from the `usr-site-lang` cookie. Links are written WITHOUT a locale.
+- Tables: subjects, grades, units, lessons (+ `glossary`), lesson_sections (= Learn-mode parts),
+  quizzes, quiz_questions, profiles, lesson_progress (own rows only). All text is `*_en` / `*_am`; note blocks are JSON (`src/lib/types.ts`).
+  RLS: content is public read only and only written by migrations.
 - Lesson content source files: `content/lessons/<subject>/grade-<n>/unit-<n>/<slug>.json`,
-  turned into migrations by `scripts/lesson-to-sql.mjs`.
+  turned into migrations by `scripts/lesson-to-sql.mjs` (`--update` for lessons already pushed).
 - **Adding a lesson from a PDF: follow [ADD_LESSON.md](ADD_LESSON.md) exactly.**
+
+## Two separate languages
+- **Site language** (EN | አማ switch in the header): all website UI (nav, titles, buttons, labels, grade/unit/lesson
+  names, empty states, auth pages). Strings: `src/lib/site-i18n.ts` → `t(locale, key)`; DB names via `loc(row, field, locale)`.
+  Stored in the `usr-site-lang` cookie (+ localStorage). Server pages get `locale` from params; pass it down as a prop.
+- **Notes language** (English | አማርኛ | Both on the study page, `src/lib/use-lang.ts`, localStorage only): lesson
+  notes, Main Topics and quiz content. It must never change UI labels; UI never changes notes.
+
+## Study page
+- Tabs: Notes (Learn | Read all) · Main Topics · Quiz. Learn mode (`components/study/learn-mode.tsx`) shows one part
+  per screen (no quick checks), swipe on touch, and a "Lesson complete!" screen (Start Quiz → focus mode, or Exit to
+  the unit). Key-term popovers come from `lessons.glossary`.
+- Progress (`src/lib/progress.ts`): % = parts finished ÷ total parts, plus best quiz score. Always in localStorage;
+  when logged in also saved to `lesson_progress` via the `save_lesson_progress` RPC (keeps the higher values), and
+  merged on login by `<ProgressSync>`. Shown as bars on lesson cards (unit page) and unit cards (grade page).
+- The full quiz is lazy-loaded in the browser; the notes are hidden while it runs (focus mode).
+
+## Class schedule
+- Tables `class_sections` + `schedule_entries` (public read). Loaded by `getSchedule()` in `src/lib/data.ts`.
+- ALL time logic is in pure, tested modules under `src/lib/time/` (run `npm test`): `clock.ts` (Addis Ababa time,
+  always UTC+3 whatever the device zone; 12h / 24h / Ethiopian clock), `ethiopian.ts` (Ethiopian calendar),
+  `schedule.ts` (current/next class, breaks, stats). Never use the device time zone for schedule logic.
+- UI: Today card on the home page (`components/schedule/today-card.tsx`), `/schedule` page (day timeline, week grid,
+  stats), `.ics` export at `/api/schedule.ics?lang=en|am`. Clock format is remembered in localStorage.
+- Dev only: `?now=2026-11-11T14:45` fakes the current Addis Ababa time (kept for the tab while navigating; `?now=off` clears it).
+
+## Navigation & auth
+- Desktop header: logo · Home · Schedule · (EN | አማ, profile dropdown with letter avatar). Mobile: slim header
+  (logo, EN | አማ) + floating bottom tab bar (Home, Schedule, Profile → bottom sheet). Files: `src/components/site-header.tsx`, `src/components/nav/*`.
+- Accounts are username + password. Supabase Auth needs an email, so `<username>@users.unitysocialrem.app` is used
+  internally (no inbox; "Confirm email" is OFF). Users only see `@username`. Rules: `src/lib/auth/username.ts`
+  (3–20 chars `a-z 0-9 _`, password ≥ 6, simple is fine).
+- Server actions: `src/lib/auth/actions.ts` (logIn, signUp, logOut). Generic errors only ("Wrong username or password").
+- `profiles` row is created by the `on_auth_user_created` trigger from the sign-up metadata; usernames can't change.
+- The proxy refreshes the Supabase session cookie (only when one exists). The menus read the user in the browser
+  (`src/components/user-provider.tsx`), so pages stay static. The site works fully without logging in.
 
 ## Design rules
 - Keep everything **simple, clean and fast**. It is a private class site: no marketing sections.

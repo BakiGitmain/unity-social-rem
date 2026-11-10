@@ -1,17 +1,28 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { getSubjects } from "@/lib/data";
+import { getSchedule, getSubjects } from "@/lib/data";
+import { TodayCard } from "@/components/schedule/today-card";
 import { subjectStyle } from "@/lib/subjects";
+import { isLocale, loc, type Locale } from "@/lib/locale";
+import { t } from "@/lib/site-i18n";
 import { Stagger, StaggerItem } from "@/components/motion";
 
-export default async function HomePage() {
-  const subjects = await getSubjects();
+export default async function HomePage({ params }: PageProps<"/[locale]">) {
+  const { locale: l } = await params;
+  const locale: Locale = isLocale(l) ? l : "en";
+  const [subjects, schedule] = await Promise.all([getSubjects(), getSchedule()]);
+  const am = locale === "am" ? "am" : "";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
-      <h1 className="text-2xl font-semibold tracking-tight text-ink sm:text-3xl">Choose a subject</h1>
-      <p className="mt-1 text-muted">Pick a subject, then your grade and unit.</p>
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+      {schedule && (
+        <div className="mb-10 max-w-3xl">
+          <TodayCard entries={schedule.entries} locale={locale} />
+        </div>
+      )}
+      <h1 className={`text-2xl font-semibold tracking-tight text-ink sm:text-3xl ${am}`}>{t(locale, "chooseSubject")}</h1>
+      <p className={`mt-1 text-muted ${am}`}>{t(locale, "chooseSubjectSub")}</p>
 
       <Stagger className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {subjects.map((s, i) => {
@@ -34,15 +45,16 @@ export default async function HomePage() {
                   />
                 </div>
                 <div className="flex flex-1 flex-col p-5">
-                  <h2 className="text-lg font-semibold text-ink">{s.name_en}</h2>
-                  <p className="am text-sm text-faint">{s.name_am}</p>
+                  <h2 className={`text-lg font-semibold text-ink ${am}`}>{loc(s, "name", locale)}</h2>
                   <div className="mt-auto flex items-center justify-between pt-4">
                     {ready ? (
-                      <span className="rounded-full bg-accent-soft px-2.5 py-1 text-xs font-medium text-accent-ink">
-                        {s.lessonCount} {s.lessonCount === 1 ? "lesson" : "lessons"} ready
+                      <span className={`rounded-full bg-accent-soft px-2.5 py-1 text-xs font-medium text-accent-ink ${am}`}>
+                        {s.lessonCount === 1 ? t(locale, "lessonReady") : t(locale, "lessonsReady", { n: s.lessonCount })}
                       </span>
                     ) : (
-                      <span className="rounded-full bg-paper px-2.5 py-1 text-xs font-medium text-faint">Coming soon</span>
+                      <span className={`rounded-full bg-paper px-2.5 py-1 text-xs font-medium text-faint ${am}`}>
+                        {t(locale, "comingSoon")}
+                      </span>
                     )}
                     <ArrowRight
                       className="size-4 text-faint transition-transform duration-300 group-hover:translate-x-1 group-hover:text-accent"
@@ -56,12 +68,12 @@ export default async function HomePage() {
         })}
       </Stagger>
 
-      <p className="mt-10 text-xs text-faint">
-        Illustrations from{" "}
+      <p className={`mt-10 text-xs text-faint ${am}`}>
+        {t(locale, "illustrations")}{" "}
         <a href="https://undraw.co" target="_blank" rel="noreferrer" className="underline-offset-2 hover:underline">
           unDraw
         </a>{" "}
-        (free licence).
+        {t(locale, "freeLicence")}
       </p>
     </div>
   );

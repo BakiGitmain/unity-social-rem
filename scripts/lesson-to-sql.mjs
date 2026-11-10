@@ -3,16 +3,14 @@
  * Turns a lesson JSON file (content/lessons/...) into the SQL for ONE migration.
  *
  *   node scripts/lesson-to-sql.mjs content/lessons/geography/grade-9/unit-1/1-1-1.json > supabase/migrations/<file>.sql
+ *   node scripts/lesson-to-sql.mjs --update <file.json> > ...   (lesson already pushed: replace its content in place)
  *
  * It validates the JSON first and exits non-zero (printing every problem) if anything is wrong.
- * The SQL creates the unit if it is missing, refuses to insert a lesson that already exists,
- * and inserts the lesson, its note sections, main topics, quiz and quiz questions.
- * See ADD_LESSON.md for the full workflow.
+ * See ADD_LESSON.md for the format and the full workflow.
  */
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-// --update: the lesson already exists; replace its content in place (for fixes to pushed lessons).
 const UPDATE = process.argv.includes("--update");
 const file = process.argv.slice(2).find((a) => !a.startsWith("--"));
 if (!file) {
@@ -22,17 +20,15 @@ if (!file) {
 
 const data = JSON.parse(readFileSync(file, "utf8"));
 const errors = [];
+const warnings = [];
 const fail = (path, msg) => errors.push(`${path}: ${msg}`);
 
 /* ---------------- validation ---------------- */
 
 const SUBJECTS = ["mathematics", "english", "geography", "history"];
-const ICONS = [
-  "book-open", "languages", "quote", "sparkles", "flask-conical", "git-branch", "mountain",
-  "users", "layers", "globe", "history", "target", "lightbulb", "scroll-text", "compass",
-  "map", "list-checks",
-];
+const ICONS = JSON.parse(readFileSync(join(process.cwd(), "src/lib/icon-names.json"), "utf8"));
 const ETHIOPIC = /[ሀ-፿]/;
+const MAX_BLOCKS_PER_PART = 6;
 
 function isBi(v, path, { amharic = true } = {}) {
   if (!v || typeof v !== "object" || typeof v.en !== "string" || typeof v.am !== "string") {
@@ -41,16 +37,18 @@ function isBi(v, path, { amharic = true } = {}) {
   }
   if (!v.en.trim()) fail(path + ".en", "is empty");
   if (!v.am.trim()) fail(path + ".am", "is empty");
-  // Amharic text must actually contain Ethiopic script (catches untranslated copies),
-  // unless it is something like a number or a name that is the same in both.
   if (amharic && v.en.length > 3 && !ETHIOPIC.test(v.am) && v.am === v.en) {
     fail(path + ".am", "looks untranslated (identical to English)");
   }
-  const stars = (s) => (s.match(/\*\*/g) || []).length % 2;
-  if (stars(v.en)) fail(path + ".en", "has an unclosed ** highlight");
-  if (stars(v.am)) fail(path + ".am", "has an unclosed ** highlight");
+  const odd = (s) => (s.match(/\*\*/g) || []).length % 2;
+  if (odd(v.en)) fail(path + ".en", "has an unclosed ** highlight");
+  if (odd(v.am)) fail(path + ".am", "has an unclosed ** highlight");
   return true;
 }
+
+const icon = (name, path) => {
+  if (!ICONS.includes(name)) fail(path, `unknown icon "${name}" (see src/lib/icon-names.json)`);
+};
 
 function checkBlock(b, path) {
   switch (b?.type) {
@@ -61,6 +59,7 @@ function checkBlock(b, path) {
     case "keypoint":
       if (b.variant && !["definition", "important", "note"].includes(b.variant))
         fail(path + ".variant", "must be definition | important | note");
+      if (b.icon) icon(b.icon, path + ".icon");
       isBi(b.title, path + ".title");
       isBi(b.text, path + ".text");
       break;
@@ -73,7 +72,20 @@ function checkBlock(b, path) {
     case "terms":
       if (b.type === "terms") isBi(b.title, path + ".title");
       if (!Array.isArray(b.items) || !b.items.length) fail(path + ".items", "must be a non-empty array");
-      else b.items.forEach((it, i) => isBi(it, `${path}.items[${i}]`));
+      else {
+        if (b.items.length > 6) fail(path + ".items", "max 6 items (split it into another part)");
+        b.items.forEach((it, i) => isBi(it, `${path}.items[${i}]`));
+      }
+      break;
+    case "points":
+      if (!Array.isArray(b.items) || b.items.length < 2 || b.items.length > 6)
+        fail(path + ".items", "must have 2-6 items");
+      else
+        b.items.forEach((it, i) => {
+          icon(it.icon, `${path}.items[${i}].icon`);
+          isBi(it.title, `${path}.items[${i}].title`);
+          isBi(it.text, `${path}.items[${i}].text`);
+        });
       break;
     case "table":
       if (b.caption) isBi(b.caption, path + ".caption");
@@ -92,11 +104,10 @@ function checkBlock(b, path) {
         fail(path + ".src", "must be a /public path or an https URL");
       else if (b.src.startsWith("/") && !existsSync(join(process.cwd(), "public", b.src)))
         fail(path + ".src", `file public${b.src} does not exist`);
-      if (!b.creditUrl) fail(path + ".creditUrl", "is required: link to the image's source/license page");
-      if (!(b.width > 0 && b.height > 0)) fail(path, "needs width and height");
       isBi(b.alt, path + ".alt");
       if (b.caption) isBi(b.caption, path + ".caption");
       if (typeof b.credit !== "string" || !b.credit.trim()) fail(path + ".credit", "is required (license/credit line)");
+      if (!b.creditUrl) fail(path + ".creditUrl", "is required: link to the image's source/license page");
       break;
     default:
       fail(path + ".type", `unknown block type "${b?.type}"`);
@@ -125,13 +136,32 @@ if (l.section) {
 isBi(l.title, "lesson.title");
 isBi(l.summary, "lesson.summary");
 
+const q = data.quiz ?? {};
+const qCount = Array.isArray(q.questions) ? q.questions.length : 0;
+
 if (!Array.isArray(data.sections) || !data.sections.length) fail("sections", "must be a non-empty array");
 else
   data.sections.forEach((s, i) => {
-    isBi(s.title, `sections[${i}].title`);
-    if (!ICONS.includes(s.icon)) fail(`sections[${i}].icon`, `must be one of ${ICONS.join(", ")}`);
-    if (!Array.isArray(s.blocks) || !s.blocks.length) fail(`sections[${i}].blocks`, "must be a non-empty array");
-    else s.blocks.forEach((b, j) => checkBlock(b, `sections[${i}].blocks[${j}]`));
+    const p = `sections[${i}]`;
+    isBi(s.title, `${p}.title`);
+    icon(s.icon, `${p}.icon`);
+    if (!Array.isArray(s.blocks) || !s.blocks.length) fail(`${p}.blocks`, "must be a non-empty array");
+    else {
+      if (s.blocks.length > MAX_BLOCKS_PER_PART)
+        fail(`${p}.blocks`, `has ${s.blocks.length} blocks; one part = one concept, max ${MAX_BLOCKS_PER_PART} blocks`);
+      s.blocks.forEach((b, j) => checkBlock(b, `${p}.blocks[${j}]`));
+    }
+    if ("checks" in s) fail(`${p}.checks`, "Learn mode has no quick checks between parts; remove this field");
+  });
+
+if (!Array.isArray(data.glossary) || data.glossary.length < 3) fail("glossary", "needs at least 3 key-term definitions");
+else
+  data.glossary.forEach((g, i) => {
+    isBi(g.term, `glossary[${i}].term`);
+    isBi(g.definition, `glossary[${i}].definition`);
+    const allText = JSON.stringify(data.sections).toLowerCase();
+    if (g.term?.en && !allText.includes(g.term.en.toLowerCase()))
+      warnings.push(`glossary[${i}] "${g.term.en}" never appears in the notes, so no popover will show`);
   });
 
 if (!Array.isArray(data.main_topics) || !data.main_topics.length) fail("main_topics", "must be a non-empty array");
@@ -142,11 +172,9 @@ else
     else t.points.forEach((p, j) => isBi(p, `main_topics[${i}].points[${j}]`));
   });
 
-const q = data.quiz ?? {};
 isBi(q.title, "quiz.title");
 if (q.description) isBi(q.description, "quiz.description");
-if (!Array.isArray(q.questions) || q.questions.length < 10 || q.questions.length > 20)
-  fail("quiz.questions", "must have 10-20 questions");
+if (qCount < 10 || qCount > 20) fail("quiz.questions", "must have 10-20 questions");
 else
   q.questions.forEach((qq, i) => {
     const p = `quiz.questions[${i}]`;
@@ -163,6 +191,7 @@ if (errors.length) {
   console.error(`✗ ${file} has ${errors.length} problem(s):\n  - ${errors.join("\n  - ")}`);
   process.exit(1);
 }
+for (const w of warnings) console.error(`  ! ${w}`);
 
 /* ---------------- SQL generation ---------------- */
 
@@ -196,14 +225,17 @@ out.push(`  -- Create the unit if it does not exist yet.
   on conflict (grade_id, number) do nothing;
   select id into v_unit_id from public.units where grade_id = v_grade_id and number = ${u.number};`);
 out.push("");
-if (UPDATE) {
-  out.push(`  -- Update an existing lesson in place: replace its fields, note sections and quiz.
-  update public.lessons set
-    slug = ${lit(l.slug)}, sort_order = ${l.sort_order}, section_code = ${lit(l.section?.code ?? "")},
+
+const lessonFields = `slug = ${lit(l.slug)}, sort_order = ${l.sort_order}, section_code = ${lit(l.section?.code ?? "")},
     section_title_en = ${bi(l.section?.title, "en")}, section_title_am = ${bi(l.section?.title, "am")},
     title_en = ${bi(l.title, "en")}, title_am = ${bi(l.title, "am")},
     summary_en = ${bi(l.summary, "en")}, summary_am = ${bi(l.summary, "am")},
-    minutes = ${l.minutes}, main_topics = ${json(data.main_topics)}
+    minutes = ${l.minutes}, main_topics = ${json(data.main_topics)}, glossary = ${json(data.glossary)}`;
+
+if (UPDATE) {
+  out.push(`  -- Update an existing lesson in place: replace its fields, note parts and quiz.
+  update public.lessons set
+    ${lessonFields}
   where unit_id = v_unit_id and code = ${lit(l.code)}
   returning id into v_lesson_id;
   if v_lesson_id is null then
@@ -215,14 +247,12 @@ if (UPDATE) {
   out.push(`  -- Never duplicate a lesson.
   if exists (select 1 from public.lessons where unit_id = v_unit_id and code = ${lit(l.code)}) then
     raise exception 'Lesson ${l.code} already exists in this unit';
-  end if;`);
-  out.push("");
-  out.push(`  insert into public.lessons (unit_id, code, slug, sort_order, section_code, section_title_en, section_title_am,
-                              title_en, title_am, summary_en, summary_am, minutes, main_topics)
-  values (v_unit_id, ${lit(l.code)}, ${lit(l.slug)}, ${l.sort_order}, ${lit(l.section?.code ?? "")}, ${bi(l.section?.title, "en")}, ${bi(l.section?.title, "am")},
-          ${bi(l.title, "en")}, ${bi(l.title, "am")}, ${bi(l.summary, "en")}, ${bi(l.summary, "am")}, ${l.minutes},
-          ${json(data.main_topics)})
-  returning id into v_lesson_id;`);
+  end if;
+  insert into public.lessons (unit_id, code, title_en, title_am) values (v_unit_id, ${lit(l.code)}, '', '')
+  returning id into v_lesson_id;
+  update public.lessons set
+    ${lessonFields}
+  where id = v_lesson_id;`);
 }
 out.push("");
 out.push("  insert into public.lesson_sections (lesson_id, sort_order, title_en, title_am, icon, blocks) values");
@@ -256,5 +286,5 @@ out.push("");
 
 process.stdout.write(out.join("\n"));
 console.error(
-  `✓ ${l.code} ${l.title.en}: ${data.sections.length} sections, ${data.main_topics.length} main topics, ${q.questions.length} quiz questions`,
+  `✓ ${l.code} ${l.title.en}: ${data.sections.length} parts, ${data.glossary.length} key terms, ${data.main_topics.length} main topics, ${qCount} quiz questions`,
 );

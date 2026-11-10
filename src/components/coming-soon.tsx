@@ -3,18 +3,20 @@ import { ArrowLeft } from "lucide-react";
 
 /** Friendly empty state for subjects/grades without content yet. */
 export function ComingSoon({
-  title = "Coming soon",
+  title,
   message,
   backHref,
   backLabel,
+  am = false,
 }: {
-  title?: string;
+  title: string;
   message: string;
   backHref?: string;
   backLabel?: string;
+  am?: boolean;
 }) {
   return (
-    <div className="flex flex-col items-center rounded-3xl border border-dashed border-line-strong bg-surface/60 px-6 py-12 text-center sm:py-16">
+    <div className={`flex flex-col items-center rounded-3xl border border-dashed border-line-strong bg-surface/60 px-6 py-12 text-center sm:py-16 ${am ? "am" : ""}`}>
       <svg viewBox="0 0 160 110" className="h-28 w-auto" aria-hidden="true">
         <ellipse cx="80" cy="98" rx="58" ry="7" fill="var(--accent-soft)" />
         <rect x="38" y="30" width="84" height="62" rx="10" fill="#fff" stroke="var(--line-strong)" strokeWidth="2" />
@@ -28,11 +30,9 @@ export function ComingSoon({
           <circle r="16" fill="var(--accent-soft)" stroke="var(--accent)" strokeWidth="2" />
           <path d="M0-8v8l5 4" stroke="var(--accent)" strokeWidth="2.5" strokeLinecap="round" fill="none" />
         </g>
-        <path d="M22 26l4 4M26 26l-4 4M136 70l3 3M139 70l-3 3" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" opacity=".5" />
       </svg>
       <h2 className="mt-6 text-xl font-semibold text-ink">{title}</h2>
       <p className="mt-2 max-w-md text-muted">{message}</p>
-      <p className="am mt-1 text-sm text-faint">በቅርቡ ይመጣል</p>
       {backHref && (
         <Link
           href={backHref}

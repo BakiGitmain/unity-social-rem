@@ -93,6 +93,27 @@ body {
   font-weight: 600;
 }
 
+/* Glossary terms: tap or hover for a definition. */
+.term-trigger {
+  display: inline;
+  padding: 0;
+  font: inherit;
+  font-weight: 600;
+  text-align: inherit;
+  cursor: help;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 2px;
+  text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.2s ease, color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.term-trigger:hover,
+.term-trigger[aria-expanded="true"] {
+  text-decoration-color: var(--accent);
+}
+
 /* Softer Amharic line shown under English in "Both" mode. */
 .bi-am {
   display: block;

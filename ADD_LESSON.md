@@ -38,59 +38,70 @@ How:
 - Slugs: subject = `geography`, grade = `grade-9`, unit = `unit-1`, lesson = code with dots → dashes (`1.1.1` → `1-1-1`).
 - `sort_order` = position of the lesson inside the unit (1, 2, 3, ...).
 
-## 4. Write the content as JSON
+## 4. Write the content as JSON (chunked for Learn mode)
 
-Create `content/lessons/<subject>/grade-<n>/unit-<n>/<lesson-slug>.json`. Copy an existing lesson file as the template
-(e.g. `content/lessons/geography/grade-9/unit-1/1-1-1.json`). Shape:
+Create `content/lessons/<subject>/grade-<n>/unit-<n>/<lesson-slug>.json`. Copy an existing lesson as the template
+(e.g. `content/lessons/geography/grade-9/unit-1/1-1-3.json`). Shape:
 
 ```jsonc
 {
   "subject": "geography", "grade": 9,
   "unit":   { "number": 1, "slug": "unit-1", "label": {en, am}, "title": {en, am}, "description": {en, am} },
-  "lesson": { "code": "1.1.1", "slug": "1-1-1", "sort_order": 1, "minutes": 20,
+  "lesson": { "code": "1.1.1", "slug": "1-1-1", "sort_order": 1, "minutes": 10,
               "section": { "code": "1.1", "title": {en, am} }, "title": {en, am}, "summary": {en, am} },
-  "sections":    [ { "title": {en, am}, "icon": "languages", "blocks": [ ...note blocks... ] } ],
+  "sections": [                     // = the PARTS of Learn mode, one concept per screen
+    { "title": {en, am}, "icon": "mountain", "blocks": [ ...2-6 note blocks... ] }
+  ],
+  "glossary":    [ { "term": {en, am}, "definition": {en, am} } ],   // key-term popovers
   "main_topics": [ { "title": {en, am}, "points": [ {en, am}, ... ] } ],
   "quiz": { "title": {en, am}, "description": {en, am},
             "questions": [ { "question": {en, am}, "options": [{en, am} x4], "answer": 0, "explanation": {en, am} } ] }
 }
 ```
 
-Every piece of text is a pair `{ "en": "...", "am": "..." }`. Wrap **key terms** in `**double asterisks**` (shown bold in the subject colour).
+Every piece of text is a pair `{ "en": "...", "am": "..." }`. Wrap **key terms** in `**double asterisks**`.
+
+### Learning-science rules (the generator enforces the numbers)
+- **Chunking:** each `sections[]` entry is ONE concept = one Learn-mode screen. **Max 6 blocks** and about
+  **3–5 points** per part. A lesson usually has **5–9 parts**. If a part feels long, split it.
+- **Short sentences:** one or two sentences per `paragraph` block. Plain words a Grade 9 student knows.
+- **No quick checks between parts.** Parts contain only lesson content (the generator rejects a `checks` field).
+  Retrieval practice happens in the lesson **quiz**, which students start from the "Lesson complete!" screen.
+- **Dual coding:** give every part an `icon`, and use a `points` block (icon + title + short text) whenever a part
+  lists 2–6 parallel ideas (spheres, branches, methods...). Only use icons that match the meaning
+  (Lithosphere = `mountain`, Hydrosphere = `droplets`, Atmosphere = `wind`). Allowed icons: `src/lib/icon-names.json`.
+- **Glossary:** at least 3 entries (usually 8–12): every important term with a one-sentence definition in both
+  languages. A term gets a tap/hover popover wherever it appears as `**term**` or as a `points` title.
+- **Time:** set `lesson.minutes` to a realistic estimate (≈1–1.5 min per part). Cards show "~N min".
+- Use at least one `example` and one memory `tip` per lesson where it fits; Ethiopian examples are best.
 
 **Note block types** (`src/lib/types.ts`):
 
 | type | fields | use for |
 |---|---|---|
-| `heading` | `text` | sub-heading inside a section |
-| `paragraph` | `text` | normal explanation, **one or two sentences per block** (keeps "Both" mode readable) |
-| `keypoint` | `variant` (`definition` / `important` / `note`), `title`, `text` | definitions, must-know facts, textbook notes |
-| `list` | `ordered?`, `items[]` | bullet or numbered points, timelines |
-| `table` | `caption?`, `headers[]`, `rows[][]` | comparisons, word tables (every row = same number of cells as headers) |
-| `example` | `title`, `text` | worked / real-life examples, exam traps |
+| `heading` | `text` | rare sub-heading inside a part |
+| `paragraph` | `text` | one or two sentences |
+| `points` | `items[]: { icon, title, text }` (2–6) | parallel ideas with icons (dual coding) |
+| `keypoint` | `variant` (`definition` / `important` / `note`), `icon?`, `title`, `text` | definitions, must-know facts, textbook notes |
+| `list` | `ordered?`, `items[]` (max 6) | bullets or a numbered timeline |
+| `table` | `caption?`, `headers[]`, `rows[][]` | comparisons; first column = row label (becomes the card title on phones) |
+| `example` | `title`, `text` | real-life examples, exam traps |
 | `tip` | `title`, `text` | memory tricks and mnemonics |
 | `terms` | `title`, `items[]` | key-word chips |
-| `image` | `src`, `width`, `height`, `alt`, `caption?`, `credit`, `creditUrl` | a small supporting image |
+| `image` | `src`, `width`, `height`, `alt`, `caption?`, `credit`, `creditUrl` | a small supporting image (shown 16:10, cover) |
 
-Section `icon` must be one of: book-open, languages, quote, sparkles, flask-conical, git-branch, mountain, users,
-layers, globe, history, target, lightbulb, scroll-text, compass, map, list-checks.
+**Main Topics:** 3–5 topic cards, each with 2–5 very short points: only the most important facts.
 
-**Writing rules**
-- **Full Notes:** the complete lesson, in clear simple English for Grade 9–12 students. Split into 3–5 sections.
-  Use tables for comparisons, at least one `example` and one memory `tip` per lesson where it fits.
-- **Main Topics:** 3–5 topic cards, each with 2–5 very short points. Only the most important facts, very easy to understand.
-- **Quiz:** **10–20** multiple-choice questions, 4 options each, one correct `answer` (0-based index).
-  Every question has a short `explanation` of *why* the answer is right. Mix recall, understanding and exam-style
-  questions; vary the position of the correct answer.
+**Quiz:** **10–20** multiple-choice questions, 4 options each, one correct `answer` (0-based index), each with a short
+`explanation` of *why*. Mix recall, understanding and exam-style questions; vary the correct position.
 
 **Images (rule: get them online, only draw if nothing suitable exists)**
-- Use **freely licensed images from online**: Wikimedia Commons (public domain / CC BY / CC BY-SA) or Unsplash.
+- Use **freely licensed images from online**: Wikimedia Commons (public domain / CC BY / CC BY-SA), Unsplash, unDraw.
 - Check the licence on the file page (`.../w/index.php?title=File:NAME&action=raw` shows the licence template).
-- Download, convert to WebP (max 900 px wide) with sharp, and save to `public/images/lessons/<name>.webp`
-  (local files are faster and never break). Keep images small and supportive: 0–2 per lesson.
-- Always fill `credit` (e.g. `Photo: Author · CC BY-SA 4.0 · Wikimedia Commons`) and `creditUrl` (the file page).
-- Only if no suitable free image exists, create a simple flat SVG, and say so in the credit.
-- The generator refuses images whose file is missing or that have no `creditUrl`.
+- Pick images that still read well cropped to **16:10** (landscape). Avoid tiny or round portraits.
+- Download, convert to WebP (max 900 px wide) with sharp, save to `public/images/lessons/<name>.webp`.
+  0–2 images per lesson. Always fill `credit` and `creditUrl` (the file page).
+- **Never delete an image file a pushed migration still uses** until the new migration is live and deployed.
 
 ## 5. Translate to Amharic
 
@@ -118,13 +129,14 @@ Never edit a migration that has already been pushed. The SQL is generated, so ne
 
 **Fixing a lesson that is already pushed:** edit its JSON, then create a **new** migration with
 `node scripts/lesson-to-sql.mjs --update <file.json> > supabase/migrations/<new file>.sql` and push.
-`--update` replaces the lesson's fields, sections and quiz in place.
+`--update` replaces the lesson's fields, parts, glossary and quiz in place.
 
 ## 7. Build, run, and wait for approval
 
 1. `npm run build`: must pass with no errors.
 2. `npm run dev`, then open and check every new lesson URL:
    `http://localhost:3000/<subject>/grade-<n>/unit-<n>/<lesson-slug>`
-3. Tell the user exactly which pages to check (the unit page and each new lesson: Full Notes, Main Topics,
-   Quiz, and the English / አማርኛ / Both toggle), plus what was added or corrected from the textbook.
+3. Tell the user exactly which pages to check (the unit page and each new lesson: Learn mode → "Lesson complete!" → Start Quiz,
+   Read all, key-term popovers, Main Topics, Quiz, the notes toggle English / አማርኛ / Both, and the site language
+   switch), plus what was added or corrected from the textbook.
 4. **Wait** for the user to say it's good. Only then: commit (content JSON + migration + images) and `git push`.

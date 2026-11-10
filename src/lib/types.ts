@@ -11,6 +11,7 @@ export type KeyPointBlock = {
   type: "keypoint";
   /** definition = the "learn this" box, important = must-know, note = textbook/extra note */
   variant?: "definition" | "important" | "note";
+  icon?: string;
   title: Bi;
   text: Bi;
 };
@@ -19,6 +20,7 @@ export type TableBlock = { type: "table"; caption?: Bi; headers: Bi[]; rows: Bi[
 export type ExampleBlock = { type: "example"; title: Bi; text: Bi };
 export type TipBlock = { type: "tip"; title: Bi; text: Bi };
 export type TermsBlock = { type: "terms"; title: Bi; items: Bi[] };
+export type PointsBlock = { type: "points"; items: { icon: string; title: Bi; text: Bi }[] };
 export type ImageBlock = {
   type: "image";
   src: string;
@@ -39,9 +41,11 @@ export type Block =
   | ExampleBlock
   | TipBlock
   | TermsBlock
+  | PointsBlock
   | ImageBlock;
 
 export type MainTopic = { title: Bi; points: Bi[] };
+export type GlossaryEntry = { term: Bi; definition: Bi };
 
 /* ---------- Rows as used by the UI ---------- */
 
@@ -93,6 +97,8 @@ export type LessonSummary = {
   summary_en: string;
   summary_am: string;
   minutes: number;
+  /** Number of note parts (from lesson_sections(count)). */
+  partCount?: number;
 };
 
 export type LessonSection = {
@@ -106,6 +112,7 @@ export type LessonSection = {
 
 export type Lesson = LessonSummary & {
   main_topics: MainTopic[];
+  glossary: GlossaryEntry[];
   lesson_sections: LessonSection[];
 };
 

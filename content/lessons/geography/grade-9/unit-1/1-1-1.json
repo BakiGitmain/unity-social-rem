@@ -4,8 +4,14 @@
   "unit": {
     "number": 1,
     "slug": "unit-1",
-    "label": { "en": "Unit One", "am": "ምዕራፍ አንድ" },
-    "title": { "en": "The Concept of Geography and Map-Reading", "am": "የጂኦግራፊ ጽንሰ ሐሳብ እና ካርታ ንባብ" },
+    "label": {
+      "en": "Unit One",
+      "am": "ምዕራፍ አንድ"
+    },
+    "title": {
+      "en": "The Concept of Geography and Map-Reading",
+      "am": "የጂኦግራፊ ጽንሰ ሐሳብ እና ካርታ ንባብ"
+    },
     "description": {
       "en": "What geography is, how it became a science, its branches and scope, and how to read maps.",
       "am": "ጂኦግራፊ ምን እንደሆነ፣ እንዴት ሳይንስ እንደሆነ፣ ቅርንጫፎቹና ወሰኑ፣ እንዲሁም ካርታ እንዴት እንደሚነበብ።"
@@ -15,9 +21,18 @@
     "code": "1.1.1",
     "slug": "1-1-1",
     "sort_order": 1,
-    "minutes": 20,
-    "section": { "code": "1.1", "title": { "en": "The Science of Geography", "am": "የጂኦግራፊ ሳይንስ" } },
-    "title": { "en": "Definition and Concept of Geography", "am": "የጂኦግራፊ ትርጉም እና ጽንሰ ሐሳብ" },
+    "minutes": 12,
+    "section": {
+      "code": "1.1",
+      "title": {
+        "en": "The Science of Geography",
+        "am": "የጂኦግራፊ ሳይንስ"
+      }
+    },
+    "title": {
+      "en": "Definition and Concept of Geography",
+      "am": "የጂኦግራፊ ትርጉም እና ጽንሰ ሐሳብ"
+    },
     "summary": {
       "en": "Where the word geography comes from, how geographers defined it over time, the modern definition, and why geography is a science.",
       "am": "ጂኦግራፊ የሚለው ቃል ከየት እንደመጣ፣ ምሁራን በጊዜ ሂደት እንዴት እንደተረጎሙት፣ ዘመናዊው ትርጉም፣ እና ጂኦግራፊ ለምን ሳይንስ እንደሆነ።"
@@ -25,520 +40,1128 @@
   },
   "sections": [
     {
-      "title": { "en": "Where the word “geography” comes from", "am": "«ጂኦግራፊ» የሚለው ቃል አመጣጥ" },
+      "title": {
+        "en": "Where the word comes from",
+        "am": "የቃሉ አመጣጥ"
+      },
       "icon": "languages",
       "blocks": [
         {
           "type": "paragraph",
           "text": {
-            "en": "The word **geography** comes from two **Greek** words.",
-            "am": "**ጂኦግራፊ (Geography)** የሚለው ቃል ከሁለት የ**ግሪክ** ቃላት የተገኘ ነው።"
+            "en": "The word **geography** is made of two **Greek** words.",
+            "am": "**ጂኦግራፊ (Geography)** የሚለው ቃል ከሁለት የ**ግሪክ** ቃላት የተሠራ ነው።"
           }
         },
         {
-          "type": "table",
-          "headers": [
-            { "en": "Greek word", "am": "የግሪክ ቃል" },
-            { "en": "Meaning", "am": "ትርጉም" }
-          ],
-          "rows": [
-            [{ "en": "**Geo**", "am": "**ጂኦ (Geo)**" }, { "en": "Earth", "am": "ምድር" }],
-            [{ "en": "**Graphy** (graphein)", "am": "**ግራፊ (Graphy / graphein)**" }, { "en": "Writing / describing", "am": "መጻፍ / መግለጽ" }]
+          "type": "points",
+          "items": [
+            {
+              "icon": "earth",
+              "title": {
+                "en": "Geo",
+                "am": "ጂኦ (Geo)"
+              },
+              "text": {
+                "en": "means **Earth**",
+                "am": "**ምድር** ማለት ነው"
+              }
+            },
+            {
+              "icon": "pen-line",
+              "title": {
+                "en": "Graphy (graphein)",
+                "am": "ግራፊ (Graphy / graphein)"
+              },
+              "text": {
+                "en": "means **writing** or describing",
+                "am": "**መጻፍ** ወይም መግለጽ ማለት ነው"
+              }
+            }
           ]
-        },
-        {
-          "type": "image",
-          "src": "/images/lessons/eratosthenes.webp",
-          "width": 278,
-          "height": 275,
-          "alt": {
-            "en": "Old engraved portrait of Eratosthenes, a bearded Greek scholar, shown in profile.",
-            "am": "የኤራቶስቴንስ የጥንት የተቀረጸ ምስል፤ ጢም ያለው የግሪክ ምሁር ከጎን ሲታይ።"
-          },
-          "caption": { "en": "Eratosthenes, the Greek scholar who first used the word “geography”", "am": "«ጂኦግራፊ» የሚለውን ቃል መጀመሪያ የተጠቀመው የግሪክ ምሁር ኤራቶስቴንስ" },
-          "credit": "Portrait of Eratosthenes · Public domain · Wikimedia Commons",
-          "creditUrl": "https://commons.wikimedia.org/wiki/File:Portrait_of_Eratosthenes.png"
         },
         {
           "type": "keypoint",
           "variant": "definition",
-          "title": { "en": "The old definition", "am": "የቀድሞው ትርጉም" },
+          "title": {
+            "en": "So geography means…",
+            "am": "ስለዚህ ጂኦግራፊ ማለት…"
+          },
           "text": {
-            "en": "So geography literally means **describing or writing about the Earth**.",
-            "am": "ስለዚህ ጂኦግራፊ ቃል በቃል **ስለ ምድር መጻፍ ወይም ምድርን መግለጽ** ማለት ነው።"
-          }
-        },
-        {
-          "type": "paragraph",
-          "text": {
-            "en": "The word was first used by **Eratosthenes** (276–196 BC), a Greek scholar. He defined geography as “the description of the Earth”.",
-            "am": "ቃሉን ለመጀመሪያ ጊዜ የተጠቀመው **ኤራቶስቴንስ (Eratosthenes)** (276–196 ዓ.ዓ.) የተባለ የግሪክ ምሁር ነው። እሱም ጂኦግራፊን «የምድር ገለጻ» ብሎ ገልጾታል።"
+            "en": "**Writing about the Earth**, or describing the Earth. This is the old definition.",
+            "am": "**ስለ ምድር መጻፍ** ወይም ምድርን መግለጽ ማለት ነው። ይህ የቀድሞው ትርጉም ነው።"
           }
         },
         {
           "type": "tip",
-          "title": { "en": "Memory tip", "am": "የማስታወሻ ዘዴ" },
+          "title": {
+            "en": "Memory tip",
+            "am": "የማስታወሻ ዘዴ"
+          },
           "text": {
-            "en": "**Geo** = Earth, as in **geo**logy (the study of the Earth's rocks). **Graphy** = writing, as in bio**graphy** (writing about a person's life).",
-            "am": "**ጂኦ (Geo)** = ምድር፤ ለምሳሌ **ጂኦሎጂ (Geology)** የምድር ዐለቶች ጥናት ነው። **ግራፊ (Graphy)** = መጻፍ፤ ለምሳሌ **ባዮግራፊ (Biography)** ስለ አንድ ሰው ሕይወት የተጻፈ ታሪክ ነው።"
+            "en": "**Geo**logy studies the Earth's rocks. Bio**graphy** is writing about a life. Same two roots!",
+            "am": "**ጂኦ**ሎጂ (Geology) የምድር ዐለቶች ጥናት ነው። ባዮ**ግራፊ** (Biography) ስለ ሕይወት መጻፍ ነው። ተመሳሳይ ሁለት መነሻዎች!"
           }
         }
       ]
     },
     {
-      "title": { "en": "How geographers defined geography", "am": "የጂኦግራፊ ምሁራን ጂኦግራፊን እንዴት ተረጎሙት" },
+      "title": {
+        "en": "Eratosthenes, the first to use the word",
+        "am": "ቃሉን መጀመሪያ የተጠቀመው ኤራቶስቴንስ"
+      },
+      "icon": "scroll-text",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "The word was first used by **Eratosthenes** (276–196 BC), a Greek scholar.",
+            "am": "ቃሉን ለመጀመሪያ ጊዜ የተጠቀመው **ኤራቶስቴንስ (Eratosthenes)** (276–196 ዓ.ዓ.) የተባለ የግሪክ ምሁር ነው።"
+          }
+        },
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "He defined geography simply as “the description of the Earth”.",
+            "am": "እሱ ጂኦግራፊን በቀላሉ «የምድር ገለጻ» ብሎ ገልጾታል።"
+          }
+        },
+        {
+          "type": "image",
+          "src": "/images/lessons/eratosthenes-map.webp",
+          "width": 900,
+          "height": 468,
+          "alt": {
+            "en": "Old black-and-white map of the world as Eratosthenes knew it around 200 BC, showing Europe, Libya (Africa), Asia and India.",
+            "am": "ኤራቶስቴንስ በ200 ዓ.ዓ. ገደማ ያውቀው የነበረው ዓለም የሚያሳይ የጥንት ጥቁርና ነጭ ካርታ፤ አውሮፓ፣ ሊቢያ (አፍሪካ)፣ እስያና ሕንድ ይታያሉ።"
+          },
+          "caption": {
+            "en": "The world as Eratosthenes described it (about 200 BC)",
+            "am": "ኤራቶስቴንስ የገለጸው ዓለም (በ200 ዓ.ዓ. ገደማ)"
+          },
+          "credit": "Map: J. F. Horrabin, The Outline of History (1920) · Public domain · Wikimedia Commons",
+          "creditUrl": "https://commons.wikimedia.org/wiki/File:Map_of_the_World_according_to_Eratosthenes,_H._G._Wells%27_Outline_of_History,_page_188.jpg"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Many definitions, one idea",
+        "am": "ብዙ ትርጉሞች፣ አንድ ሐሳብ"
+      },
       "icon": "quote",
       "blocks": [
         {
           "type": "paragraph",
           "text": {
-            "en": "Geography has **no single definition**. Different geographers have proposed (put forward) different definitions.",
-            "am": "ጂኦግራፊ **አንድ ብቻ የሆነ ትርጉም የለውም**። የተለያዩ የጂኦግራፊ ምሁራን የተለያዩ ትርጉሞችን አቅርበዋል።"
+            "en": "Geography has **no single definition**, but all definitions share one idea: geography studies the **Earth's surface**.",
+            "am": "ጂኦግራፊ **አንድ ብቻ ትርጉም የለውም**፤ ነገር ግን ሁሉም ትርጉሞች አንድ ሐሳብ ይጋራሉ፦ ጂኦግራፊ **የምድርን ገጽ** ያጠናል።"
           }
         },
         {
-          "type": "paragraph",
-          "text": {
-            "en": "However, the definitions **share common ideas**: almost all of them say that geography studies the **Earth's surface**.",
-            "am": "ይሁን እንጂ ትርጉሞቹ **የጋራ ሐሳቦች አሏቸው**፤ ሁሉም ማለት ይቻላል ጂኦግራፊ **የምድርን ገጽ** እንደሚያጠና ይገልጻሉ።"
-          }
-        },
-        {
-          "type": "table",
-          "headers": [
-            { "en": "Who", "am": "ማን" },
-            { "en": "When", "am": "መቼ" },
-            { "en": "Definition", "am": "ትርጉም" }
-          ],
-          "rows": [
-            [
-              { "en": "**Eratosthenes**", "am": "**ኤራቶስቴንስ (Eratosthenes)**" },
-              { "en": "276–196 BC", "am": "276–196 ዓ.ዓ." },
-              { "en": "Geography is the description of the Earth.", "am": "ጂኦግራፊ የምድር ገለጻ ነው።" }
-            ],
-            [
-              { "en": "**Concise Oxford Dictionary**", "am": "**ኮንሳይዝ ኦክስፎርድ መዝገበ ቃላት (Concise Oxford Dictionary)**" },
-              { "en": "1964", "am": "1964" },
-              { "en": "Geography is the science of the Earth's surface.", "am": "ጂኦግራፊ የምድር ገጽ ሳይንስ ነው።" }
-            ],
-            [
-              { "en": "**Richard Hartshorne**", "am": "**ሪቻርድ ሃርትሾርን (Richard Hartshorne)**" },
-              { "en": "1899–1992", "am": "1899–1992" },
-              {
-                "en": "Geography is a branch of knowledge that gives an **accurate, orderly and rational description** of the variable character of the Earth's surface.",
-                "am": "ጂኦግራፊ የምድርን ገጽ ተለዋዋጭ ባሕርይ **ትክክለኛ፣ ሥርዓት ያለው እና ምክንያታዊ በሆነ መንገድ የሚገልጽ** የእውቀት ዘርፍ ነው።"
-              }
-            ],
-            [
-              { "en": "**M. Yeates**", "am": "**ኤም. ዬትስ (M. Yeates)**" },
-              { "en": "1968", "am": "1968" },
-              {
-                "en": "Geography is a science that develops and tests **theories** that explain and predict the spatial distribution and location of things on the Earth's surface.",
-                "am": "ጂኦግራፊ በምድር ገጽ ላይ ያሉ ነገሮችን ቦታዊ ስርጭትና አቀማመጥ የሚያብራሩና የሚተነብዩ **ንድፈ ሐሳቦችን** የሚያዳብርና የሚፈትን ሳይንስ ነው።"
-              }
-            ]
-          ]
-        },
-        {
-          "type": "terms",
-          "title": { "en": "Hartshorne's key words", "am": "የሃርትሾርን ቁልፍ ቃላት" },
+          "type": "points",
           "items": [
-            { "en": "accurate", "am": "ትክክለኛ (accurate)" },
-            { "en": "orderly", "am": "ሥርዓት ያለው (orderly)" },
-            { "en": "rational", "am": "ምክንያታዊ (rational)" },
-            { "en": "description", "am": "ገለጻ (description)" }
+            {
+              "icon": "book-text",
+              "title": {
+                "en": "Concise Oxford Dictionary (1964)",
+                "am": "ኮንሳይዝ ኦክስፎርድ መዝገበ ቃላት (1964)"
+              },
+              "text": {
+                "en": "The science of the Earth's surface.",
+                "am": "የምድር ገጽ ሳይንስ።"
+              }
+            },
+            {
+              "icon": "ruler",
+              "title": {
+                "en": "Richard Hartshorne (1899–1992)",
+                "am": "ሪቻርድ ሃርትሾርን (1899–1992)"
+              },
+              "text": {
+                "en": "An **accurate, orderly and rational** description of the Earth's surface.",
+                "am": "የምድርን ገጽ **ትክክለኛ፣ ሥርዓት ያለውና ምክንያታዊ** በሆነ መንገድ መግለጽ።"
+              }
+            },
+            {
+              "icon": "lightbulb",
+              "title": {
+                "en": "M. Yeates (1968)",
+                "am": "ኤም. ዬትስ (1968)"
+              },
+              "text": {
+                "en": "A science that builds and tests **theories** about where things are on the Earth.",
+                "am": "ነገሮች በምድር ላይ የት እንዳሉ የሚያብራሩ **ንድፈ ሐሳቦችን** የሚገነባና የሚፈትን ሳይንስ።"
+              }
+            }
           ]
         },
         {
           "type": "keypoint",
           "variant": "note",
-          "title": { "en": "Textbook note", "am": "የመማሪያ መጽሐፍ ማስታወሻ" },
+          "title": {
+            "en": "Textbook note",
+            "am": "የመማሪያ መጽሐፍ ማስታወሻ"
+          },
           "text": {
-            "en": "The Grade 9 textbook says Hartshorne called geography a **branch of knowledge**. Many notes call it a **branch of social science**. Both describe the same idea, so recognise either wording in an exam.",
-            "am": "የ9ኛ ክፍል መማሪያ መጽሐፍ ሃርትሾርን ጂኦግራፊን **የእውቀት ዘርፍ** ብሎ እንደጠራው ይገልጻል። ብዙ ማስታወሻዎች ደግሞ **የማኅበራዊ ሳይንስ ዘርፍ** ይሉታል። ሁለቱም አንድን ሐሳብ ስለሚገልጹ በፈተና ላይ የትኛውም አገላለጽ ቢመጣ ማወቅ ያስፈልጋል።"
+            "en": "The textbook calls Hartshorne's geography a “branch of knowledge”; many notes say “social science”. Know both.",
+            "am": "መማሪያ መጽሐፉ የሃርትሾርንን ትርጉም «የእውቀት ዘርፍ» ይለዋል፤ ብዙ ማስታወሻዎች ደግሞ «ማኅበራዊ ሳይንስ» ይላሉ። ሁለቱንም ማወቅ ያስፈልጋል።"
           }
-        },
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "A spatial science",
+        "am": "ቦታዊ ሳይንስ"
+      },
+      "icon": "map-pin",
+      "blocks": [
         {
-          "type": "heading",
-          "text": { "en": "Mid-20th century: a spatial science", "am": "በ20ኛው ክፍለ ዘመን አጋማሽ፦ ቦታዊ ሳይንስ" }
+          "type": "paragraph",
+          "text": {
+            "en": "In the **mid-20th century**, geography became a **spatial science**.",
+            "am": "በ**20ኛው ክፍለ ዘመን አጋማሽ** ጂኦግራፊ **ቦታዊ ሳይንስ (Spatial Science)** ሆነ።"
+          }
         },
         {
           "type": "paragraph",
           "text": {
-            "en": "In the **mid-20th century**, geography became a **spatial science**. It studies the **arrangement and distribution** of things and phenomena over the Earth's surface.",
-            "am": "በ**20ኛው ክፍለ ዘመን አጋማሽ** ጂኦግራፊ **ቦታዊ ሳይንስ (Spatial Science)** ሆነ። በምድር ገጽ ላይ ያሉ ነገሮችንና ክስተቶችን **አቀማመጥና ስርጭት** ያጠናል።"
+            "en": "It studies the **arrangement and distribution** of things over the Earth's surface.",
+            "am": "በምድር ገጽ ላይ ያሉ ነገሮችን **አቀማመጥና ስርጭት** ያጠናል።"
           }
         },
         {
           "type": "list",
           "items": [
             {
-              "en": "**Spatial** = about space or location: **where** things are.",
-              "am": "**ቦታዊ (Spatial)** = ስለ ቦታ ወይም አቀማመጥ፤ ነገሮች **የት** እንዳሉ።"
+              "en": "**Spatial** = about location: **where** things are.",
+              "am": "**ቦታዊ (Spatial)** = ስለ አቀማመጥ፤ ነገሮች **የት** እንዳሉ።"
             },
             {
-              "en": "Example: where people live, and how many people live there.",
-              "am": "ምሳሌ፦ ሰዎች የት እንደሚኖሩና በዚያ ምን ያህል ሰዎች እንደሚኖሩ።"
+              "en": "Example: where people live, and how many live there.",
+              "am": "ምሳሌ፦ ሰዎች የት እንደሚኖሩና ምን ያህል እንደሆኑ።"
             },
             {
-              "en": "Example: how people interact with the environment (soil, water, air).",
-              "am": "ምሳሌ፦ ሰዎች ከአካባቢያቸው (ከአፈር፣ ከውሃ፣ ከአየር) ጋር እንዴት እንደሚገናኙ።"
+              "en": "Example: how people use soil, water and air around them.",
+              "am": "ምሳሌ፦ ሰዎች በዙሪያቸው ያለውን አፈር፣ ውሃና አየር እንዴት እንደሚጠቀሙ።"
             }
           ]
         }
       ]
     },
     {
-      "title": { "en": "The modern definition (most important)", "am": "ዘመናዊው ትርጉም (በጣም አስፈላጊ)" },
+      "title": {
+        "en": "The modern definition",
+        "am": "ዘመናዊው ትርጉም"
+      },
       "icon": "sparkles",
       "blocks": [
         {
-          "type": "paragraph",
-          "text": {
-            "en": "Today, scholars commonly agree on this definition:",
-            "am": "ዛሬ ምሁራን በአብዛኛው በዚህ ትርጉም ይስማማሉ፦"
-          }
-        },
-        {
           "type": "keypoint",
           "variant": "important",
-          "title": { "en": "Modern definition of geography", "am": "የጂኦግራፊ ዘመናዊ ትርጉም" },
+          "title": {
+            "en": "Learn this definition",
+            "am": "ይህን ትርጉም በደንብ አጥኑ"
+          },
           "text": {
-            "en": "Geography is a **spatial-temporal science** that studies the **distribution** and **interaction (interdependence)** of **human and physical phenomena**, and their **causes and effects**, on the surface of the Earth.",
-            "am": "ጂኦግራፊ በምድር ገጽ ላይ ያሉ **የሰውና የተፈጥሮ ክስተቶችን** **ስርጭት (Distribution)** እና **መስተጋብር (Interaction)**፣ እንዲሁም **መንስኤና ውጤታቸውን (Causes and Effects)** የሚያጠና **ቦታዊ-ጊዜያዊ ሳይንስ (Spatial-temporal Science)** ነው።"
+            "en": "Geography is a **spatial-temporal science** that studies the **distribution** and **interaction** of human and physical things, and their **causes and effects**, on the Earth's surface.",
+            "am": "ጂኦግራፊ በምድር ገጽ ላይ ያሉ የሰውና የተፈጥሮ ነገሮችን **ስርጭት (Distribution)** እና **መስተጋብር (Interaction)**፣ እንዲሁም **መንስኤና ውጤታቸውን** የሚያጠና **ቦታዊ-ጊዜያዊ ሳይንስ (Spatial-temporal Science)** ነው።"
           }
         },
         {
-          "type": "table",
-          "caption": { "en": "The key words, explained simply", "am": "ቁልፍ ቃላቱ በቀላሉ ሲብራሩ" },
-          "headers": [
-            { "en": "Word", "am": "ቃል" },
-            { "en": "Meaning", "am": "ትርጉም" }
-          ],
-          "rows": [
-            [{ "en": "**Spatial**", "am": "**ቦታዊ (Spatial)**" }, { "en": "About space: **where** things are", "am": "ስለ ቦታ፤ ነገሮች **የት** እንዳሉ" }],
-            [{ "en": "**Temporal**", "am": "**ጊዜያዊ (Temporal)**" }, { "en": "About time: **when** things happen or change", "am": "ስለ ጊዜ፤ ነገሮች **መቼ** እንደሚከሰቱ ወይም እንደሚለወጡ" }],
-            [{ "en": "**Distribution**", "am": "**ስርጭት (Distribution)**" }, { "en": "How things are spread over the Earth", "am": "ነገሮች በምድር ላይ እንዴት እንደተሰራጩ" }],
-            [{ "en": "**Interaction / interdependence**", "am": "**መስተጋብር / መደጋገፍ (Interaction / Interdependence)**" }, { "en": "How humans and nature affect and depend on each other", "am": "ሰውና ተፈጥሮ እርስ በርስ እንዴት ተጽዕኖ እንደሚያሳድሩና እንደሚደጋገፉ" }],
-            [{ "en": "**Causes and effects**", "am": "**መንስኤና ውጤት (Causes and Effects)**" }, { "en": "Why something happens, and what results from it", "am": "አንድ ነገር ለምን እንደሚከሰትና ምን ውጤት እንደሚያስከትል" }]
+          "type": "points",
+          "items": [
+            {
+              "icon": "map-pin",
+              "title": {
+                "en": "Spatial",
+                "am": "ቦታዊ (Spatial)"
+              },
+              "text": {
+                "en": "**where** things are",
+                "am": "ነገሮች **የት** እንዳሉ"
+              }
+            },
+            {
+              "icon": "clock",
+              "title": {
+                "en": "Temporal",
+                "am": "ጊዜያዊ (Temporal)"
+              },
+              "text": {
+                "en": "**when** things happen or change",
+                "am": "ነገሮች **መቼ** እንደሚከሰቱ ወይም እንደሚለወጡ"
+              }
+            },
+            {
+              "icon": "globe",
+              "title": {
+                "en": "Distribution",
+                "am": "ስርጭት (Distribution)"
+              },
+              "text": {
+                "en": "how things are spread over the Earth",
+                "am": "ነገሮች በምድር ላይ እንዴት እንደተሰራጩ"
+              }
+            },
+            {
+              "icon": "route",
+              "title": {
+                "en": "Interaction",
+                "am": "መስተጋብር (Interaction)"
+              },
+              "text": {
+                "en": "how people and nature affect each other",
+                "am": "ሰውና ተፈጥሮ እርስ በርስ እንዴት ተጽዕኖ እንደሚያሳድሩ"
+              }
+            }
           ]
         },
         {
           "type": "example",
-          "title": { "en": "Interaction: cause and effect", "am": "መስተጋብር፦ መንስኤና ውጤት" },
+          "title": {
+            "en": "Cause and effect",
+            "am": "መንስኤና ውጤት"
+          },
           "text": {
-            "en": "People cut down a forest (human) → soil erosion increases (physical) → farms produce less food (effect on humans).",
-            "am": "ሰዎች ደን ይቆርጣሉ (የሰው ተግባር) → የአፈር መሸርሸር ይጨምራል (የተፈጥሮ ለውጥ) → እርሻዎች የሚያመርቱት ምግብ ይቀንሳል (በሰው ላይ የሚደርስ ውጤት)።"
-          }
-        },
-        {
-          "type": "terms",
-          "title": { "en": "The 5 questions geography answers", "am": "ጂኦግራፊ የሚመልሳቸው 5 ጥያቄዎች" },
-          "items": [
-            { "en": "What?", "am": "ምን? (What?)" },
-            { "en": "Where?", "am": "የት? (Where?)" },
-            { "en": "When?", "am": "መቼ? (When?)" },
-            { "en": "Which?", "am": "የትኛው? (Which?)" },
-            { "en": "How?", "am": "እንዴት? (How?)" }
-          ]
-        },
-        {
-          "type": "keypoint",
-          "variant": "note",
-          "title": { "en": "From the textbook", "am": "ከመማሪያ መጽሐፉ" },
-          "text": {
-            "en": "The textbook also calls modern geography a **spatial-temporal-areal science**: it examines **place and space** in terms of location, distribution, arrangement, interaction, causes and effects.",
-            "am": "መማሪያ መጽሐፉ ዘመናዊ ጂኦግራፊን **ቦታዊ-ጊዜያዊ-አካባቢያዊ ሳይንስ (Spatial-temporal-areal Science)** ብሎም ይጠራዋል፤ **ቦታንና ስፍራን** በአቀማመጥ፣ በስርጭት፣ በአደረጃጀት፣ በመስተጋብር፣ በመንስኤና በውጤት ያጠናል።"
+            "en": "People cut down a forest → soil erosion increases → farms produce less food.",
+            "am": "ሰዎች ደን ይቆርጣሉ → የአፈር መሸርሸር ይጨምራል → እርሻዎች የሚያመርቱት ምግብ ይቀንሳል።"
           }
         }
       ]
     },
     {
-      "title": { "en": "Geography as a science", "am": "ጂኦግራፊ እንደ ሳይንስ" },
+      "title": {
+        "en": "The 5 questions geography asks",
+        "am": "ጂኦግራፊ የሚጠይቃቸው 5 ጥያቄዎች"
+      },
+      "icon": "circle-help",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "Every geography topic answers the same five questions.",
+            "am": "እያንዳንዱ የጂኦግራፊ ርዕስ ተመሳሳይ አምስት ጥያቄዎችን ይመልሳል።"
+          }
+        },
+        {
+          "type": "terms",
+          "title": {
+            "en": "The 5 questions",
+            "am": "5ቱ ጥያቄዎች"
+          },
+          "items": [
+            {
+              "en": "What?",
+              "am": "ምን?"
+            },
+            {
+              "en": "Where?",
+              "am": "የት?"
+            },
+            {
+              "en": "When?",
+              "am": "መቼ?"
+            },
+            {
+              "en": "Which?",
+              "am": "የትኛው?"
+            },
+            {
+              "en": "How?",
+              "am": "እንዴት?"
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": {
+            "en": "Try it on Lake Tana",
+            "am": "በጣና ሐይቅ ላይ ሞክሩት"
+          },
+          "text": {
+            "en": "What is it? A lake. Where? In northern Ethiopia. When did it form? Which rivers flow out? How do people use it?",
+            "am": "ምንድን ነው? ሐይቅ። የት? በሰሜን ኢትዮጵያ። መቼ ተፈጠረ? የትኛው ወንዝ ይወጣበታል? ሰዎች እንዴት ይጠቀሙበታል?"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "What makes geography a science?",
+        "am": "ጂኦግራፊን ሳይንስ የሚያደርገው ምንድን ነው?"
+      },
       "icon": "flask-conical",
       "blocks": [
         {
           "type": "keypoint",
           "variant": "definition",
-          "title": { "en": "What is science?", "am": "ሳይንስ ምንድን ነው?" },
+          "title": {
+            "en": "Science",
+            "am": "ሳይንስ"
+          },
           "text": {
-            "en": "**Science** is a **systematic** way of acquiring (getting) knowledge through scientific research.",
-            "am": "**ሳይንስ (Science)** በሳይንሳዊ ምርምር አማካኝነት እውቀትን **ሥርዓት ባለው (Systematic)** መንገድ የማግኛ ዘዴ ነው።"
+            "en": "**Science** is a **systematic** way of getting knowledge through research.",
+            "am": "**ሳይንስ (Science)** በምርምር እውቀትን **ሥርዓት ባለው (Systematic)** መንገድ የማግኛ ዘዴ ነው።"
           }
         },
         {
           "type": "paragraph",
           "text": {
-            "en": "Geography is a science because it studies physical and social phenomena through research, using **scientific methods**.",
-            "am": "ጂኦግራፊ ሳይንስ ነው፤ ምክንያቱም የተፈጥሮና የማኅበራዊ ክስተቶችን **ሳይንሳዊ ዘዴዎችን (Scientific Methods)** በመጠቀም በምርምር ያጠናል።"
+            "en": "Geography is a science because it studies nature and people through research, using **scientific methods**.",
+            "am": "ጂኦግራፊ ሳይንስ ነው፤ ምክንያቱም ተፈጥሮንና ሰውን **ሳይንሳዊ ዘዴዎችን** በመጠቀም በምርምር ያጠናል።"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "The 5 scientific methods",
+        "am": "5ቱ ሳይንሳዊ ዘዴዎች"
+      },
+      "icon": "microscope",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "Scientists, including geographers, follow these five steps in order. Example: a river that is shrinking.",
+            "am": "የጂኦግራፊ ምሁራንን ጨምሮ ሳይንቲስቶች እነዚህን አምስት ደረጃዎች በቅደም ተከተል ይከተላሉ። ምሳሌ፦ እየቀነሰ ያለ ወንዝ።"
           }
         },
         {
-          "type": "table",
-          "caption": { "en": "The 5 scientific methods, in order", "am": "5ቱ ሳይንሳዊ ዘዴዎች በቅደም ተከተል" },
-          "headers": [
-            { "en": "#", "am": "#" },
-            { "en": "Method", "am": "ዘዴ" },
-            { "en": "Meaning", "am": "ትርጉም" },
-            { "en": "Example", "am": "ምሳሌ" }
-          ],
-          "rows": [
-            [
-              { "en": "1", "am": "1" },
-              { "en": "**Observation**", "am": "**ምልከታ (Observation)**" },
-              { "en": "Looking at and watching things carefully", "am": "ነገሮችን በጥንቃቄ ማየትና መከታተል" },
-              { "en": "Seeing that a river is getting smaller", "am": "አንድ ወንዝ እያነሰ መሆኑን ማየት" }
-            ],
-            [
-              { "en": "2", "am": "2" },
-              { "en": "**Identification**", "am": "**መለየት (Identification)**" },
-              { "en": "Naming or recognising what it is", "am": "ነገሩ ምን እንደሆነ መሰየም ወይም ማወቅ" },
-              { "en": "“This is soil erosion.”", "am": "«ይህ የአፈር መሸርሸር ነው።»" }
-            ],
-            [
-              { "en": "3", "am": "3" },
-              { "en": "**Description**", "am": "**ገለጻ (Description)**" },
-              { "en": "Explaining what it looks like", "am": "ነገሩ ምን እንደሚመስል ማብራራት" },
-              { "en": "Its size, location and how serious it is", "am": "መጠኑን፣ ቦታውንና ምን ያህል የከፋ እንደሆነ" }
-            ],
-            [
-              { "en": "4", "am": "4" },
-              { "en": "**Experimental investigation**", "am": "**የሙከራ ምርመራ (Experimental Investigation)**" },
-              { "en": "Testing and collecting data", "am": "መሞከርና መረጃ መሰብሰብ" },
-              { "en": "Measuring the water level for months", "am": "የውሃውን መጠን ለወራት መለካት" }
-            ],
-            [
-              { "en": "5", "am": "5" },
-              { "en": "**Theoretical explanation**", "am": "**ንድፈ ሐሳባዊ ማብራሪያ (Theoretical Explanation)**" },
-              { "en": "Explaining **why** it happens", "am": "ነገሩ **ለምን** እንደሚከሰት ማብራራት" },
-              { "en": "“Deforestation is causing it.”", "am": "«የደን ጭፍጨፋ እያስከተለው ነው።»" }
-            ]
+          "type": "points",
+          "items": [
+            {
+              "icon": "eye",
+              "title": {
+                "en": "1. Observation",
+                "am": "1. ምልከታ (Observation)"
+              },
+              "text": {
+                "en": "Watch carefully: the river is getting smaller.",
+                "am": "በጥንቃቄ መመልከት፦ ወንዙ እያነሰ ነው።"
+              }
+            },
+            {
+              "icon": "scan-search",
+              "title": {
+                "en": "2. Identification",
+                "am": "2. መለየት (Identification)"
+              },
+              "text": {
+                "en": "Name it: “this is soil erosion and water loss”.",
+                "am": "መሰየም፦ «ይህ የአፈር መሸርሸርና የውሃ መቀነስ ነው»።"
+              }
+            },
+            {
+              "icon": "pen-line",
+              "title": {
+                "en": "3. Description",
+                "am": "3. ገለጻ (Description)"
+              },
+              "text": {
+                "en": "Describe it: its size, location and how serious it is.",
+                "am": "መግለጽ፦ መጠኑን፣ ቦታውንና ምን ያህል የከፋ እንደሆነ።"
+              }
+            },
+            {
+              "icon": "ruler",
+              "title": {
+                "en": "4. Experimental investigation",
+                "am": "4. የሙከራ ምርመራ (Experimental Investigation)"
+              },
+              "text": {
+                "en": "Test and collect data: measure the water level for months.",
+                "am": "መሞከርና መረጃ መሰብሰብ፦ የውሃውን መጠን ለወራት መለካት።"
+              }
+            },
+            {
+              "icon": "lightbulb",
+              "title": {
+                "en": "5. Theoretical explanation",
+                "am": "5. ንድፈ ሐሳባዊ ማብራሪያ (Theoretical Explanation)"
+              },
+              "text": {
+                "en": "Explain **why**: “deforestation is causing it”.",
+                "am": "**ለምን** እንደሆነ ማብራራት፦ «የደን ጭፍጨፋ እያስከተለው ነው»።"
+              }
+            }
           ]
         },
         {
           "type": "tip",
-          "title": { "en": "Memory trick", "am": "የማስታወሻ ዘዴ" },
+          "title": {
+            "en": "Memory trick",
+            "am": "የማስታወሻ ዘዴ"
+          },
           "text": {
-            "en": "**O-I-D-E-T** = “**O**ld **I**deas **D**on't **E**xplain **T**hings”: Observation, Identification, Description, Experimental investigation, Theoretical explanation.",
-            "am": "**O-I-D-E-T** = «**O**ld **I**deas **D**on't **E**xplain **T**hings»፤ እያንዳንዱ ፊደል የዘዴዎቹ የእንግሊዝኛ መነሻ ፊደል ነው፦ ምልከታ፣ መለየት፣ ገለጻ፣ የሙከራ ምርመራ፣ ንድፈ ሐሳባዊ ማብራሪያ።"
+            "en": "**O-I-D-E-T**: “Old Ideas Don't Explain Things”.",
+            "am": "**O-I-D-E-T**፦ «Old Ideas Don't Explain Things»፤ እያንዳንዱ ፊደል የዘዴው የእንግሊዝኛ መነሻ ፊደል ነው።"
           }
-        },
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "A bridge between sciences",
+        "am": "በሳይንሶች መካከል ያለ ድልድይ"
+      },
+      "icon": "git-branch",
+      "blocks": [
         {
           "type": "paragraph",
           "text": {
-            "en": "Geography's main tools are **observation**, **systematic description**, **systematic recording** and **mapping**.",
-            "am": "የጂኦግራፊ ዋና መሣሪያዎች **ምልከታ**፣ **ሥርዓት ያለው ገለጻ**፣ **ሥርዓት ያለው መመዝገብ** እና **ካርታ መሥራት (Mapping)** ናቸው።"
+            "en": "Geography's main tools are observation, systematic description, systematic recording and **mapping**.",
+            "am": "የጂኦግራፊ ዋና መሣሪያዎች ምልከታ፣ ሥርዓት ያለው ገለጻ፣ ሥርዓት ያለው መመዝገብና **ካርታ መሥራት (Mapping)** ናቸው።"
           }
         },
         {
           "type": "keypoint",
           "variant": "important",
-          "title": { "en": "A bridge between sciences", "am": "በሳይንሶች መካከል ያለ ድልድይ" },
+          "title": {
+            "en": "Remember",
+            "am": "አስታውሱ"
+          },
           "text": {
-            "en": "Because it studies both nature and people, geography **bridges the natural sciences and the social sciences**.",
-            "am": "ጂኦግራፊ ተፈጥሮንም ሰውንም ስለሚያጠና **የተፈጥሮ ሳይንሶችንና የማኅበራዊ ሳይንሶችን የሚያገናኝ ድልድይ** ነው።"
+            "en": "Geography studies both nature and people, so it **bridges the natural and social sciences**.",
+            "am": "ጂኦግራፊ ተፈጥሮንም ሰውንም ስለሚያጠና **የተፈጥሮና የማኅበራዊ ሳይንሶችን ያገናኛል**።"
           }
         }
       ]
     }
   ],
+  "glossary": [
+    {
+      "term": {
+        "en": "Geography",
+        "am": "ጂኦግራፊ"
+      },
+      "definition": {
+        "en": "The study of the Earth's surface: where things are, how they are spread, and how people and nature affect each other.",
+        "am": "የምድርን ገጽ የሚያጠና ትምህርት፦ ነገሮች የት እንዳሉ፣ እንዴት እንደተሰራጩ፣ ሰውና ተፈጥሮ እንዴት እንደሚገናኙ።"
+      }
+    },
+    {
+      "term": {
+        "en": "Eratosthenes",
+        "am": "ኤራቶስቴንስ"
+      },
+      "definition": {
+        "en": "Greek scholar (276–196 BC) who first used the word geography.",
+        "am": "ጂኦግራፊ የሚለውን ቃል መጀመሪያ የተጠቀመ የግሪክ ምሁር (276–196 ዓ.ዓ.)።"
+      }
+    },
+    {
+      "term": {
+        "en": "Spatial-temporal science",
+        "am": "ቦታዊ-ጊዜያዊ ሳይንስ"
+      },
+      "definition": {
+        "en": "A science that studies both space (where) and time (when). This is the modern definition of geography.",
+        "am": "ቦታን (የት) እና ጊዜን (መቼ) የሚያጠና ሳይንስ። ይህ የጂኦግራፊ ዘመናዊ ትርጉም ነው።"
+      }
+    },
+    {
+      "term": {
+        "en": "Spatial science",
+        "am": "ቦታዊ ሳይንስ"
+      },
+      "definition": {
+        "en": "A science about where things are and how they are arranged and spread over the Earth.",
+        "am": "ነገሮች የት እንዳሉና በምድር ላይ እንዴት እንደተደረደሩና እንደተሰራጩ የሚያጠና ሳይንስ።"
+      }
+    },
+    {
+      "term": {
+        "en": "Spatial",
+        "am": "ቦታዊ"
+      },
+      "definition": {
+        "en": "About space or location: where things are.",
+        "am": "ስለ ቦታ ወይም አቀማመጥ፤ ነገሮች የት እንዳሉ።"
+      }
+    },
+    {
+      "term": {
+        "en": "Temporal",
+        "am": "ጊዜያዊ"
+      },
+      "definition": {
+        "en": "About time: when things happen or change.",
+        "am": "ስለ ጊዜ፤ ነገሮች መቼ እንደሚከሰቱ ወይም እንደሚለወጡ።"
+      }
+    },
+    {
+      "term": {
+        "en": "Distribution",
+        "am": "ስርጭት"
+      },
+      "definition": {
+        "en": "How things are spread out over the Earth's surface.",
+        "am": "ነገሮች በምድር ገጽ ላይ እንዴት እንደተሰራጩ።"
+      }
+    },
+    {
+      "term": {
+        "en": "Interaction",
+        "am": "መስተጋብር"
+      },
+      "definition": {
+        "en": "How people and nature affect and depend on each other (also called interdependence).",
+        "am": "ሰውና ተፈጥሮ እርስ በርስ እንዴት ተጽዕኖ እንደሚያሳድሩና እንደሚደጋገፉ (መደጋገፍ ተብሎም ይጠራል)።"
+      }
+    },
+    {
+      "term": {
+        "en": "Science",
+        "am": "ሳይንስ"
+      },
+      "definition": {
+        "en": "A systematic way of getting knowledge through research and scientific methods.",
+        "am": "በምርምርና በሳይንሳዊ ዘዴዎች እውቀትን ሥርዓት ባለው መንገድ የማግኛ ዘዴ።"
+      }
+    },
+    {
+      "term": {
+        "en": "Systematic",
+        "am": "ሥርዓት ያለው"
+      },
+      "definition": {
+        "en": "Done step by step, in a careful and organised order.",
+        "am": "በጥንቃቄና በተደራጀ ቅደም ተከተል፣ ደረጃ በደረጃ የሚሠራ።"
+      }
+    },
+    {
+      "term": {
+        "en": "Observation",
+        "am": "ምልከታ"
+      },
+      "definition": {
+        "en": "Looking at and watching things carefully: the first scientific method.",
+        "am": "ነገሮችን በጥንቃቄ ማየትና መከታተል፤ የመጀመሪያው ሳይንሳዊ ዘዴ።"
+      }
+    },
+    {
+      "term": {
+        "en": "Theoretical explanation",
+        "am": "ንድፈ ሐሳባዊ ማብራሪያ"
+      },
+      "definition": {
+        "en": "Explaining why something happens: the last scientific method.",
+        "am": "አንድ ነገር ለምን እንደሚከሰት ማብራራት፤ የመጨረሻው ሳይንሳዊ ዘዴ።"
+      }
+    }
+  ],
   "main_topics": [
     {
-      "title": { "en": "Meaning of the word", "am": "የቃሉ ትርጉም" },
+      "title": {
+        "en": "Meaning of the word",
+        "am": "የቃሉ ትርጉም"
+      },
       "points": [
-        { "en": "Geography = **Geo** (Earth) + **Graphy** (writing / describing). Both are Greek words.", "am": "ጂኦግራፊ = **ጂኦ** (ምድር) + **ግራፊ** (መጻፍ / መግለጽ)። ሁለቱም የግሪክ ቃላት ናቸው።" },
-        { "en": "Old definition: geography is the **description of the Earth**.", "am": "የቀድሞው ትርጉም፦ ጂኦግራፊ **የምድር ገለጻ** ነው።" },
-        { "en": "**Eratosthenes**, a Greek scholar, was the first to use the word.", "am": "ቃሉን መጀመሪያ የተጠቀመው **ኤራቶስቴንስ** የተባለ የግሪክ ምሁር ነው።" }
+        {
+          "en": "Geography = **Geo** (Earth) + **Graphy** (writing / describing). Both are Greek words.",
+          "am": "ጂኦግራፊ = **ጂኦ** (ምድር) + **ግራፊ** (መጻፍ / መግለጽ)። ሁለቱም የግሪክ ቃላት ናቸው።"
+        },
+        {
+          "en": "Old definition: geography is the **description of the Earth**.",
+          "am": "የቀድሞው ትርጉም፦ ጂኦግራፊ **የምድር ገለጻ** ነው።"
+        },
+        {
+          "en": "**Eratosthenes**, a Greek scholar, was the first to use the word.",
+          "am": "ቃሉን መጀመሪያ የተጠቀመው **ኤራቶስቴንስ** የተባለ የግሪክ ምሁር ነው።"
+        }
       ]
     },
     {
-      "title": { "en": "How the definition changed", "am": "ትርጉሙ እንዴት ተለወጠ" },
+      "title": {
+        "en": "How the definition changed",
+        "am": "ትርጉሙ እንዴት ተለወጠ"
+      },
       "points": [
-        { "en": "There is **no single definition**, but all of them say geography studies the **Earth's surface**.", "am": "**አንድ ብቻ ትርጉም የለም**፤ ነገር ግን ሁሉም ጂኦግራፊ **የምድርን ገጽ** እንደሚያጠና ይስማማሉ።" },
-        { "en": "**Hartshorne** (1899–1992): an **accurate, orderly and rational description** of the Earth's surface.", "am": "**ሃርትሾርን** (1899–1992)፦ የምድርን ገጽ **ትክክለኛ፣ ሥርዓት ያለውና ምክንያታዊ በሆነ መንገድ መግለጽ**።" },
-        { "en": "**Yeates** (1968): geography develops and tests **theories** about where things are.", "am": "**ዬትስ** (1968)፦ ጂኦግራፊ ነገሮች የት እንዳሉ የሚያብራሩ **ንድፈ ሐሳቦችን** ያዳብራል፣ ይፈትናል።" },
-        { "en": "**Mid-20th century**: geography became a **spatial science** (where things are and how they are spread).", "am": "**በ20ኛው ክፍለ ዘመን አጋማሽ**፦ ጂኦግራፊ **ቦታዊ ሳይንስ** ሆነ (ነገሮች የት እንዳሉና እንዴት እንደተሰራጩ)።" }
+        {
+          "en": "There is **no single definition**, but all of them say geography studies the **Earth's surface**.",
+          "am": "**አንድ ብቻ ትርጉም የለም**፤ ነገር ግን ሁሉም ጂኦግራፊ **የምድርን ገጽ** እንደሚያጠና ይስማማሉ።"
+        },
+        {
+          "en": "**Hartshorne** (1899–1992): an **accurate, orderly and rational description** of the Earth's surface.",
+          "am": "**ሃርትሾርን** (1899–1992)፦ የምድርን ገጽ **ትክክለኛ፣ ሥርዓት ያለውና ምክንያታዊ በሆነ መንገድ መግለጽ**።"
+        },
+        {
+          "en": "**Yeates** (1968): geography develops and tests **theories** about where things are.",
+          "am": "**ዬትስ** (1968)፦ ጂኦግራፊ ነገሮች የት እንዳሉ የሚያብራሩ **ንድፈ ሐሳቦችን** ያዳብራል፣ ይፈትናል።"
+        },
+        {
+          "en": "**Mid-20th century**: geography became a **spatial science** (where things are and how they are spread).",
+          "am": "**በ20ኛው ክፍለ ዘመን አጋማሽ**፦ ጂኦግራፊ **ቦታዊ ሳይንስ** ሆነ (ነገሮች የት እንዳሉና እንዴት እንደተሰራጩ)።"
+        }
       ]
     },
     {
-      "title": { "en": "The modern definition (learn this!)", "am": "ዘመናዊው ትርጉም (ይህን በደንብ አጥኑ!)" },
+      "title": {
+        "en": "The modern definition (learn this!)",
+        "am": "ዘመናዊው ትርጉም (ይህን በደንብ አጥኑ!)"
+      },
       "points": [
-        { "en": "Geography is a **spatial-temporal science**: it studies **where** (space) and **when** (time).", "am": "ጂኦግራፊ **ቦታዊ-ጊዜያዊ ሳይንስ** ነው፤ **የት** (ቦታ) እና **መቼ** (ጊዜ) የሚለውን ያጠናል።" },
-        { "en": "It studies the **distribution** and **interaction** of **human and physical** things, and their **causes and effects**.", "am": "የ**ሰውና የተፈጥሮ** ነገሮችን **ስርጭትና መስተጋብር**፣ እንዲሁም **መንስኤና ውጤታቸውን** ያጠናል።" },
-        { "en": "Example: cutting forests → more soil erosion → less food.", "am": "ምሳሌ፦ ደን መቁረጥ → የአፈር መሸርሸር መጨመር → የምግብ ምርት መቀነስ።" },
-        { "en": "Geography answers 5 questions: **What? Where? When? Which? How?**", "am": "ጂኦግራፊ 5 ጥያቄዎችን ይመልሳል፦ **ምን? የት? መቼ? የትኛው? እንዴት?**" }
+        {
+          "en": "Geography is a **spatial-temporal science**: it studies **where** (space) and **when** (time).",
+          "am": "ጂኦግራፊ **ቦታዊ-ጊዜያዊ ሳይንስ** ነው፤ **የት** (ቦታ) እና **መቼ** (ጊዜ) የሚለውን ያጠናል።"
+        },
+        {
+          "en": "It studies the **distribution** and **interaction** of **human and physical** things, and their **causes and effects**.",
+          "am": "የ**ሰውና የተፈጥሮ** ነገሮችን **ስርጭትና መስተጋብር**፣ እንዲሁም **መንስኤና ውጤታቸውን** ያጠናል።"
+        },
+        {
+          "en": "Example: cutting forests → more soil erosion → less food.",
+          "am": "ምሳሌ፦ ደን መቁረጥ → የአፈር መሸርሸር መጨመር → የምግብ ምርት መቀነስ።"
+        },
+        {
+          "en": "Geography answers 5 questions: **What? Where? When? Which? How?**",
+          "am": "ጂኦግራፊ 5 ጥያቄዎችን ይመልሳል፦ **ምን? የት? መቼ? የትኛው? እንዴት?**"
+        }
       ]
     },
     {
-      "title": { "en": "Why geography is a science", "am": "ጂኦግራፊ ለምን ሳይንስ ሆነ" },
+      "title": {
+        "en": "Why geography is a science",
+        "am": "ጂኦግራፊ ለምን ሳይንስ ሆነ"
+      },
       "points": [
-        { "en": "Science = a **systematic** way of getting knowledge through research.", "am": "ሳይንስ = በምርምር እውቀትን **ሥርዓት ባለው** መንገድ የማግኛ ዘዴ።" },
-        { "en": "5 methods in order: Observation → Identification → Description → Experimental investigation → Theoretical explanation (**O-I-D-E-T**).", "am": "5ቱ ዘዴዎች በቅደም ተከተል፦ ምልከታ → መለየት → ገለጻ → የሙከራ ምርመራ → ንድፈ ሐሳባዊ ማብራሪያ (**O-I-D-E-T**)።" },
-        { "en": "Theoretical explanation answers **why** something happens.", "am": "ንድፈ ሐሳባዊ ማብራሪያ አንድ ነገር **ለምን** እንደሚከሰት ይመልሳል።" },
-        { "en": "Geography **bridges** the natural and social sciences.", "am": "ጂኦግራፊ የተፈጥሮና የማኅበራዊ ሳይንሶችን **ያገናኛል**።" }
+        {
+          "en": "Science = a **systematic** way of getting knowledge through research.",
+          "am": "ሳይንስ = በምርምር እውቀትን **ሥርዓት ባለው** መንገድ የማግኛ ዘዴ።"
+        },
+        {
+          "en": "5 methods in order: Observation → Identification → Description → Experimental investigation → Theoretical explanation (**O-I-D-E-T**).",
+          "am": "5ቱ ዘዴዎች በቅደም ተከተል፦ ምልከታ → መለየት → ገለጻ → የሙከራ ምርመራ → ንድፈ ሐሳባዊ ማብራሪያ (**O-I-D-E-T**)።"
+        },
+        {
+          "en": "Theoretical explanation answers **why** something happens.",
+          "am": "ንድፈ ሐሳባዊ ማብራሪያ አንድ ነገር **ለምን** እንደሚከሰት ይመልሳል።"
+        },
+        {
+          "en": "Geography **bridges** the natural and social sciences.",
+          "am": "ጂኦግራፊ የተፈጥሮና የማኅበራዊ ሳይንሶችን **ያገናኛል**።"
+        }
       ]
     }
   ],
   "quiz": {
-    "title": { "en": "Quiz: Definition and Concept of Geography", "am": "ፈተና፦ የጂኦግራፊ ትርጉም እና ጽንሰ ሐሳብ" },
+    "title": {
+      "en": "Quiz: Definition and Concept of Geography",
+      "am": "ፈተና፦ የጂኦግራፊ ትርጉም እና ጽንሰ ሐሳብ"
+    },
     "description": {
       "en": "14 questions on the meaning, definitions and scientific methods of geography.",
       "am": "ስለ ጂኦግራፊ ትርጉም፣ ትርጓሜዎችና ሳይንሳዊ ዘዴዎች 14 ጥያቄዎች።"
     },
     "questions": [
       {
-        "question": { "en": "The term “geography” comes from which language?", "am": "«ጂኦግራፊ» የሚለው ቃል ከየትኛው ቋንቋ የመጣ ነው?" },
+        "question": {
+          "en": "The term “geography” comes from which language?",
+          "am": "«ጂኦግራፊ» የሚለው ቃል ከየትኛው ቋንቋ የመጣ ነው?"
+        },
         "options": [
-          { "en": "Latin", "am": "ላቲን" },
-          { "en": "Greek", "am": "ግሪክ" },
-          { "en": "Arabic", "am": "ዐረብኛ" },
-          { "en": "French", "am": "ፈረንሳይኛ" }
+          {
+            "en": "Latin",
+            "am": "ላቲን"
+          },
+          {
+            "en": "Greek",
+            "am": "ግሪክ"
+          },
+          {
+            "en": "Arabic",
+            "am": "ዐረብኛ"
+          },
+          {
+            "en": "French",
+            "am": "ፈረንሳይኛ"
+          }
         ],
         "answer": 1,
-        "explanation": { "en": "Geography comes from two Greek words: geo (Earth) and graphy/graphein (writing).", "am": "ጂኦግራፊ ከሁለት የግሪክ ቃላት የመጣ ነው፦ ጂኦ (ምድር) እና ግራፊ (መጻፍ)።" }
+        "explanation": {
+          "en": "Geography comes from two Greek words: geo (Earth) and graphy/graphein (writing).",
+          "am": "ጂኦግራፊ ከሁለት የግሪክ ቃላት የመጣ ነው፦ ጂኦ (ምድር) እና ግራፊ (መጻፍ)።"
+        }
       },
       {
-        "question": { "en": "What does “geo” mean?", "am": "«ጂኦ (Geo)» ምን ማለት ነው?" },
+        "question": {
+          "en": "What does “geo” mean?",
+          "am": "«ጂኦ (Geo)» ምን ማለት ነው?"
+        },
         "options": [
-          { "en": "Water", "am": "ውሃ" },
-          { "en": "Sky", "am": "ሰማይ" },
-          { "en": "Earth", "am": "ምድር" },
-          { "en": "People", "am": "ሰዎች" }
+          {
+            "en": "Water",
+            "am": "ውሃ"
+          },
+          {
+            "en": "Sky",
+            "am": "ሰማይ"
+          },
+          {
+            "en": "Earth",
+            "am": "ምድር"
+          },
+          {
+            "en": "People",
+            "am": "ሰዎች"
+          }
         ],
         "answer": 2,
-        "explanation": { "en": "Geo means Earth, as in geology, the study of the Earth's rocks.", "am": "ጂኦ ማለት ምድር ነው፤ ለምሳሌ ጂኦሎጂ የምድር ዐለቶች ጥናት ነው።" }
+        "explanation": {
+          "en": "Geo means Earth, as in geology, the study of the Earth's rocks.",
+          "am": "ጂኦ ማለት ምድር ነው፤ ለምሳሌ ጂኦሎጂ የምድር ዐለቶች ጥናት ነው።"
+        }
       },
       {
-        "question": { "en": "Who first used the term “geography”?", "am": "«ጂኦግራፊ» የሚለውን ቃል መጀመሪያ የተጠቀመው ማን ነው?" },
+        "question": {
+          "en": "Who first used the term “geography”?",
+          "am": "«ጂኦግራፊ» የሚለውን ቃል መጀመሪያ የተጠቀመው ማን ነው?"
+        },
         "options": [
-          { "en": "Richard Hartshorne", "am": "ሪቻርድ ሃርትሾርን" },
-          { "en": "Aristotle", "am": "አርስጣጣሊስ" },
-          { "en": "Eratosthenes", "am": "ኤራቶስቴንስ" },
-          { "en": "Ptolemy", "am": "ቶለሚ" }
+          {
+            "en": "Richard Hartshorne",
+            "am": "ሪቻርድ ሃርትሾርን"
+          },
+          {
+            "en": "Aristotle",
+            "am": "አርስጣጣሊስ"
+          },
+          {
+            "en": "Eratosthenes",
+            "am": "ኤራቶስቴንስ"
+          },
+          {
+            "en": "Ptolemy",
+            "am": "ቶለሚ"
+          }
         ],
         "answer": 2,
-        "explanation": { "en": "Eratosthenes (276–196 BC), a Greek scholar, first used the word and defined geography as the description of the Earth.", "am": "የግሪክ ምሁር የነበረው ኤራቶስቴንስ (276–196 ዓ.ዓ.) ቃሉን መጀመሪያ የተጠቀመ ሲሆን ጂኦግራፊን «የምድር ገለጻ» ብሎ ገልጾታል።" }
+        "explanation": {
+          "en": "Eratosthenes (276–196 BC), a Greek scholar, first used the word and defined geography as the description of the Earth.",
+          "am": "የግሪክ ምሁር የነበረው ኤራቶስቴንስ (276–196 ዓ.ዓ.) ቃሉን መጀመሪያ የተጠቀመ ሲሆን ጂኦግራፊን «የምድር ገለጻ» ብሎ ገልጾታል።"
+        }
       },
       {
-        "question": { "en": "Hartshorne described geography as a branch of knowledge that gives an accurate, orderly and ______ description of the Earth's surface.", "am": "ሃርትሾርን ጂኦግራፊን የምድርን ገጽ ትክክለኛ፣ ሥርዓት ያለውና ______ በሆነ መንገድ የሚገልጽ የእውቀት ዘርፍ ብሎታል።" },
+        "question": {
+          "en": "Hartshorne described geography as a branch of knowledge that gives an accurate, orderly and ______ description of the Earth's surface.",
+          "am": "ሃርትሾርን ጂኦግራፊን የምድርን ገጽ ትክክለኛ፣ ሥርዓት ያለውና ______ በሆነ መንገድ የሚገልጽ የእውቀት ዘርፍ ብሎታል።"
+        },
         "options": [
-          { "en": "rational", "am": "ምክንያታዊ (rational)" },
-          { "en": "historical", "am": "ታሪካዊ (historical)" },
-          { "en": "colourful", "am": "ያሸበረቀ (colourful)" },
-          { "en": "temporary", "am": "ጊዜያዊ (temporary)" }
+          {
+            "en": "rational",
+            "am": "ምክንያታዊ (rational)"
+          },
+          {
+            "en": "historical",
+            "am": "ታሪካዊ (historical)"
+          },
+          {
+            "en": "colourful",
+            "am": "ያሸበረቀ (colourful)"
+          },
+          {
+            "en": "temporary",
+            "am": "ጊዜያዊ (temporary)"
+          }
         ],
         "answer": 0,
-        "explanation": { "en": "Hartshorne's key words are accurate, orderly and rational description.", "am": "የሃርትሾርን ቁልፍ ቃላት ትክክለኛ፣ ሥርዓት ያለውና ምክንያታዊ ገለጻ ናቸው።" }
+        "explanation": {
+          "en": "Hartshorne's key words are accurate, orderly and rational description.",
+          "am": "የሃርትሾርን ቁልፍ ቃላት ትክክለኛ፣ ሥርዓት ያለውና ምክንያታዊ ገለጻ ናቸው።"
+        }
       },
       {
-        "question": { "en": "Which of these is true about the definition of geography?", "am": "ስለ ጂኦግራፊ ትርጉም ከሚከተሉት ውስጥ ትክክል የሆነው የትኛው ነው?" },
+        "question": {
+          "en": "Which of these is true about the definition of geography?",
+          "am": "ስለ ጂኦግራፊ ትርጉም ከሚከተሉት ውስጥ ትክክል የሆነው የትኛው ነው?"
+        },
         "options": [
-          { "en": "It has one definition that everyone has always agreed on", "am": "ሁሉም ሰው ሁልጊዜ የተስማማበት አንድ ትርጉም አለው" },
-          { "en": "It has many definitions that share common ideas", "am": "የጋራ ሐሳቦችን የሚጋሩ ብዙ ትርጉሞች አሉት" },
-          { "en": "Its definitions have nothing in common", "am": "ትርጉሞቹ ምንም የሚያመሳስላቸው ነገር የለም" },
-          { "en": "It has never been defined", "am": "ፈጽሞ ተተርጉሞ አያውቅም" }
+          {
+            "en": "It has one definition that everyone has always agreed on",
+            "am": "ሁሉም ሰው ሁልጊዜ የተስማማበት አንድ ትርጉም አለው"
+          },
+          {
+            "en": "It has many definitions that share common ideas",
+            "am": "የጋራ ሐሳቦችን የሚጋሩ ብዙ ትርጉሞች አሉት"
+          },
+          {
+            "en": "Its definitions have nothing in common",
+            "am": "ትርጉሞቹ ምንም የሚያመሳስላቸው ነገር የለም"
+          },
+          {
+            "en": "It has never been defined",
+            "am": "ፈጽሞ ተተርጉሞ አያውቅም"
+          }
         ],
         "answer": 1,
-        "explanation": { "en": "There is no single definition, but the definitions share common ideas, mainly that geography studies the Earth's surface.", "am": "አንድ ብቻ ትርጉም የለም፤ ነገር ግን ትርጉሞቹ የጋራ ሐሳቦች አሏቸው፤ በተለይም ጂኦግራፊ የምድርን ገጽ እንደሚያጠና።" }
+        "explanation": {
+          "en": "There is no single definition, but the definitions share common ideas, mainly that geography studies the Earth's surface.",
+          "am": "አንድ ብቻ ትርጉም የለም፤ ነገር ግን ትርጉሞቹ የጋራ ሐሳቦች አሏቸው፤ በተለይም ጂኦግራፊ የምድርን ገጽ እንደሚያጠና።"
+        }
       },
       {
-        "question": { "en": "In the mid-20th century, geography became a:", "am": "በ20ኛው ክፍለ ዘመን አጋማሽ ጂኦግራፊ ምን ሆነ?" },
+        "question": {
+          "en": "In the mid-20th century, geography became a:",
+          "am": "በ20ኛው ክፍለ ዘመን አጋማሽ ጂኦግራፊ ምን ሆነ?"
+        },
         "options": [
-          { "en": "Historical science", "am": "ታሪካዊ ሳይንስ" },
-          { "en": "Spatial science", "am": "ቦታዊ ሳይንስ (Spatial Science)" },
-          { "en": "Political science", "am": "የፖለቲካ ሳይንስ" },
-          { "en": "Medical science", "am": "የሕክምና ሳይንስ" }
+          {
+            "en": "Historical science",
+            "am": "ታሪካዊ ሳይንስ"
+          },
+          {
+            "en": "Spatial science",
+            "am": "ቦታዊ ሳይንስ (Spatial Science)"
+          },
+          {
+            "en": "Political science",
+            "am": "የፖለቲካ ሳይንስ"
+          },
+          {
+            "en": "Medical science",
+            "am": "የሕክምና ሳይንስ"
+          }
         ],
         "answer": 1,
-        "explanation": { "en": "In the mid-20th century geography became a spatial science, studying the arrangement and distribution of things on the Earth's surface.", "am": "በ20ኛው ክፍለ ዘመን አጋማሽ ጂኦግራፊ በምድር ገጽ ላይ ያሉ ነገሮችን አቀማመጥና ስርጭት የሚያጠና ቦታዊ ሳይንስ ሆነ።" }
+        "explanation": {
+          "en": "In the mid-20th century geography became a spatial science, studying the arrangement and distribution of things on the Earth's surface.",
+          "am": "በ20ኛው ክፍለ ዘመን አጋማሽ ጂኦግራፊ በምድር ገጽ ላይ ያሉ ነገሮችን አቀማመጥና ስርጭት የሚያጠና ቦታዊ ሳይንስ ሆነ።"
+        }
       },
       {
-        "question": { "en": "According to the modern definition, geography is a:", "am": "በዘመናዊው ትርጉም መሠረት ጂኦግራፊ ምንድን ነው?" },
+        "question": {
+          "en": "According to the modern definition, geography is a:",
+          "am": "በዘመናዊው ትርጉም መሠረት ጂኦግራፊ ምንድን ነው?"
+        },
         "options": [
-          { "en": "Spatial-temporal science", "am": "ቦታዊ-ጊዜያዊ ሳይንስ (Spatial-temporal Science)" },
-          { "en": "Historical-political science", "am": "ታሪካዊ-ፖለቲካዊ ሳይንስ" },
-          { "en": "Natural-medical science", "am": "የተፈጥሮ-ሕክምና ሳይንስ" },
-          { "en": "Social-economic science only", "am": "ማኅበራዊ-ኢኮኖሚያዊ ሳይንስ ብቻ" }
+          {
+            "en": "Spatial-temporal science",
+            "am": "ቦታዊ-ጊዜያዊ ሳይንስ (Spatial-temporal Science)"
+          },
+          {
+            "en": "Historical-political science",
+            "am": "ታሪካዊ-ፖለቲካዊ ሳይንስ"
+          },
+          {
+            "en": "Natural-medical science",
+            "am": "የተፈጥሮ-ሕክምና ሳይንስ"
+          },
+          {
+            "en": "Social-economic science only",
+            "am": "ማኅበራዊ-ኢኮኖሚያዊ ሳይንስ ብቻ"
+          }
         ],
         "answer": 0,
-        "explanation": { "en": "Modern geography is a spatial-temporal science: it studies where (space) and when (time).", "am": "ዘመናዊ ጂኦግራፊ ቦታዊ-ጊዜያዊ ሳይንስ ነው፤ የት (ቦታ) እና መቼ (ጊዜ) የሚለውን ያጠናል።" }
+        "explanation": {
+          "en": "Modern geography is a spatial-temporal science: it studies where (space) and when (time).",
+          "am": "ዘመናዊ ጂኦግራፊ ቦታዊ-ጊዜያዊ ሳይንስ ነው፤ የት (ቦታ) እና መቼ (ጊዜ) የሚለውን ያጠናል።"
+        }
       },
       {
-        "question": { "en": "What does “temporal” mean?", "am": "«ጊዜያዊ (Temporal)» ምን ማለት ነው?" },
+        "question": {
+          "en": "What does “temporal” mean?",
+          "am": "«ጊዜያዊ (Temporal)» ምን ማለት ነው?"
+        },
         "options": [
-          { "en": "Space or location", "am": "ቦታ ወይም አቀማመጥ" },
-          { "en": "Time", "am": "ጊዜ" },
-          { "en": "Temperature", "am": "የሙቀት መጠን" },
-          { "en": "People", "am": "ሰዎች" }
+          {
+            "en": "Space or location",
+            "am": "ቦታ ወይም አቀማመጥ"
+          },
+          {
+            "en": "Time",
+            "am": "ጊዜ"
+          },
+          {
+            "en": "Temperature",
+            "am": "የሙቀት መጠን"
+          },
+          {
+            "en": "People",
+            "am": "ሰዎች"
+          }
         ],
         "answer": 1,
-        "explanation": { "en": "Temporal is about time: when things happen or change. Spatial is about space.", "am": "ጊዜያዊ ስለ ጊዜ ነው፤ ነገሮች መቼ እንደሚከሰቱ ወይም እንደሚለወጡ። ቦታዊ ደግሞ ስለ ቦታ ነው።" }
+        "explanation": {
+          "en": "Temporal is about time: when things happen or change. Spatial is about space.",
+          "am": "ጊዜያዊ ስለ ጊዜ ነው፤ ነገሮች መቼ እንደሚከሰቱ ወይም እንደሚለወጡ። ቦታዊ ደግሞ ስለ ቦታ ነው።"
+        }
       },
       {
-        "question": { "en": "Which set lists the 5 questions geography answers?", "am": "ጂኦግራፊ የሚመልሳቸውን 5 ጥያቄዎች የሚዘረዝረው የትኛው ነው?" },
+        "question": {
+          "en": "Which set lists the 5 questions geography answers?",
+          "am": "ጂኦግራፊ የሚመልሳቸውን 5 ጥያቄዎች የሚዘረዝረው የትኛው ነው?"
+        },
         "options": [
-          { "en": "Who, what, why, whose, how", "am": "ማን፣ ምን፣ ለምን፣ የማን፣ እንዴት" },
-          { "en": "What, where, when, which, how", "am": "ምን፣ የት፣ መቼ፣ የትኛው፣ እንዴት" },
-          { "en": "Where, who, whom, when, why", "am": "የት፣ ማን፣ ለማን፣ መቼ፣ ለምን" },
-          { "en": "How, how much, how many, what, who", "am": "እንዴት፣ ምን ያህል፣ ስንት፣ ምን፣ ማን" }
+          {
+            "en": "Who, what, why, whose, how",
+            "am": "ማን፣ ምን፣ ለምን፣ የማን፣ እንዴት"
+          },
+          {
+            "en": "What, where, when, which, how",
+            "am": "ምን፣ የት፣ መቼ፣ የትኛው፣ እንዴት"
+          },
+          {
+            "en": "Where, who, whom, when, why",
+            "am": "የት፣ ማን፣ ለማን፣ መቼ፣ ለምን"
+          },
+          {
+            "en": "How, how much, how many, what, who",
+            "am": "እንዴት፣ ምን ያህል፣ ስንት፣ ምን፣ ማን"
+          }
         ],
         "answer": 1,
-        "explanation": { "en": "Geography answers: What? Where? When? Which? How?", "am": "ጂኦግራፊ የሚመልሳቸው፦ ምን? የት? መቼ? የትኛው? እንዴት?" }
+        "explanation": {
+          "en": "Geography answers: What? Where? When? Which? How?",
+          "am": "ጂኦግራፊ የሚመልሳቸው፦ ምን? የት? መቼ? የትኛው? እንዴት?"
+        }
       },
       {
-        "question": { "en": "Science is a ______ way of acquiring knowledge.", "am": "ሳይንስ እውቀትን ______ በሆነ መንገድ የማግኛ ዘዴ ነው።" },
+        "question": {
+          "en": "Science is a ______ way of acquiring knowledge.",
+          "am": "ሳይንስ እውቀትን ______ በሆነ መንገድ የማግኛ ዘዴ ነው።"
+        },
         "options": [
-          { "en": "random", "am": "በዘፈቀደ (random)" },
-          { "en": "systematic", "am": "ሥርዓት ያለው (systematic)" },
-          { "en": "traditional", "am": "ባህላዊ (traditional)" },
-          { "en": "religious", "am": "ሃይማኖታዊ (religious)" }
+          {
+            "en": "random",
+            "am": "በዘፈቀደ (random)"
+          },
+          {
+            "en": "systematic",
+            "am": "ሥርዓት ያለው (systematic)"
+          },
+          {
+            "en": "traditional",
+            "am": "ባህላዊ (traditional)"
+          },
+          {
+            "en": "religious",
+            "am": "ሃይማኖታዊ (religious)"
+          }
         ],
         "answer": 1,
-        "explanation": { "en": "Science is a systematic way of acquiring knowledge through scientific research.", "am": "ሳይንስ በሳይንሳዊ ምርምር እውቀትን ሥርዓት ባለው መንገድ የማግኛ ዘዴ ነው።" }
+        "explanation": {
+          "en": "Science is a systematic way of acquiring knowledge through scientific research.",
+          "am": "ሳይንስ በሳይንሳዊ ምርምር እውቀትን ሥርዓት ባለው መንገድ የማግኛ ዘዴ ነው።"
+        }
       },
       {
-        "question": { "en": "Which is NOT one of the 5 scientific methods?", "am": "ከ5ቱ ሳይንሳዊ ዘዴዎች ውስጥ ያልሆነው የትኛው ነው?" },
+        "question": {
+          "en": "Which is NOT one of the 5 scientific methods?",
+          "am": "ከ5ቱ ሳይንሳዊ ዘዴዎች ውስጥ ያልሆነው የትኛው ነው?"
+        },
         "options": [
-          { "en": "Observation", "am": "ምልከታ (Observation)" },
-          { "en": "Description", "am": "ገለጻ (Description)" },
-          { "en": "Imagination", "am": "ምናብ (Imagination)" },
-          { "en": "Identification", "am": "መለየት (Identification)" }
+          {
+            "en": "Observation",
+            "am": "ምልከታ (Observation)"
+          },
+          {
+            "en": "Description",
+            "am": "ገለጻ (Description)"
+          },
+          {
+            "en": "Imagination",
+            "am": "ምናብ (Imagination)"
+          },
+          {
+            "en": "Identification",
+            "am": "መለየት (Identification)"
+          }
         ],
         "answer": 2,
-        "explanation": { "en": "The 5 methods are observation, identification, description, experimental investigation and theoretical explanation (O-I-D-E-T). Imagination is not one of them.", "am": "5ቱ ዘዴዎች ምልከታ፣ መለየት፣ ገለጻ፣ የሙከራ ምርመራና ንድፈ ሐሳባዊ ማብራሪያ ናቸው (O-I-D-E-T)። ምናብ ከነሱ ውስጥ አይደለም።" }
+        "explanation": {
+          "en": "The 5 methods are observation, identification, description, experimental investigation and theoretical explanation (O-I-D-E-T). Imagination is not one of them.",
+          "am": "5ቱ ዘዴዎች ምልከታ፣ መለየት፣ ገለጻ፣ የሙከራ ምርመራና ንድፈ ሐሳባዊ ማብራሪያ ናቸው (O-I-D-E-T)። ምናብ ከነሱ ውስጥ አይደለም።"
+        }
       },
       {
-        "question": { "en": "Measuring a river's water level for many months is an example of:", "am": "የአንድን ወንዝ የውሃ መጠን ለብዙ ወራት መለካት የየትኛው ዘዴ ምሳሌ ነው?" },
+        "question": {
+          "en": "Measuring a river's water level for many months is an example of:",
+          "am": "የአንድን ወንዝ የውሃ መጠን ለብዙ ወራት መለካት የየትኛው ዘዴ ምሳሌ ነው?"
+        },
         "options": [
-          { "en": "Identification", "am": "መለየት (Identification)" },
-          { "en": "Description", "am": "ገለጻ (Description)" },
-          { "en": "Experimental investigation", "am": "የሙከራ ምርመራ (Experimental Investigation)" },
-          { "en": "Observation", "am": "ምልከታ (Observation)" }
+          {
+            "en": "Identification",
+            "am": "መለየት (Identification)"
+          },
+          {
+            "en": "Description",
+            "am": "ገለጻ (Description)"
+          },
+          {
+            "en": "Experimental investigation",
+            "am": "የሙከራ ምርመራ (Experimental Investigation)"
+          },
+          {
+            "en": "Observation",
+            "am": "ምልከታ (Observation)"
+          }
         ],
         "answer": 2,
-        "explanation": { "en": "Testing and collecting data over time is experimental investigation.", "am": "በጊዜ ሂደት መሞከርና መረጃ መሰብሰብ የሙከራ ምርመራ ነው።" }
+        "explanation": {
+          "en": "Testing and collecting data over time is experimental investigation.",
+          "am": "በጊዜ ሂደት መሞከርና መረጃ መሰብሰብ የሙከራ ምርመራ ነው።"
+        }
       },
       {
-        "question": { "en": "Which method explains WHY something happens?", "am": "አንድ ነገር ለምን እንደሚከሰት የሚያብራራው የትኛው ዘዴ ነው?" },
+        "question": {
+          "en": "Which method explains WHY something happens?",
+          "am": "አንድ ነገር ለምን እንደሚከሰት የሚያብራራው የትኛው ዘዴ ነው?"
+        },
         "options": [
-          { "en": "Identification", "am": "መለየት (Identification)" },
-          { "en": "Theoretical explanation", "am": "ንድፈ ሐሳባዊ ማብራሪያ (Theoretical Explanation)" },
-          { "en": "Observation", "am": "ምልከታ (Observation)" },
-          { "en": "Description", "am": "ገለጻ (Description)" }
+          {
+            "en": "Identification",
+            "am": "መለየት (Identification)"
+          },
+          {
+            "en": "Theoretical explanation",
+            "am": "ንድፈ ሐሳባዊ ማብራሪያ (Theoretical Explanation)"
+          },
+          {
+            "en": "Observation",
+            "am": "ምልከታ (Observation)"
+          },
+          {
+            "en": "Description",
+            "am": "ገለጻ (Description)"
+          }
         ],
         "answer": 1,
-        "explanation": { "en": "Theoretical explanation is the last step: it explains why something happens, e.g. “deforestation is causing it”.", "am": "ንድፈ ሐሳባዊ ማብራሪያ የመጨረሻው ደረጃ ነው፤ አንድ ነገር ለምን እንደሚከሰት ያብራራል፤ ለምሳሌ «የደን ጭፍጨፋ እያስከተለው ነው»።" }
+        "explanation": {
+          "en": "Theoretical explanation is the last step: it explains why something happens, e.g. “deforestation is causing it”.",
+          "am": "ንድፈ ሐሳባዊ ማብራሪያ የመጨረሻው ደረጃ ነው፤ አንድ ነገር ለምን እንደሚከሰት ያብራራል፤ ለምሳሌ «የደን ጭፍጨፋ እያስከተለው ነው»።"
+        }
       },
       {
-        "question": { "en": "Geography is said to bridge which two groups of sciences?", "am": "ጂኦግራፊ የትኞቹን ሁለት የሳይንስ ቡድኖች ያገናኛል ይባላል?" },
+        "question": {
+          "en": "Geography is said to bridge which two groups of sciences?",
+          "am": "ጂኦግራፊ የትኞቹን ሁለት የሳይንስ ቡድኖች ያገናኛል ይባላል?"
+        },
         "options": [
-          { "en": "Medical and military sciences", "am": "የሕክምናና የወታደራዊ ሳይንሶች" },
-          { "en": "Natural and social sciences", "am": "የተፈጥሮና የማኅበራዊ ሳይንሶች" },
-          { "en": "Computer and space sciences", "am": "የኮምፒውተርና የሕዋ ሳይንሶች" },
-          { "en": "Language and art", "am": "ቋንቋና ሥነ ጥበብ" }
+          {
+            "en": "Medical and military sciences",
+            "am": "የሕክምናና የወታደራዊ ሳይንሶች"
+          },
+          {
+            "en": "Natural and social sciences",
+            "am": "የተፈጥሮና የማኅበራዊ ሳይንሶች"
+          },
+          {
+            "en": "Computer and space sciences",
+            "am": "የኮምፒውተርና የሕዋ ሳይንሶች"
+          },
+          {
+            "en": "Language and art",
+            "am": "ቋንቋና ሥነ ጥበብ"
+          }
         ],
         "answer": 1,
-        "explanation": { "en": "Geography studies both nature and people, so it bridges the natural and social sciences.", "am": "ጂኦግራፊ ተፈጥሮንም ሰውንም ስለሚያጠና የተፈጥሮና የማኅበራዊ ሳይንሶችን ያገናኛል።" }
+        "explanation": {
+          "en": "Geography studies both nature and people, so it bridges the natural and social sciences.",
+          "am": "ጂኦግራፊ ተፈጥሮንም ሰውንም ስለሚያጠና የተፈጥሮና የማኅበራዊ ሳይንሶችን ያገናኛል።"
+        }
       }
     ]
   }

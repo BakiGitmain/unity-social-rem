@@ -4,16 +4,19 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, BookOpenText, Clock, ListChecks, Target } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpenText, Clock, Layers, ListChecks, Target } from "lucide-react";
 import { useLang } from "@/lib/use-lang";
-import { pick, ui } from "@/lib/i18n";
-import type { LessonSection, LessonSummary, MainTopic } from "@/lib/types";
+import { loc, type Locale } from "@/lib/locale";
+import { t } from "@/lib/site-i18n";
+import type { GlossaryEntry, LessonSection, LessonSummary, MainTopic } from "@/lib/types";
 import type { QuizMeta } from "@/lib/data";
 import { LanguageToggle } from "@/components/study/language-toggle";
 import { NoteBlock } from "@/components/study/blocks";
 import { MainTopics } from "@/components/study/main-topics";
 import { SectionIcon } from "@/components/study/section-icon";
 import { BiText } from "@/components/study/text";
+import { GlossaryProvider } from "@/components/study/glossary";
+import { LearnMode } from "@/components/study/learn-mode";
 
 // The quiz (and its Supabase query) is only downloaded when the Quiz tab is opened.
 const Quiz = dynamic(() => import("@/components/study/quiz"), {
@@ -27,71 +30,92 @@ const Quiz = dynamic(() => import("@/components/study/quiz"), {
 });
 
 type Tab = "notes" | "topics" | "quiz";
+type NotesMode = "learn" | "all";
 type NavLesson = { href: string; code: string; title_en: string; title_am: string } | null;
+
+const fade = {
+  initial: { opacity: 0, y: 10 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -6 },
+  transition: { type: "spring", stiffness: 380, damping: 36 },
+} as const;
 
 export function StudyView({
   lesson,
   sections,
   mainTopics,
+  glossary,
   quiz,
   prev,
   next,
   unitLabel,
+  unitHref,
+  locale,
 }: {
   lesson: LessonSummary;
   sections: LessonSection[];
   mainTopics: MainTopic[];
+  glossary: GlossaryEntry[];
   quiz: QuizMeta | null;
   prev: NavLesson;
   next: NavLesson;
   unitLabel: string;
+  unitHref: string;
+  locale: Locale;
 }) {
-  const [lang, setLang] = useLang();
+  const [lang, setLang] = useLang(); // notes language: en | am | both
   const [tab, setTab] = useState<Tab>("notes");
+  const [mode, setMode] = useState<NotesMode>("learn");
   const [quizVisited, setQuizVisited] = useState(false);
   const [quizRunning, setQuizRunning] = useState(false);
-  const am = lang === "am";
+  const [quizStartKey, setQuizStartKey] = useState(0);
+  const amUi = locale === "am" ? "am" : "";
 
-  const openTab = (t: Tab) => {
-    setTab(t);
-    if (t === "quiz") setQuizVisited(true);
+  const openTab = (to: Tab) => {
+    setTab(to);
+    if (to === "quiz") setQuizVisited(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const tabs: { id: Tab; label: string; icon: typeof BookOpenText }[] = [
-    { id: "notes", label: ui("fullNotes", lang), icon: BookOpenText },
-    { id: "topics", label: ui("mainTopics", lang), icon: ListChecks },
-    { id: "quiz", label: ui("quiz", lang), icon: Target },
+    { id: "notes", label: t(locale, "fullNotes"), icon: BookOpenText },
+    { id: "topics", label: t(locale, "mainTopics"), icon: ListChecks },
+    { id: "quiz", label: t(locale, "quiz"), icon: Target },
   ];
 
   return (
-    <div>
-      {/* Title */}
-      <header className="mt-5">
+    <GlossaryProvider entries={glossary} lang={lang}>
+      {/* Title (site language) */}
+      <header className={`mt-5 ${amUi}`}>
         <p className="inline-flex items-center gap-2 rounded-full bg-accent-soft px-3 py-1 text-xs font-semibold tracking-wide text-accent-ink">
           <span className="tabular-nums">{lesson.code}</span>
           <span aria-hidden>·</span>
-          <span className={am ? "am" : ""}>{pick(lesson.section_title_en, lesson.section_title_am, lang)}</span>
+          <span>{loc(lesson, "section_title", locale)}</span>
         </p>
-        <h1 className={`mt-3 text-[1.7rem] leading-tight font-semibold tracking-tight text-ink sm:text-4xl ${am ? "am" : ""}`}>
-          {pick(lesson.title_en, lesson.title_am, lang)}
+        <h1 className="mt-3 text-[1.7rem] leading-tight font-semibold tracking-tight text-ink sm:text-4xl">
+          {loc(lesson, "title", locale)}
         </h1>
-        <p className={`mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted ${am ? "am" : ""}`}>
+        <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
           <span>{unitLabel}</span>
           <span className="inline-flex items-center gap-1">
             <Clock className="size-3.5" aria-hidden />
-            {lesson.minutes} {ui("minutes", lang)}
+            {t(locale, "minutes", { n: lesson.minutes })}
+          </span>
+          <span className="inline-flex items-center gap-1">
+            <Layers className="size-3.5" aria-hidden />
+            {sections.length} {t(locale, "parts")}
           </span>
           {quiz && (
             <span className="inline-flex items-center gap-1">
               <Target className="size-3.5" aria-hidden />
-              {quiz.questionCount} {ui("questions", lang)}
+              {quiz.questionCount} {t(locale, "questions")}
             </span>
           )}
         </p>
       </header>
 
       {/* Controls */}
-      <div className="sticky top-14 z-20 -mx-4 mt-5 border-b border-line/70 bg-paper/90 px-4 py-3 backdrop-blur-md sm:top-16 sm:mx-0 sm:rounded-b-2xl sm:px-0">
+      <div className="sticky top-14 z-20 -mx-4 mt-5 bg-paper/90 px-4 py-3 backdrop-blur-md md:top-16 sm:mx-0 sm:px-0">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <AnimatePresence initial={false} mode="wait">
             {quizRunning ? (
@@ -100,10 +124,10 @@ export function StudyView({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className={`flex h-11 items-center gap-2 text-sm font-medium text-muted ${am ? "am" : ""}`}
+                className={`flex h-11 items-center gap-2 text-sm font-medium text-muted ${amUi}`}
               >
                 <Target className="size-4 text-accent" aria-hidden />
-                {ui("focusMode", lang)} · {ui("notesHidden", lang)}
+                {t(locale, "focusMode")} · {t(locale, "notesHidden")}
               </motion.p>
             ) : (
               <motion.div
@@ -113,12 +137,12 @@ export function StudyView({
                 exit={{ opacity: 0 }}
                 role="tablist"
                 aria-label="Study mode"
-                className="no-scrollbar flex overflow-x-auto rounded-full border border-line bg-surface p-1"
+                className="no-scrollbar flex overflow-x-auto rounded-full bg-ink/[0.05] p-1"
               >
                 {tabs.map(({ id, label, icon: Icon }) => {
                   const active = tab === id;
                   return (
-                    <button
+                    <motion.button
                       key={id}
                       type="button"
                       role="tab"
@@ -126,26 +150,31 @@ export function StudyView({
                       aria-selected={active}
                       aria-controls={`panel-${id}`}
                       onClick={() => openTab(id)}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ type: "spring", stiffness: 600, damping: 30 }}
                       className={`relative flex flex-1 items-center justify-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-medium whitespace-nowrap transition-colors sm:flex-none sm:px-4 ${
-                        active ? "text-white" : "text-muted hover:text-ink"
-                      } ${am ? "am leading-normal" : ""}`}
+                        active ? "text-ink" : "text-muted hover:text-ink"
+                      } ${amUi ? "am leading-normal" : ""}`}
                     >
                       {active && (
                         <motion.span
                           layoutId="tab-pill"
-                          className="absolute inset-0 rounded-full bg-accent"
-                          transition={{ type: "spring", stiffness: 500, damping: 40 }}
+                          className="absolute inset-0 rounded-full bg-surface shadow-[0_1px_3px_rgba(29,42,44,0.14)]"
+                          transition={{ type: "spring", stiffness: 500, damping: 38 }}
                         />
                       )}
-                      <Icon className="relative size-4" aria-hidden />
+                      <Icon className={`relative size-4 transition-colors ${active ? "text-accent" : ""}`} aria-hidden />
                       <span className="relative">{label}</span>
-                    </button>
+                    </motion.button>
                   );
                 })}
               </motion.div>
             )}
           </AnimatePresence>
-          <LanguageToggle lang={lang} onChange={setLang} />
+          <div className="flex items-center gap-2">
+            <span className={`hidden text-xs text-faint lg:inline ${amUi}`}>{t(locale, "notesLanguage")}</span>
+            <LanguageToggle lang={lang} onChange={setLang} />
+          </div>
         </div>
       </div>
 
@@ -153,88 +182,63 @@ export function StudyView({
       <div className="mt-6">
         <AnimatePresence mode="wait" initial={false}>
           {tab === "notes" && (
-            <motion.div
-              key="notes"
-              id="panel-notes"
-              role="tabpanel"
-              aria-labelledby="tab-notes"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_220px]"
-            >
-              <div className="min-w-0 space-y-6">
-                {sections.map((s, i) => (
-                  <section
-                    key={s.id}
-                    id={`part-${i + 1}`}
-                    className="scroll-mt-40 rounded-2xl border border-line bg-surface px-4 py-6 sm:px-7 sm:py-7"
-                  >
-                    <h2 className="flex items-center gap-3">
-                      <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-accent-soft text-accent">
-                        <SectionIcon name={s.icon} />
-                      </span>
-                      <span className="min-w-0">
-                        <span className="block text-xs font-semibold tracking-wider text-faint uppercase">
-                          {am ? <span className="am normal-case">ክፍል {i + 1}</span> : `Part ${i + 1}`}
-                        </span>
-                        <span className={`block text-lg leading-snug font-semibold text-ink sm:text-xl ${am ? "am" : ""}`}>
-                          <BiText value={{ en: s.title_en, am: s.title_am }} lang={lang} single />
-                        </span>
-                      </span>
-                    </h2>
-                    <div className="mt-4">
-                      {s.blocks.map((b, j) => (
-                        <NoteBlock key={j} block={b} lang={lang} />
-                      ))}
-                    </div>
-                  </section>
-                ))}
+            <motion.div key="notes" id="panel-notes" role="tabpanel" aria-labelledby="tab-notes" {...fade}>
+              {/* Learn (one part at a time) | Read all */}
+              <div className="mb-8 flex justify-center">
+                <div role="radiogroup" aria-label={t(locale, "fullNotes")} className="inline-flex rounded-full bg-ink/[0.05] p-1">
+                  {(["learn", "all"] as const).map((m) => (
+                    <button
+                      key={m}
+                      type="button"
+                      role="radio"
+                      aria-checked={mode === m}
+                      onClick={() => setMode(m)}
+                      className={`relative rounded-full px-5 py-1.5 text-sm font-medium transition-colors ${
+                        mode === m ? "text-white" : "text-muted hover:text-ink"
+                      } ${amUi}`}
+                    >
+                      {mode === m && (
+                        <motion.span
+                          layoutId="notes-mode-pill"
+                          className="absolute inset-0 rounded-full bg-accent"
+                          transition={{ type: "spring", stiffness: 500, damping: 38 }}
+                        />
+                      )}
+                      <span className="relative">{t(locale, m === "learn" ? "learn" : "readAll")}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
 
-              <aside className="hidden lg:block">
-                <nav aria-label={ui("onThisPage", lang)} className="sticky top-40">
-                  <p className={`text-xs font-semibold tracking-wider text-faint uppercase ${am ? "am normal-case" : ""}`}>
-                    {ui("onThisPage", lang)}
-                  </p>
-                  <ol className="mt-3 space-y-1 border-l border-line">
-                    {sections.map((s, i) => (
-                      <li key={s.id}>
-                        <a
-                          href={`#part-${i + 1}`}
-                          onClick={(e) => {
-                            const el = document.getElementById(`part-${i + 1}`);
-                            if (!el) return;
-                            e.preventDefault();
-                            const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-                            el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
-                            history.replaceState(null, "", `#part-${i + 1}`);
-                          }}
-                          className={`-ml-px block border-l-2 border-transparent py-1.5 pl-3 text-sm text-muted transition-colors hover:border-accent hover:text-ink ${am ? "am" : ""}`}
-                        >
-                          {pick(s.title_en, s.title_am, lang)}
-                        </a>
-                      </li>
-                    ))}
-                  </ol>
-                </nav>
-              </aside>
+              <AnimatePresence mode="wait" initial={false}>
+                {mode === "learn" ? (
+                  <motion.div key="learn" {...fade}>
+                    <LearnMode
+                      lessonId={lesson.id}
+                      lessonTitle={loc(lesson, "title", locale)}
+                      sections={sections}
+                      lang={lang}
+                      locale={locale}
+                      hasQuiz={!!quiz}
+                      exitHref={unitHref}
+                      onStartQuiz={() => {
+                        setQuizStartKey((k) => k + 1);
+                        openTab("quiz");
+                      }}
+                    />
+                  </motion.div>
+                ) : (
+                  <motion.div key="all" {...fade}>
+                    <ReadAll sections={sections} lang={lang} locale={locale} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           )}
 
           {tab === "topics" && (
-            <motion.div
-              key="topics"
-              id="panel-topics"
-              role="tabpanel"
-              aria-labelledby="tab-topics"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <MainTopics topics={mainTopics} lang={lang} />
+            <motion.div key="topics" id="panel-topics" role="tabpanel" aria-labelledby="tab-topics" {...fade}>
+              <MainTopics topics={mainTopics} lang={lang} locale={locale} />
             </motion.div>
           )}
         </AnimatePresence>
@@ -243,9 +247,15 @@ export function StudyView({
         {quizVisited && (
           <div id="panel-quiz" role="tabpanel" aria-labelledby="tab-quiz" hidden={tab !== "quiz"}>
             {quiz ? (
-              <Quiz quiz={quiz} lang={lang} onRunningChange={setQuizRunning} onBackToNotes={() => openTab("notes")} />
+              <Quiz
+                quiz={quiz}
+                lessonId={lesson.id}
+                lang={lang}
+                locale={locale}
+                autoStartKey={quizStartKey}
+                onRunningChange={setQuizRunning} onBackToNotes={() => openTab("notes")} />
             ) : (
-              <p className={`py-12 text-center text-muted ${am ? "am" : ""}`}>{ui("noQuiz", lang)}</p>
+              <p className={`py-12 text-center text-muted ${amUi}`}>{t(locale, "noQuiz")}</p>
             )}
           </div>
         )}
@@ -253,35 +263,85 @@ export function StudyView({
 
       {/* Previous / next lesson (hidden in focus mode) */}
       {!quizRunning && (prev || next) && (
-        <nav aria-label="Lesson navigation" className="mt-12 grid gap-3 sm:grid-cols-2">
-          {prev ? (
-            <LessonLink item={prev} dir="prev" lang={lang} />
-          ) : (
-            <span className="hidden sm:block" />
-          )}
-          {next && <LessonLink item={next} dir="next" lang={lang} />}
+        <nav aria-label="Lesson navigation" className="mt-14 grid gap-3 sm:grid-cols-2">
+          {prev ? <LessonLink item={prev} dir="prev" locale={locale} /> : <span className="hidden sm:block" />}
+          {next && <LessonLink item={next} dir="next" locale={locale} />}
         </nav>
       )}
+    </GlossaryProvider>
+  );
+}
+
+/** The whole lesson on one page, calmer than before: no card borders, 65ch line length. */
+function ReadAll({ sections, lang, locale }: { sections: LessonSection[]; lang: ReturnType<typeof useLang>[0]; locale: Locale }) {
+  return (
+    <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_220px]">
+      <div className="min-w-0">
+        {sections.map((s, i) => (
+          <section key={s.id} id={`part-${i + 1}`} className="mx-auto max-w-[65ch] scroll-mt-40 border-b border-line pb-10 not-first:pt-10 last:border-b-0">
+            <h2 className="flex items-center gap-3">
+              <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-accent-soft text-accent">
+                <SectionIcon name={s.icon} />
+              </span>
+              <span className={`text-xl leading-snug font-semibold text-ink sm:text-2xl ${lang === "am" ? "am" : ""}`}>
+                <BiText value={{ en: s.title_en, am: s.title_am }} lang={lang} single />
+              </span>
+            </h2>
+            <div className="mt-6">
+              {s.blocks.map((b, j) => (
+                <NoteBlock key={j} block={b} lang={lang} />
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+      <aside className="hidden lg:block">
+        <nav aria-label={t(locale, "onThisPage")} className="sticky top-40">
+          <p className={`text-xs font-semibold tracking-wider text-faint uppercase ${locale === "am" ? "am normal-case" : ""}`}>
+            {t(locale, "onThisPage")}
+          </p>
+          <ol className="mt-3 space-y-1 border-l border-line">
+            {sections.map((s, i) => (
+              <li key={s.id}>
+                <a
+                  href={`#part-${i + 1}`}
+                  onClick={(e) => {
+                    const el = document.getElementById(`part-${i + 1}`);
+                    if (!el) return;
+                    e.preventDefault();
+                    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                    el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+                    history.replaceState(null, "", `#part-${i + 1}`);
+                  }}
+                  className={`-ml-px block border-l-2 border-transparent py-1.5 pl-3 text-sm text-muted transition-colors hover:border-accent hover:text-ink ${lang === "am" ? "am" : ""}`}
+                >
+                  {lang === "am" ? s.title_am : s.title_en}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      </aside>
     </div>
   );
 }
 
-function LessonLink({ item, dir, lang }: { item: NonNullable<NavLesson>; dir: "prev" | "next"; lang: ReturnType<typeof useLang>[0] }) {
-  const am = lang === "am";
+function LessonLink({ item, dir, locale }: { item: NonNullable<NavLesson>; dir: "prev" | "next"; locale: Locale }) {
   const isNext = dir === "next";
+  const amUi = locale === "am" ? "am" : "";
   return (
     <Link
       href={item.href}
-      className={`group card-hover flex items-center gap-3 rounded-2xl border border-line bg-surface p-4 hover:border-[color:var(--accent)] hover:bg-[var(--accent-tint)] ${
+      className={`group card-hover flex items-center gap-3 rounded-2xl bg-surface p-4 ring-1 ring-line hover:bg-[var(--accent-tint)] ${
         isNext ? "justify-between text-right sm:col-start-2" : ""
       }`}
     >
       {!isNext && <ArrowLeft className="size-5 shrink-0 text-faint transition-transform group-hover:-translate-x-1 group-hover:text-accent" aria-hidden />}
-      <span className={`min-w-0 ${isNext ? "order-first flex-1" : "flex-1"}`}>
-        <span className={`block text-xs font-medium text-faint ${am ? "am" : ""}`}>
-          {ui(isNext ? "nextLesson" : "prevLesson", lang)} · {item.code}
+      <span className={`min-w-0 ${isNext ? "order-first flex-1" : "flex-1"} ${amUi}`}>
+        <span className="block text-xs font-medium text-faint">
+          {t(locale, isNext ? "nextLesson" : "prevLesson")} · {item.code}
         </span>
-        <span className={`block truncate font-semibold text-ink ${am ? "am" : ""}`}>{pick(item.title_en, item.title_am, lang)}</span>
+        <span className="block truncate font-semibold text-ink">{locale === "am" ? item.title_am : item.title_en}</span>
       </span>
       {isNext && <ArrowRight className="size-5 shrink-0 text-faint transition-transform group-hover:translate-x-1 group-hover:text-accent" aria-hidden />}
     </Link>

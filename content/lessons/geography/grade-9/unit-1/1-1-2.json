@@ -4,8 +4,14 @@
   "unit": {
     "number": 1,
     "slug": "unit-1",
-    "label": { "en": "Unit One", "am": "ምዕራፍ አንድ" },
-    "title": { "en": "The Concept of Geography and Map-Reading", "am": "የጂኦግራፊ ጽንሰ ሐሳብ እና ካርታ ንባብ" },
+    "label": {
+      "en": "Unit One",
+      "am": "ምዕራፍ አንድ"
+    },
+    "title": {
+      "en": "The Concept of Geography and Map-Reading",
+      "am": "የጂኦግራፊ ጽንሰ ሐሳብ እና ካርታ ንባብ"
+    },
     "description": {
       "en": "What geography is, how it became a science, its branches and scope, and how to read maps.",
       "am": "ጂኦግራፊ ምን እንደሆነ፣ እንዴት ሳይንስ እንደሆነ፣ ቅርንጫፎቹና ወሰኑ፣ እንዲሁም ካርታ እንዴት እንደሚነበብ።"
@@ -15,9 +21,18 @@
     "code": "1.1.2",
     "slug": "1-1-2",
     "sort_order": 2,
-    "minutes": 15,
-    "section": { "code": "1.1", "title": { "en": "The Science of Geography", "am": "የጂኦግራፊ ሳይንስ" } },
-    "title": { "en": "Branches of Geography", "am": "የጂኦግራፊ ቅርንጫፎች" },
+    "minutes": 8,
+    "section": {
+      "code": "1.1",
+      "title": {
+        "en": "The Science of Geography",
+        "am": "የጂኦግራፊ ሳይንስ"
+      }
+    },
+    "title": {
+      "en": "Branches of Geography",
+      "am": "የጂኦግራፊ ቅርንጫፎች"
+    },
     "summary": {
       "en": "The two main branches of geography, physical and human, and the specialised fields inside each one.",
       "am": "ሁለቱ ዋና የጂኦግራፊ ቅርንጫፎች፣ የተፈጥሮና የሰው ጂኦግራፊ፣ እና በእያንዳንዳቸው ውስጥ ያሉ ልዩ ዘርፎች።"
@@ -25,24 +40,93 @@
   },
   "sections": [
     {
-      "title": { "en": "The two main branches", "am": "ሁለቱ ዋና ቅርንጫፎች" },
+      "title": {
+        "en": "The two main branches",
+        "am": "ሁለቱ ዋና ቅርንጫፎች"
+      },
       "icon": "git-branch",
       "blocks": [
         {
           "type": "paragraph",
           "text": {
-            "en": "Geography is divided into branches **depending on what it studies**.",
-            "am": "ጂኦግራፊ **በሚያጠናው ነገር ላይ ተመሥርቶ** በቅርንጫፎች ይከፈላል።"
+            "en": "Geography is divided into branches depending on **what it studies**.",
+            "am": "ጂኦግራፊ **በሚያጠናው ነገር** ላይ ተመሥርቶ በቅርንጫፎች ይከፈላል።"
           }
         },
         {
-          "type": "keypoint",
-          "variant": "important",
-          "title": { "en": "2 main branches", "am": "2 ዋና ቅርንጫፎች" },
+          "type": "points",
+          "items": [
+            {
+              "icon": "mountain",
+              "title": {
+                "en": "Physical geography",
+                "am": "የተፈጥሮ ጂኦግራፊ (Physical Geography)"
+              },
+              "text": {
+                "en": "studies **natural** features made by nature.",
+                "am": "በተፈጥሮ የተሠሩ **ተፈጥሯዊ** ገጽታዎችን ያጠናል።"
+              }
+            },
+            {
+              "icon": "users",
+              "title": {
+                "en": "Human geography",
+                "am": "የሰው ጂኦግራፊ (Human Geography)"
+              },
+              "text": {
+                "en": "studies **human-made** things and how people interact with nature.",
+                "am": "በሰው የተሠሩ ነገሮችንና ሰዎች ከተፈጥሮ ጋር እንዴት እንደሚገናኙ ያጠናል።"
+              }
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "title": {
+            "en": "Easy trick",
+            "am": "ቀላል ዘዴ"
+          },
           "text": {
-            "en": "Geography has **two main branches**: **Physical geography** and **Human geography**.",
-            "am": "ጂኦግራፊ **ሁለት ዋና ቅርንጫፎች** አሉት፦ **የተፈጥሮ ጂኦግራፊ (Physical Geography)** እና **የሰው ጂኦግራፊ (Human Geography)**።"
+            "en": "**Nature** made it → physical. **People** made it → human.",
+            "am": "**ተፈጥሮ** የሠራው → የተፈጥሮ ጂኦግራፊ። **ሰው** የሠራው → የሰው ጂኦግራፊ።"
           }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Physical geography",
+        "am": "የተፈጥሮ ጂኦግራፊ"
+      },
+      "icon": "mountain",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "**Physical geography** studies the natural features of the Earth, with their causes, effects and interactions.",
+            "am": "**የተፈጥሮ ጂኦግራፊ (Physical Geography)** የምድርን ተፈጥሯዊ ገጽታዎች ከመንስኤ፣ ከውጤትና ከመስተጋብራቸው ጋር ያጠናል።"
+          }
+        },
+        {
+          "type": "list",
+          "items": [
+            {
+              "en": "Climate",
+              "am": "የአየር ንብረት"
+            },
+            {
+              "en": "**Landforms**: mountains, plateaus, valleys, plains",
+              "am": "**የመሬት ቅርጾች (Landforms)**፦ ተራሮች፣ አምባዎች፣ ሸለቆዎች፣ ሜዳዎች"
+            },
+            {
+              "en": "Soil and vegetation",
+              "am": "አፈርና ዕፅዋት"
+            },
+            {
+              "en": "Drainage: rivers and lakes",
+              "am": "የውሃ ፍሳሽ፦ ወንዞችና ሐይቆች"
+            }
+          ]
         },
         {
           "type": "image",
@@ -54,11 +138,48 @@
             "am": "በኢትዮጵያ የሰሜን ተራሮች ብሔራዊ ፓርክ ገደላማ አረንጓዴ ተራሮችና ጥልቅ ሸለቆዎች።"
           },
           "caption": {
-            "en": "Physical geography: landforms made by nature (Simien Mountains, Ethiopia)",
-            "am": "የተፈጥሮ ጂኦግራፊ፦ በተፈጥሮ የተሠሩ የመሬት ቅርጾች (የሰሜን ተራሮች፣ ኢትዮጵያ)"
+            "en": "Landforms made by nature: the Simien Mountains, Ethiopia",
+            "am": "በተፈጥሮ የተሠሩ የመሬት ቅርጾች፦ የሰሜን ተራሮች፣ ኢትዮጵያ"
           },
           "credit": "Photo: Barrowbob · CC BY-SA 4.0 · Wikimedia Commons",
           "creditUrl": "https://commons.wikimedia.org/wiki/File:Simien_Mountains_National_Park_in_Ethiopia.jpg"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Human geography",
+        "am": "የሰው ጂኦግራፊ"
+      },
+      "icon": "users",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "**Human geography** studies the human-made parts of our world and how they interact with nature.",
+            "am": "**የሰው ጂኦግራፊ (Human Geography)** የዓለማችንን በሰው የተሠሩ ክፍሎችና ከተፈጥሮ ጋር ያላቸውን መስተጋብር ያጠናል።"
+          }
+        },
+        {
+          "type": "list",
+          "items": [
+            {
+              "en": "Population",
+              "am": "ሕዝብ"
+            },
+            {
+              "en": "Settlements: towns and cities",
+              "am": "ሰፈራዎች፦ ከተሞች"
+            },
+            {
+              "en": "Economic activities",
+              "am": "የኢኮኖሚ እንቅስቃሴዎች"
+            },
+            {
+              "en": "Culture and political systems",
+              "am": "ባህልና የፖለቲካ ሥርዓቶች"
+            }
+          ]
         },
         {
           "type": "image",
@@ -70,327 +191,788 @@
             "am": "ረጃጅም ሕንፃዎች፣ ክሬኖችና ዛፎች ያሉበት የአዲስ አበባ ከተማ ገጽታ።"
           },
           "caption": {
-            "en": "Human geography: a city built by people (Addis Ababa, Ethiopia)",
-            "am": "የሰው ጂኦግራፊ፦ በሰዎች የተገነባ ከተማ (አዲስ አበባ፣ ኢትዮጵያ)"
+            "en": "A city built by people: Addis Ababa, Ethiopia",
+            "am": "በሰዎች የተገነባ ከተማ፦ አዲስ አበባ፣ ኢትዮጵያ"
           },
           "credit": "Photo: Simfan34 · CC BY-SA 3.0 · Wikimedia Commons",
           "creditUrl": "https://commons.wikimedia.org/wiki/File:Addis_Ababa_skyline.jpg"
-        },
-        {
-          "type": "table",
-          "headers": [
-            { "en": "Compare", "am": "ንጽጽር" },
-            { "en": "Physical geography", "am": "የተፈጥሮ ጂኦግራፊ" },
-            { "en": "Human geography", "am": "የሰው ጂኦግራፊ" }
-          ],
-          "rows": [
-            [
-              { "en": "**Studies**", "am": "**ያጠናል**" },
-              { "en": "The **natural** features of the Earth's surface, with their causes, effects and interactions", "am": "የምድርን ገጽ **የተፈጥሮ** ገጽታዎች ከመንስኤዎቻቸው፣ ከውጤቶቻቸውና ከመስተጋብራቸው ጋር" },
-              { "en": "**Human-made** aspects of the world and their interaction with the natural environment", "am": "**በሰው የተሠሩ** የዓለም ገጽታዎችንና ከተፈጥሮ አካባቢ ጋር ያላቸውን መስተጋብር" }
-            ],
-            [
-              { "en": "**Examples**", "am": "**ምሳሌዎች**" },
-              { "en": "Climate, landforms (mountains, plateaus, valleys, plains), soil, vegetation, drainage (rivers, lakes)", "am": "የአየር ንብረት፣ የመሬት ቅርጾች (ተራሮች፣ አምባዎች፣ ሸለቆዎች፣ ሜዳዎች)፣ አፈር፣ ዕፅዋት፣ የውሃ ፍሳሽ (ወንዞች፣ ሐይቆች)" },
-              { "en": "Population, settlements (cities and towns), economic activities, culture, political systems", "am": "ሕዝብ፣ ሰፈራዎች (ከተሞች)፣ የኢኮኖሚ እንቅስቃሴዎች፣ ባህል፣ የፖለቲካ ሥርዓቶች" }
-            ]
-          ]
-        },
-        {
-          "type": "tip",
-          "title": { "en": "Easy trick", "am": "ቀላል ዘዴ" },
-          "text": {
-            "en": "If **nature** made it → **Physical** geography. If **people** made it → **Human** geography.",
-            "am": "**ተፈጥሮ** የሠራው ከሆነ → **የተፈጥሮ ጂኦግራፊ**። **ሰው** የሠራው ከሆነ → **የሰው ጂኦግራፊ**።"
-          }
         }
       ]
     },
     {
-      "title": { "en": "Fields of physical geography", "am": "የተፈጥሮ ጂኦግራፊ ዘርፎች" },
-      "icon": "mountain",
+      "title": {
+        "en": "Fields of physical geography",
+        "am": "የተፈጥሮ ጂኦግራፊ ዘርፎች"
+      },
+      "icon": "leaf",
       "blocks": [
         {
           "type": "paragraph",
           "text": {
-            "en": "Physical geography studies the distribution of the world's natural features. Each feature has its own **sub-field** (specialised field) that studies it:",
-            "am": "የተፈጥሮ ጂኦግራፊ የዓለምን የተፈጥሮ ገጽታዎች ስርጭት ያጠናል። እያንዳንዱን ገጽታ የሚያጠና የራሱ **ንዑስ ዘርፍ (Sub-field)** አለ፦"
+            "en": "Each natural feature has its own **sub-field** that studies it.",
+            "am": "እያንዳንዱን ተፈጥሯዊ ገጽታ የሚያጠና የራሱ **ንዑስ ዘርፍ (Sub-field)** አለ።"
           }
         },
         {
-          "type": "table",
-          "headers": [
-            { "en": "Field", "am": "ዘርፍ" },
-            { "en": "What it studies", "am": "የሚያጠናው" }
-          ],
-          "rows": [
-            [
-              { "en": "**Climatology**", "am": "**የአየር ንብረት ጥናት (Climatology)**" },
-              { "en": "Climate: the factors that create it, and how it varies and is distributed", "am": "የአየር ንብረት፦ የሚፈጥሩትን ምክንያቶች፣ ልዩነቱንና ስርጭቱን" }
-            ],
-            [
-              { "en": "**Geomorphology**", "am": "**የመሬት ቅርጽ ጥናት (Geomorphology)**" },
-              { "en": "Landforms (such as mountains and plains) and the forces that change them", "am": "የመሬት ቅርጾችን (እንደ ተራሮችና ሜዳዎች) እና የሚለውጧቸውን ኃይሎች" }
-            ],
-            [
-              { "en": "**Soil geography**", "am": "**የአፈር ጂኦግራፊ (Soil Geography)**" },
-              { "en": "The distribution of soils and their characteristics", "am": "የአፈርን ስርጭትና ባሕርያቱን" }
-            ],
-            [
-              { "en": "**Biogeography**", "am": "**የሕይወት ጂኦግራፊ (Biogeography)**" },
-              { "en": "The distribution of **plants and animals** in relation to the environments they live in", "am": "የ**ዕፅዋትና የእንስሳትን** ስርጭት ከሚኖሩበት አካባቢ ጋር በተያያዘ" }
-            ],
-            [
-              { "en": "**Oceanography**", "am": "**የውቅያኖስ ጥናት (Oceanography)**" },
-              { "en": "Ocean currents, waves and tides: where they are, and their causes and effects", "am": "የውቅያኖስ ጅረቶችን፣ ማዕበሎችንና የባሕር ውሃ ከፍታና ዝቅታን (Tides)፦ ቦታቸውን፣ መንስኤና ውጤታቸውን" }
-            ],
-            [
-              { "en": "**Hydrology**", "am": "**የውሃ ጥናት (Hydrology)**" },
-              { "en": "Water on land: rivers, lakes and drainage", "am": "በየብስ ላይ ያለ ውሃ፦ ወንዞች፣ ሐይቆችና የውሃ ፍሳሽ" }
-            ]
+          "type": "points",
+          "items": [
+            {
+              "icon": "thermometer-sun",
+              "title": {
+                "en": "Climatology",
+                "am": "የአየር ንብረት ጥናት (Climatology)"
+              },
+              "text": {
+                "en": "climate",
+                "am": "የአየር ንብረት"
+              }
+            },
+            {
+              "icon": "mountain",
+              "title": {
+                "en": "Geomorphology",
+                "am": "የመሬት ቅርጽ ጥናት (Geomorphology)"
+              },
+              "text": {
+                "en": "landforms and the forces that shape them",
+                "am": "የመሬት ቅርጾችና የሚቀርጿቸው ኃይሎች"
+              }
+            },
+            {
+              "icon": "sprout",
+              "title": {
+                "en": "Soil geography",
+                "am": "የአፈር ጂኦግራፊ (Soil Geography)"
+              },
+              "text": {
+                "en": "soils and their characteristics",
+                "am": "አፈርና ባሕርያቱ"
+              }
+            },
+            {
+              "icon": "bird",
+              "title": {
+                "en": "Biogeography",
+                "am": "የሕይወት ጂኦግራፊ (Biogeography)"
+              },
+              "text": {
+                "en": "plants and animals",
+                "am": "ዕፅዋትና እንስሳት"
+              }
+            },
+            {
+              "icon": "waves",
+              "title": {
+                "en": "Oceanography",
+                "am": "የውቅያኖስ ጥናት (Oceanography)"
+              },
+              "text": {
+                "en": "ocean currents, waves and tides",
+                "am": "የውቅያኖስ ጅረቶች፣ ማዕበሎችና የባሕር ውሃ ከፍታና ዝቅታ"
+              }
+            },
+            {
+              "icon": "droplets",
+              "title": {
+                "en": "Hydrology",
+                "am": "የውሃ ጥናት (Hydrology)"
+              },
+              "text": {
+                "en": "water on land: rivers and lakes",
+                "am": "በየብስ ላይ ያለ ውሃ፦ ወንዞችና ሐይቆች"
+              }
+            }
           ]
         },
         {
           "type": "keypoint",
           "variant": "note",
-          "title": { "en": "Textbook note", "am": "የመማሪያ መጽሐፍ ማስታወሻ" },
+          "title": {
+            "en": "Textbook note",
+            "am": "የመማሪያ መጽሐፍ ማስታወሻ"
+          },
           "text": {
-            "en": "Class notes often list **Hydrology**, while the Grade 9 textbook lists **Oceanography**. Learn both: both are fields of physical geography.",
-            "am": "የክፍል ማስታወሻዎች ብዙ ጊዜ **የውሃ ጥናትን (Hydrology)** ይዘረዝራሉ፤ የ9ኛ ክፍል መማሪያ መጽሐፍ ደግሞ **የውቅያኖስ ጥናትን (Oceanography)** ይዘረዝራል። ሁለቱንም ማወቅ ያስፈልጋል፤ ሁለቱም የተፈጥሮ ጂኦግራፊ ዘርፎች ናቸው።"
+            "en": "Class notes often list Hydrology; the Grade 9 textbook lists Oceanography. Both are physical geography.",
+            "am": "የክፍል ማስታወሻዎች ብዙ ጊዜ የውሃ ጥናትን (Hydrology) ይዘረዝራሉ፤ የ9ኛ ክፍል መጽሐፍ ደግሞ የውቅያኖስ ጥናትን (Oceanography)። ሁለቱም የተፈጥሮ ጂኦግራፊ ናቸው።"
           }
         }
       ]
     },
     {
-      "title": { "en": "Fields of human geography", "am": "የሰው ጂኦግራፊ ዘርፎች" },
-      "icon": "users",
+      "title": {
+        "en": "Fields of human geography",
+        "am": "የሰው ጂኦግራፊ ዘርፎች"
+      },
+      "icon": "building-2",
       "blocks": [
         {
-          "type": "paragraph",
-          "text": {
-            "en": "Human geography studies the distribution and influence of the **human aspects** of our world: cultures, population, settlements, economic activities and political systems.",
-            "am": "የሰው ጂኦግራፊ የዓለማችንን **ሰው ነክ ገጽታዎች** ስርጭትና ተጽዕኖ ያጠናል፦ ባህሎችን፣ ሕዝብን፣ ሰፈራዎችን፣ የኢኮኖሚ እንቅስቃሴዎችንና የፖለቲካ ሥርዓቶችን።"
-          }
-        },
-        {
-          "type": "table",
-          "headers": [
-            { "en": "Field", "am": "ዘርፍ" },
-            { "en": "What it studies", "am": "የሚያጠናው" }
-          ],
-          "rows": [
-            [
-              { "en": "**Population geography**", "am": "**የሕዝብ ጂኦግራፊ (Population Geography)**" },
-              { "en": "The distribution, growth and structure of population", "am": "የሕዝብን ስርጭት፣ ዕድገትና አወቃቀር" }
-            ],
-            [
-              { "en": "**Urban geography**", "am": "**የከተማ ጂኦግራፊ (Urban Geography)**" },
-              { "en": "The development and characteristics of towns, cities and other urban centres", "am": "የከተሞችንና የሌሎች የከተማ ማዕከላትን ዕድገትና ባሕርያት" }
-            ],
-            [
-              { "en": "**Economic geography**", "am": "**የኢኮኖሚ ጂኦግራፊ (Economic Geography)**" },
-              { "en": "Production, consumption and exchange of goods and services, and where they happen", "am": "የዕቃዎችና የአገልግሎቶችን ምርት፣ ፍጆታና ልውውጥ፣ እንዲሁም የሚካሄዱበትን ቦታ" }
-            ],
-            [
-              { "en": "**Cultural geography**", "am": "**የባህል ጂኦግራፊ (Cultural Geography)**" },
-              { "en": "Cultures, including people's beliefs and customs, and how they move, spread and interact", "am": "የሰዎችን እምነትና ልማድ ጨምሮ ባህሎችን፣ እንዴት እንደሚንቀሳቀሱ፣ እንደሚስፋፉና እንደሚገናኙ" }
-            ],
-            [
-              { "en": "**Political geography**", "am": "**የፖለቲካ ጂኦግራፊ (Political Geography)**" },
-              { "en": "Political systems, and how people use them to exercise power and make decisions", "am": "የፖለቲካ ሥርዓቶችን፣ ሰዎች ሥልጣን ለመጠቀምና ውሳኔ ለመስጠት እንዴት እንደሚጠቀሙባቸው" }
-            ],
-            [
-              { "en": "**Historical geography**", "am": "**የታሪክ ጂኦግራፊ (Historical Geography)**" },
-              { "en": "The geography of the past, and how places and regions change over time", "am": "የቀድሞውን ዘመን ጂኦግራፊ፣ ቦታዎችና አካባቢዎች በጊዜ ሂደት እንዴት እንደሚለወጡ" }
-            ]
+          "type": "points",
+          "items": [
+            {
+              "icon": "users",
+              "title": {
+                "en": "Population geography",
+                "am": "የሕዝብ ጂኦግራፊ (Population Geography)"
+              },
+              "text": {
+                "en": "how people are spread, how the population grows, its structure",
+                "am": "ሕዝብ እንዴት እንደተሰራጨ፣ እንዴት እንደሚያድግና አወቃቀሩ"
+              }
+            },
+            {
+              "icon": "building-2",
+              "title": {
+                "en": "Urban geography",
+                "am": "የከተማ ጂኦግራፊ (Urban Geography)"
+              },
+              "text": {
+                "en": "towns and cities",
+                "am": "ከተሞች"
+              }
+            },
+            {
+              "icon": "coins",
+              "title": {
+                "en": "Economic geography",
+                "am": "የኢኮኖሚ ጂኦግራፊ (Economic Geography)"
+              },
+              "text": {
+                "en": "producing, using and trading goods and services",
+                "am": "የዕቃዎችና የአገልግሎቶች ምርት፣ ፍጆታና ንግድ"
+              }
+            },
+            {
+              "icon": "palette",
+              "title": {
+                "en": "Cultural geography",
+                "am": "የባህል ጂኦግራፊ (Cultural Geography)"
+              },
+              "text": {
+                "en": "beliefs, customs and how cultures spread",
+                "am": "እምነቶች፣ ልማዶችና ባህሎች እንዴት እንደሚስፋፉ"
+              }
+            },
+            {
+              "icon": "landmark",
+              "title": {
+                "en": "Political geography",
+                "am": "የፖለቲካ ጂኦግራፊ (Political Geography)"
+              },
+              "text": {
+                "en": "political systems, power and decisions",
+                "am": "የፖለቲካ ሥርዓቶች፣ ሥልጣንና ውሳኔዎች"
+              }
+            },
+            {
+              "icon": "hourglass",
+              "title": {
+                "en": "Historical geography",
+                "am": "የታሪክ ጂኦግራፊ (Historical Geography)"
+              },
+              "text": {
+                "en": "places in the past and how they changed",
+                "am": "ቦታዎች በቀድሞ ዘመን እና እንዴት እንደተለወጡ"
+              }
+            }
           ]
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Watch out in exams",
+        "am": "በፈተና ላይ ተጠንቀቁ"
+      },
+      "icon": "target",
+      "blocks": [
+        {
+          "type": "example",
+          "title": {
+            "en": "Trap 1",
+            "am": "ወጥመድ 1"
+          },
+          "text": {
+            "en": "**Biogeography** studies plants and animals, so it is **physical** geography, not human geography.",
+            "am": "**የሕይወት ጂኦግራፊ (Biogeography)** ዕፅዋትንና እንስሳትን ስለሚያጠና የ**ተፈጥሮ** ጂኦግራፊ ነው እንጂ የሰው ጂኦግራፊ አይደለም።"
+          }
         },
         {
           "type": "example",
-          "title": { "en": "Common exam traps", "am": "የተለመዱ የፈተና ወጥመዶች" },
+          "title": {
+            "en": "Trap 2",
+            "am": "ወጥመድ 2"
+          },
           "text": {
-            "en": "**Biogeography** studies plants and animals, so it is **physical** geography, not human geography. The distribution of population is studied by **population geography**, not cultural geography.",
-            "am": "**የሕይወት ጂኦግራፊ (Biogeography)** ዕፅዋትንና እንስሳትን ስለሚያጠና የ**ተፈጥሮ** ጂኦግራፊ ዘርፍ ነው እንጂ የሰው ጂኦግራፊ አይደለም። የሕዝብን ስርጭት የሚያጠናው **የሕዝብ ጂኦግራፊ (Population Geography)** ነው እንጂ የባህል ጂኦግራፊ አይደለም።"
+            "en": "Where people live is studied by **population geography**, not cultural geography.",
+            "am": "ሰዎች የት እንደሚኖሩ የሚያጠናው **የሕዝብ ጂኦግራፊ (Population Geography)** ነው እንጂ የባህል ጂኦግራፊ አይደለም።"
           }
         }
       ]
+    }
+  ],
+  "glossary": [
+    {
+      "term": {
+        "en": "Physical geography",
+        "am": "የተፈጥሮ ጂኦግራፊ"
+      },
+      "definition": {
+        "en": "The branch of geography that studies natural features: climate, landforms, soil, vegetation and water.",
+        "am": "የተፈጥሮ ገጽታዎችን የሚያጠና የጂኦግራፊ ቅርንጫፍ፦ የአየር ንብረት፣ የመሬት ቅርጾች፣ አፈር፣ ዕፅዋትና ውሃ።"
+      }
+    },
+    {
+      "term": {
+        "en": "Human geography",
+        "am": "የሰው ጂኦግራፊ"
+      },
+      "definition": {
+        "en": "The branch of geography that studies what people make and do: population, cities, economy, culture and politics.",
+        "am": "ሰዎች የሚሠሩትንና የሚያደርጉትን የሚያጠና የጂኦግራፊ ቅርንጫፍ፦ ሕዝብ፣ ከተሞች፣ ኢኮኖሚ፣ ባህልና ፖለቲካ።"
+      }
+    },
+    {
+      "term": {
+        "en": "Sub-field",
+        "am": "ንዑስ ዘርፍ"
+      },
+      "definition": {
+        "en": "A smaller, specialised area of study inside a branch.",
+        "am": "በአንድ ቅርንጫፍ ውስጥ ያለ ትንሽና ልዩ የጥናት ዘርፍ።"
+      }
+    },
+    {
+      "term": {
+        "en": "Landforms",
+        "am": "የመሬት ቅርጾች"
+      },
+      "definition": {
+        "en": "Natural shapes of the land, such as mountains, plateaus, valleys and plains.",
+        "am": "እንደ ተራሮች፣ አምባዎች፣ ሸለቆዎችና ሜዳዎች ያሉ የመሬት ተፈጥሯዊ ቅርጾች።"
+      }
+    },
+    {
+      "term": {
+        "en": "Climatology",
+        "am": "የአየር ንብረት ጥናት"
+      },
+      "definition": {
+        "en": "The study of climate: what creates it and how it differs from place to place.",
+        "am": "የአየር ንብረት ጥናት፦ የሚፈጥሩት ምክንያቶችና ከቦታ ቦታ እንዴት እንደሚለያይ።"
+      }
+    },
+    {
+      "term": {
+        "en": "Geomorphology",
+        "am": "የመሬት ቅርጽ ጥናት"
+      },
+      "definition": {
+        "en": "The study of landforms and the forces that shape them.",
+        "am": "የመሬት ቅርጾችንና የሚቀርጿቸውን ኃይሎች የሚያጠና ዘርፍ።"
+      }
+    },
+    {
+      "term": {
+        "en": "Biogeography",
+        "am": "የሕይወት ጂኦግራፊ"
+      },
+      "definition": {
+        "en": "The study of where plants and animals live, and why. It is part of physical geography.",
+        "am": "ዕፅዋትና እንስሳት የት እንደሚኖሩና ለምን እንደሆነ የሚያጠና ዘርፍ። የተፈጥሮ ጂኦግራፊ ክፍል ነው።"
+      }
+    },
+    {
+      "term": {
+        "en": "Oceanography",
+        "am": "የውቅያኖስ ጥናት"
+      },
+      "definition": {
+        "en": "The study of oceans: currents, waves and tides.",
+        "am": "የውቅያኖሶች ጥናት፦ ጅረቶች፣ ማዕበሎችና የባሕር ውሃ ከፍታና ዝቅታ።"
+      }
+    },
+    {
+      "term": {
+        "en": "Hydrology",
+        "am": "የውሃ ጥናት"
+      },
+      "definition": {
+        "en": "The study of water on land: rivers, lakes and drainage.",
+        "am": "በየብስ ላይ ያለ ውሃ ጥናት፦ ወንዞች፣ ሐይቆችና የውሃ ፍሳሽ።"
+      }
+    },
+    {
+      "term": {
+        "en": "Population geography",
+        "am": "የሕዝብ ጂኦግራፊ"
+      },
+      "definition": {
+        "en": "The study of how people are spread, how fast the population grows and its structure (ages, sexes).",
+        "am": "ሕዝብ እንዴት እንደተሰራጨ፣ በምን ያህል ፍጥነት እንደሚያድግና አወቃቀሩን (ዕድሜ፣ ጾታ) የሚያጠና ዘርፍ።"
+      }
+    },
+    {
+      "term": {
+        "en": "Urban geography",
+        "am": "የከተማ ጂኦግራፊ"
+      },
+      "definition": {
+        "en": "The study of how towns and cities grow and what they are like.",
+        "am": "ከተሞች እንዴት እንደሚያድጉና ምን እንደሚመስሉ የሚያጠና ዘርፍ።"
+      }
     }
   ],
   "main_topics": [
     {
-      "title": { "en": "Two main branches", "am": "ሁለቱ ዋና ቅርንጫፎች" },
+      "title": {
+        "en": "Two main branches",
+        "am": "ሁለቱ ዋና ቅርንጫፎች"
+      },
       "points": [
-        { "en": "Geography has **2 main branches**: **Physical** geography and **Human** geography.", "am": "ጂኦግራፊ **2 ዋና ቅርንጫፎች** አሉት፦ **የተፈጥሮ** ጂኦግራፊ እና **የሰው** ጂኦግራፊ።" },
-        { "en": "Physical = **natural** features (climate, landforms, soil, vegetation, drainage).", "am": "የተፈጥሮ = **ተፈጥሯዊ** ገጽታዎች (የአየር ንብረት፣ የመሬት ቅርጾች፣ አፈር፣ ዕፅዋት፣ የውሃ ፍሳሽ)።" },
-        { "en": "Human = **human-made** aspects (population, cities, economy, culture, politics).", "am": "የሰው = **በሰው የተሠሩ** ገጽታዎች (ሕዝብ፣ ከተሞች፣ ኢኮኖሚ፣ ባህል፣ ፖለቲካ)።" },
-        { "en": "Trick: **nature** made it → physical; **people** made it → human.", "am": "ዘዴ፦ **ተፈጥሮ** የሠራው → የተፈጥሮ፤ **ሰው** የሠራው → የሰው ጂኦግራፊ።" }
+        {
+          "en": "Geography has **2 main branches**: **Physical** geography and **Human** geography.",
+          "am": "ጂኦግራፊ **2 ዋና ቅርንጫፎች** አሉት፦ **የተፈጥሮ** ጂኦግራፊ እና **የሰው** ጂኦግራፊ።"
+        },
+        {
+          "en": "Physical = **natural** features (climate, landforms, soil, vegetation, drainage).",
+          "am": "የተፈጥሮ = **ተፈጥሯዊ** ገጽታዎች (የአየር ንብረት፣ የመሬት ቅርጾች፣ አፈር፣ ዕፅዋት፣ የውሃ ፍሳሽ)።"
+        },
+        {
+          "en": "Human = **human-made** aspects (population, cities, economy, culture, politics).",
+          "am": "የሰው = **በሰው የተሠሩ** ገጽታዎች (ሕዝብ፣ ከተሞች፣ ኢኮኖሚ፣ ባህል፣ ፖለቲካ)።"
+        },
+        {
+          "en": "Trick: **nature** made it → physical; **people** made it → human.",
+          "am": "ዘዴ፦ **ተፈጥሮ** የሠራው → የተፈጥሮ፤ **ሰው** የሠራው → የሰው ጂኦግራፊ።"
+        }
       ]
     },
     {
-      "title": { "en": "Physical geography fields", "am": "የተፈጥሮ ጂኦግራፊ ዘርፎች" },
+      "title": {
+        "en": "Physical geography fields",
+        "am": "የተፈጥሮ ጂኦግራፊ ዘርፎች"
+      },
       "points": [
-        { "en": "**Climatology** → climate", "am": "**የአየር ንብረት ጥናት (Climatology)** → የአየር ንብረት" },
-        { "en": "**Geomorphology** → landforms and the forces that shape them", "am": "**የመሬት ቅርጽ ጥናት (Geomorphology)** → የመሬት ቅርጾችና የሚቀርጿቸው ኃይሎች" },
-        { "en": "**Soil geography** → soils", "am": "**የአፈር ጂኦግራፊ** → አፈር" },
-        { "en": "**Biogeography** → plants and animals", "am": "**የሕይወት ጂኦግራፊ (Biogeography)** → ዕፅዋትና እንስሳት" },
-        { "en": "**Oceanography** → ocean currents, waves and tides; **Hydrology** → water on land", "am": "**የውቅያኖስ ጥናት (Oceanography)** → ጅረቶች፣ ማዕበሎችና የባሕር ውሃ ከፍታና ዝቅታ፤ **የውሃ ጥናት (Hydrology)** → በየብስ ላይ ያለ ውሃ" }
+        {
+          "en": "**Climatology** → climate",
+          "am": "**የአየር ንብረት ጥናት (Climatology)** → የአየር ንብረት"
+        },
+        {
+          "en": "**Geomorphology** → landforms and the forces that shape them",
+          "am": "**የመሬት ቅርጽ ጥናት (Geomorphology)** → የመሬት ቅርጾችና የሚቀርጿቸው ኃይሎች"
+        },
+        {
+          "en": "**Soil geography** → soils",
+          "am": "**የአፈር ጂኦግራፊ** → አፈር"
+        },
+        {
+          "en": "**Biogeography** → plants and animals",
+          "am": "**የሕይወት ጂኦግራፊ (Biogeography)** → ዕፅዋትና እንስሳት"
+        },
+        {
+          "en": "**Oceanography** → ocean currents, waves and tides; **Hydrology** → water on land",
+          "am": "**የውቅያኖስ ጥናት (Oceanography)** → ጅረቶች፣ ማዕበሎችና የባሕር ውሃ ከፍታና ዝቅታ፤ **የውሃ ጥናት (Hydrology)** → በየብስ ላይ ያለ ውሃ"
+        }
       ]
     },
     {
-      "title": { "en": "Human geography fields", "am": "የሰው ጂኦግራፊ ዘርፎች" },
+      "title": {
+        "en": "Human geography fields",
+        "am": "የሰው ጂኦግራፊ ዘርፎች"
+      },
       "points": [
-        { "en": "**Population** → distribution, growth and structure of people", "am": "**የሕዝብ ጂኦግራፊ** → የሕዝብ ስርጭት፣ ዕድገትና አወቃቀር" },
-        { "en": "**Urban** → towns and cities", "am": "**የከተማ ጂኦግራፊ** → ከተሞች" },
-        { "en": "**Economic** → production, consumption and exchange", "am": "**የኢኮኖሚ ጂኦግራፊ** → ምርት፣ ፍጆታና ልውውጥ" },
-        { "en": "**Cultural** → beliefs and customs; **Political** → power and decisions; **Historical** → places in the past", "am": "**የባህል ጂኦግራፊ** → እምነትና ልማድ፤ **የፖለቲካ ጂኦግራፊ** → ሥልጣንና ውሳኔ፤ **የታሪክ ጂኦግራፊ** → ቦታዎች በቀድሞ ዘመን" }
+        {
+          "en": "**Population** → distribution, growth and structure of people",
+          "am": "**የሕዝብ ጂኦግራፊ** → የሕዝብ ስርጭት፣ ዕድገትና አወቃቀር"
+        },
+        {
+          "en": "**Urban** → towns and cities",
+          "am": "**የከተማ ጂኦግራፊ** → ከተሞች"
+        },
+        {
+          "en": "**Economic** → production, consumption and exchange",
+          "am": "**የኢኮኖሚ ጂኦግራፊ** → ምርት፣ ፍጆታና ልውውጥ"
+        },
+        {
+          "en": "**Cultural** → beliefs and customs; **Political** → power and decisions; **Historical** → places in the past",
+          "am": "**የባህል ጂኦግራፊ** → እምነትና ልማድ፤ **የፖለቲካ ጂኦግራፊ** → ሥልጣንና ውሳኔ፤ **የታሪክ ጂኦግራፊ** → ቦታዎች በቀድሞ ዘመን"
+        }
       ]
     },
     {
-      "title": { "en": "Watch out in exams", "am": "በፈተና ላይ ተጠንቀቁ" },
+      "title": {
+        "en": "Watch out in exams",
+        "am": "በፈተና ላይ ተጠንቀቁ"
+      },
       "points": [
-        { "en": "Biogeography is **physical**, not human.", "am": "የሕይወት ጂኦግራፊ (Biogeography) **የተፈጥሮ** ጂኦግራፊ ነው እንጂ የሰው አይደለም።" },
-        { "en": "Population distribution = **population** geography, not cultural geography.", "am": "የሕዝብ ስርጭት = **የሕዝብ** ጂኦግራፊ እንጂ የባህል ጂኦግራፊ አይደለም።" }
+        {
+          "en": "Biogeography is **physical**, not human.",
+          "am": "የሕይወት ጂኦግራፊ (Biogeography) **የተፈጥሮ** ጂኦግራፊ ነው እንጂ የሰው አይደለም።"
+        },
+        {
+          "en": "Population distribution = **population** geography, not cultural geography.",
+          "am": "የሕዝብ ስርጭት = **የሕዝብ** ጂኦግራፊ እንጂ የባህል ጂኦግራፊ አይደለም።"
+        }
       ]
     }
   ],
   "quiz": {
-    "title": { "en": "Quiz: Branches of Geography", "am": "ፈተና፦ የጂኦግራፊ ቅርንጫፎች" },
+    "title": {
+      "en": "Quiz: Branches of Geography",
+      "am": "ፈተና፦ የጂኦግራፊ ቅርንጫፎች"
+    },
     "description": {
       "en": "12 questions on physical and human geography and their fields.",
       "am": "ስለ የተፈጥሮና የሰው ጂኦግራፊ እና ዘርፎቻቸው 12 ጥያቄዎች።"
     },
     "questions": [
       {
-        "question": { "en": "The two main branches of geography are:", "am": "ሁለቱ ዋና የጂኦግራፊ ቅርንጫፎች የትኞቹ ናቸው?" },
+        "question": {
+          "en": "The two main branches of geography are:",
+          "am": "ሁለቱ ዋና የጂኦግራፊ ቅርንጫፎች የትኞቹ ናቸው?"
+        },
         "options": [
-          { "en": "Old and modern", "am": "የቀድሞና ዘመናዊ" },
-          { "en": "Physical and human", "am": "የተፈጥሮና የሰው" },
-          { "en": "Spatial and temporal", "am": "ቦታዊና ጊዜያዊ" },
-          { "en": "Urban and rural", "am": "የከተማና የገጠር" }
+          {
+            "en": "Old and modern",
+            "am": "የቀድሞና ዘመናዊ"
+          },
+          {
+            "en": "Physical and human",
+            "am": "የተፈጥሮና የሰው"
+          },
+          {
+            "en": "Spatial and temporal",
+            "am": "ቦታዊና ጊዜያዊ"
+          },
+          {
+            "en": "Urban and rural",
+            "am": "የከተማና የገጠር"
+          }
         ],
         "answer": 1,
-        "explanation": { "en": "Geography is divided into physical geography (natural features) and human geography (human-made aspects).", "am": "ጂኦግራፊ በተፈጥሮ ጂኦግራፊ (ተፈጥሯዊ ገጽታዎች) እና በሰው ጂኦግራፊ (በሰው የተሠሩ ገጽታዎች) ይከፈላል።" }
+        "explanation": {
+          "en": "Geography is divided into physical geography (natural features) and human geography (human-made aspects).",
+          "am": "ጂኦግራፊ በተፈጥሮ ጂኦግራፊ (ተፈጥሯዊ ገጽታዎች) እና በሰው ጂኦግራፊ (በሰው የተሠሩ ገጽታዎች) ይከፈላል።"
+        }
       },
       {
-        "question": { "en": "Which of these is a PHYSICAL feature?", "am": "ከሚከተሉት ውስጥ የተፈጥሮ ገጽታ የሆነው የትኛው ነው?" },
+        "question": {
+          "en": "Which of these is a PHYSICAL feature?",
+          "am": "ከሚከተሉት ውስጥ የተፈጥሮ ገጽታ የሆነው የትኛው ነው?"
+        },
         "options": [
-          { "en": "Population", "am": "ሕዝብ" },
-          { "en": "Economy", "am": "ኢኮኖሚ" },
-          { "en": "Climate", "am": "የአየር ንብረት" },
-          { "en": "Culture", "am": "ባህል" }
+          {
+            "en": "Population",
+            "am": "ሕዝብ"
+          },
+          {
+            "en": "Economy",
+            "am": "ኢኮኖሚ"
+          },
+          {
+            "en": "Climate",
+            "am": "የአየር ንብረት"
+          },
+          {
+            "en": "Culture",
+            "am": "ባህል"
+          }
         ],
         "answer": 2,
-        "explanation": { "en": "Climate is made by nature, so it is studied by physical geography. The others are human aspects.", "am": "የአየር ንብረት በተፈጥሮ የሚፈጠር ስለሆነ በተፈጥሮ ጂኦግራፊ ይጠናል። ሌሎቹ ሰው ነክ ገጽታዎች ናቸው።" }
+        "explanation": {
+          "en": "Climate is made by nature, so it is studied by physical geography. The others are human aspects.",
+          "am": "የአየር ንብረት በተፈጥሮ የሚፈጠር ስለሆነ በተፈጥሮ ጂኦግራፊ ይጠናል። ሌሎቹ ሰው ነክ ገጽታዎች ናቸው።"
+        }
       },
       {
-        "question": { "en": "Which of these is a HUMAN aspect?", "am": "ከሚከተሉት ውስጥ ሰው ነክ ገጽታ የሆነው የትኛው ነው?" },
+        "question": {
+          "en": "Which of these is a HUMAN aspect?",
+          "am": "ከሚከተሉት ውስጥ ሰው ነክ ገጽታ የሆነው የትኛው ነው?"
+        },
         "options": [
-          { "en": "Soil", "am": "አፈር" },
-          { "en": "Urban areas (cities)", "am": "የከተማ አካባቢዎች (ከተሞች)" },
-          { "en": "Drainage", "am": "የውሃ ፍሳሽ" },
-          { "en": "Plateau", "am": "አምባ" }
+          {
+            "en": "Soil",
+            "am": "አፈር"
+          },
+          {
+            "en": "Urban areas (cities)",
+            "am": "የከተማ አካባቢዎች (ከተሞች)"
+          },
+          {
+            "en": "Drainage",
+            "am": "የውሃ ፍሳሽ"
+          },
+          {
+            "en": "Plateau",
+            "am": "አምባ"
+          }
         ],
         "answer": 1,
-        "explanation": { "en": "Cities are made by people, so they belong to human geography (urban geography).", "am": "ከተሞች በሰው የተሠሩ ስለሆኑ የሰው ጂኦግራፊ (የከተማ ጂኦግራፊ) ክፍል ናቸው።" }
+        "explanation": {
+          "en": "Cities are made by people, so they belong to human geography (urban geography).",
+          "am": "ከተሞች በሰው የተሠሩ ስለሆኑ የሰው ጂኦግራፊ (የከተማ ጂኦግራፊ) ክፍል ናቸው።"
+        }
       },
       {
-        "question": { "en": "Mountains, plateaus, valleys and plains are examples of:", "am": "ተራሮች፣ አምባዎች፣ ሸለቆዎችና ሜዳዎች የምን ምሳሌዎች ናቸው?" },
+        "question": {
+          "en": "Mountains, plateaus, valleys and plains are examples of:",
+          "am": "ተራሮች፣ አምባዎች፣ ሸለቆዎችና ሜዳዎች የምን ምሳሌዎች ናቸው?"
+        },
         "options": [
-          { "en": "Drainage", "am": "የውሃ ፍሳሽ" },
-          { "en": "Landforms", "am": "የመሬት ቅርጾች" },
-          { "en": "Climate", "am": "የአየር ንብረት" },
-          { "en": "Culture", "am": "ባህል" }
+          {
+            "en": "Drainage",
+            "am": "የውሃ ፍሳሽ"
+          },
+          {
+            "en": "Landforms",
+            "am": "የመሬት ቅርጾች"
+          },
+          {
+            "en": "Climate",
+            "am": "የአየር ንብረት"
+          },
+          {
+            "en": "Culture",
+            "am": "ባህል"
+          }
         ],
         "answer": 1,
-        "explanation": { "en": "These are landforms, the shapes of the land. They are studied by geomorphology.", "am": "እነዚህ የመሬት ቅርጾች ናቸው። የሚጠኑትም በመሬት ቅርጽ ጥናት (Geomorphology) ነው።" }
+        "explanation": {
+          "en": "These are landforms, the shapes of the land. They are studied by geomorphology.",
+          "am": "እነዚህ የመሬት ቅርጾች ናቸው። የሚጠኑትም በመሬት ቅርጽ ጥናት (Geomorphology) ነው።"
+        }
       },
       {
-        "question": { "en": "The branch of geography that studies landforms and the forces that shape them is:", "am": "የመሬት ቅርጾችንና የሚቀርጿቸውን ኃይሎች የሚያጠናው የጂኦግራፊ ዘርፍ የትኛው ነው?" },
+        "question": {
+          "en": "The branch of geography that studies landforms and the forces that shape them is:",
+          "am": "የመሬት ቅርጾችንና የሚቀርጿቸውን ኃይሎች የሚያጠናው የጂኦግራፊ ዘርፍ የትኛው ነው?"
+        },
         "options": [
-          { "en": "Biogeography", "am": "የሕይወት ጂኦግራፊ (Biogeography)" },
-          { "en": "Oceanography", "am": "የውቅያኖስ ጥናት (Oceanography)" },
-          { "en": "Geomorphology", "am": "የመሬት ቅርጽ ጥናት (Geomorphology)" },
-          { "en": "Soil geography", "am": "የአፈር ጂኦግራፊ (Soil Geography)" }
+          {
+            "en": "Biogeography",
+            "am": "የሕይወት ጂኦግራፊ (Biogeography)"
+          },
+          {
+            "en": "Oceanography",
+            "am": "የውቅያኖስ ጥናት (Oceanography)"
+          },
+          {
+            "en": "Geomorphology",
+            "am": "የመሬት ቅርጽ ጥናት (Geomorphology)"
+          },
+          {
+            "en": "Soil geography",
+            "am": "የአፈር ጂኦግራፊ (Soil Geography)"
+          }
         ],
         "answer": 2,
-        "explanation": { "en": "Geomorphology studies landforms such as mountains and plains, and the forces that change them.", "am": "የመሬት ቅርጽ ጥናት (Geomorphology) እንደ ተራሮችና ሜዳዎች ያሉ የመሬት ቅርጾችንና የሚለውጧቸውን ኃይሎች ያጠናል።" }
+        "explanation": {
+          "en": "Geomorphology studies landforms such as mountains and plains, and the forces that change them.",
+          "am": "የመሬት ቅርጽ ጥናት (Geomorphology) እንደ ተራሮችና ሜዳዎች ያሉ የመሬት ቅርጾችንና የሚለውጧቸውን ኃይሎች ያጠናል።"
+        }
       },
       {
-        "question": { "en": "Which one is NOT a branch of human geography?", "am": "ከሚከተሉት ውስጥ የሰው ጂኦግራፊ ዘርፍ ያልሆነው የትኛው ነው?" },
+        "question": {
+          "en": "Which one is NOT a branch of human geography?",
+          "am": "ከሚከተሉት ውስጥ የሰው ጂኦግራፊ ዘርፍ ያልሆነው የትኛው ነው?"
+        },
         "options": [
-          { "en": "Political geography", "am": "የፖለቲካ ጂኦግራፊ" },
-          { "en": "Urban geography", "am": "የከተማ ጂኦግራፊ" },
-          { "en": "Biogeography", "am": "የሕይወት ጂኦግራፊ (Biogeography)" },
-          { "en": "Historical geography", "am": "የታሪክ ጂኦግራፊ" }
+          {
+            "en": "Political geography",
+            "am": "የፖለቲካ ጂኦግራፊ"
+          },
+          {
+            "en": "Urban geography",
+            "am": "የከተማ ጂኦግራፊ"
+          },
+          {
+            "en": "Biogeography",
+            "am": "የሕይወት ጂኦግራፊ (Biogeography)"
+          },
+          {
+            "en": "Historical geography",
+            "am": "የታሪክ ጂኦግራፊ"
+          }
         ],
         "answer": 2,
-        "explanation": { "en": "Biogeography studies plants and animals, so it is a field of physical geography.", "am": "የሕይወት ጂኦግራፊ ዕፅዋትንና እንስሳትን ስለሚያጠና የተፈጥሮ ጂኦግራፊ ዘርፍ ነው።" }
+        "explanation": {
+          "en": "Biogeography studies plants and animals, so it is a field of physical geography.",
+          "am": "የሕይወት ጂኦግራፊ ዕፅዋትንና እንስሳትን ስለሚያጠና የተፈጥሮ ጂኦግራፊ ዘርፍ ነው።"
+        }
       },
       {
-        "question": { "en": "Which field studies the distribution, growth and structure of population?", "am": "የሕዝብን ስርጭት፣ ዕድገትና አወቃቀር የሚያጠናው ዘርፍ የትኛው ነው?" },
+        "question": {
+          "en": "Which field studies the distribution, growth and structure of population?",
+          "am": "የሕዝብን ስርጭት፣ ዕድገትና አወቃቀር የሚያጠናው ዘርፍ የትኛው ነው?"
+        },
         "options": [
-          { "en": "Cultural geography", "am": "የባህል ጂኦግራፊ" },
-          { "en": "Population geography", "am": "የሕዝብ ጂኦግራፊ" },
-          { "en": "Political geography", "am": "የፖለቲካ ጂኦግራፊ" },
-          { "en": "Historical geography", "am": "የታሪክ ጂኦግራፊ" }
+          {
+            "en": "Cultural geography",
+            "am": "የባህል ጂኦግራፊ"
+          },
+          {
+            "en": "Population geography",
+            "am": "የሕዝብ ጂኦግራፊ"
+          },
+          {
+            "en": "Political geography",
+            "am": "የፖለቲካ ጂኦግራፊ"
+          },
+          {
+            "en": "Historical geography",
+            "am": "የታሪክ ጂኦግራፊ"
+          }
         ],
         "answer": 1,
-        "explanation": { "en": "Population geography studies the distribution, growth and structure of population. Cultural geography studies beliefs and customs.", "am": "የሕዝብ ጂኦግራፊ የሕዝብን ስርጭት፣ ዕድገትና አወቃቀር ያጠናል። የባህል ጂኦግራፊ ደግሞ እምነትንና ልማድን ያጠናል።" }
+        "explanation": {
+          "en": "Population geography studies the distribution, growth and structure of population. Cultural geography studies beliefs and customs.",
+          "am": "የሕዝብ ጂኦግራፊ የሕዝብን ስርጭት፣ ዕድገትና አወቃቀር ያጠናል። የባህል ጂኦግራፊ ደግሞ እምነትንና ልማድን ያጠናል።"
+        }
       },
       {
-        "question": { "en": "Which of the following is a branch of physical geography?", "am": "ከሚከተሉት ውስጥ የተፈጥሮ ጂኦግራፊ ዘርፍ የሆነው የትኛው ነው?" },
+        "question": {
+          "en": "Which of the following is a branch of physical geography?",
+          "am": "ከሚከተሉት ውስጥ የተፈጥሮ ጂኦግራፊ ዘርፍ የሆነው የትኛው ነው?"
+        },
         "options": [
-          { "en": "Climatology", "am": "የአየር ንብረት ጥናት (Climatology)" },
-          { "en": "Soil geography", "am": "የአፈር ጂኦግራፊ" },
-          { "en": "Oceanography", "am": "የውቅያኖስ ጥናት (Oceanography)" },
-          { "en": "All of the above", "am": "ሁሉም መልስ ናቸው" }
+          {
+            "en": "Climatology",
+            "am": "የአየር ንብረት ጥናት (Climatology)"
+          },
+          {
+            "en": "Soil geography",
+            "am": "የአፈር ጂኦግራፊ"
+          },
+          {
+            "en": "Oceanography",
+            "am": "የውቅያኖስ ጥናት (Oceanography)"
+          },
+          {
+            "en": "All of the above",
+            "am": "ሁሉም መልስ ናቸው"
+          }
         ],
         "answer": 3,
-        "explanation": { "en": "Climatology, soil geography and oceanography all study natural features, so all are physical geography.", "am": "የአየር ንብረት ጥናት፣ የአፈር ጂኦግራፊና የውቅያኖስ ጥናት ሁሉም ተፈጥሯዊ ገጽታዎችን ስለሚያጠኑ የተፈጥሮ ጂኦግራፊ ዘርፎች ናቸው።" }
+        "explanation": {
+          "en": "Climatology, soil geography and oceanography all study natural features, so all are physical geography.",
+          "am": "የአየር ንብረት ጥናት፣ የአፈር ጂኦግራፊና የውቅያኖስ ጥናት ሁሉም ተፈጥሯዊ ገጽታዎችን ስለሚያጠኑ የተፈጥሮ ጂኦግራፊ ዘርፎች ናቸው።"
+        }
       },
       {
-        "question": { "en": "Which field studies the distribution of plants and animals in relation to their environments?", "am": "የዕፅዋትንና የእንስሳትን ስርጭት ከሚኖሩበት አካባቢ ጋር በተያያዘ የሚያጠናው ዘርፍ የትኛው ነው?" },
+        "question": {
+          "en": "Which field studies the distribution of plants and animals in relation to their environments?",
+          "am": "የዕፅዋትንና የእንስሳትን ስርጭት ከሚኖሩበት አካባቢ ጋር በተያያዘ የሚያጠናው ዘርፍ የትኛው ነው?"
+        },
         "options": [
-          { "en": "Biogeography", "am": "የሕይወት ጂኦግራፊ (Biogeography)" },
-          { "en": "Economic geography", "am": "የኢኮኖሚ ጂኦግራፊ" },
-          { "en": "Climatology", "am": "የአየር ንብረት ጥናት (Climatology)" },
-          { "en": "Urban geography", "am": "የከተማ ጂኦግራፊ" }
+          {
+            "en": "Biogeography",
+            "am": "የሕይወት ጂኦግራፊ (Biogeography)"
+          },
+          {
+            "en": "Economic geography",
+            "am": "የኢኮኖሚ ጂኦግራፊ"
+          },
+          {
+            "en": "Climatology",
+            "am": "የአየር ንብረት ጥናት (Climatology)"
+          },
+          {
+            "en": "Urban geography",
+            "am": "የከተማ ጂኦግራፊ"
+          }
         ],
         "answer": 0,
-        "explanation": { "en": "Bio means life, so biogeography studies living things: plants and animals.", "am": "ባዮ (Bio) ማለት ሕይወት ነው፤ ስለዚህ የሕይወት ጂኦግራፊ ሕያዋን ፍጥረታትን፣ ዕፅዋትንና እንስሳትን ያጠናል።" }
+        "explanation": {
+          "en": "Bio means life, so biogeography studies living things: plants and animals.",
+          "am": "ባዮ (Bio) ማለት ሕይወት ነው፤ ስለዚህ የሕይወት ጂኦግራፊ ሕያዋን ፍጥረታትን፣ ዕፅዋትንና እንስሳትን ያጠናል።"
+        }
       },
       {
-        "question": { "en": "Political geography studies:", "am": "የፖለቲካ ጂኦግራፊ የሚያጠናው፦" },
+        "question": {
+          "en": "Political geography studies:",
+          "am": "የፖለቲካ ጂኦግራፊ የሚያጠናው፦"
+        },
         "options": [
-          { "en": "Ocean currents, waves and tides", "am": "የውቅያኖስ ጅረቶችን፣ ማዕበሎችንና የባሕር ውሃ ከፍታና ዝቅታን" },
-          { "en": "Political systems and how people use them to exercise power and make decisions", "am": "የፖለቲካ ሥርዓቶችንና ሰዎች ሥልጣን ለመጠቀምና ውሳኔ ለመስጠት እንዴት እንደሚጠቀሙባቸው" },
-          { "en": "The growth of towns and cities", "am": "የከተሞችን ዕድገት" },
-          { "en": "The characteristics of soils", "am": "የአፈርን ባሕርያት" }
+          {
+            "en": "Ocean currents, waves and tides",
+            "am": "የውቅያኖስ ጅረቶችን፣ ማዕበሎችንና የባሕር ውሃ ከፍታና ዝቅታን"
+          },
+          {
+            "en": "Political systems and how people use them to exercise power and make decisions",
+            "am": "የፖለቲካ ሥርዓቶችንና ሰዎች ሥልጣን ለመጠቀምና ውሳኔ ለመስጠት እንዴት እንደሚጠቀሙባቸው"
+          },
+          {
+            "en": "The growth of towns and cities",
+            "am": "የከተሞችን ዕድገት"
+          },
+          {
+            "en": "The characteristics of soils",
+            "am": "የአፈርን ባሕርያት"
+          }
         ],
         "answer": 1,
-        "explanation": { "en": "Political geography studies the distribution of political systems and how people use them to exercise power and make decisions.", "am": "የፖለቲካ ጂኦግራፊ የፖለቲካ ሥርዓቶችን ስርጭትና ሰዎች ሥልጣን ለመጠቀምና ውሳኔ ለመስጠት እንዴት እንደሚጠቀሙባቸው ያጠናል።" }
+        "explanation": {
+          "en": "Political geography studies the distribution of political systems and how people use them to exercise power and make decisions.",
+          "am": "የፖለቲካ ጂኦግራፊ የፖለቲካ ሥርዓቶችን ስርጭትና ሰዎች ሥልጣን ለመጠቀምና ውሳኔ ለመስጠት እንዴት እንደሚጠቀሙባቸው ያጠናል።"
+        }
       },
       {
-        "question": { "en": "Studying how a region looked 200 years ago and how it has changed belongs to:", "am": "አንድ አካባቢ ከ200 ዓመታት በፊት ምን ይመስል እንደነበርና እንዴት እንደተለወጠ ማጥናት የየትኛው ዘርፍ ነው?" },
+        "question": {
+          "en": "Studying how a region looked 200 years ago and how it has changed belongs to:",
+          "am": "አንድ አካባቢ ከ200 ዓመታት በፊት ምን ይመስል እንደነበርና እንዴት እንደተለወጠ ማጥናት የየትኛው ዘርፍ ነው?"
+        },
         "options": [
-          { "en": "Historical geography", "am": "የታሪክ ጂኦግራፊ" },
-          { "en": "Climatology", "am": "የአየር ንብረት ጥናት" },
-          { "en": "Oceanography", "am": "የውቅያኖስ ጥናት" },
-          { "en": "Soil geography", "am": "የአፈር ጂኦግራፊ" }
+          {
+            "en": "Historical geography",
+            "am": "የታሪክ ጂኦግራፊ"
+          },
+          {
+            "en": "Climatology",
+            "am": "የአየር ንብረት ጥናት"
+          },
+          {
+            "en": "Oceanography",
+            "am": "የውቅያኖስ ጥናት"
+          },
+          {
+            "en": "Soil geography",
+            "am": "የአፈር ጂኦግራፊ"
+          }
         ],
         "answer": 0,
-        "explanation": { "en": "Historical geography studies the geography of the past and how places and regions change over time.", "am": "የታሪክ ጂኦግራፊ የቀድሞውን ዘመን ጂኦግራፊና ቦታዎች በጊዜ ሂደት እንዴት እንደሚለወጡ ያጠናል።" }
+        "explanation": {
+          "en": "Historical geography studies the geography of the past and how places and regions change over time.",
+          "am": "የታሪክ ጂኦግራፊ የቀድሞውን ዘመን ጂኦግራፊና ቦታዎች በጊዜ ሂደት እንዴት እንደሚለወጡ ያጠናል።"
+        }
       },
       {
-        "question": { "en": "Production, consumption and exchange of goods and services are studied by:", "am": "የዕቃዎችና የአገልግሎቶች ምርት፣ ፍጆታና ልውውጥ የሚጠኑት በየትኛው ዘርፍ ነው?" },
+        "question": {
+          "en": "Production, consumption and exchange of goods and services are studied by:",
+          "am": "የዕቃዎችና የአገልግሎቶች ምርት፣ ፍጆታና ልውውጥ የሚጠኑት በየትኛው ዘርፍ ነው?"
+        },
         "options": [
-          { "en": "Cultural geography", "am": "የባህል ጂኦግራፊ" },
-          { "en": "Geomorphology", "am": "የመሬት ቅርጽ ጥናት" },
-          { "en": "Economic geography", "am": "የኢኮኖሚ ጂኦግራፊ" },
-          { "en": "Biogeography", "am": "የሕይወት ጂኦግራፊ" }
+          {
+            "en": "Cultural geography",
+            "am": "የባህል ጂኦግራፊ"
+          },
+          {
+            "en": "Geomorphology",
+            "am": "የመሬት ቅርጽ ጥናት"
+          },
+          {
+            "en": "Economic geography",
+            "am": "የኢኮኖሚ ጂኦግራፊ"
+          },
+          {
+            "en": "Biogeography",
+            "am": "የሕይወት ጂኦግራፊ"
+          }
         ],
         "answer": 2,
-        "explanation": { "en": "Economic geography studies production, consumption and exchange, and where these activities happen.", "am": "የኢኮኖሚ ጂኦግራፊ ምርትን፣ ፍጆታንና ልውውጥን፣ እንዲሁም እነዚህ እንቅስቃሴዎች የሚካሄዱበትን ቦታ ያጠናል።" }
+        "explanation": {
+          "en": "Economic geography studies production, consumption and exchange, and where these activities happen.",
+          "am": "የኢኮኖሚ ጂኦግራፊ ምርትን፣ ፍጆታንና ልውውጥን፣ እንዲሁም እነዚህ እንቅስቃሴዎች የሚካሄዱበትን ቦታ ያጠናል።"
+        }
       }
     ]
   }

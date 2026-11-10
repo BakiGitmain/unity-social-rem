@@ -136,3 +136,19 @@ export function LessonSkeleton() {
     </div>
   );
 }
+
+export function AuthSkeleton() {
+  return (
+    <div className="mx-auto flex max-w-md flex-col justify-center px-4 py-8 sm:py-12" role="status" aria-live="polite">
+      <span className="sr-only">Loading</span>
+      <div className="rounded-[2rem] bg-surface px-6 pt-6 pb-7 ring-1 ring-line sm:px-8 sm:pt-8">
+        <Skeleton className="h-40 w-full !rounded-3xl" />
+        <Skeleton className="mt-6 h-7 w-48" />
+        <Skeleton className="mt-2 h-4 w-56" />
+        <Skeleton className="mt-6 h-12 w-full !rounded-2xl" />
+        <Skeleton className="mt-4 h-12 w-full !rounded-2xl" />
+        <Skeleton className="mt-5 h-12 w-full !rounded-2xl" />
+      </div>
+    </div>
+  );
+}

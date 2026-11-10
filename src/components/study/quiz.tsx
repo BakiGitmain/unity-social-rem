@@ -4,7 +4,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Check, ListRestart, NotebookText, RotateCcw, Target, X, Eye } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
-import { ui } from "@/lib/i18n";
+import { t as tr, type SiteKey } from "@/lib/site-i18n";
+import type { Locale } from "@/lib/locale";
+import { recordQuizScore } from "@/lib/progress";
+import { usePinBar } from "@/lib/bar-pin";
 import type { Lang, QuizQuestion } from "@/lib/types";
 import type { QuizMeta } from "@/lib/data";
 
@@ -13,18 +16,25 @@ type Phase = "intro" | "running" | "done" | "review";
 /** Quiz tab. Loaded lazily; questions are fetched only when this tab is opened. */
 export default function Quiz({
   quiz,
+  lessonId,
   lang,
+  locale,
+  autoStartKey = 0,
   onRunningChange,
   onBackToNotes,
 }: {
   quiz: QuizMeta;
+  lessonId: string;
   lang: Lang;
+  locale: Locale;
+  /** Increase to jump straight into the quiz (e.g. from the "Lesson complete" screen). */
+  autoStartKey?: number;
   onRunningChange: (running: boolean) => void;
   onBackToNotes: () => void;
 }) {
   // In "both" mode only the notes change; the quiz stays English.
   const qLang: "en" | "am" = lang === "am" ? "am" : "en";
-  const am = qLang === "am";
+  const am = qLang === "am" || locale === "am";
 
   const [questions, setQuestions] = useState<QuizQuestion[] | null>(null);
   const [loadError, setLoadError] = useState(false);
@@ -32,6 +42,7 @@ export default function Quiz({
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>([]);
   const topRef = useRef<HTMLDivElement>(null);
+  usePinBar(phase === "running"); // keep the mobile tab bar visible during the quiz
 
   const load = useCallback(async () => {
     setLoadError(false);
@@ -65,7 +76,24 @@ export default function Quiz({
 
   const cancel = () => go("intro");
 
-  const t = (k: Parameters<typeof ui>[0]) => ui(k, qLang);
+  // "Start Quiz" on the finished screen: begin as soon as the questions are loaded.
+  const handledKey = useRef(0);
+  useEffect(() => {
+    if (!autoStartKey || autoStartKey === handledKey.current || !questions) return;
+    handledKey.current = autoStartKey;
+    start();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoStartKey, questions]);
+
+  const finish = () => {
+    if (questions) {
+      const s = answers.filter((a, i) => a === questions[i].correct_index).length;
+      recordQuizScore(lessonId, s, questions.length);
+    }
+    go("done");
+  };
+
+  const t = (k: SiteKey) => tr(locale, k);
   const total = questions?.length ?? quiz.questionCount;
   const score = questions ? answers.filter((a, i) => a === questions[i].correct_index).length : 0;
 
@@ -123,8 +151,9 @@ export default function Quiz({
               total={questions.length}
               chosen={answers[index]}
               lang={qLang}
+              t={t}
               onChoose={(i) => setAnswers((a) => a.map((v, k) => (k === index ? i : v)))}
-              onNext={() => (index + 1 < questions.length ? setIndex(index + 1) : go("done"))}
+              onNext={() => (index + 1 < questions.length ? setIndex(index + 1) : finish())}
               isLast={index + 1 === questions.length}
             />
           </Panel>
@@ -198,6 +227,7 @@ function QuestionCard({
   total,
   chosen,
   lang,
+  t,
   onChoose,
   onNext,
   isLast,
@@ -207,6 +237,7 @@ function QuestionCard({
   total: number;
   chosen: number | null;
   lang: "en" | "am";
+  t: (k: SiteKey) => string;
   onChoose: (i: number) => void;
   onNext: () => void;
   isLast: boolean;
@@ -226,7 +257,7 @@ function QuestionCard({
       {/* progress */}
       <div className="flex items-center justify-between text-sm text-muted">
         <span>
-          {ui("question", lang)} {number} {ui("of", lang)} {total}
+          {t("question")} {number} {t("of")} {total}
         </span>
         <span className="tabular-nums">{Math.round(((number - 1 + (answered ? 1 : 0)) / total) * 100)}%</span>
       </div>
@@ -296,10 +327,10 @@ function QuestionCard({
               <div className={`mt-5 rounded-2xl px-4 py-3.5 ${right ? "bg-good-soft" : "bg-bad-soft"}`} role="status" aria-live="polite">
                 <p className={`flex items-center gap-2 font-semibold ${right ? "text-good" : "text-bad"}`}>
                   {right ? <Check className="size-4" aria-hidden /> : <X className="size-4" aria-hidden />}
-                  {ui(right ? "correct" : "incorrect", lang)}
+                  {t(right ? "correct" : "incorrect")}
                 </p>
                 <p className="mt-1.5 text-sm leading-relaxed text-ink/90">
-                  <span className="font-medium">{ui("explanation", lang)}: </span>
+                  <span className="font-medium">{t("explanation")}: </span>
                   {am ? q.explanation_am : q.explanation_en}
                 </p>
               </div>
@@ -310,7 +341,7 @@ function QuestionCard({
                   onClick={onNext}
                   className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-2.5 font-medium text-white transition-transform active:translate-y-0"
                 >
-                  {ui(isLast ? "seeResults" : "nextQuestion", lang)}
+                  {t(isLast ? "seeResults" : "nextQuestion")}
                   <ArrowRight className="size-4" aria-hidden />
                 </button>
               </div>
@@ -334,7 +365,7 @@ function ScoreScreen({
   score: number;
   total: number;
   am: boolean;
-  t: (k: Parameters<typeof ui>[0]) => string;
+  t: (k: SiteKey) => string;
   onReview: () => void;
   onRetry: () => void;
   onNotes: () => void;
@@ -406,7 +437,7 @@ function Review({
   questions: QuizQuestion[];
   answers: (number | null)[];
   lang: "en" | "am";
-  t: (k: Parameters<typeof ui>[0]) => string;
+  t: (k: SiteKey) => string;
   onBack: () => void;
   onRetry: () => void;
 }) {

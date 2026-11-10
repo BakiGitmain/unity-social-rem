@@ -3,10 +3,10 @@ import { ChevronRight } from "lucide-react";
 
 export type Crumb = { label: string; href?: string };
 
-export function Breadcrumbs({ items }: { items: Crumb[] }) {
+export function Breadcrumbs({ items, am = false }: { items: Crumb[]; am?: boolean }) {
   return (
     <nav aria-label="Breadcrumb" className="no-scrollbar -mx-4 overflow-x-auto px-4">
-      <ol className="flex items-center gap-1 whitespace-nowrap text-sm text-muted">
+      <ol className={`flex items-center gap-1 whitespace-nowrap text-sm text-muted ${am ? "am" : ""}`}>
         {items.map((c, i) => {
           const last = i === items.length - 1;
           return (

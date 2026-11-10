@@ -1,6 +1,14 @@
 import { cacheLife, cacheTag } from "next/cache";
 import { createPublicClient } from "@/lib/supabase/public";
-import type { Grade, Lesson, LessonSection, LessonSummary, MainTopic, Subject, Unit } from "@/lib/types";
+import { timeToMinutes } from "@/lib/time/clock";
+import type { ClassEntry } from "@/lib/time/schedule";
+import type { GlossaryEntry, Grade, Lesson, LessonSection, LessonSummary, MainTopic, Subject, Unit } from "@/lib/types";
+
+/** Content changes only via migrations. In dev keep the cache tiny so pushed migrations show up at once. */
+function life() {
+  if (process.env.NODE_ENV === "development") cacheLife("seconds");
+  else cacheLife("hours");
+}
 
 /*
  * All reads are public content that only changes through migrations, so every
@@ -8,7 +16,7 @@ import type { Grade, Lesson, LessonSection, LessonSummary, MainTopic, Subject, U
  */
 
 const LESSON_SUMMARY_COLUMNS =
-  "id, unit_id, code, slug, sort_order, section_code, section_title_en, section_title_am, title_en, title_am, summary_en, summary_am, minutes";
+  "id, unit_id, code, slug, sort_order, section_code, section_title_en, section_title_am, title_en, title_am, summary_en, summary_am, minutes, lesson_sections(count)";
 
 export type SubjectCard = Subject & { unitCount: number; lessonCount: number };
 export type UnitWithLessons = Unit & { lessons: LessonSummary[] };
@@ -29,7 +37,7 @@ const bySort = (a: { sort_order: number }, b: { sort_order: number }) => a.sort_
 /** Home page: the 4 subjects with how much content each has. */
 export async function getSubjects(): Promise<SubjectCard[]> {
   "use cache";
-  cacheLife("hours");
+  life();
   cacheTag("content");
 
   const { data, error } = await createPublicClient()
@@ -48,7 +56,7 @@ export async function getSubjects(): Promise<SubjectCard[]> {
 /** One subject with its grades, units and lesson titles (no lesson content). */
 export async function getSubjectTree(subjectSlug: string): Promise<SubjectTree | null> {
   "use cache";
-  cacheLife("hours");
+  life();
   cacheTag("content");
 
   const { data, error } = await createPublicClient()
@@ -63,29 +71,38 @@ export async function getSubjectTree(subjectSlug: string): Promise<SubjectTree |
   tree.grades.sort(byNumber);
   for (const g of tree.grades) {
     g.units.sort(byNumber);
-    for (const u of g.units) u.lessons.sort(bySort);
+    for (const u of g.units) {
+      u.lessons.sort(bySort);
+      for (const l of u.lessons as (LessonSummary & { lesson_sections?: { count: number }[] })[]) {
+        l.partCount = l.lesson_sections?.[0]?.count ?? 0;
+        delete l.lesson_sections;
+      }
+    }
   }
   return tree;
 }
 
-/** The full content of one lesson: note sections, main topics and quiz info (not the questions). */
-export async function getLessonContent(
-  lessonId: string,
-): Promise<{ sections: LessonSection[]; mainTopics: MainTopic[]; quiz: QuizMeta | null }> {
+/** The full content of one lesson: note parts, glossary, main topics and quiz info (not the questions). */
+export async function getLessonContent(lessonId: string): Promise<{
+  sections: LessonSection[];
+  mainTopics: MainTopic[];
+  glossary: GlossaryEntry[];
+  quiz: QuizMeta | null;
+}> {
   "use cache";
-  cacheLife("hours");
+  life();
   cacheTag("content");
 
   const { data, error } = await createPublicClient()
     .from("lessons")
     .select(
-      "main_topics, lesson_sections(id, sort_order, title_en, title_am, icon, blocks), quizzes(id, title_en, title_am, description_en, description_am, quiz_questions(count))",
+      "main_topics, glossary, lesson_sections(id, sort_order, title_en, title_am, icon, blocks), quizzes(id, title_en, title_am, description_en, description_am, quiz_questions(count))",
     )
     .eq("id", lessonId)
     .single();
   if (error) throw new Error(`Could not load lesson ${lessonId}: ${error.message}`);
 
-  type Row = Pick<Lesson, "main_topics" | "lesson_sections"> & {
+  type Row = Pick<Lesson, "main_topics" | "glossary" | "lesson_sections"> & {
     quizzes: (Omit<QuizMeta, "questionCount"> & { quiz_questions: { count: number }[] }) | null;
   };
   const row = data as unknown as Row;
@@ -93,6 +110,7 @@ export async function getLessonContent(
   return {
     sections: [...row.lesson_sections].sort(bySort),
     mainTopics: row.main_topics,
+    glossary: row.glossary ?? [],
     quiz: q
       ? {
           id: q.id,
@@ -110,7 +128,7 @@ export async function getLessonContent(
 
 async function getAllPaths() {
   "use cache";
-  cacheLife("hours");
+  life();
   cacheTag("content");
 
   const { data, error } = await createPublicClient()
@@ -142,4 +160,62 @@ export async function getLessonParams() {
       ),
     ),
   );
+}
+
+/* ---------------- class schedule ---------------- */
+
+export type ScheduleData = {
+  section: { name_en: string; name_am: string; school_en: string; school_am: string; year_ec: number | null };
+  entries: ClassEntry[];
+};
+
+/** The default class section and its weekly timetable (times in Addis Ababa local time). */
+export async function getSchedule(): Promise<ScheduleData | null> {
+  "use cache";
+  life();
+  cacheTag("content");
+
+  const { data, error } = await createPublicClient()
+    .from("class_sections")
+    .select(
+      "name_en, name_am, school_en, school_am, year_ec, schedule_entries(id, day_of_week, start_time, end_time, period_label, period_start, period_end, subject_slug, room_en, room_am, floor, subjects(name_en, name_am))",
+    )
+    .eq("is_default", true)
+    .maybeSingle();
+  if (error) throw new Error(`Could not load schedule: ${error.message}`);
+  if (!data) return null;
+
+  type Row = {
+    id: string;
+    day_of_week: number;
+    start_time: string;
+    end_time: string;
+    period_label: string;
+    period_start: number;
+    period_end: number;
+    subject_slug: string;
+    room_en: string;
+    room_am: string;
+    floor: number;
+    subjects: { name_en: string; name_am: string } | null;
+  };
+  const { schedule_entries, ...section } = data as unknown as ScheduleData["section"] & { schedule_entries: Row[] };
+  const entries: ClassEntry[] = schedule_entries
+    .map((r) => ({
+      id: r.id,
+      day: r.day_of_week,
+      start: timeToMinutes(r.start_time),
+      end: timeToMinutes(r.end_time),
+      periodLabel: r.period_label,
+      periodStart: r.period_start,
+      periodEnd: r.period_end,
+      subject: r.subject_slug,
+      subjectEn: r.subjects?.name_en ?? r.subject_slug,
+      subjectAm: r.subjects?.name_am ?? r.subject_slug,
+      roomEn: r.room_en,
+      roomAm: r.room_am,
+      floor: r.floor,
+    }))
+    .sort((a, b) => a.day - b.day || a.start - b.start);
+  return { section: section as ScheduleData["section"], entries };
 }
