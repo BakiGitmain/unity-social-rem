@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Sparkles } from "lucide-react";
+import { Languages, Sparkles } from "lucide-react";
 import { t } from "@/lib/site-i18n";
 import type { Locale } from "@/lib/locale";
 import { TUTOR } from "@/lib/tutor/config";
@@ -96,7 +96,7 @@ export function SelectionPill({
             onClick={() => ask(false)}
             className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 transition-colors hover:bg-white/15 focus-visible:bg-white/15 focus-visible:outline-none ${am}`}
           >
-            <Sparkles className="size-3.5 text-[color:var(--accent-soft)]" aria-hidden />
+            <Sparkles className="size-3.5 text-accent-soft" aria-hidden />
             {t(locale, "explainFurther")}
           </button>
           <span className="h-4 w-px bg-white/20" aria-hidden />
@@ -105,7 +105,7 @@ export function SelectionPill({
             onClick={() => ask(true)}
             className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 transition-colors hover:bg-white/15 focus-visible:bg-white/15 focus-visible:outline-none ${am}`}
           >
-            <span aria-hidden>🇪🇹</span>
+            <Languages className="size-3.5 text-accent-soft" aria-hidden />
             {t(locale, "inAmharic")}
           </button>
         </motion.div>

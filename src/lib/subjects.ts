@@ -10,8 +10,19 @@ export const SUBJECT_THEMES: Record<string, { accent: string; soft: string; ink:
 
 const FALLBACK = SUBJECT_THEMES.geography;
 
-/** CSS variables that re-colour everything inside a subject. */
-export function subjectStyle(slug: string): CSSProperties {
+/**
+ * CSS variables that re-colour everything inside a subject.
+ * `color` (Admin → Content → subject settings) overrides the built-in theme; the soft shades are mixed from it.
+ */
+export function subjectStyle(slug: string, color?: string | null): CSSProperties {
+  if (color && /^#[0-9a-fA-F]{6}$/.test(color)) {
+    return {
+      "--accent": color,
+      "--accent-soft": `color-mix(in srgb, ${color} 13%, white)`,
+      "--accent-ink": `color-mix(in srgb, ${color} 78%, black)`,
+      "--accent-tint": `color-mix(in srgb, ${color} 5%, white)`,
+    } as CSSProperties;
+  }
   const t = SUBJECT_THEMES[slug] ?? FALLBACK;
   return {
     "--accent": t.accent,

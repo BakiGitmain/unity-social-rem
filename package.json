@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --test \"src/lib/time/*.test.ts\""
+    "test": "node --test \"src/lib/time/*.test.ts\" \"src/lib/live/*.test.ts\" \"src/lib/admin/*.test.ts\"",
+    "test:security": "node --test tests/security.test.mjs",
+    "test:e2e": "node --test --test-concurrency=1 tests/e2e.test.mjs"
   },
   "dependencies": {
     "@ai-sdk/openai": "^4.0.111",
@@ -21,6 +23,7 @@
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "react-markdown": "^10.1.0",
+    "recharts": "^3.10.1",
     "remark-gfm": "^4.0.1",
     "server-only": "^0.0.1"
   },
@@ -31,6 +34,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.5",
+    "puppeteer-core": "^25.17.0",
     "supabase": "^3.1.0",
     "tailwindcss": "^4",
     "typescript": "^5"

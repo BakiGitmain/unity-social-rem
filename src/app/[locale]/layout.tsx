@@ -5,6 +5,8 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { MotionProvider } from "@/components/motion";
 import { UserProvider } from "@/components/user-provider";
+import { SiteSettingsProvider } from "@/components/site-settings";
+import { AnnouncementBanner } from "@/components/announcement-banner";
 import { ProgressSync } from "@/components/progress-sync";
 import { LOCALES, isLocale } from "@/lib/locale";
 import "../globals.css";
@@ -47,12 +49,15 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
     <html lang={locale} className={`${lexend.variable} ${ethiopic.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col pb-[calc(6.5rem+env(safe-area-inset-bottom))] md:pb-0">
         <MotionProvider>
-          <UserProvider>
-            <ProgressSync />
-            <SiteHeader locale={locale} />
-            <main className="flex-1">{children}</main>
-            <SiteFooter locale={locale} />
-          </UserProvider>
+          <SiteSettingsProvider>
+            <UserProvider>
+              <ProgressSync />
+              <SiteHeader locale={locale} />
+              <AnnouncementBanner locale={locale} />
+              <main className="flex-1">{children}</main>
+              <SiteFooter locale={locale} />
+            </UserProvider>
+          </SiteSettingsProvider>
         </MotionProvider>
       </body>
     </html>

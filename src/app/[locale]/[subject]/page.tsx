@@ -32,7 +32,7 @@ export default async function SubjectPage({ params }: PageProps<"/[locale]/[subj
   const hasAny = tree.grades.some((g) => g.units.length > 0);
 
   return (
-    <div style={subjectStyle(tree.slug)} className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
+    <div style={subjectStyle(tree.slug, tree.color)} className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
       <Breadcrumbs am={am} items={[{ label: t(locale, "home"), href: "/" }, { label: name }]} />
       <PageHeader subjectSlug={tree.slug} title={name} description={loc(tree, "description", locale)} am={am} />
 
@@ -40,15 +40,16 @@ export default async function SubjectPage({ params }: PageProps<"/[locale]/[subj
       <Stagger className="mt-4 grid gap-4 sm:grid-cols-2">
         {tree.grades.map((g) => {
           const lessons = g.units.reduce((n, u) => n + u.lessons.length, 0);
-          const ready = g.units.length > 0;
+          const ready = g.units.length > 0 && g.status !== "coming_soon";
           return (
             <StaggerItem key={g.id}>
               <Link
                 href={`/${tree.slug}/${g.slug}`}
+                aria-disabled={!ready || undefined}
                 className={`group card-hover flex h-full items-center gap-4 rounded-2xl border p-5 ${
                   ready
                     ? "border-line bg-surface hover:border-[color:var(--accent)] hover:bg-[var(--accent-tint)]"
-                    : "border-line/80 bg-surface/60 hover:border-line-strong"
+                    : "pointer-events-none border-line/80 bg-surface/60"
                 } ${am ? "am" : ""}`}
               >
                 <span

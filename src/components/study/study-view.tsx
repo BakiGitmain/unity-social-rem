@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { track } from "@/lib/track";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
@@ -18,6 +19,7 @@ import { BiText } from "@/components/study/text";
 import { GlossaryProvider } from "@/components/study/glossary";
 import { LearnMode } from "@/components/study/learn-mode";
 import { Tutor } from "@/components/tutor/tutor";
+import { useSiteSettings } from "@/components/site-settings";
 
 // The quiz (and its Supabase query) is only downloaded when the Quiz tab is opened.
 const Quiz = dynamic(() => import("@/components/study/quiz"), {
@@ -66,13 +68,27 @@ export function StudyView({
 }) {
   const [lang, setLang] = useLang(); // notes language: en | am | both
   const [tab, setTab] = useState<Tab>("notes");
-  const [mode, setMode] = useState<NotesMode>("learn");
+  const [chosenMode, setMode] = useState<NotesMode>("learn");
+  // Feature flag (Admin → Site settings): Learn mode can be switched off for everyone.
+  const learnOn = useSiteSettings().settings.features.learn_mode;
+  const mode: NotesMode = learnOn ? chosenMode : "all";
   const [quizVisited, setQuizVisited] = useState(false);
   const [quizRunning, setQuizRunning] = useState(false);
   const [quizStartKey, setQuizStartKey] = useState(0);
   const [tutorPart, setTutorPart] = useState(0);
   const [learnFinished, setLearnFinished] = useState(false);
-  const onFinishedChange = useCallback((f: boolean) => setLearnFinished(f), []);
+  const completedSent = useRef(false);
+  const onFinishedChange = useCallback(
+    (f: boolean) => {
+      setLearnFinished(f);
+      if (f && !completedSent.current) {
+        completedSent.current = true;
+        track({ type: "lesson_complete", lessonId: lesson.id });
+      }
+    },
+    [lesson.id],
+  );
+  useEffect(() => track({ type: "lesson_view", lessonId: lesson.id }), [lesson.id]);
   const amUi = locale === "am" ? "am" : "";
 
   // Rem (AI tutor): only on the notes and Main Topics, never in the quiz or on the finished screen.
@@ -192,7 +208,7 @@ export function StudyView({
           {tab === "notes" && (
             <motion.div key="notes" id="panel-notes" role="tabpanel" aria-labelledby="tab-notes" data-tutor-notes {...fade}>
               {/* Learn (one part at a time) | Read all */}
-              <div className="mb-8 flex justify-center">
+              <div className={`mb-8 flex justify-center ${learnOn ? "" : "hidden"}`}>
                 <div role="radiogroup" aria-label={t(locale, "fullNotes")} className="inline-flex rounded-full bg-ink/[0.05] p-1">
                   {(["learn", "all"] as const).map((m) => (
                     <button
@@ -291,7 +307,7 @@ export function StudyView({
 }
 
 /** The whole lesson on one page, calmer than before: no card borders, 65ch line length. */
-function ReadAll({
+export function ReadAll({
   sections,
   lang,
   locale,

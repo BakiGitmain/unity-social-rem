@@ -63,6 +63,14 @@ const DICT = {
   durHM: { en: "{h}h {m}m", am: "{h} ሰዓት {m} ደቂቃ" },
   durH: { en: "{h}h", am: "{h} ሰዓት" },
   durM: { en: "{m} min", am: "{m} ደቂቃ" },
+  cancelled: { en: "Cancelled", am: "ተሰርዟል" },
+  cancelledToday: { en: "Cancelled today", am: "ዛሬ ተሰርዟል" },
+  roomChanged: { en: "Room changed", am: "ክፍል ተቀይሯል" },
+  wasRoom: { en: "was {room}", am: "የነበረው {room}" },
+  extraClass: { en: "Extra class", am: "ተጨማሪ ክፍለ ጊዜ" },
+  examLabel: { en: "Exam", am: "ፈተና" },
+  holidayLabel: { en: "Holiday", am: "በዓል" },
+  holidayToday: { en: "No classes today", am: "ዛሬ ክፍለ ጊዜ የለም" },
   devTime: { en: "Test time", am: "የሙከራ ሰዓት" },
 
   // home / browsing
@@ -189,6 +197,7 @@ const DICT = {
   errTaken: { en: "That username is already taken. Try another one.", am: "ያ የተጠቃሚ ስም ቀድሞ ተይዟል። ሌላ ይሞክሩ።" },
   errInvalidUsername: { en: "Use 3–20 characters: lowercase letters, numbers or _.", am: "3–20 ፊደላት ይጠቀሙ፦ ትንንሽ የእንግሊዝኛ ፊደላት፣ ቁጥሮች ወይም _።" },
   errShortPassword: { en: "Your password needs at least 6 characters.", am: "የይለፍ ቃልዎ ቢያንስ 6 ፊደላት ያስፈልገዋል።" },
+  errSignupsClosed: { en: "Sign-ups are closed right now. Please ask your teacher.", am: "ምዝገባ ለጊዜው ዝግ ነው። እባክዎ መምህርዎን ይጠይቁ።" },
   errGeneric: { en: "Something went wrong. Please try again.", am: "የሆነ ችግር ተፈጥሯል። እባክዎ እንደገና ይሞክሩ።" },
   optionalAccount: { en: "You can use the whole site without an account.", am: "ድረ ገጹን ያለ መለያም ሙሉ በሙሉ መጠቀም ይችላሉ።" },
 
@@ -207,7 +216,7 @@ const DICT = {
   sugSimple: { en: "Explain this part simply", am: "ይህን ክፍል በቀላሉ አስረዳኝ" },
   sugExample: { en: "Give me an example 🌍", am: "ምሳሌ ስጠኝ 🌍" },
   sugQuiz: { en: "Quiz me on this 🎯", am: "በዚህ ፈትነኝ 🎯" },
-  sugAmharic: { en: "Explain in Amharic 🇪🇹", am: "በአማርኛ አስረዳኝ 🇪🇹" },
+  sugAmharic: { en: "Explain in Amharic", am: "በአማርኛ አስረዳኝ" },
   askSimpler: { en: "Explain that again more simply 🧒", am: "ያንን በበለጠ ቀላል መንገድ እንደገና አስረዳኝ 🧒" },
   askMoreDetail: { en: "Explain that in more detail 📖", am: "ያንን በበለጠ ዝርዝር አስረዳኝ 📖" },
   askInAmharic: { en: "Explain that in Amharic (በአማርኛ አስረዳኝ)", am: "ያንን በአማርኛ አስረዳኝ" },
@@ -245,6 +254,10 @@ const DICT = {
   tutorError: { en: "Something went wrong. Please try again.", am: "ችግር ተፈጥሯል። እባክዎ እንደገና ይሞክሩ።" },
   tooFast: { en: "Slow down a little 🙂 Try again in a few seconds.", am: "ትንሽ ቀስ ይበሉ 🙂 ከጥቂት ሰከንዶች በኋላ እንደገና ይሞክሩ።" },
   remThinking: { en: "Rem is thinking", am: "ሬም እያሰበ ነው" },
+  lessonComingSoon: { en: "This lesson is coming soon. Check back later!", am: "ይህ ትምህርት በቅርቡ ይመጣል። ቆይተው ይመለሱ!" },
+  remResting: { en: "Rem is resting 😴", am: "ሬም እያረፈ ነው 😴" },
+  remRestingText: { en: "The study tutor is switched off for now. The notes and quizzes still work!", am: "የጥናት ረዳቱ ለጊዜው ጠፍቷል። ማስታወሻዎቹና ፈተናዎቹ አሁንም ይሠራሉ!" },
+  adminDashboard: { en: "Admin dashboard", am: "የአስተዳዳሪ ዳሽቦርድ" },
   youSaid: { en: "You", am: "እርስዎ" },
 } as const;
 

@@ -233,7 +233,17 @@ const lessonFields = `slug = ${lit(l.slug)}, sort_order = ${l.sort_order}, secti
     minutes = ${l.minutes}, main_topics = ${json(data.main_topics)}, glossary = ${json(data.glossary)}`;
 
 if (UPDATE) {
-  out.push(`  -- Update an existing lesson in place: replace its fields, note parts and quiz.
+  out.push(`  -- Never overwrite a lesson that was edited in the admin dashboard (it has saved versions or a draft).
+  if exists (
+    select 1 from public.lessons l
+     where l.unit_id = v_unit_id and l.code = ${lit(l.code)}
+       and (exists (select 1 from public.lesson_versions v where v.lesson_id = l.id)
+            or exists (select 1 from public.lesson_drafts d where d.lesson_id = l.id))
+  ) then
+    raise exception 'Lesson ${l.code} was edited in the admin dashboard; edit it there instead of overwriting it';
+  end if;
+
+  -- Update an existing lesson in place: replace its fields, note parts and quiz.
   update public.lessons set
     ${lessonFields}
   where unit_id = v_unit_id and code = ${lit(l.code)}

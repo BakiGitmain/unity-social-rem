@@ -20,10 +20,14 @@ in English, Amharic, or both.
   `/[locale]/login` and `/[locale]/signup`. Visitors never see the locale: `src/proxy.ts` rewrites
   `/geography` → `/en/geography` (or `/am/...`) from the `usr-site-lang` cookie. Links are written WITHOUT a locale.
 - Tables: subjects, grades, units, lessons (+ `glossary`), lesson_sections (= Learn-mode parts),
-  quizzes, quiz_questions, profiles, lesson_progress, ai_usage, ai_chats, ai_feedback (own rows only). All text is `*_en` / `*_am`; note blocks are JSON (`src/lib/types.ts`).
-  RLS: content is public read only and only written by migrations.
-- Lesson content source files: `content/lessons/<subject>/grade-<n>/unit-<n>/<slug>.json`,
-  turned into migrations by `scripts/lesson-to-sql.mjs` (`--update` for lessons already pushed).
+  quizzes, quiz_questions, profiles (+ private `profiles_private`: role, last_seen_at, ai_daily_limit), lesson_progress,
+  quiz_attempts, events, ai_usage, ai_chats, ai_feedback, ai_moderation_log, app_settings, announcements,
+  schedule_overrides, lesson_drafts, lesson_versions, admin_audit_log. All text is `*_en` / `*_am`; note blocks are JSON (`src/lib/types.ts`).
+  RLS: content is public read (drafts hidden) and written ONLY by migrations (new lessons, INSERT only) or by admins
+  (`is_admin()` policies). Content items have `status`: published | draft (admins only) | coming_soon (listed, not openable).
+- Lesson content source files: `content/lessons/<subject>/grade-<n>/unit-<n>/<slug>.json`, turned into migrations by
+  `scripts/lesson-to-sql.mjs`. **The database is the source of truth now** (lessons may be edited in the admin):
+  check the DB before adding, INSERT only, never overwrite an existing lesson (`--update` refuses admin-edited lessons).
 - **Adding a lesson from a PDF: follow [ADD_LESSON.md](ADD_LESSON.md) exactly.**
 
 ## Two separate languages
@@ -47,18 +51,27 @@ in English, Amharic, or both.
   Never print, log or commit `OPENAI_API_KEY`. The model is the `OPENAI_MODEL` env var (now `gpt-6-luna`, change it in Vercel, no code change).
 - Server: `src/app/api/tutor/route.ts` (the only place that calls OpenAI). It uses the Vercel AI SDK v7 (`ai`, `@ai-sdk/openai`) with
   streaming. Order: per-IP burst limit (`src/lib/tutor/burst.ts`, 5 req / 10 s, in memory) → login required (401) →
-  `bump_ai_usage` RPC + OpenAI moderation (free, fails open) + lesson context in parallel → `streamText`.
+  `start_ai_message` RPC (kill switch, monthly budget, per-user limit, model + prompt overrides from `app_settings.ai`,
+  logs an `ai_message` event) + OpenAI moderation (free, fails open; blocked → `ai_moderation_log`) + lesson, in parallel
+  → `streamText` → `record_ai_tokens` (tokens + searches for the cost estimate; capped, once per counted message).
 - Prompt: `src/lib/tutor/prompt.ts`: a short **stable** system prompt (prompt caching; no per-request text in it), then
-  `buildContext()` = subject/grade/unit/lesson + **only the current part** (or Main Topics), trimmed to ~1,500 tokens.
-- Cost rules (all in `src/lib/tutor/config.ts`): 500 max output tokens (800 for Amharic answers, which need ~3× tokens),
+  `buildContext()` = subject/grade/unit/lesson + the CURRENT part in full + the lesson's KEY TERMS and summary (compact),
+  so questions about other parts get the lesson's meaning (not dictionary meanings). Admins can override the prompt
+  in /admin/ai (versions in `ai_prompt_versions`). Answers: 2–3 short sentences + ONE example (~50–70 words).
+- Cost rules (all in `src/lib/tutor/config.ts`): 350 max output tokens (600 for Amharic answers, which need ~3× tokens),
   last 8 messages only, history sent as text only, user messages ≤ 800 chars, `reasoningEffort: "none"`, `store: false`.
-  Web search (`openai.tools.webSearch`, $10 / 1k calls) only when the lesson doesn't cover it, max 3 per user per day;
-  sources are sent to the UI as `source-url` parts.
+  Tools are only sent when needed (each adds hidden tokens + latency): the quiz tool only for quiz intent (`QUIZ_RE` or
+  the 🎯 chip), web search (`openai.tools.webSearch`, $10 / 1k calls) only when `SEARCH_RE` matches (latest, current,
+  years…) and the admin allows it, max 3 per user per day. Sources go to the UI as `source-url` parts.
+  Live-tested: ~1.5–2 s to first token, ≈ $0.02–0.05 per 100 questions.
 - "Quiz me": `intent: "quiz"` forces the `quiz_question` tool (structured JSON: question, 4 options, answer, explanation),
   rendered as tappable buttons. Answers end with a `FOLLOWUPS: a | b | c` line that the UI turns into chips.
-- Limits: 30 questions + 3 web searches per user per **Addis Ababa day** (`ai_usage`, increments only through the
-  SECURITY DEFINER `bump_ai_usage()`; `get_ai_usage()` for the counter). Chats are saved per lesson in `ai_chats`
-  (own rows, last 40 messages); 👍/👎 go to `ai_feedback` (read them in the Supabase dashboard).
+- Limits (defaults, editable in /admin/ai; per-user override in /admin/users): 30 questions + 3 web searches per user
+  per **Addis Ababa day** (`ai_usage`, written only by SECURITY DEFINER functions; `my_ai_status()` for the counter).
+  Monthly budget: at 100% `ai_status()` reports unavailable → "Rem is resting". Chats are saved per lesson in
+  `ai_chats` (own rows, last 40 messages); 👍/👎 go to `ai_feedback` (Admin → AI tutor → Feedback inbox).
+- Test it live with a real account: create a test student, sign in with `@supabase/ssr` and POST to `/api/tutor`
+  (see `tests/security.test.mjs` for how to sign in from a script).
 - UI (`src/components/tutor/`): `tutor.tsx` (mounted by StudyView) = draggable `bubble.tsx` (snaps to the left/right edge,
   position in localStorage, fades to 30% after 10 s idle, one-time tooltip) + `selection-pill.tsx` ("Explain further" /
   "In Amharic" for 3–300 selected characters inside `[data-tutor-notes]`) + `chat-panel.tsx` (lazy-loaded on first use:
@@ -66,7 +79,9 @@ in English, Amharic, or both.
   hidden in the quiz, focus mode and on the "Lesson complete!" screen. UI labels come from `site-i18n.ts`.
 
 ## Class schedule
-- Tables `class_sections` + `schedule_entries` (public read). Loaded by `getSchedule()` in `src/lib/data.ts`.
+- Tables `class_sections` + `schedule_entries` + `schedule_overrides` (public read, admin write). Loaded by `getSchedule()`.
+- Date overrides (cancel, room change, extra class, exam, holiday) are applied by `src/lib/time/overrides.ts`
+  (`planForDate`, `scheduleStatusOn`, tested in `overrides.test.ts`) in the Today card and the schedule page.
 - ALL time logic is in pure, tested modules under `src/lib/time/` (run `npm test`): `clock.ts` (Addis Ababa time,
   always UTC+3 whatever the device zone; 12h / 24h / Ethiopian clock), `ethiopian.ts` (Ethiopian calendar),
   `schedule.ts` (current/next class, breaks, stats). Never use the device time zone for schedule logic.
@@ -81,9 +96,68 @@ in English, Amharic, or both.
   internally (no inbox; "Confirm email" is OFF). Users only see `@username`. Rules: `src/lib/auth/username.ts`
   (3–20 chars `a-z 0-9 _`, password ≥ 6, simple is fine).
 - Server actions: `src/lib/auth/actions.ts` (logIn, signUp, logOut). Generic errors only ("Wrong username or password").
-- `profiles` row is created by the `on_auth_user_created` trigger from the sign-up metadata; usernames can't change.
+- `profiles` + `profiles_private` rows are created by the `on_auth_user_created` trigger; only admins can rename a user
+  (Admin → Users, which also updates the login email). Admins see an "Admin dashboard" item in the profile menu.
 - The proxy refreshes the Supabase session cookie (only when one exists). The menus read the user in the browser
   (`src/components/user-provider.tsx`), so pages stay static. The site works fully without logging in.
+
+## Admin dashboard (`/admin`) & security
+- Root layout `src/app/admin/layout.tsx` (English UI, noindex). Pages in `src/app/admin/**` (server: load data with
+  the admin's own session, RLS + `is_admin()`), client views in `src/components/admin/pages/*`, shared UI in
+  `src/components/admin/*` (DataTable, charts (Recharts), dialogs, toasts, shell with sidebar + Ctrl/Cmd+K palette).
+  Server actions in `src/lib/admin/actions/*`, loaders in `src/lib/admin/queries.ts`.
+- **Roles** live in `profiles_private.role` ('student' | 'admin'), NOT in public `profiles` (public-read). New users are
+  always 'student' (trigger). Nobody can change their OWN role; only admins can change others (RLS + trigger guard).
+  First admin: `@eyosiyas` (migration `admin_security`).
+- `has_admin_role()` = role only. `is_admin()` = role **and an AAL2 (2FA) session** (JWT `aal`). Every admin RLS
+  policy and admin SQL function uses `is_admin()`, so even the database refuses admin data without 2FA.
+- **Three layers, never trust the client:**
+  1. `src/proxy.ts`: `/admin/**` → non-admins get a real 404 (rewrite to the site not-found); idle > 30 min → signed out
+     (`usr-admin-active` cookie, sliding window); `X-Robots-Tag: noindex`.
+  2. Admin layout `AdminGate` (`getAdminGate()`): 404 for non-admins; admin without AAL2 → only the 2FA screen.
+  3. EVERY admin server action uses `adminAction()` → `requireAdmin()` → `checkAdmin()` (verified JWT + `is_admin()` RPC)
+     and writes the audit log. Every admin page calls `requireAdmin()` too. Decision logic: `src/lib/admin/access.ts`.
+- **2FA**: Supabase MFA TOTP. First visit to /admin = enrollment (QR + key + verify); then a 6-digit code each session.
+  **Lost authenticator?** Create a NEW migration with
+  `delete from auth.mfa_factors where user_id = (select id from public.profiles where username = 'eyosiyas');`
+  push it, log in and open /admin to enroll again.
+- **Secret key** (`SUPABASE_SECRET_KEY`): only in `src/lib/supabase/admin.ts` (`import "server-only"`), only for
+  auth-admin operations (ban, delete user, set password, rename login email) AFTER `requireAdmin()`. Never log it.
+- **Audit log** `admin_audit_log`: written only via `log_admin_action()` (admin_id = caller), admin read-only, update /
+  delete / truncate blocked by triggers. Log every admin action (`ctx.audit(...)`). Viewing a student's chat is logged.
+- **Dangerous actions** (delete user, ban, role, maintenance, AI off, discard/restore, delete schedule items) use
+  `ConfirmDialog` = type the username/name to confirm; delete-user re-checks the typed name on the server.
+- **Activity tracking** (first-party): `events` (lesson_view, lesson_complete, quiz_start, quiz_finish, ai_message,
+  signup, login), `quiz_attempts` (score computed IN SQL from the answers), `profiles_private.last_seen_at` (≤ 1 write /
+  5 min). Written only through SECURITY DEFINER functions called from server code (`/api/track`, auth actions, the
+  tutor route); they always use `auth.uid()`. Admin read only.
+- **Settings** `app_settings`: public keys `site`, `maintenance`, `features` (read in the browser by
+  `<SiteSettingsProvider>` and by the proxy, 15 s memory cache); private key `ai`. Maintenance mode rewrites student
+  pages to `/[locale]/maintenance` (503) in the proxy; admins pass. Feature flags are enforced on the server too
+  (proxy for schedule, signUp action, tutor route via `ai_status()`).
+- **Content editing**: lesson editor (`lesson-editor.tsx`, `block-editor.tsx`) autosaves to `lesson_drafts`; Publish
+  calls `admin_save_lesson()` (one transaction: snapshot → `lesson_versions`, update lesson/parts/questions keeping
+  their ids, audit). Images go to Storage bucket `media` (public read, admin write). Status changes apply at once.
+  After content changes call `updateTag("content")` (server actions only) so cached public pages refresh.
+- **Announcements** (`announcements`, RLS filters live window + audience) show via `<AnnouncementBanner>`; dismissals in localStorage.
+- **Instant updates**: every admin write goes through `adminAction()`, which calls `revalidatePath("/admin", "layout")`
+  after success (the action response carries the fresh page data); read-only actions pass `{ revalidate: false }`.
+  Student-facing content changes also call `updateTag("content")`. Client lists use React `useOptimistic` (pure
+  reducers in `src/lib/admin/optimistic.ts`): the change shows at once, rolls back automatically + error toast if the
+  action fails. Lists animate items out (DataTable rows, schedule, announcements). Don't add `router.refresh()` after
+  actions. Local state that mirrors props uses `useServerState()` (src/components/live.tsx).
+- **Live updates** (`src/components/live.tsx`, logic in `src/lib/live/controller.ts`, tested): `useRealtime` (Supabase
+  Realtime, RLS-filtered; tables in the `supabase_realtime` publication: events, profiles, ai_feedback, announcements,
+  app_settings, schedule_overrides, schedule_entries), `usePolling` (60 s) and `useLiveRefresh` (both → quiet
+  `router.refresh()`). All pause while the tab is hidden and clean up on unmount. Admin header shows "● Live · Updated …".
+- **Never read the clock while prerendering**: in server code call `await connection()` first (`requireAdmin`,
+  `getAdminGate`, `requestNow()`); in client components use `<TimeAgo>` / `useNowMs()` (only set after mount).
+  `fmtDate` is deterministic (no Intl) to avoid hydration mismatches.
+- **Tests**: `npm test` (time, live controller, optimistic lists), `npm run test:security` and `npm run test:e2e`
+  (both need `npm run dev`; e2e drives headless Edge/Chrome via puppeteer-core): temporary users are created with the
+  secret key and deleted afterwards. Security: student/AAL1/AAL2 access over the DB and HTTP + every admin page renders.
+  E2E: zero console errors/warnings on every page, and a deleted user disappears from the list without a reload.
+  Debug the dev overlay with the built-in MCP: POST `/_next/mcp` `tools/call` `get_errors`.
 
 ## Design rules
 - Keep everything **simple, clean and fast**. It is a private class site: no marketing sections.
@@ -91,6 +165,8 @@ in English, Amharic, or both.
 - **Images: get them online** (Wikimedia Commons, Unsplash, unDraw), freely licensed, stored locally in `public/`,
   with a credit line. Only draw custom SVGs when nothing suitable exists.
 - Animations subtle and smooth; respect prefers-reduced-motion. Every route has a matching `loading.tsx` skeleton.
+- Inputs never show the browser's focus outline (globals.css); their wrapper shows a soft ring instead. Text
+  selection must stay clearly visible. Don't use flag emojis (Windows shows "ET"); use icons.
 
 ## GitHub & deploys
 - Repo: `BakiGitmain/unity-social-rem`, default branch `main`. Pushing to `main` auto-deploys to production on Vercel.
@@ -117,7 +193,7 @@ in English, Amharic, or both.
 
 ## Workflow for every task
 1. Write migrations (if any) and push them to Supabase.
-2. Run `npm run build` and fix any errors, then start `npm run dev` and tell the user exactly which
+2. Run `npm run build`, `npm test` (and `npm run test:security` when auth/admin/RLS changed) and fix any errors, then start `npm run dev` and tell the user exactly which
    localhost pages to check.
 3. **WAIT for the user to say it's good.** Only then commit with a clear message and `git push` (this deploys).
 

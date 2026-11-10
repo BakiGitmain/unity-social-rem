@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import { t as tr, type SiteKey } from "@/lib/site-i18n";
 import type { Locale } from "@/lib/locale";
 import { recordQuizScore } from "@/lib/progress";
+import { track } from "@/lib/track";
 import { usePinBar } from "@/lib/bar-pin";
 import type { Lang, QuizQuestion } from "@/lib/types";
 import type { QuizMeta } from "@/lib/data";
@@ -42,6 +43,7 @@ export default function Quiz({
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>([]);
   const topRef = useRef<HTMLDivElement>(null);
+  const startedAt = useRef(0);
   usePinBar(phase === "running"); // keep the mobile tab bar visible during the quiz
 
   const load = useCallback(async () => {
@@ -71,6 +73,8 @@ export default function Quiz({
     if (!questions) return;
     setAnswers(Array(questions.length).fill(null));
     setIndex(0);
+    startedAt.current = Date.now();
+    track({ type: "quiz_start", lessonId });
     go("running");
   };
 
@@ -89,6 +93,13 @@ export default function Quiz({
     if (questions) {
       const s = answers.filter((a, i) => a === questions[i].correct_index).length;
       recordQuizScore(lessonId, s, questions.length);
+      // The server recomputes the score from these answers (per-question analytics).
+      track({
+        type: "quiz_attempt",
+        lessonId,
+        answers: questions.map((q, i) => ({ question_id: q.id, chosen: answers[i] ?? null })),
+        durationMs: Date.now() - startedAt.current,
+      });
     }
     go("done");
   };

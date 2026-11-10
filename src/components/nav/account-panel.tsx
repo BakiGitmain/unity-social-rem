@@ -3,7 +3,7 @@
 import { useTransition } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LogIn, LogOut, UserPlus, UserRound } from "lucide-react";
+import { LogIn, LogOut, ShieldCheck, UserPlus, UserRound } from "lucide-react";
 import { logOut } from "@/lib/auth/actions";
 import { useUser } from "@/components/user-provider";
 import { t } from "@/lib/site-i18n";
@@ -18,7 +18,7 @@ export function useNextParam() {
 
 /** The menu content, shared by the desktop dropdown and the mobile bottom sheet. */
 export function AccountPanel({ locale, onDone, size = "sm" }: { locale: Locale; onDone: () => void; size?: "sm" | "lg" }) {
-  const { username, loading, refresh } = useUser();
+  const { username, isAdmin, loading, refresh } = useUser();
   const next = useNextParam();
   const [pending, startTransition] = useTransition();
   const big = size === "lg";
@@ -48,6 +48,12 @@ export function AccountPanel({ locale, onDone, size = "sm" }: { locale: Locale; 
           </div>
         </div>
         <div className="my-1.5 h-px bg-line" />
+        {isAdmin && (
+          <Link href="/admin" onClick={onDone} className={`${item} ${locale === "am" ? "am" : ""}`}>
+            <ShieldCheck className="size-4.5 text-accent" aria-hidden />
+            {t(locale, "adminDashboard")}
+          </Link>
+        )}
         <button
           type="button"
           disabled={pending}

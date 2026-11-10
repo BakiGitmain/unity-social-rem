@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { t, type SiteKey } from "@/lib/site-i18n";
+import { useSiteSettings } from "@/components/site-settings";
 import type { Locale } from "@/lib/locale";
 
 /** Middle nav links. One item for now; the sliding indicator is ready for more. */
@@ -14,9 +15,11 @@ const LINKS: { href: string; key: SiteKey; match: (p: string) => boolean }[] = [
 
 export function DesktopNav({ locale }: { locale: Locale }) {
   const pathname = (usePathname() || "/").replace(/^\/(en|am)(?=\/|$)/, "") || "/";
+  const { settings } = useSiteSettings();
+  const links = LINKS.filter((l) => l.href !== "/schedule" || settings.features.schedule);
   return (
     <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
-      {LINKS.map((l) => {
+      {links.map((l) => {
         const active = l.match(pathname);
         return (
           <Link

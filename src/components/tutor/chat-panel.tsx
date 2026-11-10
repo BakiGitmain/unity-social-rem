@@ -332,6 +332,8 @@ function Chat({
   const supabase = useMemo(() => createClient(), []);
   const [ready, setReady] = useState(false);
   const [left, setLeft] = useState<number | null>(null);
+  const [limit, setLimit] = useState<number>(TUTOR.dailyMessages);
+  const [resting, setResting] = useState(false);
   const [input, setInput] = useState("");
   const [tooFast, setTooFast] = useState(false);
   const handled = useRef<number | null>(null);
@@ -374,6 +376,7 @@ function Chat({
     onFinish: ({ messages: all, message, isAbort, isError }) => {
       const meta = message.metadata;
       if (typeof meta?.messagesLeft === "number") setLeft(meta.messagesLeft);
+      if (meta?.resting) setResting(true);
       if (!isError) void save(all.filter((m) => !(isAbort && m.id === message.id && !textOf(m))));
     },
     onError: (e) => {
@@ -388,12 +391,18 @@ function Chat({
       try {
         const [hist, usage] = await Promise.all([
           supabase.from("ai_chats").select("messages").eq("lesson_id", lessonId).maybeSingle(),
-          supabase.rpc("get_ai_usage").single<{ messages: number; searches: number }>(),
+          supabase.rpc("my_ai_status"),
         ]);
         if (!alive) return;
         const saved = hist.data?.messages as RemMessage[] | undefined;
         if (Array.isArray(saved) && saved.length) setMessages(saved);
-        if (usage.data) setLeft(Math.max(0, TUTOR.dailyMessages - usage.data.messages));
+        const st = usage.data as { available?: boolean; messages?: number; limit?: number } | null;
+        if (st) {
+          const lim = st.limit ?? TUTOR.dailyMessages;
+          setLimit(lim);
+          setLeft(Math.max(0, lim - (st.messages ?? 0)));
+          setResting(st.available === false);
+        }
       } catch {
         /* start fresh */
       } finally {
@@ -406,7 +415,7 @@ function Chat({
   }, [supabase, lessonId, setMessages]);
 
   const busy = status === "submitted" || status === "streaming";
-  const limitReached = left !== null && left <= 0;
+  const limitReached = resting || (left !== null && left <= 0);
 
   const send = useCallback(
     (text: string, intent: TutorIntent = "chat", selectionContext?: string) => {
@@ -552,8 +561,8 @@ function Chat({
       <div className="shrink-0 border-t border-line px-3 pt-3 pb-3">
         {limitReached ? (
           <div className={`rounded-2xl bg-[var(--accent-tint)] px-4 py-3 ${am}`}>
-            <p className="font-semibold text-ink">{ui("limitTitle")}</p>
-            <p className="mt-0.5 text-sm text-muted">{ui("limitText", { n: TUTOR.dailyMessages })}</p>
+            <p className="font-semibold text-ink">{ui(resting ? "remResting" : "limitTitle")}</p>
+            <p className="mt-0.5 text-sm text-muted">{resting ? ui("remRestingText") : ui("limitText", { n: limit })}</p>
           </div>
         ) : (
           <>

@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "upload.wikimedia.org" },
       { protocol: "https", hostname: "images.unsplash.com" },
+      // Images uploaded in the admin (Supabase Storage, bucket "media").
+      ...(process.env.NEXT_PUBLIC_SUPABASE_URL
+        ? [{ protocol: "https" as const, hostname: new URL(process.env.NEXT_PUBLIC_SUPABASE_URL).hostname, pathname: "/storage/v1/object/public/**" }]
+        : []),
     ],
   },
   partialPrefetching: true,

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowRight, Clock } from "lucide-react";
 import { getSubjectTree, getUnitParams } from "@/lib/data";
 import { subjectStyle } from "@/lib/subjects";
+import { ComingSoonBadge, SOON_LINK } from "@/components/coming-soon-badge";
 import { isLocale, loc, type Locale } from "@/lib/locale";
 import { t } from "@/lib/site-i18n";
 import type { LessonSummary } from "@/lib/types";
@@ -43,7 +44,7 @@ export default async function UnitPage({ params }: PageProps<"/[locale]/[subject
   const base = `/${tree.slug}/${g.slug}/${u.slug}`;
 
   return (
-    <div style={subjectStyle(tree.slug)} className={`mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-10 ${am ? "am" : ""}`}>
+    <div style={subjectStyle(tree.slug, tree.color)} className={`mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-10 ${am ? "am" : ""}`}>
       <Breadcrumbs
         am={am}
         items={[
@@ -75,8 +76,11 @@ export default async function UnitPage({ params }: PageProps<"/[locale]/[subject
               <StaggerItem key={lesson.id}>
                 <Link
                   href={`${base}/${lesson.slug}`}
-                  className="group card-hover flex items-center gap-4 rounded-2xl border border-line bg-surface p-4 hover:border-[color:var(--accent)] hover:bg-[var(--accent-tint)] sm:p-5"
+                  aria-disabled={lesson.status === "coming_soon" || undefined}
+                  tabIndex={lesson.status === "coming_soon" ? -1 : undefined}
+                  className={`group card-hover relative flex items-center gap-4 rounded-2xl border border-line bg-surface p-4 hover:border-[color:var(--accent)] hover:bg-[var(--accent-tint)] sm:p-5 ${lesson.status === "coming_soon" ? SOON_LINK : ""}`}
                 >
+                  {lesson.status === "coming_soon" && <ComingSoonBadge locale={locale} className="absolute top-3 right-3" />}
                   <span className="grid h-11 min-w-14 shrink-0 place-items-center rounded-xl bg-accent-soft px-2 text-sm font-semibold text-accent-ink tabular-nums">
                     {lesson.code}
                   </span>

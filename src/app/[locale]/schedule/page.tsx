@@ -3,6 +3,7 @@ import { getSchedule } from "@/lib/data";
 import { isLocale, loc, type Locale } from "@/lib/locale";
 import { t } from "@/lib/site-i18n";
 import { ScheduleView } from "@/components/schedule/schedule-view";
+import { ScheduleLive } from "@/components/schedule/schedule-live";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/schedule">): Promise<Metadata> {
   const { locale } = await params;
@@ -16,9 +17,11 @@ export default async function SchedulePage({ params }: PageProps<"/[locale]/sche
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-10">
+      {data && <ScheduleLive />}
       {data ? (
         <ScheduleView
           entries={data.entries}
+          overrides={data.overrides}
           locale={locale}
           sectionName={`${loc(data.section, "name", locale)} · ${loc(data.section, "school", locale)}${data.section.year_ec ? ` · ${data.section.year_ec} ${locale === "am" ? "ዓ.ም" : "E.C."}` : ""}`}
         />

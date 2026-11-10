@@ -2,6 +2,7 @@ import { cacheLife, cacheTag } from "next/cache";
 import { createPublicClient } from "@/lib/supabase/public";
 import { timeToMinutes } from "@/lib/time/clock";
 import type { ClassEntry } from "@/lib/time/schedule";
+import type { ScheduleOverride } from "@/lib/time/overrides";
 import type { GlossaryEntry, Grade, Lesson, LessonSection, LessonSummary, MainTopic, Subject, Unit } from "@/lib/types";
 
 /** Content changes only via migrations. In dev keep the cache tiny so pushed migrations show up at once. */
@@ -16,7 +17,7 @@ function life() {
  */
 
 const LESSON_SUMMARY_COLUMNS =
-  "id, unit_id, code, slug, sort_order, section_code, section_title_en, section_title_am, title_en, title_am, summary_en, summary_am, minutes, lesson_sections(count)";
+  "id, unit_id, code, slug, sort_order, section_code, section_title_en, section_title_am, title_en, title_am, summary_en, summary_am, minutes, status, lesson_sections(count)";
 
 export type SubjectCard = Subject & { unitCount: number; lessonCount: number };
 export type UnitWithLessons = Unit & { lessons: LessonSummary[] };
@@ -167,6 +168,8 @@ export async function getLessonParams() {
 export type ScheduleData = {
   section: { name_en: string; name_am: string; school_en: string; school_am: string; year_ec: number | null };
   entries: ClassEntry[];
+  /** Date changes (cancel, room, extra, exam, holiday), applied by src/lib/time/overrides.ts. */
+  overrides: ScheduleOverride[];
 };
 
 /** The default class section and its weekly timetable (times in Addis Ababa local time). */
@@ -178,7 +181,7 @@ export async function getSchedule(): Promise<ScheduleData | null> {
   const { data, error } = await createPublicClient()
     .from("class_sections")
     .select(
-      "name_en, name_am, school_en, school_am, year_ec, schedule_entries(id, day_of_week, start_time, end_time, period_label, period_start, period_end, subject_slug, room_en, room_am, floor, subjects(name_en, name_am))",
+      "name_en, name_am, school_en, school_am, year_ec, schedule_entries(id, day_of_week, start_time, end_time, period_label, period_start, period_end, subject_slug, room_en, room_am, floor, subjects(name_en, name_am)), schedule_overrides(id, date, kind, entry_id, subject_slug, start_time, end_time, room_en, room_am, floor, title_en, title_am, note_en, note_am, subjects(name_en, name_am))",
     )
     .eq("is_default", true)
     .maybeSingle();
@@ -199,7 +202,45 @@ export async function getSchedule(): Promise<ScheduleData | null> {
     floor: number;
     subjects: { name_en: string; name_am: string } | null;
   };
-  const { schedule_entries, ...section } = data as unknown as ScheduleData["section"] & { schedule_entries: Row[] };
+  type ORow = {
+    id: string;
+    date: string;
+    kind: ScheduleOverride["kind"];
+    entry_id: string | null;
+    subject_slug: string | null;
+    start_time: string | null;
+    end_time: string | null;
+    room_en: string | null;
+    room_am: string | null;
+    floor: number | null;
+    title_en: string | null;
+    title_am: string | null;
+    note_en: string | null;
+    note_am: string | null;
+    subjects: { name_en: string; name_am: string } | null;
+  };
+  const { schedule_entries, schedule_overrides, ...section } = data as unknown as ScheduleData["section"] & {
+    schedule_entries: Row[];
+    schedule_overrides: ORow[] | null;
+  };
+  const overrides: ScheduleOverride[] = (schedule_overrides ?? []).map((o) => ({
+    id: o.id,
+    date: o.date,
+    kind: o.kind,
+    entryId: o.entry_id,
+    subject: o.subject_slug,
+    subjectEn: o.subjects?.name_en ?? null,
+    subjectAm: o.subjects?.name_am ?? null,
+    start: o.start_time ? timeToMinutes(o.start_time) : null,
+    end: o.end_time ? timeToMinutes(o.end_time) : null,
+    roomEn: o.room_en,
+    roomAm: o.room_am,
+    floor: o.floor,
+    titleEn: o.title_en,
+    titleAm: o.title_am,
+    noteEn: o.note_en,
+    noteAm: o.note_am,
+  }));
   const entries: ClassEntry[] = schedule_entries
     .map((r) => ({
       id: r.id,
@@ -217,7 +258,7 @@ export async function getSchedule(): Promise<ScheduleData | null> {
       floor: r.floor,
     }))
     .sort((a, b) => a.day - b.day || a.start - b.start);
-  return { section: section as ScheduleData["section"], entries };
+  return { section: section as ScheduleData["section"], entries, overrides };
 }
 
 /* ---------------- AI tutor ---------------- */
@@ -231,7 +272,7 @@ export async function getTutorLesson(lessonId: string): Promise<import("@/lib/tu
   const { data, error } = await createPublicClient()
     .from("lessons")
     .select(
-      "code, title_en, title_am, main_topics, lesson_sections(id, sort_order, title_en, title_am, icon, blocks), units(label_en, title_en, grades(number, subjects(name_en)))",
+      "code, title_en, title_am, main_topics, glossary, lesson_sections(id, sort_order, title_en, title_am, icon, blocks), units(label_en, title_en, grades(number, subjects(name_en)))",
     )
     .eq("id", lessonId)
     .maybeSingle();
@@ -242,6 +283,7 @@ export async function getTutorLesson(lessonId: string): Promise<import("@/lib/tu
     title_en: string;
     title_am: string;
     main_topics: MainTopic[];
+    glossary: GlossaryEntry[] | null;
     lesson_sections: LessonSection[];
     units: { label_en: string; title_en: string; grades: { number: number; subjects: { name_en: string } | null } | null } | null;
   };
@@ -254,5 +296,6 @@ export async function getTutorLesson(lessonId: string): Promise<import("@/lib/tu
     title: { en: r.title_en, am: r.title_am },
     sections: [...r.lesson_sections].sort(bySort),
     mainTopics: r.main_topics ?? [],
+    glossary: r.glossary ?? [],
   };
 }

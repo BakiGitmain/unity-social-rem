@@ -75,15 +75,26 @@ body {
   line-height: 1.85;
 }
 
+/* Clearly visible selection (also over tinted boxes like notes and tips). */
 ::selection {
-  background: var(--accent-soft);
-  color: var(--accent-ink);
+  background: color-mix(in srgb, var(--accent) 32%, white);
+  color: var(--ink);
 }
 
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
   border-radius: 6px;
+}
+
+/* Text fields never get the outline: their wrapper shows a soft ring instead. */
+input:focus,
+input:focus-visible,
+textarea:focus,
+textarea:focus-visible,
+select:focus,
+select:focus-visible {
+  outline: none;
 }
 
 /* Highlighted key term inside notes. */

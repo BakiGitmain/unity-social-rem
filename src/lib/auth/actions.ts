@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import { MIN_PASSWORD, USERNAME_RE, normalizeUsername, safeNext, usernameToEmail } from "@/lib/auth/username";
 import type { SiteKey } from "@/lib/site-i18n";
 
@@ -21,6 +22,7 @@ export async function logIn(_prev: AuthState, formData: FormData): Promise<AuthS
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({ email: usernameToEmail(username), password });
   if (error) return { error: isRateLimited(error) ? "errTooMany" : "errWrongCredentials", username };
+  await supabase.rpc("track_event", { p_type: "login", p_lesson_id: null, p_metadata: {} });
 
   redirect(safeNext(formData.get("next")));
 }
@@ -31,6 +33,10 @@ export async function signUp(_prev: AuthState, formData: FormData): Promise<Auth
 
   if (!USERNAME_RE.test(username)) return { error: "errInvalidUsername", username };
   if (password.length < MIN_PASSWORD) return { error: "errShortPassword", username };
+
+  // Feature flag (Admin → Site settings). Checked on the server, not just hidden in the UI.
+  const { data: flags } = await createPublicClient().from("app_settings").select("value").eq("key", "features").maybeSingle();
+  if ((flags?.value as { signups?: boolean } | undefined)?.signups === false) return { error: "errSignupsClosed", username };
 
   const supabase = await createClient();
 
@@ -54,6 +60,7 @@ export async function signUp(_prev: AuthState, formData: FormData): Promise<Auth
   // Supabase hides existing accounts by returning a user with no identities.
   if (data.user && data.user.identities?.length === 0) return { error: "errTaken", username };
   if (!data.session) return { error: "errGeneric", username };
+  await supabase.rpc("track_event", { p_type: "signup", p_lesson_id: null, p_metadata: {} });
 
   redirect(safeNext(formData.get("next")));
 }

@@ -28,11 +28,17 @@ How:
    - **Fix errors:** wrong facts or wording. Where notes and book disagree, follow the book and add a short `keypoint` with `"variant": "note"` that explains the difference (students see both wordings in exams).
    - Add the book's exercise questions and **common exam-style questions** on the topic to the quiz.
 
-## 3. Place it correctly (never duplicate)
+## 3. Place it correctly (never duplicate, never overwrite)
 
-- Check what already exists:
+> **Content can now be edited in the admin dashboard (`/admin/content`).** The database is the source of truth,
+> not the JSON files. So: lessons are added by Claude Code through migrations **INSERT only**. Never overwrite an
+> existing lesson: it may contain edits made in the admin. Schema changes still go through migrations.
+
+- **Check the current database state first** (not only the JSON files):
   `npx supabase migration list --remote --password "$(grep SUPABASE_DB_PASSWORD .env.local | cut -d= -f2-)"`
-  and look in `content/lessons/<subject>/grade-<n>/unit-<n>/`.
+  and query the live lessons (public read, anon key):
+  `curl -s "$NEXT_PUBLIC_SUPABASE_URL/rest/v1/lessons?select=code,title_en,status,updated_at&order=code" -H "apikey: $NEXT_PUBLIC_SUPABASE_ANON_KEY"`
+  (drafts are hidden from this query; ask the user if a code seems to be missing). Then look in `content/lessons/<subject>/grade-<n>/unit-<n>/`.
 - If a lesson with the same code already exists, **do not add it again**. If its content needs fixing, use the update flow (see "Fixing a lesson that is already pushed").
 - The unit is created automatically if it is missing (from the `unit` object in the JSON). Use the textbook's unit title.
 - Slugs: subject = `geography`, grade = `grade-9`, unit = `unit-1`, lesson = code with dots → dashes (`1.1.1` → `1-1-1`).
@@ -127,9 +133,10 @@ npx supabase db push --remote --password "$(grep SUPABASE_DB_PASSWORD .env.local
 
 Never edit a migration that has already been pushed. The SQL is generated, so never hand-edit it either.
 
-**Fixing a lesson that is already pushed:** edit its JSON, then create a **new** migration with
-`node scripts/lesson-to-sql.mjs --update <file.json> > supabase/migrations/<new file>.sql` and push.
-`--update` replaces the lesson's fields, parts, glossary and quiz in place.
+**Fixing a lesson that is already pushed:** prefer the admin editor (`/admin/content/lessons/<id>`), which keeps version
+history. `--update` (`node scripts/lesson-to-sql.mjs --update <file.json>`) still exists for lessons nobody edited in the
+admin, but the generated SQL **refuses to run** if the lesson has admin versions or a draft (so admin edits are never lost).
+Never write migrations that update or delete lesson content by hand.
 
 ## 7. Build, run, and wait for approval
 

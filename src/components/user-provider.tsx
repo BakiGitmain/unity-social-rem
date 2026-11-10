@@ -3,14 +3,17 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { pingSeen } from "@/lib/track";
 
 type UserState = {
   username: string | null;
+  /** Has the admin role (display only: the admin area checks this again on the server, with 2FA). */
+  isAdmin: boolean;
   loading: boolean;
   refresh: () => Promise<void>;
 };
 
-const UserContext = createContext<UserState>({ username: null, loading: true, refresh: async () => {} });
+const UserContext = createContext<UserState>({ username: null, isAdmin: false, loading: true, refresh: async () => {} });
 
 /**
  * Who is logged in, for display only (the @username in the menus).
@@ -18,16 +21,24 @@ const UserContext = createContext<UserState>({ username: null, loading: true, re
  */
 export function UserProvider({ children }: { children: React.ReactNode }) {
   const [username, setUsername] = useState<string | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
   const pathname = usePathname();
 
   const refresh = useCallback(async () => {
     try {
-      const { data } = await createClient().auth.getSession();
+      const supabase = createClient();
+      const { data } = await supabase.auth.getSession();
       const name = data.session?.user.user_metadata?.username;
       setUsername(typeof name === "string" ? name : null);
+      if (data.session) {
+        pingSeen();
+        const { data: admin } = await supabase.rpc("has_admin_role");
+        setIsAdmin(admin === true);
+      } else setIsAdmin(false);
     } catch {
       setUsername(null);
+      setIsAdmin(false);
     } finally {
       setLoading(false);
     }
@@ -44,7 +55,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     return () => data.subscription.unsubscribe();
   }, [refresh]);
 
-  const value = useMemo(() => ({ username, loading, refresh }), [username, loading, refresh]);
+  const value = useMemo(() => ({ username, isAdmin, loading, refresh }), [username, isAdmin, loading, refresh]);
   return <UserContext value={value}>{children}</UserContext>;
 }
 

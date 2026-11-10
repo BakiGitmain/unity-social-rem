@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, type PanInfo, type Transition } from "framer-motion";
 import { CalendarDays, CircleUserRound, House, type LucideIcon } from "lucide-react";
 import { useUser } from "@/components/user-provider";
+import { useSiteSettings } from "@/components/site-settings";
 import { AccountPanel } from "@/components/nav/account-panel";
 import { useBarPinned } from "@/lib/bar-pin";
 import { subjectStyle, SUBJECT_THEMES } from "@/lib/subjects";
@@ -28,6 +29,7 @@ export function BottomTabBar({ locale }: { locale: Locale }) {
   const pathname = (usePathname() || "/").replace(/^\/(en|am)(?=\/|$)/, "") || "/";
   const [sheet, setSheet] = useState(false);
   const { username } = useUser();
+  const { settings } = useSiteSettings();
   const hidden = useHideOnScroll(sheet);
 
   // Tint the bar with the colour of the subject being studied.
@@ -54,7 +56,7 @@ export function BottomTabBar({ locale }: { locale: Locale }) {
     };
   }, [sheet]);
 
-  const tabs: TabDef[] = [
+  const allTabs: TabDef[] = [
     { id: "home", href: "/", label: t(locale, "home"), am: locale === "am", icon: { kind: "lucide", Icon: House, bounce: true } },
     { id: "schedule", href: "/schedule", label: t(locale, "schedule"), am: locale === "am", icon: { kind: "lucide", Icon: CalendarDays, bounce: true } },
     {
@@ -65,6 +67,7 @@ export function BottomTabBar({ locale }: { locale: Locale }) {
       icon: username ? { kind: "avatar", letter: username[0]!.toUpperCase() } : { kind: "lucide", Icon: CircleUserRound },
     },
   ];
+  const tabs = allTabs.filter((tab) => tab.id !== "schedule" || settings.features.schedule);
 
   return (
     <>

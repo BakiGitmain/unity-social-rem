@@ -49,6 +49,9 @@ export type GlossaryEntry = { term: Bi; definition: Bi };
 
 /* ---------- Rows as used by the UI ---------- */
 
+/** draft = admins only; coming_soon = listed but not openable; published = live. */
+export type ContentStatus = "published" | "draft" | "coming_soon";
+
 export type Subject = {
   id: string;
   slug: string;
@@ -57,6 +60,11 @@ export type Subject = {
   description_en: string;
   description_am: string;
   sort_order: number;
+  status?: ContentStatus;
+  /** Admin colour override (#rrggbb), icon name and illustration URL. */
+  color?: string | null;
+  icon?: string | null;
+  illustration?: string | null;
 };
 
 export type Grade = {
@@ -68,6 +76,7 @@ export type Grade = {
   name_am: string;
   curriculum_en: string;
   curriculum_am: string;
+  status?: ContentStatus;
 };
 
 export type Unit = {
@@ -81,6 +90,7 @@ export type Unit = {
   title_am: string;
   description_en: string;
   description_am: string;
+  status?: ContentStatus;
 };
 
 export type LessonSummary = {
@@ -97,6 +107,7 @@ export type LessonSummary = {
   summary_en: string;
   summary_am: string;
   minutes: number;
+  status?: ContentStatus;
   /** Number of note parts (from lesson_sections(count)). */
   partCount?: number;
 };

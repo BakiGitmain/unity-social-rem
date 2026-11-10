@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { Bubble, type BubbleHandle, type Side } from "@/components/tutor/bubble";
 import { SelectionPill } from "@/components/tutor/selection-pill";
+import { useSiteSettings } from "@/components/site-settings";
 import { t } from "@/lib/site-i18n";
 import type { Locale } from "@/lib/locale";
 import type { TutorIntent, TutorView } from "@/lib/tutor/config";
@@ -24,7 +25,7 @@ export function Tutor({
   locale,
   view,
   part,
-  hidden,
+  hidden: hiddenProp,
 }: {
   lessonId: string;
   lessonTitle: string;
@@ -38,6 +39,9 @@ export function Tutor({
   const [side, setSide] = useState<Side>("right");
   const [ask, setAsk] = useState<TutorAsk | null>(null);
   const bubble = useRef<BubbleHandle>(null);
+  // Admin kill switch (AI tutor → off): no bubble at all.
+  const aiOn = useSiteSettings().settings.features.ai_tutor;
+  const hidden = hiddenProp || !aiOn;
 
   // Quiz focus mode / finished screen: close the chat too.
   useEffect(() => {

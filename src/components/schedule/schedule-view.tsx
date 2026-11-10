@@ -7,7 +7,9 @@ import { ArrowRight, CalendarPlus, Check, Clock, Coffee, MapPin, X } from "lucid
 import { useNow } from "@/lib/use-now";
 import { useTimeFormat } from "@/lib/use-time-format";
 import { addisParts, formatMinutes, type TimeFormat } from "@/lib/time/clock";
-import { entriesForDay, weeklyStats, type ClassEntry } from "@/lib/time/schedule";
+import { weeklyStats, type ClassEntry } from "@/lib/time/schedule";
+import { addDays, isoDate, planForDate, type DayClass, type DayPlan, type ScheduleOverride } from "@/lib/time/overrides";
+import { StatusBadge } from "@/components/schedule/status-badge";
 import { subjectStyle } from "@/lib/subjects";
 import { t } from "@/lib/site-i18n";
 import type { Locale } from "@/lib/locale";
@@ -31,7 +33,17 @@ import {
 const PX = 1.5; // timeline pixels per minute
 const spring = { type: "spring", stiffness: 420, damping: 36 } as const;
 
-export function ScheduleView({ entries, locale, sectionName }: { entries: ClassEntry[]; locale: Locale; sectionName: string }) {
+export function ScheduleView({
+  entries,
+  overrides,
+  locale,
+  sectionName,
+}: {
+  entries: ClassEntry[];
+  overrides: ScheduleOverride[];
+  locale: Locale;
+  sectionName: string;
+}) {
   const now = useNow();
   const [format, setFormat] = useTimeFormat();
   const [view, setView] = useState<"day" | "week">("day");
@@ -56,6 +68,14 @@ export function ScheduleView({ entries, locale, sectionName }: { entries: ClassE
   };
 
   if (!p || day === null) return <ScheduleSkeleton />;
+
+  // This week's dates (Mon–Sun around today) with their overrides applied.
+  const todayIso = isoDate(p);
+  const plans: Record<number, DayPlan> = {};
+  for (let d = 1; d <= 7; d++) plans[d] = planForDate(entries, overrides, addDays(todayIso, d - today!), d);
+  const weekActive = Object.values(plans).flatMap((pl) => pl.active);
+  const weekAll = Object.values(plans).flatMap((pl) => pl.classes);
+  const holiday = plans[day]!.holiday;
 
   return (
     <div className={am}>
@@ -103,7 +123,7 @@ export function ScheduleView({ entries, locale, sectionName }: { entries: ClassE
       <AnimatePresence mode="wait" initial={false}>
         {view === "day" ? (
           <motion.div key="day" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={spring}>
-            <DayChips day={day} today={today!} entries={entries} locale={locale} onPick={pick} />
+            <DayChips day={day} today={today!} entries={weekActive} locale={locale} onPick={pick} />
             <motion.div
               className="touch-pan-y"
               drag="x"
@@ -125,9 +145,16 @@ export function ScheduleView({ entries, locale, sectionName }: { entries: ClassE
                   exit={{ opacity: 0, x: dir * -40 }}
                   transition={spring}
                 >
+                  {holiday && (
+                    <p className="mt-6 rounded-2xl bg-tip-soft px-4 py-3 text-sm font-semibold text-tip">
+                      {t(locale, "holidayLabel")}
+                      {(locale === "am" ? holiday.titleAm || holiday.titleEn : holiday.titleEn) &&
+                        `: ${locale === "am" ? holiday.titleAm || holiday.titleEn : holiday.titleEn}`}
+                    </p>
+                  )}
                   <DayTimeline
                     day={day}
-                    entries={entriesForDay(entries, day)}
+                    entries={plans[day]!.classes}
                     isToday={day === today}
                     nowMin={nowMin}
                     format={format}
@@ -140,7 +167,7 @@ export function ScheduleView({ entries, locale, sectionName }: { entries: ClassE
           </motion.div>
         ) : (
           <motion.div key="week" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={spring}>
-            <WeekGrid entries={entries} today={today!} format={format} locale={locale} onOpen={setDetails} />
+            <WeekGrid entries={weekAll.filter((e) => e.periodStart > 0)} today={today!} format={format} locale={locale} onOpen={setDetails} />
           </motion.div>
         )}
       </AnimatePresence>
@@ -268,7 +295,9 @@ function DayTimeline({
 
         {/* classes */}
         {entries.map((e) => {
-          const state = !isToday ? "upcoming" : nowMin >= e.end ? "past" : nowMin >= e.start ? "current" : "upcoming";
+          const dc = e as DayClass;
+          const cancelled = dc.status === "cancelled";
+          const state = cancelled ? "past" : !isToday ? "upcoming" : nowMin >= e.end ? "past" : nowMin >= e.start ? "current" : "upcoming";
           const progress = state === "current" ? (nowMin - e.start) / (e.end - e.start) : 0;
           return (
             <motion.button
@@ -290,8 +319,11 @@ function DayTimeline({
                 <SubjectIcon slug={e.subject} className={`size-9 shrink-0 ${state === "past" ? "grayscale" : ""}`} />
                 <span className="min-w-0 flex-1">
                   <span className="flex items-center justify-between gap-2">
-                    <span className="truncate font-semibold text-ink">{subjectName(e, locale)}</span>
-                    {state === "past" && (
+                    <span className={`flex min-w-0 items-center gap-2 font-semibold text-ink ${cancelled ? "line-through decoration-bad/60" : ""}`}>
+                      <span className="truncate">{subjectName(e, locale)}</span>
+                      <StatusBadge entry={dc} locale={locale} />
+                    </span>
+                    {state === "past" && !cancelled && (
                       <span className="inline-flex items-center gap-1 text-xs text-faint">
                         <Check className="size-3.5" aria-hidden /> {t(locale, "finished")}
                       </span>
@@ -307,6 +339,11 @@ function DayTimeline({
                   <span className="mt-0.5 flex items-center gap-1 text-sm text-muted">
                     <MapPin className="size-3.5 shrink-0" aria-hidden />
                     {roomName(e, locale)} · {floorText(e.floor, locale)}
+                    {dc.status === "room_changed" && (
+                      <span className="text-xs text-faint">
+                        ({t(locale, "wasRoom", { room: (locale === "am" ? dc.originalRoomAm : dc.originalRoomEn) ?? "" })})
+                      </span>
+                    )}
                   </span>
                   {state === "current" && (
                     <span className="mt-3 block">
@@ -404,7 +441,8 @@ function WeekGrid({
             whileHover={{ y: -2 }}
             transition={{ type: "spring", stiffness: 500, damping: 30 }}
             style={{ ...subjectStyle(e.subject), gridColumn: e.day + 1, gridRow: `${rowOf(e.periodStart)} / ${rowOf(e.periodEnd) + 1}` }}
-            className="z-[1] flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl bg-[var(--accent-soft)] p-1 text-center ring-1 ring-accent/30 sm:items-start sm:justify-start sm:p-2.5 sm:text-left"
+            title={(e as DayClass).status ? t(locale, (e as DayClass).status === "cancelled" ? "cancelled" : "roomChanged") : undefined}
+            className={`z-[1] flex min-w-0 ${(e as DayClass).status === "cancelled" ? "opacity-40 line-through" : ""} ${(e as DayClass).status === "room_changed" ? "outline-2 outline-tip/60" : ""} flex-col items-center justify-center gap-1 rounded-xl bg-[var(--accent-soft)] p-1 text-center ring-1 ring-accent/30 sm:items-start sm:justify-start sm:p-2.5 sm:text-left`}
           >
             <SubjectIcon slug={e.subject} className="size-6 sm:size-7" />
             <span className="w-full truncate text-[10px] font-semibold text-accent-ink sm:text-xs">{subjectName(e, locale)}</span>

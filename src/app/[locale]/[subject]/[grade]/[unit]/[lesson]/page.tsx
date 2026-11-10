@@ -5,6 +5,8 @@ import { subjectStyle } from "@/lib/subjects";
 import { isLocale, loc, type Locale } from "@/lib/locale";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { StudyView } from "@/components/study/study-view";
+import { ComingSoonBadge } from "@/components/coming-soon-badge";
+import { t } from "@/lib/site-i18n";
 
 type Params = PageProps<"/[locale]/[subject]/[grade]/[unit]/[lesson]">["params"];
 
@@ -54,7 +56,7 @@ export default async function LessonPage({ params }: { params: Params }) {
   const { prev, next } = neighbours(tree, g.slug, l.id);
 
   return (
-    <div style={subjectStyle(tree.slug)} className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
+    <div style={subjectStyle(tree.slug, tree.color)} className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
       <Breadcrumbs
         am={locale === "am"}
         items={[
@@ -64,6 +66,13 @@ export default async function LessonPage({ params }: { params: Params }) {
           { label: l.code },
         ]}
       />
+      {l.status === "coming_soon" ? (
+        <div className={`mx-auto mt-10 max-w-lg rounded-3xl bg-surface p-8 text-center ring-1 ring-line ${locale === "am" ? "am" : ""}`}>
+          <ComingSoonBadge locale={locale} />
+          <h1 className="mt-4 text-2xl font-semibold text-ink">{loc(l, "title", locale)}</h1>
+          <p className="mt-2 text-muted">{t(locale, "lessonComingSoon")}</p>
+        </div>
+      ) : (
       <StudyView
         locale={locale}
         lesson={l}
@@ -76,6 +85,7 @@ export default async function LessonPage({ params }: { params: Params }) {
         unitHref={`/${tree.slug}/${g.slug}/${u.slug}`}
         unitLabel={`${loc(tree, "name", locale)} · ${loc(g, "name", locale)} · ${loc(u, "label", locale)}`}
       />
+      )}
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowRight, BookOpen } from "lucide-react";
 import { getGradeParams, getSubjectTree } from "@/lib/data";
 import { subjectStyle } from "@/lib/subjects";
+import { ComingSoonBadge, SOON_LINK } from "@/components/coming-soon-badge";
 import { isLocale, loc, type Locale } from "@/lib/locale";
 import { t } from "@/lib/site-i18n";
 import { Breadcrumbs } from "@/components/breadcrumbs";
@@ -36,7 +37,7 @@ export default async function GradePage({ params }: PageProps<"/[locale]/[subjec
   const gradeName = loc(g, "name", locale);
 
   return (
-    <div style={subjectStyle(tree.slug)} className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
+    <div style={subjectStyle(tree.slug, tree.color)} className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
       <Breadcrumbs
         am={am}
         items={[
@@ -71,8 +72,11 @@ export default async function GradePage({ params }: PageProps<"/[locale]/[subjec
               <StaggerItem key={u.id}>
                 <Link
                   href={`/${tree.slug}/${g.slug}/${u.slug}`}
-                  className={`group card-hover flex h-full flex-col rounded-2xl border border-line bg-surface p-5 hover:border-[color:var(--accent)] hover:bg-[var(--accent-tint)] sm:p-6 ${am ? "am" : ""}`}
+                  aria-disabled={u.status === "coming_soon" || undefined}
+                  tabIndex={u.status === "coming_soon" ? -1 : undefined}
+                  className={`group card-hover relative flex h-full flex-col rounded-2xl border border-line bg-surface p-5 hover:border-[color:var(--accent)] hover:bg-[var(--accent-tint)] sm:p-6 ${am ? "am" : ""} ${u.status === "coming_soon" ? SOON_LINK : ""}`}
                 >
+                  {u.status === "coming_soon" && <ComingSoonBadge locale={locale} className="absolute top-4 right-4" />}
                   <div className="flex items-center justify-between gap-3">
                     <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-semibold tracking-wide text-accent-ink">
                       {loc(u, "label", locale)}

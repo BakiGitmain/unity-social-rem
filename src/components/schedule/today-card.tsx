@@ -7,7 +7,10 @@ import { ArrowRight, Clock, Coffee, MapPin, PartyPopper } from "lucide-react";
 import { isFakeTime, useNow } from "@/lib/use-now";
 import { useTimeFormat } from "@/lib/use-time-format";
 import { addisParts, formatMinutes, formatTime, type TimeFormat } from "@/lib/time/clock";
-import { scheduleStatus, type ClassEntry, type Upcoming } from "@/lib/time/schedule";
+import type { ClassEntry, Upcoming } from "@/lib/time/schedule";
+import { isoDate, scheduleStatusOn, type DayClass, type ScheduleOverride } from "@/lib/time/overrides";
+import { useSiteSettings } from "@/components/site-settings";
+import { StatusBadge } from "@/components/schedule/status-badge";
 import { subjectStyle } from "@/lib/subjects";
 import { t } from "@/lib/site-i18n";
 import type { Locale } from "@/lib/locale";
@@ -17,15 +20,19 @@ import { FillBar, LiveDot, Rolling, TimeFormatSwitch } from "@/components/schedu
 import { dayName, duration, ethiopianDate, floorText, gregorianDate, roomName, subjectName } from "@/components/schedule/format";
 
 /** Home page "Today" card: live clock, current/next class, breaks, rest days. */
-export function TodayCard({ entries, locale }: { entries: ClassEntry[]; locale: Locale }) {
+export function TodayCard({ entries, overrides, locale }: { entries: ClassEntry[]; overrides: ScheduleOverride[]; locale: Locale }) {
   const now = useNow();
+  const scheduleOn = useSiteSettings().settings.features.schedule;
   const [format, setFormat] = useTimeFormat();
   const am = locale === "am" ? "am" : "";
 
+  if (!scheduleOn) return null;
   if (now === null) return <TodayCardSkeleton />;
 
   const p = addisParts(now);
-  const status = scheduleStatus(entries, p.weekday, p.secondOfDay);
+  const status = scheduleStatusOn(entries, overrides, isoDate(p), p.weekday, p.secondOfDay);
+  const cancelled = status.plan.classes.filter((c) => c.status === "cancelled");
+  const holiday = status.plan.holiday;
   const isFake = isFakeTime();
 
   return (
@@ -43,6 +50,23 @@ export function TodayCard({ entries, locale }: { entries: ClassEntry[]; locale: 
         </div>
         <TimeFormatSwitch value={format} onChange={setFormat} locale={locale} id="today-tf" />
       </div>
+
+      {(holiday || cancelled.length > 0) && (
+        <div className="mt-4 flex flex-wrap gap-2">
+          {holiday && (
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-tip-soft px-3 py-1 text-xs font-semibold text-tip">
+              <PartyPopper className="size-3.5" aria-hidden />
+              {t(locale, "holidayLabel")}
+              {(locale === "am" ? holiday.titleAm || holiday.titleEn : holiday.titleEn) && `: ${locale === "am" ? holiday.titleAm || holiday.titleEn : holiday.titleEn}`}
+            </span>
+          )}
+          {cancelled.map((c) => (
+            <span key={c.id} className="inline-flex items-center gap-1.5 rounded-full bg-bad-soft px-3 py-1 text-xs font-semibold text-bad">
+              {subjectName(c, locale)} · {t(locale, "cancelledToday")}
+            </span>
+          ))}
+        </div>
+      )}
 
       <div className="mt-5">
         <AnimatePresence mode="wait" initial={false}>
@@ -122,7 +146,10 @@ function CurrentClass({
       className="card-hover block rounded-2xl bg-[var(--accent-tint)] p-4 ring-1 ring-accent/25 sm:p-5"
     >
       <div className="flex items-center justify-between gap-3">
-        <span className="text-xs font-semibold tracking-wide text-accent-ink uppercase">{t(locale, "nowInClass")}</span>
+        <span className="flex items-center gap-2">
+          <span className="text-xs font-semibold tracking-wide text-accent-ink uppercase">{t(locale, "nowInClass")}</span>
+          <StatusBadge entry={entry as DayClass} locale={locale} />
+        </span>
         <LiveDot label={t(locale, "live")} />
       </div>
       <div className="mt-3 flex items-center gap-3">
@@ -176,7 +203,10 @@ function NextCard({ next, format, locale }: { next: Upcoming; format: TimeFormat
     >
       <SubjectIcon slug={e.subject} className="size-10 shrink-0" />
       <div className="min-w-0 flex-1">
-        <p className="text-xs font-semibold tracking-wide text-accent-ink uppercase">{t(locale, "nextClass")}</p>
+        <p className="flex items-center gap-2 text-xs font-semibold tracking-wide text-accent-ink uppercase">
+          {t(locale, "nextClass")}
+          <StatusBadge entry={e as DayClass} locale={locale} />
+        </p>
         <p className="font-semibold text-ink">{subjectName(e, locale)}</p>
         <p className="text-sm text-muted">
           <span className={format === "eth" ? "am" : ""}>{formatMinutes(e.start, format)}</span> · {roomName(e, locale)} ·{" "}

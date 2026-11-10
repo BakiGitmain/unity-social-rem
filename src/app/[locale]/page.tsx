@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getSchedule, getSubjects } from "@/lib/data";
 import { TodayCard } from "@/components/schedule/today-card";
+import { ScheduleLive } from "@/components/schedule/schedule-live";
 import { subjectStyle } from "@/lib/subjects";
 import { isLocale, loc, type Locale } from "@/lib/locale";
 import { t } from "@/lib/site-i18n";
@@ -18,7 +19,8 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
       {schedule && (
         <div className="mb-10 max-w-3xl">
-          <TodayCard entries={schedule.entries} locale={locale} />
+          <TodayCard entries={schedule.entries} overrides={schedule.overrides} locale={locale} />
+          <ScheduleLive />
         </div>
       )}
       <h1 className={`text-2xl font-semibold tracking-tight text-ink sm:text-3xl ${am}`}>{t(locale, "chooseSubject")}</h1>
@@ -26,17 +28,19 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
 
       <Stagger className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {subjects.map((s, i) => {
-          const ready = s.lessonCount > 0;
+          const ready = s.lessonCount > 0 && s.status !== "coming_soon";
           return (
             <StaggerItem key={s.id}>
               <Link
                 href={`/${s.slug}`}
-                style={subjectStyle(s.slug)}
-                className="group card-hover flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface hover:border-[color:var(--accent)]"
+                style={subjectStyle(s.slug, s.color)}
+                aria-disabled={s.status === "coming_soon" || undefined}
+                tabIndex={s.status === "coming_soon" ? -1 : undefined}
+                className={`group card-hover flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface hover:border-[color:var(--accent)] ${s.status === "coming_soon" ? "pointer-events-none" : ""}`}
               >
                 <div className="bg-[var(--accent-tint)] px-6 pt-6 pb-4">
                   <Image
-                    src={`/illustrations/subjects/${s.slug}.svg`}
+                    src={s.illustration || `/illustrations/subjects/${s.slug}.svg`}
                     alt=""
                     width={320}
                     height={240}
