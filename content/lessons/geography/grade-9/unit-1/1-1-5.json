@@ -1,0 +1,815 @@
+{
+  "subject": "geography",
+  "grade": 9,
+  "unit": {
+    "number": 1,
+    "slug": "unit-1",
+    "label": {
+      "en": "Unit One",
+      "am": "ምዕራፍ አንድ"
+    },
+    "title": {
+      "en": "The Concept of Geography and Map-Reading",
+      "am": "የጂኦግራፊ ጽንሰ ሐሳብ እና ካርታ ንባብ"
+    },
+    "description": {
+      "en": "What geography is, how it became a science, its branches and scope, and how to read maps.",
+      "am": "ጂኦግራፊ ምን እንደሆነ፣ እንዴት ሳይንስ እንደሆነ፣ ቅርንጫፎቹና ወሰኑ፣ እንዲሁም ካርታ እንዴት እንደሚነበብ።"
+    }
+  },
+  "lesson": {
+    "code": "1.1.5",
+    "slug": "1-1-5",
+    "sort_order": 5,
+    "minutes": 8,
+    "section": {
+      "code": "1.1",
+      "title": {
+        "en": "The Science of Geography",
+        "am": "የጂኦግራፊ ሳይንስ"
+      }
+    },
+    "title": {
+      "en": "Major Schools of Thought: Environmental Determinism",
+      "am": "ዋና ዋና የአስተሳሰብ ትምህርት ቤቶች፦ የአካባቢ ወሳኝነት"
+    },
+    "summary": {
+      "en": "What a school of thought is, and the first major school in geography: environmental determinism, its main ideas and its scholars (Darwin, Demolins and Ratzel).",
+      "am": "የአስተሳሰብ ትምህርት ቤት ምን እንደሆነ፣ እና በጂኦግራፊ የመጀመሪያው ዋና ትምህርት ቤት፦ የአካባቢ ወሳኝነት፣ ዋና ሐሳቦቹና ምሁራኑ (ዳርዊን፣ ዴሞላንና ራትዘል)።"
+    }
+  },
+  "sections": [
+    {
+      "title": {
+        "en": "Schools of thought",
+        "am": "የአስተሳሰብ ትምህርት ቤቶች"
+      },
+      "icon": "brain",
+      "blocks": [
+        {
+          "type": "keypoint",
+          "variant": "definition",
+          "title": {
+            "en": "School of thought",
+            "am": "የአስተሳሰብ ትምህርት ቤት (School of thought)"
+          },
+          "text": {
+            "en": "A **school of thought** is a group of scholars who share the same main idea about a question.",
+            "am": "**የአስተሳሰብ ትምህርት ቤት (School of thought)** ስለ አንድ ጥያቄ ተመሳሳይ ዋና ሐሳብ ያላቸው ምሁራን ቡድን ነው።"
+          }
+        },
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "Geography has various schools of thought. They emerged with **different views on the relationship between humans and their environment**.",
+            "am": "ጂኦግራፊ የተለያዩ የአስተሳሰብ ትምህርት ቤቶች አሉት። እነዚህ **በሰውና በአካባቢው መካከል ስላለው ግንኙነት የተለያዩ አመለካከቶች** ይዘው ተነሱ።"
+          }
+        },
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "The big question is: **does nature control people, or do people control nature?**",
+            "am": "ትልቁ ጥያቄ፦ **ተፈጥሮ ሰውን ትቆጣጠራለች ወይስ ሰው ተፈጥሮን ይቆጣጠራል?**"
+          }
+        },
+        {
+          "type": "keypoint",
+          "variant": "note",
+          "title": {
+            "en": "In this unit",
+            "am": "በዚህ ምዕራፍ"
+          },
+          "text": {
+            "en": "This lesson covers **A. Environmental Determinism**. B. Environmental Possibilism comes in the next lesson.",
+            "am": "ይህ ትምህርት **ሀ. የአካባቢ ወሳኝነትን (Environmental Determinism)** ይሸፍናል። ለ. የአካባቢ ዕድላዊነት (Environmental Possibilism) በቀጣዩ ትምህርት ይመጣል።"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "A. Environmental Determinism",
+        "am": "ሀ. የአካባቢ ወሳኝነት"
+      },
+      "icon": "mountain",
+      "blocks": [
+        {
+          "type": "keypoint",
+          "variant": "definition",
+          "title": {
+            "en": "Environmental Determinism",
+            "am": "የአካባቢ ወሳኝነት (Environmental Determinism)"
+          },
+          "text": {
+            "en": "**Environmental determinism** is the idea that the natural environment **controls** human activities.",
+            "am": "**የአካባቢ ወሳኝነት (Environmental Determinism)** የተፈጥሮ አካባቢ የሰውን እንቅስቃሴዎች **ይቆጣጠራል** የሚል አስተሳሰብ ነው።"
+          }
+        },
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "The idea was first laid down by **Greek and Roman scholars**.",
+            "am": "ይህ ሐሳብ በመጀመሪያ የተጣለው በ**ግሪክና በሮም ምሁራን** ነው።"
+          }
+        },
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "\"Determine\" means \"decide\". So for this school, **nature decides** how people live.",
+            "am": "«Determine» ማለት «መወሰን» ነው። ስለዚህ ለዚህ ትምህርት ቤት **ተፈጥሮ ትወስናለች** ሰዎች እንዴት እንደሚኖሩ።"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Its main ideas",
+        "am": "ዋና ሐሳቦቹ"
+      },
+      "icon": "scale",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "The philosophy (main ideas) of this school:",
+            "am": "የዚህ ትምህርት ቤት ፍልስፍና (ዋና ሐሳቦች)፦"
+          }
+        },
+        {
+          "type": "list",
+          "items": [
+            {
+              "en": "The natural environment is the **influential (dominant) factor** in the human way of living.",
+              "am": "የተፈጥሮ አካባቢ በሰው አኗኗር ላይ **ተጽዕኖ ፈጣሪ (ዋነኛ) ምክንያት** ነው።"
+            },
+            {
+              "en": "Human activities are **controlled by the environment**.",
+              "am": "የሰው እንቅስቃሴዎች **በአካባቢ ቁጥጥር ሥር** ናቸው።"
+            },
+            {
+              "en": "The physical environment is **the master** that decides people's day-to-day activities.",
+              "am": "የተፈጥሮ አካባቢ የሰዎችን የዕለት ተዕለት እንቅስቃሴ የሚወስን **ጌታ** ነው።"
+            }
+          ]
+        },
+        {
+          "type": "keypoint",
+          "variant": "important",
+          "title": {
+            "en": "Until the First World War",
+            "am": "እስከ አንደኛው የዓለም ጦርነት"
+          },
+          "text": {
+            "en": "Environmental determinism was the **dominant idea up to the First World War (WWI)**.",
+            "am": "የአካባቢ ወሳኝነት **እስከ አንደኛው የዓለም ጦርነት ድረስ ዋነኛው አስተሳሰብ** ነበር።"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "What it says nature causes",
+        "am": "ተፈጥሮ ታስከትላለች የሚለው"
+      },
+      "icon": "thermometer-sun",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "For determinists, the physical qualities of geographical conditions (climate, landforms, soil...) are the **causes** of:",
+            "am": "ለወሳኝነት አራማጆች፣ የጂኦግራፊያዊ ሁኔታዎች የተፈጥሮ ባሕርያት (የአየር ንብረት፣ የመሬት ቅርጽ፣ አፈር...) የሚከተሉት **መንስኤዎች** ናቸው፦"
+          }
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            {
+              "en": "people's **physical differences**, and",
+              "am": "የሰዎች **አካላዊ ልዩነቶች**፣ እና"
+            },
+            {
+              "en": "differences from place to place in **economic activity** and **cultural practice**.",
+              "am": "ከቦታ ቦታ ያሉ የ**ኢኮኖሚ እንቅስቃሴና** የ**ባህል ልማድ** ልዩነቶች።"
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "title": {
+            "en": "How a determinist would explain Ethiopia",
+            "am": "የወሳኝነት አራማጅ ኢትዮጵያን እንዴት ያብራራል"
+          },
+          "text": {
+            "en": "A determinist would say: highland people grow teff and barley **because** the climate is cool and wet, while Afar people herd camels **because** the lowland is hot and dry. Nature \"decided\" it.",
+            "am": "የወሳኝነት አራማጅ እንዲህ ይላል፦ የደጋ ሰዎች ጤፍና ገብስ የሚያመርቱት የአየር ንብረቱ ቀዝቃዛና እርጥብ **ስለሆነ** ነው፤ የአፋር ሰዎች ግመል የሚያረቡት ቆላው ሞቃትና ደረቅ **ስለሆነ** ነው። ተፈጥሮ «ወሰነች»።"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Scholars who supported it",
+        "am": "የደገፉት ምሁራን"
+      },
+      "icon": "users",
+      "blocks": [
+        {
+          "type": "points",
+          "items": [
+            {
+              "icon": "leaf",
+              "title": {
+                "en": "Charles Darwin",
+                "am": "ቻርለስ ዳርዊን (Charles Darwin)"
+              },
+              "text": {
+                "en": "his theory of evolution (book: **On the Origin of Species**, 1859) and the idea of **\"survival of the fittest\"** supported the school.",
+                "am": "የዝግመተ ለውጥ ንድፈ ሐሳቡ (መጽሐፍ፦ **On the Origin of Species**፣ 1859) እና **«የብቁዎች መትረፍ» (Survival of the fittest)** የሚለው ሐሳብ ትምህርት ቤቱን ደገፉ።"
+              }
+            },
+            {
+              "icon": "book-text",
+              "title": {
+                "en": "Edmond Demolins",
+                "am": "ኤድሞን ዴሞላን (Edmond Demolins)"
+              },
+              "text": {
+                "en": "a **French** scholar who supported the school.",
+                "am": "ትምህርት ቤቱን የደገፈ **ፈረንሳዊ** ምሁር።"
+              }
+            },
+            {
+              "icon": "globe",
+              "title": {
+                "en": "Friedrich Ratzel",
+                "am": "ፍሬድሪክ ራትዘል (Friedrich Ratzel)"
+              },
+              "text": {
+                "en": "a **German** geographer and a leading determinist.",
+                "am": "**ጀርመናዊ** የጂኦግራፊ ምሁርና ግንባር ቀደም የወሳኝነት አራማጅ።"
+              }
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "title": {
+            "en": "Memory trick",
+            "am": "የማስታወሻ ዘዴ"
+          },
+          "text": {
+            "en": "**D**arwin and **D**emolins start with **D**, like **D**eterminism. Add **R**atzel, the German leader.",
+            "am": "**D**arwin እና **D**emolins በ**D** ይጀምራሉ፣ ልክ እንደ **D**eterminism። ጀርመናዊውን መሪ **R**atzel ጨምሩ።"
+          }
+        },
+        {
+          "type": "keypoint",
+          "variant": "note",
+          "title": {
+            "en": "Spelling",
+            "am": "አጻጻፍ"
+          },
+          "text": {
+            "en": "Some notes write \"F. Rutzel\". The correct name is **Friedrich Ratzel**.",
+            "am": "አንዳንድ ማስታወሻዎች «F. Rutzel» ብለው ይጽፋሉ። ትክክለኛው ስም **ፍሬድሪክ ራትዘል (Friedrich Ratzel)** ነው።"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "A note on Darwin",
+        "am": "ስለ ዳርዊን ማስታወሻ"
+      },
+      "icon": "book-open",
+      "blocks": [
+        {
+          "type": "keypoint",
+          "variant": "note",
+          "title": {
+            "en": "Correction",
+            "am": "እርማት"
+          },
+          "text": {
+            "en": "Some notes say Darwin's book was called \"The Survival of the Fittest\". The book is actually **On the Origin of Species** (1859).",
+            "am": "አንዳንድ ማስታወሻዎች የዳርዊን መጽሐፍ «The Survival of the Fittest» ይባል ነበር ይላሉ። መጽሐፉ በእርግጥ **On the Origin of Species** (1859) ነው።"
+          }
+        },
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "**\"Survival of the fittest\"** is the famous idea (phrase) linked to Darwin's theory. The phrase was first used by **Herbert Spencer**.",
+            "am": "**«የብቁዎች መትረፍ» (Survival of the fittest)** ከዳርዊን ንድፈ ሐሳብ ጋር የተያያዘ ታዋቂ ሐሳብ (አባባል) ነው። አባባሉን መጀመሪያ የተጠቀመው **ኸርበርት ስፔንሰር (Herbert Spencer)** ነው።"
+          }
+        },
+        {
+          "type": "keypoint",
+          "variant": "important",
+          "title": {
+            "en": "Exam tip",
+            "am": "የፈተና ምክር"
+          },
+          "text": {
+            "en": "In the exam, link **Darwin** with **\"survival of the fittest\"**.",
+            "am": "በፈተና **ዳርዊንን** ከ**«የብቁዎች መትረፍ»** ጋር አያይዙ።"
+          }
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "term": {
+        "en": "School of thought",
+        "am": "የአስተሳሰብ ትምህርት ቤት"
+      },
+      "definition": {
+        "en": "A group of scholars who share the same main idea about a question.",
+        "am": "ስለ አንድ ጥያቄ ተመሳሳይ ዋና ሐሳብ ያላቸው ምሁራን ቡድን።"
+      }
+    },
+    {
+      "term": {
+        "en": "Environmental Determinism",
+        "am": "የአካባቢ ወሳኝነት"
+      },
+      "definition": {
+        "en": "The school of thought that says the natural environment controls human activities; dominant until the First World War.",
+        "am": "የተፈጥሮ አካባቢ የሰውን እንቅስቃሴዎች ይቆጣጠራል የሚል የአስተሳሰብ ትምህርት ቤት፤ እስከ አንደኛው የዓለም ጦርነት ዋነኛ ነበር።"
+      }
+    },
+    {
+      "term": {
+        "en": "Determinism",
+        "am": "ወሳኝነት"
+      },
+      "definition": {
+        "en": "Short for environmental determinism: nature decides how people live.",
+        "am": "የአካባቢ ወሳኝነት አጭር ስም፦ ተፈጥሮ ሰዎች እንዴት እንደሚኖሩ ትወስናለች።"
+      }
+    },
+    {
+      "term": {
+        "en": "Survival of the fittest",
+        "am": "የብቁዎች መትረፍ"
+      },
+      "definition": {
+        "en": "The famous idea linked to Darwin's theory of evolution; the phrase was first used by Herbert Spencer.",
+        "am": "ከዳርዊን የዝግመተ ለውጥ ንድፈ ሐሳብ ጋር የተያያዘ ታዋቂ ሐሳብ፤ አባባሉን መጀመሪያ የተጠቀመው ኸርበርት ስፔንሰር ነው።"
+      }
+    },
+    {
+      "term": {
+        "en": "Charles Darwin",
+        "am": "ቻርለስ ዳርዊን"
+      },
+      "definition": {
+        "en": "English naturalist whose theory of evolution (On the Origin of Species, 1859) supported determinism.",
+        "am": "የዝግመተ ለውጥ ንድፈ ሐሳቡ (On the Origin of Species፣ 1859) ወሳኝነትን የደገፈ እንግሊዛዊ የተፈጥሮ ተመራማሪ።"
+      }
+    },
+    {
+      "term": {
+        "en": "Edmond Demolins",
+        "am": "ኤድሞን ዴሞላን"
+      },
+      "definition": {
+        "en": "French scholar who supported environmental determinism.",
+        "am": "የአካባቢ ወሳኝነትን የደገፈ ፈረንሳዊ ምሁር።"
+      }
+    },
+    {
+      "term": {
+        "en": "Friedrich Ratzel",
+        "am": "ፍሬድሪክ ራትዘል"
+      },
+      "definition": {
+        "en": "German geographer and a leading environmental determinist.",
+        "am": "ጀርመናዊ የጂኦግራፊ ምሁርና ግንባር ቀደም የአካባቢ ወሳኝነት አራማጅ።"
+      }
+    }
+  ],
+  "main_topics": [
+    {
+      "title": {
+        "en": "Schools of thought",
+        "am": "የአስተሳሰብ ትምህርት ቤቶች"
+      },
+      "points": [
+        {
+          "en": "Schools of thought have **different views on the human–environment relationship**.",
+          "am": "የአስተሳሰብ ትምህርት ቤቶች **ስለ ሰውና አካባቢ ግንኙነት የተለያዩ አመለካከቶች** አሏቸው።"
+        },
+        {
+          "en": "This lesson: **A. Environmental Determinism**. Next lesson: B. Possibilism.",
+          "am": "ይህ ትምህርት፦ **ሀ. የአካባቢ ወሳኝነት**። ቀጣዩ ትምህርት፦ ለ. ዕድላዊነት።"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Environmental Determinism",
+        "am": "የአካባቢ ወሳኝነት"
+      },
+      "points": [
+        {
+          "en": "Laid down by **Greek and Roman scholars**.",
+          "am": "በ**ግሪክና በሮም ምሁራን** የተጣለ።"
+        },
+        {
+          "en": "The environment **controls** human activities; it is \"the master\".",
+          "am": "አካባቢ የሰውን እንቅስቃሴዎች **ይቆጣጠራል**፤ «ጌታ» ነው።"
+        },
+        {
+          "en": "Dominant idea **up to the First World War**.",
+          "am": "**እስከ አንደኛው የዓለም ጦርነት** ዋነኛ አስተሳሰብ።"
+        },
+        {
+          "en": "Nature causes people's **physical differences** and differences in **economy and culture**.",
+          "am": "ተፈጥሮ የሰዎችን **አካላዊ ልዩነቶች** እና የ**ኢኮኖሚና የባህል** ልዩነቶችን ታስከትላለች።"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "The scholars",
+        "am": "ምሁራኑ"
+      },
+      "points": [
+        {
+          "en": "**Charles Darwin**: On the Origin of Species (1859), \"survival of the fittest\".",
+          "am": "**ቻርለስ ዳርዊን**፦ On the Origin of Species (1859)፣ «የብቁዎች መትረፍ»።"
+        },
+        {
+          "en": "**Edmond Demolins**: French scholar.",
+          "am": "**ኤድሞን ዴሞላን**፦ ፈረንሳዊ ምሁር።"
+        },
+        {
+          "en": "**Friedrich Ratzel**: German geographer, a leading determinist.",
+          "am": "**ፍሬድሪክ ራትዘል**፦ ጀርመናዊ የጂኦግራፊ ምሁር፣ ግንባር ቀደም አራማጅ።"
+        }
+      ]
+    }
+  ],
+  "quiz": {
+    "title": {
+      "en": "Quiz: Environmental Determinism",
+      "am": "ፈተና፦ የአካባቢ ወሳኝነት"
+    },
+    "description": {
+      "en": "12 questions on schools of thought and environmental determinism.",
+      "am": "ስለ አስተሳሰብ ትምህርት ቤቶችና ስለ አካባቢ ወሳኝነት 12 ጥያቄዎች።"
+    },
+    "questions": [
+      {
+        "question": {
+          "en": "Environmental determinism says that:",
+          "am": "የአካባቢ ወሳኝነት የሚለው፦"
+        },
+        "options": [
+          {
+            "en": "Humans fully control nature",
+            "am": "ሰዎች ተፈጥሮን ሙሉ በሙሉ ይቆጣጠራሉ"
+          },
+          {
+            "en": "The environment controls human activities",
+            "am": "አካባቢ የሰውን እንቅስቃሴዎች ይቆጣጠራል"
+          },
+          {
+            "en": "Environment has no effect on people",
+            "am": "አካባቢ በሰዎች ላይ ምንም ተጽዕኖ የለውም"
+          },
+          {
+            "en": "Only culture matters",
+            "am": "ባህል ብቻ ነው ወሳኙ"
+          }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "For determinists, the natural environment is the master that controls how people live.",
+          "am": "ለወሳኝነት አራማጆች የተፈጥሮ አካባቢ ሰዎች እንዴት እንደሚኖሩ የሚቆጣጠር ጌታ ነው።"
+        }
+      },
+      {
+        "question": {
+          "en": "Environmental determinism was the dominant idea up to:",
+          "am": "የአካባቢ ወሳኝነት ዋነኛ አስተሳሰብ የነበረው እስከ መቼ ነው?"
+        },
+        "options": [
+          {
+            "en": "The 15th century",
+            "am": "15ኛው ክፍለ ዘመን"
+          },
+          {
+            "en": "The First World War",
+            "am": "አንደኛው የዓለም ጦርነት"
+          },
+          {
+            "en": "The Second World War",
+            "am": "ሁለተኛው የዓለም ጦርነት"
+          },
+          {
+            "en": "Today",
+            "am": "ዛሬ"
+          }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "It was the dominant idea in geography up to the First World War (WWI).",
+          "am": "እስከ አንደኛው የዓለም ጦርነት ድረስ በጂኦግራፊ ዋነኛው አስተሳሰብ ነበር።"
+        }
+      },
+      {
+        "question": {
+          "en": "Which scholar is linked with \"survival of the fittest\"?",
+          "am": "ከ«የብቁዎች መትረፍ» ጋር የተያያዘው ምሁር ማን ነው?"
+        },
+        "options": [
+          {
+            "en": "Friedrich Ratzel",
+            "am": "ፍሬድሪክ ራትዘል"
+          },
+          {
+            "en": "Edmond Demolins",
+            "am": "ኤድሞን ዴሞላን"
+          },
+          {
+            "en": "Charles Darwin",
+            "am": "ቻርለስ ዳርዊን"
+          },
+          {
+            "en": "Eratosthenes",
+            "am": "ኤራቶስቴነስ"
+          }
+        ],
+        "answer": 2,
+        "explanation": {
+          "en": "\"Survival of the fittest\" is the famous idea linked to Darwin's theory of evolution.",
+          "am": "«የብቁዎች መትረፍ» ከዳርዊን የዝግመተ ለውጥ ንድፈ ሐሳብ ጋር የተያያዘ ታዋቂ ሐሳብ ነው።"
+        }
+      },
+      {
+        "question": {
+          "en": "The idea of environmental determinism was first laid down by:",
+          "am": "የአካባቢ ወሳኝነት ሐሳብ መጀመሪያ የተጣለው በእነማን ነው?"
+        },
+        "options": [
+          {
+            "en": "Greek and Roman scholars",
+            "am": "የግሪክና የሮም ምሁራን"
+          },
+          {
+            "en": "Chinese scholars",
+            "am": "የቻይና ምሁራን"
+          },
+          {
+            "en": "American geographers after WWII",
+            "am": "ከሁለተኛው የዓለም ጦርነት በኋላ የአሜሪካ ምሁራን"
+          },
+          {
+            "en": "Ethiopian monks",
+            "am": "የኢትዮጵያ መነኮሳት"
+          }
+        ],
+        "answer": 0,
+        "explanation": {
+          "en": "The notes say the idea was laid down by Greek and Roman scholars.",
+          "am": "ሐሳቡ በግሪክና በሮም ምሁራን እንደተጣለ ማስታወሻው ይገልጻል።"
+        }
+      },
+      {
+        "question": {
+          "en": "What is the actual title of Darwin's famous 1859 book?",
+          "am": "የዳርዊን ታዋቂ የ1859 መጽሐፍ ትክክለኛ ርዕስ ምንድን ነው?"
+        },
+        "options": [
+          {
+            "en": "The Survival of the Fittest",
+            "am": "The Survival of the Fittest"
+          },
+          {
+            "en": "On the Origin of Species",
+            "am": "On the Origin of Species"
+          },
+          {
+            "en": "Anthropogeography",
+            "am": "Anthropogeography"
+          },
+          {
+            "en": "The Spirit of Laws",
+            "am": "The Spirit of Laws"
+          }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "The book is On the Origin of Species. \"Survival of the fittest\" is the idea linked to it, not its title.",
+          "am": "መጽሐፉ On the Origin of Species ነው። «Survival of the fittest» ከእሱ ጋር የተያያዘ ሐሳብ እንጂ ርዕሱ አይደለም።"
+        }
+      },
+      {
+        "question": {
+          "en": "Who first used the phrase \"survival of the fittest\"?",
+          "am": "«የብቁዎች መትረፍ» የሚለውን አባባል መጀመሪያ የተጠቀመው ማን ነው?"
+        },
+        "options": [
+          {
+            "en": "Charles Darwin",
+            "am": "ቻርለስ ዳርዊን"
+          },
+          {
+            "en": "Friedrich Ratzel",
+            "am": "ፍሬድሪክ ራትዘል"
+          },
+          {
+            "en": "Herbert Spencer",
+            "am": "ኸርበርት ስፔንሰር"
+          },
+          {
+            "en": "Edmond Demolins",
+            "am": "ኤድሞን ዴሞላን"
+          }
+        ],
+        "answer": 2,
+        "explanation": {
+          "en": "Herbert Spencer coined the phrase; it became linked with Darwin's theory. In the exam, link Darwin with the idea.",
+          "am": "አባባሉን የፈጠረው ኸርበርት ስፔንሰር ነው፤ ከዳርዊን ንድፈ ሐሳብ ጋር ተያያዘ። በፈተና ዳርዊንን ከሐሳቡ ጋር አያይዙ።"
+        }
+      },
+      {
+        "question": {
+          "en": "Friedrich Ratzel was a:",
+          "am": "ፍሬድሪክ ራትዘል ማን ነበር?"
+        },
+        "options": [
+          {
+            "en": "French historian",
+            "am": "ፈረንሳዊ የታሪክ ምሁር"
+          },
+          {
+            "en": "German geographer and leading determinist",
+            "am": "ጀርመናዊ የጂኦግራፊ ምሁርና ግንባር ቀደም የወሳኝነት አራማጅ"
+          },
+          {
+            "en": "Greek mathematician",
+            "am": "ግሪካዊ የሒሳብ ሊቅ"
+          },
+          {
+            "en": "English biologist",
+            "am": "እንግሊዛዊ የሥነ ሕይወት ምሁር"
+          }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "Ratzel was a German geographer and one of the leading environmental determinists.",
+          "am": "ራትዘል ጀርመናዊ የጂኦግራፊ ምሁርና ከግንባር ቀደም የአካባቢ ወሳኝነት አራማጆች አንዱ ነበር።"
+        }
+      },
+      {
+        "question": {
+          "en": "Edmond Demolins, who supported determinism, was:",
+          "am": "ወሳኝነትን የደገፈው ኤድሞን ዴሞላን የየት አገር ሰው ነበር?"
+        },
+        "options": [
+          {
+            "en": "French",
+            "am": "ፈረንሳዊ"
+          },
+          {
+            "en": "German",
+            "am": "ጀርመናዊ"
+          },
+          {
+            "en": "Roman",
+            "am": "ሮማዊ"
+          },
+          {
+            "en": "American",
+            "am": "አሜሪካዊ"
+          }
+        ],
+        "answer": 0,
+        "explanation": {
+          "en": "Demolins was a French scholar who supported environmental determinism.",
+          "am": "ዴሞላን የአካባቢ ወሳኝነትን የደገፈ ፈረንሳዊ ምሁር ነበር።"
+        }
+      },
+      {
+        "question": {
+          "en": "Which statement is NOT an idea of environmental determinism?",
+          "am": "ከሚከተሉት ውስጥ የአካባቢ ወሳኝነት ሐሳብ ያልሆነው የትኛው ነው?"
+        },
+        "options": [
+          {
+            "en": "The environment is the dominant factor in human life",
+            "am": "አካባቢ በሰው ሕይወት ላይ ዋነኛ ምክንያት ነው"
+          },
+          {
+            "en": "The physical environment is the master of daily activities",
+            "am": "የተፈጥሮ አካባቢ የዕለት ተዕለት እንቅስቃሴ ጌታ ነው"
+          },
+          {
+            "en": "People freely change nature and are not limited by it",
+            "am": "ሰዎች ተፈጥሮን በነጻነት ይለውጣሉ፤ በእሷም አይገደቡም"
+          },
+          {
+            "en": "Nature causes differences in culture from place to place",
+            "am": "ተፈጥሮ ከቦታ ቦታ የባህል ልዩነትን ታስከትላለች"
+          }
+        ],
+        "answer": 2,
+        "explanation": {
+          "en": "Determinists believe nature controls people. Saying people are not limited by nature is the opposite view.",
+          "am": "የወሳኝነት አራማጆች ተፈጥሮ ሰውን ትቆጣጠራለች ብለው ያምናሉ። ሰዎች በተፈጥሮ አይገደቡም ማለት ተቃራኒው አመለካከት ነው።"
+        }
+      },
+      {
+        "question": {
+          "en": "According to determinism, the physical qualities of geographical conditions cause:",
+          "am": "በወሳኝነት መሠረት የጂኦግራፊያዊ ሁኔታዎች የተፈጥሮ ባሕርያት የሚያስከትሉት፦"
+        },
+        "options": [
+          {
+            "en": "Only differences in language",
+            "am": "የቋንቋ ልዩነትን ብቻ"
+          },
+          {
+            "en": "Nothing; people decide everything",
+            "am": "ምንም፤ ሰዎች ሁሉንም ይወስናሉ"
+          },
+          {
+            "en": "Only changes in the weather",
+            "am": "የአየር ሁኔታ ለውጥን ብቻ"
+          },
+          {
+            "en": "People's physical differences and differences in economy and culture",
+            "am": "የሰዎችን አካላዊ ልዩነትና የኢኮኖሚና የባህል ልዩነቶችን"
+          }
+        ],
+        "answer": 3,
+        "explanation": {
+          "en": "Determinists say nature causes (A) people's physical differences and (B) differences in economic activity and cultural practice.",
+          "am": "የወሳኝነት አራማጆች ተፈጥሮ (ሀ) የሰዎችን አካላዊ ልዩነትና (ለ) የኢኮኖሚ እንቅስቃሴና የባህል ልማድ ልዩነቶችን ታስከትላለች ይላሉ።"
+        }
+      },
+      {
+        "question": {
+          "en": "Schools of thought in geography mainly differ in their view of:",
+          "am": "የጂኦግራፊ የአስተሳሰብ ትምህርት ቤቶች በዋናነት የሚለያዩት በምን ላይ ባላቸው አመለካከት ነው?"
+        },
+        "options": [
+          {
+            "en": "How to draw maps",
+            "am": "ካርታ እንዴት እንደሚሳል"
+          },
+          {
+            "en": "The relationship between humans and their environment",
+            "am": "በሰውና በአካባቢው መካከል ያለው ግንኙነት"
+          },
+          {
+            "en": "The size of the Earth",
+            "am": "የምድር መጠን"
+          },
+          {
+            "en": "The number of continents",
+            "am": "የአህጉራት ብዛት"
+          }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "They emerged with different views on how humans and the environment relate to each other.",
+          "am": "ሰውና አካባቢ እንዴት እንደሚገናኙ በተመለከተ የተለያዩ አመለካከቶች ይዘው ተነሱ።"
+        }
+      },
+      {
+        "question": {
+          "en": "A student says: \"People in hot deserts are nomads only because the climate forces them.\" This view belongs to:",
+          "am": "አንድ ተማሪ «በሞቃት በረሃ ያሉ ሰዎች ዘላን የሆኑት የአየር ንብረቱ ስለሚያስገድዳቸው ብቻ ነው» አለ። ይህ አመለካከት የማን ነው?"
+        },
+        "options": [
+          {
+            "en": "Environmental determinism",
+            "am": "የአካባቢ ወሳኝነት"
+          },
+          {
+            "en": "The systematic approach",
+            "am": "ሥርዓታዊ አቀራረብ"
+          },
+          {
+            "en": "Relative location",
+            "am": "አንጻራዊ አቀማመጥ"
+          },
+          {
+            "en": "The movement theme",
+            "am": "የእንቅስቃሴ ጭብጥ"
+          }
+        ],
+        "answer": 0,
+        "explanation": {
+          "en": "Saying the environment alone decides how people live is environmental determinism.",
+          "am": "አካባቢ ብቻ ሰዎች እንዴት እንደሚኖሩ ይወስናል ማለት የአካባቢ ወሳኝነት ነው።"
+        }
+      }
+    ]
+  }
+}

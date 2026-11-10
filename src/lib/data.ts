@@ -219,3 +219,40 @@ export async function getSchedule(): Promise<ScheduleData | null> {
     .sort((a, b) => a.day - b.day || a.start - b.start);
   return { section: section as ScheduleData["section"], entries };
 }
+
+/* ---------------- AI tutor ---------------- */
+
+/** Lesson context for the AI tutor route: where the lesson sits + its parts and main topics. */
+export async function getTutorLesson(lessonId: string): Promise<import("@/lib/tutor/prompt").TutorLesson | null> {
+  "use cache";
+  life();
+  cacheTag("content");
+
+  const { data, error } = await createPublicClient()
+    .from("lessons")
+    .select(
+      "code, title_en, title_am, main_topics, lesson_sections(id, sort_order, title_en, title_am, icon, blocks), units(label_en, title_en, grades(number, subjects(name_en)))",
+    )
+    .eq("id", lessonId)
+    .maybeSingle();
+  if (error || !data) return null;
+
+  type Row = {
+    code: string;
+    title_en: string;
+    title_am: string;
+    main_topics: MainTopic[];
+    lesson_sections: LessonSection[];
+    units: { label_en: string; title_en: string; grades: { number: number; subjects: { name_en: string } | null } | null } | null;
+  };
+  const r = data as unknown as Row;
+  return {
+    subject: r.units?.grades?.subjects?.name_en ?? "",
+    grade: r.units?.grades?.number ?? 0,
+    unit: r.units ? `${r.units.label_en}: ${r.units.title_en}` : "",
+    code: r.code,
+    title: { en: r.title_en, am: r.title_am },
+    sections: [...r.lesson_sections].sort(bySort),
+    mainTopics: r.main_topics ?? [],
+  };
+}

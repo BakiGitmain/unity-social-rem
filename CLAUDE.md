@@ -20,7 +20,7 @@ in English, Amharic, or both.
   `/[locale]/login` and `/[locale]/signup`. Visitors never see the locale: `src/proxy.ts` rewrites
   `/geography` → `/en/geography` (or `/am/...`) from the `usr-site-lang` cookie. Links are written WITHOUT a locale.
 - Tables: subjects, grades, units, lessons (+ `glossary`), lesson_sections (= Learn-mode parts),
-  quizzes, quiz_questions, profiles, lesson_progress (own rows only). All text is `*_en` / `*_am`; note blocks are JSON (`src/lib/types.ts`).
+  quizzes, quiz_questions, profiles, lesson_progress, ai_usage, ai_chats, ai_feedback (own rows only). All text is `*_en` / `*_am`; note blocks are JSON (`src/lib/types.ts`).
   RLS: content is public read only and only written by migrations.
 - Lesson content source files: `content/lessons/<subject>/grade-<n>/unit-<n>/<slug>.json`,
   turned into migrations by `scripts/lesson-to-sql.mjs` (`--update` for lessons already pushed).
@@ -41,6 +41,29 @@ in English, Amharic, or both.
   when logged in also saved to `lesson_progress` via the `save_lesson_progress` RPC (keeps the higher values), and
   merged on login by `<ProgressSync>`. Shown as bars on lesson cards (unit page) and unit cards (grade page).
 - The full quiz is lazy-loaded in the browser; the notes are hidden while it runs (focus mode).
+
+## AI study tutor "Rem" ✨
+- **OpenAI is ONLY for the student chat tutor.** Never use it to write lesson notes: lessons are always added by hand (ADD_LESSON.md).
+  Never print, log or commit `OPENAI_API_KEY`. The model is the `OPENAI_MODEL` env var (now `gpt-6-luna`, change it in Vercel, no code change).
+- Server: `src/app/api/tutor/route.ts` (the only place that calls OpenAI). It uses the Vercel AI SDK v7 (`ai`, `@ai-sdk/openai`) with
+  streaming. Order: per-IP burst limit (`src/lib/tutor/burst.ts`, 5 req / 10 s, in memory) → login required (401) →
+  `bump_ai_usage` RPC + OpenAI moderation (free, fails open) + lesson context in parallel → `streamText`.
+- Prompt: `src/lib/tutor/prompt.ts`: a short **stable** system prompt (prompt caching; no per-request text in it), then
+  `buildContext()` = subject/grade/unit/lesson + **only the current part** (or Main Topics), trimmed to ~1,500 tokens.
+- Cost rules (all in `src/lib/tutor/config.ts`): 500 max output tokens (800 for Amharic answers, which need ~3× tokens),
+  last 8 messages only, history sent as text only, user messages ≤ 800 chars, `reasoningEffort: "none"`, `store: false`.
+  Web search (`openai.tools.webSearch`, $10 / 1k calls) only when the lesson doesn't cover it, max 3 per user per day;
+  sources are sent to the UI as `source-url` parts.
+- "Quiz me": `intent: "quiz"` forces the `quiz_question` tool (structured JSON: question, 4 options, answer, explanation),
+  rendered as tappable buttons. Answers end with a `FOLLOWUPS: a | b | c` line that the UI turns into chips.
+- Limits: 30 questions + 3 web searches per user per **Addis Ababa day** (`ai_usage`, increments only through the
+  SECURITY DEFINER `bump_ai_usage()`; `get_ai_usage()` for the counter). Chats are saved per lesson in `ai_chats`
+  (own rows, last 40 messages); 👍/👎 go to `ai_feedback` (read them in the Supabase dashboard).
+- UI (`src/components/tutor/`): `tutor.tsx` (mounted by StudyView) = draggable `bubble.tsx` (snaps to the left/right edge,
+  position in localStorage, fades to 30% after 10 s idle, one-time tooltip) + `selection-pill.tsx` ("Explain further" /
+  "In Amharic" for 3–300 selected characters inside `[data-tutor-notes]`) + `chat-panel.tsx` (lazy-loaded on first use:
+  desktop panel 400×600, mobile bottom sheet 85% with swipe-down). Shown only on Learn mode, Read all and Main Topics;
+  hidden in the quiz, focus mode and on the "Lesson complete!" screen. UI labels come from `site-i18n.ts`.
 
 ## Class schedule
 - Tables `class_sections` + `schedule_entries` (public read). Loaded by `getSchedule()` in `src/lib/data.ts`.

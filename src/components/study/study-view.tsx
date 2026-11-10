@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
@@ -17,6 +17,7 @@ import { SectionIcon } from "@/components/study/section-icon";
 import { BiText } from "@/components/study/text";
 import { GlossaryProvider } from "@/components/study/glossary";
 import { LearnMode } from "@/components/study/learn-mode";
+import { Tutor } from "@/components/tutor/tutor";
 
 // The quiz (and its Supabase query) is only downloaded when the Quiz tab is opened.
 const Quiz = dynamic(() => import("@/components/study/quiz"), {
@@ -69,7 +70,14 @@ export function StudyView({
   const [quizVisited, setQuizVisited] = useState(false);
   const [quizRunning, setQuizRunning] = useState(false);
   const [quizStartKey, setQuizStartKey] = useState(0);
+  const [tutorPart, setTutorPart] = useState(0);
+  const [learnFinished, setLearnFinished] = useState(false);
+  const onFinishedChange = useCallback((f: boolean) => setLearnFinished(f), []);
   const amUi = locale === "am" ? "am" : "";
+
+  // Rem (AI tutor): only on the notes and Main Topics, never in the quiz or on the finished screen.
+  const tutorHidden = tab === "quiz" || quizRunning || (tab === "notes" && mode === "learn" && learnFinished);
+  const tutorView = tab === "topics" ? "topics" : mode === "learn" ? "learn" : "all";
 
   const openTab = (to: Tab) => {
     setTab(to);
@@ -182,7 +190,7 @@ export function StudyView({
       <div className="mt-6">
         <AnimatePresence mode="wait" initial={false}>
           {tab === "notes" && (
-            <motion.div key="notes" id="panel-notes" role="tabpanel" aria-labelledby="tab-notes" {...fade}>
+            <motion.div key="notes" id="panel-notes" role="tabpanel" aria-labelledby="tab-notes" data-tutor-notes {...fade}>
               {/* Learn (one part at a time) | Read all */}
               <div className="mb-8 flex justify-center">
                 <div role="radiogroup" aria-label={t(locale, "fullNotes")} className="inline-flex rounded-full bg-ink/[0.05] p-1">
@@ -221,6 +229,8 @@ export function StudyView({
                       locale={locale}
                       hasQuiz={!!quiz}
                       exitHref={unitHref}
+                      onPartChange={setTutorPart}
+                      onFinishedChange={onFinishedChange}
                       onStartQuiz={() => {
                         setQuizStartKey((k) => k + 1);
                         openTab("quiz");
@@ -229,7 +239,7 @@ export function StudyView({
                   </motion.div>
                 ) : (
                   <motion.div key="all" {...fade}>
-                    <ReadAll sections={sections} lang={lang} locale={locale} />
+                    <ReadAll sections={sections} lang={lang} locale={locale} onPartChange={setTutorPart} />
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -237,7 +247,7 @@ export function StudyView({
           )}
 
           {tab === "topics" && (
-            <motion.div key="topics" id="panel-topics" role="tabpanel" aria-labelledby="tab-topics" {...fade}>
+            <motion.div key="topics" id="panel-topics" role="tabpanel" aria-labelledby="tab-topics" data-tutor-notes {...fade}>
               <MainTopics topics={mainTopics} lang={lang} locale={locale} />
             </motion.div>
           )}
@@ -268,12 +278,46 @@ export function StudyView({
           {next && <LessonLink item={next} dir="next" locale={locale} />}
         </nav>
       )}
+      <Tutor
+        lessonId={lesson.id}
+        lessonTitle={`${lesson.code} ${loc(lesson, "title", locale)}`}
+        locale={locale}
+        view={tutorView}
+        part={tutorPart}
+        hidden={tutorHidden}
+      />
     </GlossaryProvider>
   );
 }
 
 /** The whole lesson on one page, calmer than before: no card borders, 65ch line length. */
-function ReadAll({ sections, lang, locale }: { sections: LessonSection[]; lang: ReturnType<typeof useLang>[0]; locale: Locale }) {
+function ReadAll({
+  sections,
+  lang,
+  locale,
+  onPartChange,
+}: {
+  sections: LessonSection[];
+  lang: ReturnType<typeof useLang>[0];
+  locale: Locale;
+  onPartChange: (index: number) => void;
+}) {
+  // Scroll-spy: the part nearest the top of the screen is the AI tutor context.
+  useEffect(() => {
+    const els = sections.map((_, i) => document.getElementById(`part-${i + 1}`)).filter((e): e is HTMLElement => !!e);
+    if (!els.length) return;
+    onPartChange(0);
+    const io = new IntersectionObserver(
+      (entries) => {
+        const top = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+        if (top) onPartChange(els.indexOf(top.target as HTMLElement));
+      },
+      { rootMargin: "-30% 0px -55% 0px" },
+    );
+    els.forEach((e) => io.observe(e));
+    return () => io.disconnect();
+  }, [sections, onPartChange]);
+
   return (
     <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_220px]">
       <div className="min-w-0">

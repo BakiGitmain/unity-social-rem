@@ -248,7 +248,7 @@ if (UPDATE) {
   if exists (select 1 from public.lessons where unit_id = v_unit_id and code = ${lit(l.code)}) then
     raise exception 'Lesson ${l.code} already exists in this unit';
   end if;
-  insert into public.lessons (unit_id, code, title_en, title_am) values (v_unit_id, ${lit(l.code)}, '', '')
+  insert into public.lessons (unit_id, code, slug, sort_order, title_en, title_am) values (v_unit_id, ${lit(l.code)}, ${lit(l.slug)}, ${l.sort_order}, '', '')
   returning id into v_lesson_id;
   update public.lessons set
     ${lessonFields}

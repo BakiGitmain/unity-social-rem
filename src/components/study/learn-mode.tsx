@@ -31,6 +31,8 @@ export function LearnMode({
   hasQuiz,
   exitHref,
   onStartQuiz,
+  onPartChange,
+  onFinishedChange,
 }: {
   lessonId: string;
   lessonTitle: string;
@@ -40,6 +42,9 @@ export function LearnMode({
   hasQuiz: boolean;
   exitHref: string;
   onStartQuiz: () => void;
+  /** For the AI tutor: which part is on screen, and whether the finished screen shows. */
+  onPartChange?: (index: number) => void;
+  onFinishedChange?: (finished: boolean) => void;
 }) {
   const total = sections.length;
   const [progress, update] = useLessonProgress(lessonId);
@@ -68,6 +73,10 @@ export function LearnMode({
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setTouch(window.matchMedia("(pointer: coarse)").matches);
   }, []);
+
+  useEffect(() => onPartChange?.(index), [index, onPartChange]);
+  useEffect(() => onFinishedChange?.(finished), [finished, onFinishedChange]);
+  useEffect(() => () => onFinishedChange?.(false), [onFinishedChange]);
 
   const part = sections[index];
   const isLast = index === total - 1;
