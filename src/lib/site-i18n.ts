@@ -107,9 +107,10 @@ const DICT = {
   allSubjects: { en: "Go to all subjects", am: "ወደ ሁሉም የትምህርት ዓይነቶች" },
 
   // study page
-  fullNotes: { en: "Notes", am: "ማስታወሻ" },
+  fullNotes: { en: "Full Notes", am: "ሙሉ ማስታወሻ" },
   mainTopics: { en: "Main Topics", am: "ዋና ነጥቦች" },
   quiz: { en: "Quiz", am: "ፈተና" },
+  homework: { en: "Homework", am: "የቤት ሥራ" },
   learn: { en: "Learn", am: "ተማር" },
   readAll: { en: "Read all", am: "ሁሉንም አንብብ" },
   notesLanguage: { en: "Notes language", am: "የማስታወሻ ቋንቋ" },
@@ -157,6 +158,7 @@ const DICT = {
   tryAgain: { en: "Try again", am: "እንደገና ይሞክሩ" },
   backToNotes: { en: "Back to notes", am: "ወደ ማስታወሻው ተመለስ" },
   yourAnswer: { en: "Your answer", am: "የእርስዎ መልስ" },
+  check: { en: "Check", am: "አረጋግጥ" },
   correctAnswer: { en: "Correct answer", am: "ትክክለኛው መልስ" },
   noMistakes: { en: "No mistakes to review. Perfect score!", am: "የሚከለሱ ስህተቶች የሉም። ሙሉ ውጤት!" },
   loadingQuiz: { en: "Loading questions…", am: "ጥያቄዎች በመጫን ላይ…" },

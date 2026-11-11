@@ -104,6 +104,11 @@ export function setProgressSync(on: boolean) {
   syncEnabled = on;
 }
 
+/** True while a user is logged in (homework progress uses it too). */
+export function isProgressSyncOn() {
+  return syncEnabled;
+}
+
 async function pushToServer(lessonId: string, p: LessonProgress) {
   if (!syncEnabled) return;
   try {

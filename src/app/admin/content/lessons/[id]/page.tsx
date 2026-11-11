@@ -14,6 +14,8 @@ function toEditor(snap: Omit<EditorData, "sections" | "quiz"> & { sections: Omit
     ...snap,
     glossary: snap.glossary ?? [],
     main_topics: snap.main_topics ?? [],
+    homework: snap.homework ?? [],
+    practice: snap.practice ?? [],
     sections: snap.sections.map((s) => ({ ...s, key: s.id ?? crypto.randomUUID() })),
     quiz: snap.quiz ? { ...snap.quiz, questions: snap.quiz.questions.map((q) => ({ ...q, key: q.id ?? crypto.randomUUID() })) } : null,
   };

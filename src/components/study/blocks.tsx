@@ -5,6 +5,8 @@ import type { Block, Lang } from "@/lib/types";
 import { BiText, KeyPhrase } from "@/components/study/text";
 import { LessonImage } from "@/components/study/lesson-image";
 import { SectionIcon } from "@/components/study/section-icon";
+import { VennBlock } from "@/components/math/venn-block";
+import { WorkedExample } from "@/components/math/worked-example";
 
 /* Readability: 17–18px body, generous line-height, few borders. Line length is capped by the parent (≈65ch). */
 const body = "text-[17px] leading-[1.75] sm:text-[18px] text-ink/90";
@@ -224,6 +226,12 @@ export function NoteBlock({ block, lang }: { block: Block; lang: Lang }) {
           }
         />
       );
+
+    case "venn":
+      return <VennBlock block={block} lang={lang} />;
+
+    case "worked":
+      return <WorkedExample title={block.title} problem={block.problem} steps={block.steps} answer={block.answer} venn={block.venn} lang={lang} />;
 
     default:
       // Unknown block types are skipped silently rather than showing an error to students.

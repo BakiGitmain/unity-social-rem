@@ -26,6 +26,9 @@ export async function saveAiSettings(input: Omit<AiSettings, "system_prompt"> & 
       price_output: num(input.price_output, 0, 1000, "Output price"),
       price_search: num(input.price_search, 0, 1000, "Search price"),
       monthly_budget: num(input.monthly_budget, 0, 100000, "Monthly budget"),
+      ink_enabled: input.ink_enabled !== false,
+      ink_daily_checks: Math.round(num(input.ink_daily_checks ?? 60, 0, 500, "Handwriting checks")),
+      ink_daily_hints: Math.round(num(input.ink_daily_hints ?? 5, 0, 50, "Working hints")),
     };
     await saveSetting(ctx, "ai", (v) => ({ ...v, ...next }));
     await saveSetting(ctx, "features", (v) => ({ ...v, ai_tutor: !!input.enabled }), input.enabled ? "ai.enable" : "ai.disable");

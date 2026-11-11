@@ -32,6 +32,41 @@ export type ImageBlock = {
   creditUrl?: string;
 };
 
+/* ---------- Math toolkit (stored as JSON data, rendered with KaTeX + SVG) ---------- */
+
+/** Venn diagram data. Regions: "A" (only A), "AB", "ABC", … and "none" (inside U, outside every circle). */
+export type VennData = { sets: 2 | 3; labels?: string[]; elements?: Record<string, string[]> };
+/** Interactive Venn diagram. `shade` and step shades are set expressions like "A∩B∖C". */
+export type VennBlock = { type: "venn"; venn: VennData; shade?: string; steps?: { shade: string; text: Bi }[]; caption?: Bi; showElements?: boolean };
+export type WorkedStep = { text: Bi; why?: Bi; shade?: string };
+/** Paper-mode worked example: steps appear one at a time, each with a "Why?". */
+export type WorkedBlock = { type: "worked"; title: Bi; problem: Bi; steps: WorkedStep[]; answer: Bi; venn?: VennData };
+
+/** How an answer is checked (homework and quiz). */
+export type AnswerSpec =
+  | { kind: "choice"; options: Bi[]; correct: number }
+  | { kind: "number"; value: number }
+  | { kind: "set"; value: string[] }
+  | { kind: "venn"; venn: VennData; regions: string[] };
+
+export type HomeworkItem = {
+  id: string;
+  /** choice | written | venn | open (no checkable answer). Inferred from the answers when missing. */
+  type?: "choice" | "written" | "venn" | "open";
+  question: Bi;
+  tip: Bi;
+  hints: Bi[];
+  /** The labelled parts. `group` = a heading above the line (e.g. "Left side"). */
+  answers: { label: Bi; spec: AnswerSpec; group?: Bi }[];
+  /** A drawing shown at the top of the card (e.g. the numbered Venn from class). */
+  figure?: { venn: VennData; caption?: Bi };
+  /** Shown after Check: the shadings side by side, e.g. the left side and the right side. */
+  compare?: { label: Bi; shade: string }[];
+  /** Warm-up before the homework: shown first, never counted. */
+  warmup?: boolean;
+  solution: { steps: WorkedStep[]; answer: Bi; venn?: VennData };
+};
+
 export type Block =
   | HeadingBlock
   | ParagraphBlock
@@ -42,7 +77,9 @@ export type Block =
   | TipBlock
   | TermsBlock
   | PointsBlock
-  | ImageBlock;
+  | ImageBlock
+  | VennBlock
+  | WorkedBlock;
 
 export type MainTopic = { title: Bi; points: Bi[] };
 export type GlossaryEntry = { term: Bi; definition: Bi };
@@ -124,6 +161,9 @@ export type LessonSection = {
 export type Lesson = LessonSummary & {
   main_topics: MainTopic[];
   glossary: GlossaryEntry[];
+  homework: HomeworkItem[];
+  /** Optional "Extra practice" (same shape as homework, never counted as homework). */
+  practice: HomeworkItem[];
   lesson_sections: LessonSection[];
 };
 
@@ -137,4 +177,10 @@ export type QuizQuestion = {
   correct_index: number;
   explanation_en: string;
   explanation_am: string;
+  /** choice (default) | number | set | venn */
+  kind?: "choice" | "number" | "set" | "venn";
+  /** number: { value } · set: { value: [...] } · venn: { venn, regions } */
+  answer?: { value?: number | string[]; venn?: VennData; regions?: string[] } | null;
+  /** Step-by-step explanation shown after answering. */
+  steps?: { text: Bi }[];
 };

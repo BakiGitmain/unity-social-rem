@@ -8,6 +8,7 @@ import { SectionIcon } from "@/components/study/section-icon";
 import { ICON_NAMES } from "@/lib/admin/lesson-validate";
 import { uploadImage } from "@/components/admin/upload";
 import { useToast } from "@/components/admin/toast";
+import { VennBlockEditor, WorkedBlockEditor } from "@/components/admin/pages/math-editors";
 
 const bi = (en = "", am = ""): Bi => ({ en, am });
 
@@ -22,6 +23,8 @@ export const BLOCK_LABEL: Record<Block["type"], string> = {
   terms: "Key-word chips",
   heading: "Sub-heading",
   image: "Image",
+  venn: "Venn diagram (math)",
+  worked: "Worked example (math, paper mode)",
 };
 
 /** A new empty block of a type. */
@@ -46,6 +49,10 @@ export function newBlock(type: Block["type"]): Block {
       return { type, title: bi("Key words", "ቁልፍ ቃላት"), items: [bi()] };
     case "image":
       return { type, src: "", width: 900, height: 600, alt: bi(), caption: bi(), credit: "", creditUrl: "" };
+    case "venn":
+      return { type, venn: { sets: 2, labels: ["A", "B"] }, shade: "A∩B", steps: [] };
+    case "worked":
+      return { type, title: bi("Example", "ምሳሌ"), problem: bi(), steps: [{ text: bi() }], answer: bi() };
   }
 }
 
@@ -281,6 +288,10 @@ export function BlockEditor({ block, onChange, lessonId }: { block: Block; onCha
           </div>
         </div>
       );
+    case "venn":
+      return <VennBlockEditor block={b} onChange={onChange} />;
+    case "worked":
+      return <WorkedBlockEditor block={b} onChange={onChange} />;
   }
 }
 

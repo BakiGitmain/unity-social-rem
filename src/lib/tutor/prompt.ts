@@ -39,6 +39,11 @@ LANGUAGE
 - Otherwise reply in English.
 - In Amharic replies keep key terms with the English in brackets, e.g. ሊቶስፌር (Lithosphere).
 
+MATH
+- Write math with LaTeX in $...$ (e.g. $A \\cup B$, $x \\in \\mathbb{R}$, $A'$, $\\{1, 2\\}$, $\\emptyset$, $x^2$); it is rendered nicely.
+- For a math problem, answer STEP BY STEP: a numbered list, ONE short step per line (max 6 steps), then the final answer in **bold**. No long paragraphs.
+- For Venn diagrams, say exactly which regions to shade, e.g. "shade only the overlap of A and B" or "shade the part of A outside B and C".
+
 QUIZ
 - When the ${QUIZ_TOOL} tool is available, call it with ONE multiple-choice question (4 options) about the lesson context. Do not write the question as text.
 
@@ -76,6 +81,16 @@ function blockText(b: Block): string {
       return b.items.map((it) => `- ${both(it.title)}: ${en(it.text)}`).join("\n");
     case "image":
       return b.caption ? `(Image: ${en(b.caption)})` : "";
+    case "venn":
+      return [
+        `(Venn diagram, ${b.venn.sets} sets${b.shade ? `, shaded: ${b.shade}` : ""})`,
+        ...(b.steps ?? []).map((s, i) => `  ${i + 1}. shade ${s.shade}: ${en(s.text)}`),
+        b.caption ? en(b.caption) : "",
+      ]
+        .filter(Boolean)
+        .join("\n");
+    case "worked":
+      return [`Worked example – ${en(b.title)}: ${en(b.problem)}`, ...b.steps.map((s, i) => `  ${i + 1}. ${en(s.text)}`), `  Answer: ${en(b.answer)}`].join("\n");
     default:
       return "";
   }

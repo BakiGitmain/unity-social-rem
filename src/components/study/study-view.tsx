@@ -5,11 +5,11 @@ import { track } from "@/lib/track";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, BookOpenText, Clock, Layers, ListChecks, Target } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpenText, Clock, Layers, ListChecks, NotebookPen, Target } from "lucide-react";
 import { useLang } from "@/lib/use-lang";
 import { loc, type Locale } from "@/lib/locale";
 import { t } from "@/lib/site-i18n";
-import type { GlossaryEntry, LessonSection, LessonSummary, MainTopic } from "@/lib/types";
+import type { GlossaryEntry, HomeworkItem, LessonSection, LessonSummary, MainTopic } from "@/lib/types";
 import type { QuizMeta } from "@/lib/data";
 import { LanguageToggle } from "@/components/study/language-toggle";
 import { NoteBlock } from "@/components/study/blocks";
@@ -20,6 +20,16 @@ import { GlossaryProvider } from "@/components/study/glossary";
 import { LearnMode } from "@/components/study/learn-mode";
 import { Tutor } from "@/components/tutor/tutor";
 import { useSiteSettings } from "@/components/site-settings";
+
+// Homework (answer tools, scratchpad, calculator) is only downloaded when its tab is opened.
+const Homework = dynamic(() => import("@/components/study/homework").then((m) => m.Homework), {
+  ssr: false,
+  loading: () => (
+    <div className="flex justify-center py-16" role="status">
+      <span className="spinner" aria-hidden />
+    </div>
+  ),
+});
 
 // The quiz (and its Supabase query) is only downloaded when the Quiz tab is opened.
 const Quiz = dynamic(() => import("@/components/study/quiz"), {
@@ -32,7 +42,7 @@ const Quiz = dynamic(() => import("@/components/study/quiz"), {
   ),
 });
 
-type Tab = "notes" | "topics" | "quiz";
+type Tab = "notes" | "topics" | "homework" | "quiz";
 type NotesMode = "learn" | "all";
 type NavLesson = { href: string; code: string; title_en: string; title_am: string } | null;
 
@@ -48,6 +58,8 @@ export function StudyView({
   sections,
   mainTopics,
   glossary,
+  homework = [],
+  practice = [],
   quiz,
   prev,
   next,
@@ -59,6 +71,8 @@ export function StudyView({
   sections: LessonSection[];
   mainTopics: MainTopic[];
   glossary: GlossaryEntry[];
+  homework?: HomeworkItem[];
+  practice?: HomeworkItem[];
   quiz: QuizMeta | null;
   prev: NavLesson;
   next: NavLesson;
@@ -92,7 +106,7 @@ export function StudyView({
   const amUi = locale === "am" ? "am" : "";
 
   // Rem (AI tutor): only on the notes and Main Topics, never in the quiz or on the finished screen.
-  const tutorHidden = tab === "quiz" || quizRunning || (tab === "notes" && mode === "learn" && learnFinished);
+  const tutorHidden = tab === "quiz" || tab === "homework" || quizRunning || (tab === "notes" && mode === "learn" && learnFinished);
   const tutorView = tab === "topics" ? "topics" : mode === "learn" ? "learn" : "all";
 
   const openTab = (to: Tab) => {
@@ -104,6 +118,7 @@ export function StudyView({
   const tabs: { id: Tab; label: string; icon: typeof BookOpenText }[] = [
     { id: "notes", label: t(locale, "fullNotes"), icon: BookOpenText },
     { id: "topics", label: t(locale, "mainTopics"), icon: ListChecks },
+    ...(homework.length || practice.length ? [{ id: "homework" as const, label: t(locale, "homework"), icon: NotebookPen }] : []),
     { id: "quiz", label: t(locale, "quiz"), icon: Target },
   ];
 
@@ -265,6 +280,12 @@ export function StudyView({
           {tab === "topics" && (
             <motion.div key="topics" id="panel-topics" role="tabpanel" aria-labelledby="tab-topics" data-tutor-notes {...fade}>
               <MainTopics topics={mainTopics} lang={lang} locale={locale} />
+            </motion.div>
+          )}
+
+          {tab === "homework" && (homework.length > 0 || practice.length > 0) && (
+            <motion.div key="homework" id="panel-homework" role="tabpanel" aria-labelledby="tab-homework" {...fade}>
+              <Homework lessonId={lesson.id} items={homework} practice={practice} lang={lang} locale={locale} />
             </motion.div>
           )}
         </AnimatePresence>

@@ -3,6 +3,8 @@
 import { memo } from "react";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 
 const components: Components = {
   p: ({ children }) => <p className="mb-2.5 last:mb-0">{children}</p>,
@@ -35,10 +37,10 @@ const components: Components = {
   img: () => null,
 };
 
-/** Small, safe Markdown (no raw HTML, no images) for chat messages. */
+/** Small, safe Markdown (no raw HTML, no images) for chat messages. Math in $…$ / $…$ is rendered with KaTeX. */
 export const Markdown = memo(function Markdown({ text }: { text: string }) {
   return (
-    <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
+    <ReactMarkdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[[rehypeKatex, { throwOnError: false, strict: "ignore", output: "htmlAndMathml" }]]} components={components}>
       {text}
     </ReactMarkdown>
   );

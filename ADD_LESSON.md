@@ -95,11 +95,58 @@ Every piece of text is a pair `{ "en": "...", "am": "..." }`. Wrap **key terms**
 | `tip` | `title`, `text` | memory tricks and mnemonics |
 | `terms` | `title`, `items[]` | key-word chips |
 | `image` | `src`, `width`, `height`, `alt`, `caption?`, `credit`, `creditUrl` | a small supporting image (shown 16:10, cover) |
+| `venn` | `venn`, `shade?`, `steps?`, `caption?` | math: interactive Venn diagram (see Math lessons) |
+| `worked` | `title`, `problem`, `steps[]`, `answer`, `venn?` | math: paper-mode worked example, one step at a time |
 
 **Main Topics:** 3–5 topic cards, each with 2–5 very short points: only the most important facts.
 
-**Quiz:** **10–20** multiple-choice questions, 4 options each, one correct `answer` (0-based index), each with a short
+**Quiz:** **10–30** multiple-choice questions (math: mixed answer types, see below), 4 options each, one correct `answer` (0-based index), each with a short
 `explanation` of *why*. Mix recall, understanding and exam-style questions; vary the correct position.
+
+### Math lessons (ALWAYS for Mathematics)
+
+Math is stored as data, never as images. Write math inline as LaTeX between dollar signs inside any text:
+`"$A \cup B = \{1, 2, 3\}$"`, `$x \in \mathbb{R}$`, `$A'$`, `$\emptyset$`, `$n(A \cap B)$`, `$\{x \mid x > 2\}$`
+(remember: in JSON every backslash is doubled). Text that is only math needs no Amharic translation.
+Copy `content/lessons/mathematics/grade-9/unit-1/1-1.json` as the template. Every math lesson must have:
+
+1. **Worked examples in paper mode** (`worked` block), one for each important example in the book:
+   `{ "type": "worked", "title", "problem", "steps": [{ "text", "why", "shade"? }], "answer", "venn"? }`.
+   One short line of working per step; `why` = a simple "teacher talking" explanation; `answer` is highlighted.
+   Break the steps down the way the Ethiopian textbook does. Add `venn` (+ a `shade` per step) when a diagram helps.
+2. **Venn diagrams as data** (`venn` block): `{ "type": "venn", "venn": { "sets": 2|3, "labels"?, "elements"? },
+   "shade"?, "steps"?: [{ "shade", "text" }], "caption"?, "showElements"? }`. Shade = a set expression
+   (`A∩B`, `A∖(B∪C)`, `(A∪B)′`, `AΔB`, `U`, `∅`). Regions: `A` = only A, `AB` = A and B only, `ABC`, `none` = outside.
+   Use `steps` for a "Show me" animation of every operation (e.g. shade B∪C, then remove it from A).
+3. **Every question = ONE question with a type and labelled parts** (Homework, Extra practice and Quiz all
+   show it as ONE card: the whole question, one answer area, one Check, calculation paper + calculator).
+   Homework item: `{ "id": "hw3", "type": "written", "question", "tip", "hints": [hint 1, hint 2],
+   "answers": [{ "label", "spec" }, …], "solution": { "steps": [{ "text", "why", "shade"? }], "answer", "venn"? } }`.
+   - `"choice"`: every part is `{ "kind": "choice", "options": [{en,am}…], "correct": 0 }` (big tappable options).
+   - `"written"`: parts are sets / numbers: `{ "kind": "set", "value": ["-1","0","1"] }` or `{ "kind": "number", "value": 9 }`.
+     ALL parts of a textbook exercise go in ONE item, one labelled part each, e.g. Exercise 3 →
+     labels `$A \cup B$`, `$A \cap B$`, `$A'$`, `$A \setminus B$`, `$A \,\Delta\, B$`. Students get one worksheet
+     ("A ∪ B = ____" per line) and ONE Check; each line is graded on its own ("4 / 5 parts correct").
+   - `"venn"`: parts are `{ "kind": "venn", "venn": { "sets": 2|3, "labels"? }, "regions": ["AB", …] }`.
+     For "show that X = Y" give TWO parts: "Left side: X" and "Right side: Y" (two diagrams side by side).
+   - `"open"`: `"answers": []` (proofs, descriptions): tip, hints and the full solution only.
+   `type` must match the parts (the generator checks it; never mix venn with other kinds in one question).
+   - **Labelled lines** can have a `"group"` heading ({en, am}, e.g. "Left side" / "Right side" / "Conclusion"), and a
+     written question may end with a choice line (e.g. "Equal ✓ / Not equal ✗"); one Check grades every line.
+   - **`"figure"`** `{ "venn": { "sets": 3, "labels", "elements": { "A": ["1"], … } }, "caption" }`: a drawing at the
+     top of the card (e.g. the NUMBERED Venn from class; students tap a region to see its number). For "show that"
+     with the numbered drawing, use written lines (each side as a set of region numbers), not shading.
+   - **`"compare"`** `[{ "label", "shade" }, …]` (needs a figure): shown after Check, side by side (left vs right side).
+   - **`"warmup": true`**: shown first, labelled "Warm-up", never counted in the homework %.
+   - **Homework = ONLY what the teacher gave** (e.g. the exercises on the board). Everything else goes in
+     **`"practice"`** (same shape, "Extra practice", optional, never counted). Ids must differ from the homework ids.
+   Homework: 6–12 items from the textbook exercises, broken down the way the Ethiopian textbook does.
+4. **Quiz with mixed answer types** (10–30 questions), one part each: most `choice`, plus several `set`, `number`
+   and `venn`: `{ "kind": "set", "question", "answer": { "value": ["4","5"] }, "explanation", "steps": [{ "text" }] }`,
+   `{ "kind": "number", …, "answer": { "value": 5 } }`, `{ "kind": "venn", …, "answer": { "venn": { "sets": 2 }, "regions": ["none"] } }`.
+   Every math question gets `steps` (shown after answering). Use textbook exercises and national-exam-style questions.
+
+The generator checks every shade expression, region, answer and step (validate first, see step 6).
 
 **Images (rule: get them online, only draw if nothing suitable exists)**
 - Use **freely licensed images from online**: Wikimedia Commons (public domain / CC BY / CC BY-SA), Unsplash, unDraw.

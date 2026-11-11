@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
-import { Lexend, Noto_Sans_Ethiopic } from "next/font/google";
+import { Kalam, Lexend, Noto_Sans_Ethiopic } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { MotionProvider } from "@/components/motion";
@@ -9,6 +9,7 @@ import { SiteSettingsProvider } from "@/components/site-settings";
 import { AnnouncementBanner } from "@/components/announcement-banner";
 import { ProgressSync } from "@/components/progress-sync";
 import { LOCALES, isLocale } from "@/lib/locale";
+import "katex/dist/katex.min.css";
 import "../globals.css";
 
 const lexend = Lexend({
@@ -23,6 +24,9 @@ const ethiopic = Noto_Sans_Ethiopic({
   weight: ["400", "500", "600", "700"],
   display: "swap",
 });
+
+// Handwriting for paper-mode worked examples.
+const hand = Kalam({ variable: "--font-hand", subsets: ["latin"], weight: ["400", "700"], display: "swap" });
 
 export const metadata: Metadata = {
   title: {
@@ -46,7 +50,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   if (!isLocale(locale)) notFound();
 
   return (
-    <html lang={locale} className={`${lexend.variable} ${ethiopic.variable} h-full antialiased`}>
+    <html lang={locale} className={`${lexend.variable} ${ethiopic.variable} ${hand.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col pb-[calc(6.5rem+env(safe-area-inset-bottom))] md:pb-0">
         <MotionProvider>
           <SiteSettingsProvider>

@@ -11,6 +11,19 @@ import { track } from "@/lib/track";
 import { usePinBar } from "@/lib/bar-pin";
 import type { Lang, QuizQuestion } from "@/lib/types";
 import type { QuizMeta } from "@/lib/data";
+import { MathText, texToPlain } from "@/components/math/tex";
+import { correctAnswerText, describeAnswer, type FieldResult, type FieldSpec } from "@/components/math/answer-field";
+import { QuestionCard as UnifiedCard } from "@/components/questions/question-card";
+import { fromQuiz } from "@/lib/questions";
+
+/** How a question is answered: multiple choice, number, set or "shade the Venn diagram". */
+function specOf(q: QuizQuestion, lang: "en" | "am"): FieldSpec {
+  const kind = q.kind ?? "choice";
+  if (kind === "number") return { kind, value: Number(q.answer?.value ?? 0) };
+  if (kind === "set") return { kind, value: (q.answer?.value as string[]) ?? [] };
+  if (kind === "venn") return { kind, venn: q.answer?.venn ?? { sets: 2 }, regions: q.answer?.regions ?? [] };
+  return { kind: "choice", options: lang === "am" ? q.options_am : q.options_en, correct: q.correct_index };
+}
 
 type Phase = "intro" | "running" | "done" | "review";
 
@@ -41,16 +54,17 @@ export default function Quiz({
   const [loadError, setLoadError] = useState(false);
   const [phase, setPhase] = useState<Phase>("intro");
   const [index, setIndex] = useState(0);
-  const [answers, setAnswers] = useState<(number | null)[]>([]);
+  const [answers, setAnswers] = useState<(FieldResult | null)[]>([]);
   const topRef = useRef<HTMLDivElement>(null);
   const startedAt = useRef(0);
+  const [attempt, setAttempt] = useState(0);
   usePinBar(phase === "running"); // keep the mobile tab bar visible during the quiz
 
   const load = useCallback(async () => {
     setLoadError(false);
     const { data, error } = await createClient()
       .from("quiz_questions")
-      .select("id, sort_order, question_en, question_am, options_en, options_am, correct_index, explanation_en, explanation_am")
+      .select("id, sort_order, kind, answer, steps, question_en, question_am, options_en, options_am, correct_index, explanation_en, explanation_am")
       .eq("quiz_id", quiz.id)
       .order("sort_order");
     if (error || !data) setLoadError(true);
@@ -74,6 +88,7 @@ export default function Quiz({
     setAnswers(Array(questions.length).fill(null));
     setIndex(0);
     startedAt.current = Date.now();
+    setAttempt(startedAt.current);
     track({ type: "quiz_start", lessonId });
     go("running");
   };
@@ -91,13 +106,13 @@ export default function Quiz({
 
   const finish = () => {
     if (questions) {
-      const s = answers.filter((a, i) => a === questions[i].correct_index).length;
+      const s = answers.filter((a) => a?.correct).length;
       recordQuizScore(lessonId, s, questions.length);
       // The server recomputes the score from these answers (per-question analytics).
       track({
         type: "quiz_attempt",
         lessonId,
-        answers: questions.map((q, i) => ({ question_id: q.id, chosen: answers[i] ?? null })),
+        answers: questions.map((q, i) => ({ question_id: q.id, chosen: answers[i]?.chosen ?? null, value: answers[i]?.value ?? null })),
         durationMs: Date.now() - startedAt.current,
       });
     }
@@ -106,7 +121,7 @@ export default function Quiz({
 
   const t = (k: SiteKey) => tr(locale, k);
   const total = questions?.length ?? quiz.questionCount;
-  const score = questions ? answers.filter((a, i) => a === questions[i].correct_index).length : 0;
+  const score = answers.filter((a) => a?.correct).length;
 
   return (
     <div ref={topRef} className="scroll-mt-24">
@@ -160,12 +175,13 @@ export default function Quiz({
               q={questions[index]}
               number={index + 1}
               total={questions.length}
-              chosen={answers[index]}
+              result={answers[index] ?? null}
               lang={qLang}
               t={t}
-              onChoose={(i) => setAnswers((a) => a.map((v, k) => (k === index ? i : v)))}
+              onAnswer={(r) => setAnswers((a) => a.map((v, k) => (k === index ? r : v)))}
               onNext={() => (index + 1 < questions.length ? setIndex(index + 1) : finish())}
               isLast={index + 1 === questions.length}
+              attempt={attempt}
             />
           </Panel>
         )}
@@ -236,28 +252,31 @@ function QuestionCard({
   q,
   number,
   total,
-  chosen,
+  result,
   lang,
   t,
-  onChoose,
+  onAnswer,
   onNext,
   isLast,
+  attempt,
 }: {
   q: QuizQuestion;
   number: number;
   total: number;
-  chosen: number | null;
+  result: FieldResult | null;
   lang: "en" | "am";
   t: (k: SiteKey) => string;
-  onChoose: (i: number) => void;
+  onAnswer: (r: FieldResult) => void;
   onNext: () => void;
   isLast: boolean;
+  /** Each attempt starts with a clean answer paper. */
+  attempt: number;
 }) {
   const am = lang === "am";
-  const options = am ? q.options_am : q.options_en;
-  const answered = chosen !== null;
-  const right = chosen === q.correct_index;
+  const answered = result !== null;
+  const right = !!result?.correct;
   const nextRef = useRef<HTMLButtonElement>(null);
+  const spec = specOf(q, lang);
 
   useEffect(() => {
     if (answered) nextRef.current?.focus({ preventScroll: true });
@@ -281,70 +300,24 @@ function QuestionCard({
         />
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, x: 24 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        className="mt-6 rounded-3xl border border-line bg-surface p-5 sm:p-7"
-      >
-        <h2 className="text-lg leading-snug font-semibold text-ink sm:text-xl">{am ? q.question_am : q.question_en}</h2>
-
-        <ul className="mt-5 space-y-2.5">
-          {options.map((opt, i) => {
-            const isCorrect = i === q.correct_index;
-            const isChosen = i === chosen;
-            let state = "border-line bg-surface hover:border-[color:var(--accent)] hover:bg-[var(--accent-tint)]";
-            if (answered) {
-              if (isCorrect) state = "border-good bg-good-soft";
-              else if (isChosen) state = "border-bad bg-bad-soft";
-              else state = "border-line bg-surface opacity-60";
-            }
-            return (
-              <li key={i}>
-                <motion.button
-                  type="button"
-                  disabled={answered}
-                  onClick={() => onChoose(i)}
-                  animate={answered && isChosen && !isCorrect ? { x: [0, -6, 6, -4, 4, 0] } : answered && isCorrect ? { scale: [1, 1.015, 1] } : {}}
-                  transition={{ duration: 0.4 }}
-                  className={`flex w-full items-center gap-3 rounded-2xl border-2 px-4 py-3 text-left transition-colors disabled:cursor-default ${state}`}
-                >
-                  <span
-                    className={`grid size-8 shrink-0 place-items-center rounded-lg text-sm font-semibold ${
-                      answered && isCorrect
-                        ? "bg-good text-white"
-                        : answered && isChosen
-                          ? "bg-bad text-white"
-                          : "bg-paper text-muted"
-                    }`}
-                  >
-                    {answered && isCorrect ? <Check className="size-4" aria-hidden /> : answered && isChosen ? <X className="size-4" aria-hidden /> : String.fromCharCode(65 + i)}
-                  </span>
-                  <span className="min-w-0 text-ink">{opt}</span>
-                </motion.button>
-              </li>
-            );
-          })}
-        </ul>
-
-        <AnimatePresence>
-          {answered && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="overflow-hidden"
-            >
-              <div className={`mt-5 rounded-2xl px-4 py-3.5 ${right ? "bg-good-soft" : "bg-bad-soft"}`} role="status" aria-live="polite">
-                <p className={`flex items-center gap-2 font-semibold ${right ? "text-good" : "text-bad"}`}>
-                  {right ? <Check className="size-4" aria-hidden /> : <X className="size-4" aria-hidden />}
-                  {t(right ? "correct" : "incorrect")}
+      <motion.div initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ type: "spring", stiffness: 380, damping: 34 }} className="mt-6">
+        <UnifiedCard
+          q={fromQuiz(q, lang)}
+          kicker={`${t("question")} ${number}`}
+          lang={lang}
+          mode="quiz"
+          paperKey={`quiz:${q.id}:${attempt}`}
+          checkLabel={t("check")}
+          saved={result ? { 0: result } : {}}
+          onPart={(_, r) => onAnswer(r)}
+          after={
+            <>
+              {!right && spec.kind !== "choice" && (
+                <p className="mt-3 text-sm text-ink/90">
+                  <span className="font-medium">{t("correctAnswer")}: </span>
+                  <MathText text={correctAnswerText(spec)} />
                 </p>
-                <p className="mt-1.5 text-sm leading-relaxed text-ink/90">
-                  <span className="font-medium">{t("explanation")}: </span>
-                  {am ? q.explanation_am : q.explanation_en}
-                </p>
-              </div>
+              )}
               <div className="mt-5 flex justify-end">
                 <button
                   ref={nextRef}
@@ -356,11 +329,28 @@ function QuestionCard({
                   <ArrowRight className="size-4" aria-hidden />
                 </button>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            </>
+          }
+        />
       </motion.div>
     </div>
+  );
+}
+
+/** Step-by-step explanation (shown after answering). */
+function Steps({ q, lang }: { q: QuizQuestion; lang: "en" | "am" }) {
+  if (!q.steps?.length) return null;
+  return (
+    <ol className="font-hand mt-3 space-y-1 rounded-xl bg-white/70 px-4 py-2.5 text-[16px] leading-7 text-[#23324a]">
+      {q.steps.map((s, i) => (
+        <li key={i} className="flex gap-2">
+          <span className="shrink-0 text-[#c05050]/80">{i + 1}.</span>
+          <span className="min-w-0">
+            <MathText text={lang === "am" ? s.text.am : s.text.en} />
+          </span>
+        </li>
+      ))}
+    </ol>
   );
 }
 
@@ -446,14 +436,14 @@ function Review({
   onRetry,
 }: {
   questions: QuizQuestion[];
-  answers: (number | null)[];
+  answers: (FieldResult | null)[];
   lang: "en" | "am";
   t: (k: SiteKey) => string;
   onBack: () => void;
   onRetry: () => void;
 }) {
   const am = lang === "am";
-  const wrong = questions.map((q, i) => ({ q, i, a: answers[i] })).filter(({ q, a }) => a !== q.correct_index);
+  const wrong = questions.map((q, i) => ({ q, i, a: answers[i] ?? null })).filter(({ a }) => !a?.correct);
 
   return (
     <div className={`mx-auto max-w-2xl ${am ? "am" : ""}`}>
@@ -471,20 +461,22 @@ function Review({
       {wrong.length === 0 && <p className="mt-4 text-muted">{t("noMistakes")}</p>}
       <ol className="mt-5 space-y-4">
         {wrong.map(({ q, i, a }) => {
-          const opts = am ? q.options_am : q.options_en;
+          const spec = specOf(q, lang);
           return (
             <li key={q.id} className="rounded-2xl border border-line bg-surface p-5">
               <p className="text-sm text-faint">
                 {t("question")} {i + 1}
               </p>
-              <p className="mt-1 font-semibold text-ink">{am ? q.question_am : q.question_en}</p>
+              <p className="mt-1 font-semibold text-ink">
+                <MathText text={am ? q.question_am : q.question_en} />
+              </p>
               <div className="mt-3 space-y-2 text-sm">
-                {a !== null && (
+                {a && (
                   <p className="flex gap-2 rounded-xl bg-bad-soft px-3 py-2">
                     <X className="mt-0.5 size-4 shrink-0 text-bad" aria-hidden />
                     <span>
                       <span className="font-medium text-bad">{t("yourAnswer")}: </span>
-                      {opts[a]}
+                      <MathText text={describeAnswer(spec, a)} />
                     </span>
                   </p>
                 )}
@@ -492,11 +484,14 @@ function Review({
                   <Check className="mt-0.5 size-4 shrink-0 text-good" aria-hidden />
                   <span>
                     <span className="font-medium text-good">{t("correctAnswer")}: </span>
-                    {opts[q.correct_index]}
+                    <MathText text={correctAnswerText(spec)} />
                   </span>
                 </p>
               </div>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{am ? q.explanation_am : q.explanation_en}</p>
+              <p className="mt-3 text-sm leading-relaxed text-muted">
+                <MathText text={am ? q.explanation_am : q.explanation_en} />
+              </p>
+              <Steps q={q} lang={lang} />
             </li>
           );
         })}

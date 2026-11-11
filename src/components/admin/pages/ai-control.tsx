@@ -185,6 +185,15 @@ export function AiControl({
               {numField("daily_messages", "Questions / user / day")}
               {numField("daily_searches", "Searches / user / day")}
             </div>
+            <Switch
+              label="Handwriting checks (Answer Paper)"
+              description="The AI reads handwritten answers when a student taps Check (low-detail image, about $0.0001 each). Off = students type their answers."
+              checked={s.ink_enabled !== false}
+              onChange={(v) => setS({ ...s, ink_enabled: v })}
+            />
+            <div className="grid gap-3 sm:grid-cols-2">
+              {numField("ink_daily_checks", "Handwriting checks / user / day")}
+            </div>
             {numField("monthly_budget", "Monthly budget (USD)", "0.5", "At 100% Rem pauses automatically. 0 = no budget.")}
             <details className="rounded-2xl bg-paper px-3 py-2">
               <summary className="cursor-pointer text-sm font-medium text-ink">Prices (USD per 1M tokens)</summary>

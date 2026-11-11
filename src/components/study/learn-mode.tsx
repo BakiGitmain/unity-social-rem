@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, type PanInfo } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import type { Lang, LessonSection } from "@/lib/types";
 import type { Locale } from "@/lib/locale";
@@ -105,10 +105,39 @@ export function LearnMode({
     } else go(index + 1);
   };
 
-  const onDragEnd = (_: unknown, info: PanInfo) => {
-    if (Math.abs(info.offset.y) > 60) return;
-    if (info.offset.x < -70) next();
-    else if (info.offset.x > 70) go(index - 1);
+  /*
+   * Swipe (touch only). Plain touch events, NOT a drag gesture: a drag sets user-select: none and steals
+   * long-presses, which broke text selection ("Explain further") on phones. A touch never swipes when
+   * text is selected, when it is a long press, or when it starts on something interactive.
+   */
+  const swipe = useRef<{ x: number; y: number; t: number; skip: boolean } | null>(null);
+  const hasSelection = () => {
+    const sel = window.getSelection();
+    return !!sel && !sel.isCollapsed && sel.toString().trim().length > 0;
+  };
+  const onTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length !== 1) return (swipe.current = null), undefined;
+    const tch = e.touches[0]!;
+    const target = e.target as Element;
+    swipe.current = {
+      x: tch.clientX,
+      y: tch.clientY,
+      t: e.timeStamp,
+      skip: hasSelection() || !!target.closest("button, a, input, textarea, select, svg, canvas, table, .tex-display, [data-no-swipe]"),
+    };
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    const st = swipe.current;
+    swipe.current = null;
+    if (!st || st.skip || hasSelection()) return;
+    const tch = e.changedTouches[0];
+    if (!tch) return;
+    const dx = tch.clientX - st.x;
+    const dy = tch.clientY - st.y;
+    const ms = e.timeStamp - st.t;
+    if (ms > 700 || Math.abs(dx) < 70 || Math.abs(dx) < Math.abs(dy) * 1.6) return; // long press / scroll
+    if (dx < 0) next();
+    else go(index - 1);
   };
 
   if (finished) {
@@ -189,12 +218,9 @@ export function LearnMode({
             animate="center"
             exit="exit"
             transition={{ type: "spring", stiffness: 420, damping: 38 }}
-            drag={touch ? "x" : false}
-            dragDirectionLock
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.18}
-            onDragEnd={onDragEnd}
-            className="touch-pan-y"
+            onTouchStart={touch ? onTouchStart : undefined}
+            onTouchEnd={touch ? onTouchEnd : undefined}
+            className="select-text"
           >
             <h2 className="flex items-center gap-3">
               <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-accent-soft text-accent">

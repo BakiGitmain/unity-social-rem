@@ -79,6 +79,8 @@ export default async function LessonPage({ params }: { params: Params }) {
         sections={content.sections}
         mainTopics={content.mainTopics}
         glossary={content.glossary}
+        homework={content.homework}
+        practice={content.practice}
         quiz={content.quiz}
         prev={prev}
         next={next}

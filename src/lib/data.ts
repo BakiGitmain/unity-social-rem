@@ -3,7 +3,7 @@ import { createPublicClient } from "@/lib/supabase/public";
 import { timeToMinutes } from "@/lib/time/clock";
 import type { ClassEntry } from "@/lib/time/schedule";
 import type { ScheduleOverride } from "@/lib/time/overrides";
-import type { GlossaryEntry, Grade, Lesson, LessonSection, LessonSummary, MainTopic, Subject, Unit } from "@/lib/types";
+import type { GlossaryEntry, Grade, HomeworkItem, Lesson, LessonSection, LessonSummary, MainTopic, Subject, Unit } from "@/lib/types";
 
 /** Content changes only via migrations. In dev keep the cache tiny so pushed migrations show up at once. */
 function life() {
@@ -88,6 +88,8 @@ export async function getLessonContent(lessonId: string): Promise<{
   sections: LessonSection[];
   mainTopics: MainTopic[];
   glossary: GlossaryEntry[];
+  homework: HomeworkItem[];
+  practice: HomeworkItem[];
   quiz: QuizMeta | null;
 }> {
   "use cache";
@@ -97,13 +99,13 @@ export async function getLessonContent(lessonId: string): Promise<{
   const { data, error } = await createPublicClient()
     .from("lessons")
     .select(
-      "main_topics, glossary, lesson_sections(id, sort_order, title_en, title_am, icon, blocks), quizzes(id, title_en, title_am, description_en, description_am, quiz_questions(count))",
+      "main_topics, glossary, homework, practice, lesson_sections(id, sort_order, title_en, title_am, icon, blocks), quizzes(id, title_en, title_am, description_en, description_am, quiz_questions(count))",
     )
     .eq("id", lessonId)
     .single();
   if (error) throw new Error(`Could not load lesson ${lessonId}: ${error.message}`);
 
-  type Row = Pick<Lesson, "main_topics" | "glossary" | "lesson_sections"> & {
+  type Row = Pick<Lesson, "main_topics" | "glossary" | "homework" | "practice" | "lesson_sections"> & {
     quizzes: (Omit<QuizMeta, "questionCount"> & { quiz_questions: { count: number }[] }) | null;
   };
   const row = data as unknown as Row;
@@ -112,6 +114,8 @@ export async function getLessonContent(lessonId: string): Promise<{
     sections: [...row.lesson_sections].sort(bySort),
     mainTopics: row.main_topics,
     glossary: row.glossary ?? [],
+    homework: row.homework ?? [],
+    practice: row.practice ?? [],
     quiz: q
       ? {
           id: q.id,

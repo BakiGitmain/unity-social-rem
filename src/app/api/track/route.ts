@@ -11,9 +11,16 @@ const SIMPLE = new Set(["lesson_view", "lesson_complete", "quiz_start"]);
 type Body = {
   type?: string;
   lessonId?: string;
-  answers?: { question_id?: string; chosen?: number | null }[];
+  answers?: { question_id?: string; chosen?: number | null; value?: unknown }[];
   durationMs?: number;
 };
+
+/** Typed answers: a finite number, or a short list of short strings (set elements / Venn regions). */
+function cleanValue(v: unknown): number | string[] | null {
+  if (typeof v === "number" && Number.isFinite(v)) return v;
+  if (Array.isArray(v) && v.length <= 60 && v.every((x) => typeof x === "string" && x.length <= 40)) return v as string[];
+  return null;
+}
 
 export async function POST(req: Request) {
   const ip = (req.headers.get("x-forwarded-for") ?? "").split(",")[0]!.trim() || "local";
@@ -36,7 +43,7 @@ export async function POST(req: Request) {
     const answers = body.answers
       .slice(0, 100)
       .filter((a) => typeof a.question_id === "string" && UUID.test(a.question_id))
-      .map((a) => ({ question_id: a.question_id, chosen: Number.isInteger(a.chosen) ? a.chosen : null }));
+      .map((a) => ({ question_id: a.question_id, chosen: Number.isInteger(a.chosen) ? a.chosen : null, value: cleanValue(a.value) }));
     await supabase.rpc("record_quiz_attempt", {
       p_lesson_id: lessonId,
       p_answers: answers,

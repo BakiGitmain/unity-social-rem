@@ -19,6 +19,9 @@ if (!file) {
 }
 
 const data = JSON.parse(readFileSync(file, "utf8"));
+// Shared, tested math logic (Node strips the TypeScript types).
+const { evalVenn, REGIONS } = await import(new URL("../src/lib/math/venn.ts", import.meta.url).href);
+const { canonicalSet } = await import(new URL("../src/lib/math/sets.ts", import.meta.url).href);
 const errors = [];
 const warnings = [];
 const fail = (path, msg) => errors.push(`${path}: ${msg}`);
@@ -37,7 +40,9 @@ function isBi(v, path, { amharic = true } = {}) {
   }
   if (!v.en.trim()) fail(path + ".en", "is empty");
   if (!v.am.trim()) fail(path + ".am", "is empty");
-  if (amharic && v.en.length > 3 && !ETHIOPIC.test(v.am) && v.am === v.en) {
+  // Math-only text ($…$ formulas, numbers) is the same in both languages.
+  const words = v.en.replace(/\$[^$]*\$/g, "").replace(/[^A-Za-z]/g, "");
+  if (amharic && words.length > 3 && !ETHIOPIC.test(v.am) && v.am === v.en) {
     fail(path + ".am", "looks untranslated (identical to English)");
   }
   const odd = (s) => (s.match(/\*\*/g) || []).length % 2;
@@ -50,8 +55,66 @@ const icon = (name, path) => {
   if (!ICONS.includes(name)) fail(path, `unknown icon "${name}" (see src/lib/icon-names.json)`);
 };
 
+/** Venn data: { sets: 2|3, labels?: [...], elements?: { region: [..] } } */
+function checkVenn(v, path) {
+  if (!v || (v.sets !== 2 && v.sets !== 3)) return fail(path + ".sets", "must be 2 or 3");
+  if (v.labels && (!Array.isArray(v.labels) || v.labels.length !== v.sets)) fail(path + ".labels", `needs ${v.sets} labels`);
+  for (const k of Object.keys(v.elements ?? {}))
+    if (!REGIONS[v.sets].includes(k)) fail(`${path}.elements.${k}`, `unknown region (use ${REGIONS[v.sets].join(", ")})`);
+}
+function checkShade(expr, venn, path) {
+  try {
+    evalVenn(expr, venn.sets, venn.labels);
+  } catch (e) {
+    fail(path, `bad set expression "${expr}": ${e.message}`);
+  }
+}
+function checkSteps(steps, path, venn) {
+  if (!Array.isArray(steps) || !steps.length) return fail(path, "needs at least one step");
+  steps.forEach((st, i) => {
+    isBi(st.text, `${path}[${i}].text`, { amharic: false });
+    if (st.why) isBi(st.why, `${path}[${i}].why`, { amharic: false });
+    if (st.shade) {
+      if (!venn) fail(`${path}[${i}].shade`, "needs a venn on the worked example");
+      else checkShade(st.shade, venn, `${path}[${i}].shade`);
+    }
+  });
+}
+/** Answer spec (homework + quiz): choice | number | set | venn. Set answers are stored in canonical form. */
+function checkAnswer(a, path) {
+  if (a?.kind === "choice") {
+    if (!Array.isArray(a.options) || a.options.length < 2) fail(path + ".options", "needs 2+ options");
+    else a.options.forEach((o, i) => isBi(o, `${path}.options[${i}]`, { amharic: false }));
+    if (!Number.isInteger(a.correct) || a.correct < 0 || a.correct >= (a.options?.length ?? 0)) fail(path + ".correct", "bad index");
+  } else if (a?.kind === "number") {
+    if (typeof a.value !== "number") fail(path + ".value", "must be a number");
+  } else if (a?.kind === "set") {
+    if (!Array.isArray(a.value)) fail(path + ".value", "must be an array of elements");
+    else a.value = canonicalSet(a.value.map(String));
+  } else if (a?.kind === "venn") {
+    checkVenn(a.venn, path + ".venn");
+    if (!Array.isArray(a.regions) || !a.regions.every((r) => REGIONS[a.venn?.sets]?.includes(r))) fail(path + ".regions", "unknown region");
+  } else fail(path + ".kind", "must be choice | number | set | venn");
+}
+
 function checkBlock(b, path) {
   switch (b?.type) {
+    case "venn":
+      checkVenn(b.venn, path + ".venn");
+      if (b.shade) checkShade(b.shade, b.venn, path + ".shade");
+      if (b.caption) isBi(b.caption, path + ".caption", { amharic: false });
+      (b.steps ?? []).forEach((st, i) => {
+        checkShade(st.shade, b.venn, `${path}.steps[${i}].shade`);
+        isBi(st.text, `${path}.steps[${i}].text`, { amharic: false });
+      });
+      break;
+    case "worked":
+      isBi(b.title, path + ".title", { amharic: false });
+      isBi(b.problem, path + ".problem", { amharic: false });
+      if (b.venn) checkVenn(b.venn, path + ".venn");
+      checkSteps(b.steps, path + ".steps", b.venn);
+      isBi(b.answer, path + ".answer", { amharic: false });
+      break;
     case "heading":
     case "paragraph":
       isBi(b.text, path + ".text");
@@ -174,18 +237,68 @@ else
 
 isBi(q.title, "quiz.title");
 if (q.description) isBi(q.description, "quiz.description");
-if (qCount < 10 || qCount > 20) fail("quiz.questions", "must have 10-20 questions");
+if (qCount < 10 || qCount > 30) fail("quiz.questions", "must have 10-30 questions");
 else
   q.questions.forEach((qq, i) => {
     const p = `quiz.questions[${i}]`;
-    isBi(qq.question, p + ".question");
-    isBi(qq.explanation, p + ".explanation");
-    if (!Array.isArray(qq.options) || qq.options.length < 2 || qq.options.length > 6)
-      fail(p + ".options", "must have 2-6 options");
-    else qq.options.forEach((o, j) => isBi(o, `${p}.options[${j}]`, { amharic: false }));
-    if (!Number.isInteger(qq.answer) || qq.answer < 0 || qq.answer >= (qq.options?.length ?? 0))
-      fail(p + ".answer", "must be the 0-based index of the correct option");
+    isBi(qq.question, p + ".question", { amharic: false });
+    isBi(qq.explanation, p + ".explanation", { amharic: false });
+    (qq.steps ?? []).forEach((st, j) => isBi(st.text, `${p}.steps[${j}].text`, { amharic: false }));
+    const kind = qq.kind ?? "choice";
+    if (kind === "choice") {
+      if (!Array.isArray(qq.options) || qq.options.length < 2 || qq.options.length > 6)
+        fail(p + ".options", "must have 2-6 options");
+      else qq.options.forEach((o, j) => isBi(o, `${p}.options[${j}]`, { amharic: false }));
+      if (!Number.isInteger(qq.answer) || qq.answer < 0 || qq.answer >= (qq.options?.length ?? 0))
+        fail(p + ".answer", "must be the 0-based index of the correct option");
+    } else {
+      const spec = { kind, ...qq.answer };
+      checkAnswer(spec, p + ".answer");
+      if (kind === "set") qq.answer.value = spec.value;
+    }
   });
+
+/* homework + practice (optional, same shape; practice = "Extra practice", never counted as homework): [{ id, type?, question, tip, hints[], answers[{label, spec}], solution{steps, answer, venn?} }]
+   ONE question per item; answers = its labelled parts. type: choice | written | venn | open (inferred if missing). */
+for (const key of ["homework", "practice"]) {
+const hw = data[key] ?? [];
+const seen = new Set();
+if (!Array.isArray(hw)) fail(key, "must be an array");
+else
+  hw.forEach((h, i) => {
+    const p = `${key}[${i}]`;
+    if (seen.has(h.id)) fail(p + ".id", "must be unique");
+    seen.add(h.id);
+    if (typeof h.id !== "string" || !h.id) fail(p + ".id", "is required");
+    const kinds = (h.answers ?? []).map((a) => a?.spec?.kind);
+    const inferred = !kinds.length ? "open" : kinds.every((k) => k === "choice") ? "choice" : kinds.some((k) => k === "venn") ? "venn" : "written";
+    if (h.type !== undefined && !["choice", "written", "venn", "open"].includes(h.type)) fail(p + ".type", "must be choice | written | venn | open");
+    else if (h.type !== undefined && h.type !== inferred) fail(p + ".type", `is "${h.type}" but the answers make it "${inferred}"`);
+    if (inferred !== "venn" && kinds.includes("venn")) fail(p + ".answers", "do not mix Venn shading with other answer types in one question");
+    isBi(h.question, p + ".question", { amharic: false });
+    isBi(h.tip, p + ".tip", { amharic: false });
+    (h.hints ?? []).forEach((x, j) => isBi(x, `${p}.hints[${j}]`, { amharic: false }));
+    if (h.warmup !== undefined && typeof h.warmup !== "boolean") fail(p + ".warmup", "must be true or false");
+    if (h.figure) {
+      checkVenn(h.figure.venn, p + ".figure.venn");
+      if (h.figure.caption) isBi(h.figure.caption, p + ".figure.caption", { amharic: false });
+    }
+    (h.compare ?? []).forEach((c, j) => {
+      if (!h.figure) fail(p + ".compare", "needs a figure");
+      isBi(c.label, `${p}.compare[${j}].label`, { amharic: false });
+      if (h.figure) checkShade(c.shade, h.figure.venn, `${p}.compare[${j}].shade`);
+    });
+    (h.answers ?? []).forEach((a, j) => {
+      isBi(a.label, `${p}.answers[${j}].label`, { amharic: false });
+      if (a.group) isBi(a.group, `${p}.answers[${j}].group`, { amharic: false });
+      checkAnswer(a.spec, `${p}.answers[${j}].spec`);
+    });
+    if (h.solution?.venn) checkVenn(h.solution.venn, p + ".solution.venn");
+    checkSteps(h.solution?.steps, p + ".solution.steps", h.solution?.venn);
+    isBi(h.solution?.answer, p + ".solution.answer", { amharic: false });
+  });
+}
+if ((data.practice ?? []).some((x) => (data.homework ?? []).some((h) => h.id === x.id))) fail("practice", "ids must differ from the homework ids");
 
 if (errors.length) {
   console.error(`✗ ${file} has ${errors.length} problem(s):\n  - ${errors.join("\n  - ")}`);
@@ -197,7 +310,7 @@ for (const w of warnings) console.error(`  ! ${w}`);
 
 const lit = (s) => `'${String(s).replaceAll("'", "''")}'`;
 const json = (v) => `${lit(JSON.stringify(v))}::jsonb`;
-const arr = (xs) => `array[${xs.map(lit).join(", ")}]::text[]`;
+const arr = (xs) => (xs.length ? `array[${xs.map(lit).join(", ")}]::text[]` : "'{}'::text[]");
 const bi = (v, f) => (v ? lit(v[f]) : "''");
 
 const out = [];
@@ -230,7 +343,8 @@ const lessonFields = `slug = ${lit(l.slug)}, sort_order = ${l.sort_order}, secti
     section_title_en = ${bi(l.section?.title, "en")}, section_title_am = ${bi(l.section?.title, "am")},
     title_en = ${bi(l.title, "en")}, title_am = ${bi(l.title, "am")},
     summary_en = ${bi(l.summary, "en")}, summary_am = ${bi(l.summary, "am")},
-    minutes = ${l.minutes}, main_topics = ${json(data.main_topics)}, glossary = ${json(data.glossary)}`;
+    minutes = ${l.minutes}, main_topics = ${json(data.main_topics)}, glossary = ${json(data.glossary)},
+    homework = ${json(data.homework ?? [])}, practice = ${json(data.practice ?? [])}`;
 
 if (UPDATE) {
   out.push(`  -- Never overwrite a lesson that was edited in the admin dashboard (it has saved versions or a draft).
@@ -280,13 +394,13 @@ out.push(`  insert into public.quizzes (lesson_id, title_en, title_am, descripti
   returning id into v_quiz_id;`);
 out.push("");
 out.push(
-  "  insert into public.quiz_questions (quiz_id, sort_order, question_en, question_am, options_en, options_am, correct_index, explanation_en, explanation_am) values",
+  "  insert into public.quiz_questions (quiz_id, sort_order, kind, question_en, question_am, options_en, options_am, correct_index, answer, steps, explanation_en, explanation_am) values",
 );
 out.push(
   q.questions
     .map(
       (qq, i) =>
-        `    (v_quiz_id, ${i + 1}, ${lit(qq.question.en)}, ${lit(qq.question.am)},\n     ${arr(qq.options.map((o) => o.en))},\n     ${arr(qq.options.map((o) => o.am))},\n     ${qq.answer}, ${lit(qq.explanation.en)}, ${lit(qq.explanation.am)})`,
+        `    (v_quiz_id, ${i + 1}, ${lit(qq.kind ?? "choice")}, ${lit(qq.question.en)}, ${lit(qq.question.am)},\n     ${arr((qq.options ?? []).map((o) => o.en))},\n     ${arr((qq.options ?? []).map((o) => o.am))},\n     ${(qq.kind ?? "choice") === "choice" ? qq.answer : 0}, ${(qq.kind ?? "choice") === "choice" ? "null" : json(qq.answer)}, ${json(qq.steps ?? [])},\n     ${lit(qq.explanation.en)}, ${lit(qq.explanation.am)})`,
     )
     .join(",\n") + ";",
 );
@@ -296,5 +410,5 @@ out.push("");
 
 process.stdout.write(out.join("\n"));
 console.error(
-  `✓ ${l.code} ${l.title.en}: ${data.sections.length} parts, ${data.glossary.length} key terms, ${data.main_topics.length} main topics, ${qCount} quiz questions`,
+  `✓ ${l.code} ${l.title.en}: ${data.sections.length} parts, ${data.glossary.length} key terms, ${data.main_topics.length} main topics, ${qCount} quiz questions, ${(data.homework ?? []).length} homework, ${(data.practice ?? []).length} extra practice`,
 );

@@ -46,7 +46,7 @@ export function SelectionPill({
         text,
         paragraph: para.slice(0, 700),
         x: Math.min(window.innerWidth - half - 8, Math.max(half + 8, rect.left + rect.width / 2)),
-        y: coarse ? rect.bottom + 14 : rect.top - 10,
+        y: coarse ? Math.min(window.innerHeight - 64, rect.bottom + 34) : rect.top - 10, // below the selection handles on phones
         below: coarse,
       });
     };

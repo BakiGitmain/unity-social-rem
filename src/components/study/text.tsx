@@ -3,20 +3,33 @@
 import { Fragment } from "react";
 import type { Bi, Lang } from "@/lib/types";
 import { Term, useGlossaryEntry } from "@/components/study/glossary";
+import { MathText } from "@/components/math/tex";
 
 /** A highlighted phrase: a tappable term if it is in the glossary, otherwise just bold. */
 export function KeyPhrase({ text }: { text: string }) {
   const entry = useGlossaryEntry(text);
   if (entry) return <Term entry={entry}>{text}</Term>;
-  return <strong className="key-term">{text}</strong>;
+  return (
+    <strong className="key-term">
+      <MathText text={text} />
+    </strong>
+  );
 }
 
-/** Renders inline `**key term**` markup. */
+/** Renders inline `**key term**` markup and `$…$` math (KaTeX). */
 export function Rich({ text }: { text: string }) {
   const parts = text.split(/\*\*(.+?)\*\*/g);
   return (
     <>
-      {parts.map((p, i) => (i % 2 === 1 ? <KeyPhrase key={i} text={p} /> : <Fragment key={i}>{p}</Fragment>))}
+      {parts.map((p, i) =>
+        i % 2 === 1 ? (
+          <KeyPhrase key={i} text={p} />
+        ) : (
+          <Fragment key={i}>
+            <MathText text={p} />
+          </Fragment>
+        ),
+      )}
     </>
   );
 }

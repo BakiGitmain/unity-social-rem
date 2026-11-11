@@ -7,9 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --test \"src/lib/time/*.test.ts\" \"src/lib/live/*.test.ts\" \"src/lib/admin/*.test.ts\"",
+    "test": "node --test \"src/lib/time/*.test.ts\" \"src/lib/live/*.test.ts\" \"src/lib/admin/*.test.ts\" \"src/lib/math/*.test.ts\" \"src/lib/ink/*.test.ts\"",
     "test:security": "node --test tests/security.test.mjs",
-    "test:e2e": "node --test --test-concurrency=1 tests/e2e.test.mjs"
+    "test:e2e": "node --test --test-concurrency=1 tests/e2e.test.mjs",
+    "test:ink": "node --test --test-concurrency=1 tests/handwriting.test.mjs",
+    "test:math-ui": "node --test --test-concurrency=1 tests/math-ui.test.mjs"
   },
   "dependencies": {
     "@ai-sdk/openai": "^4.0.111",
@@ -18,13 +20,17 @@
     "@supabase/supabase-js": "^2.119.0",
     "ai": "^7.0.166",
     "framer-motion": "^14.11.1",
+    "katex": "^0.19.1",
     "lucide-react": "^1.70.0",
     "next": "16.4.5",
+    "perfect-freehand": "^1.2.2",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "react-markdown": "^10.1.0",
     "recharts": "^3.10.1",
+    "rehype-katex": "^7.0.1",
     "remark-gfm": "^4.0.1",
+    "remark-math": "^6.0.0",
     "server-only": "^0.0.1"
   },
   "devDependencies": {

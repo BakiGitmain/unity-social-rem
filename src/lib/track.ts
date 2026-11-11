@@ -1,7 +1,7 @@
 /** Browser helper for first-party activity tracking (see /api/track). Fire-and-forget, never throws. */
 type TrackBody =
   | { type: "lesson_view" | "lesson_complete" | "quiz_start"; lessonId: string }
-  | { type: "quiz_attempt"; lessonId: string; answers: { question_id: string; chosen: number | null }[]; durationMs: number }
+  | { type: "quiz_attempt"; lessonId: string; answers: { question_id: string; chosen: number | null; value?: number | string[] | null }[]; durationMs: number }
   | { type: "seen" };
 
 export function track(body: TrackBody) {

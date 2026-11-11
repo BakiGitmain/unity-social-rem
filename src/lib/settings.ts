@@ -23,6 +23,10 @@ export type AiSettings = {
   price_search: number;
   /** USD per month; 0 = no budget */
   monthly_budget: number;
+  /** Handwriting checks (Answer Paper): on/off, reads per user per day, "check my working" hints per day. */
+  ink_enabled: boolean;
+  ink_daily_checks: number;
+  ink_daily_hints: number;
   /** null = the default prompt in src/lib/tutor/prompt.ts */
   system_prompt: string | null;
 };
@@ -43,6 +47,9 @@ export const DEFAULT_AI: AiSettings = {
   price_output: 0.5,
   price_search: 10,
   monthly_budget: 5,
+  ink_enabled: true,
+  ink_daily_checks: 60,
+  ink_daily_hints: 5,
   system_prompt: null,
 };
 

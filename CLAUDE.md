@@ -38,13 +38,42 @@ in English, Amharic, or both.
   notes, Main Topics and quiz content. It must never change UI labels; UI never changes notes.
 
 ## Study page
-- Tabs: Notes (Learn | Read all) · Main Topics · Quiz. Learn mode (`components/study/learn-mode.tsx`) shows one part
+- Tabs: Full Notes (Learn | Read all) · Main Topics · Homework (only if the lesson has `homework`) · Quiz. Learn mode (`components/study/learn-mode.tsx`) shows one part
   per screen (no quick checks), swipe on touch, and a "Lesson complete!" screen (Start Quiz → focus mode, or Exit to
   the unit). Key-term popovers come from `lessons.glossary`.
 - Progress (`src/lib/progress.ts`): % = parts finished ÷ total parts, plus best quiz score. Always in localStorage;
   when logged in also saved to `lesson_progress` via the `save_lesson_progress` RPC (keeps the higher values), and
   merged on login by `<ProgressSync>`. Shown as bars on lesson cards (unit page) and unit cards (grade page).
 - The full quiz is lazy-loaded in the browser; the notes are hidden while it runs (focus mode).
+
+## Math toolkit (all math lessons)
+- Math is DATA, never images: inline LaTeX in `$…$` in any text (KaTeX: `components/math/tex.tsx`, also in Rem chat via
+  remark-math + rehype-katex). Block types `venn` (interactive SVG, 2/3 sets, shading = set expression, "Show me" steps,
+  tap a region for its elements) and `worked` (paper mode, Kalam font, one step at a time, "Why?", highlighted answer,
+  optional Venn per step). Pure logic + tests in `src/lib/math/`: `venn.ts` (regions A, AB, ABC, none… from expressions),
+  `sets.ts` (set answers: order/duplicates/spaces ignored, ∅ or { }, friendly feedback), `calc.ts` (safe calculator).
+- Homework (`lessons.homework` jsonb): items with tip → hints → full paper-mode solution, answer boxes
+  (choice | number | set | venn), mark done, progress % (`src/lib/homework-progress.ts`: localStorage + `homework_progress`).
+- Quiz kinds: `quiz_questions.kind` (choice | number | set | venn) + `answer` jsonb + `steps`. Scored IN SQL by
+  `quiz_answer_correct()` (set values canonical: sorted, normalized). Tools: math keyboard (`math-input.tsx`, tap or
+  drag symbols), calculation paper + calculator inside every question card. Admin editor supports all of it (`math-editors.tsx`).
+
+## Question card (Homework, Extra practice, Quiz) + Answer Paper
+- ONE card for every question: `components/questions/question-card.tsx`, model `src/lib/questions.ts` (`fromHomework`,
+  `fromQuiz`; type choice | written | venn | open, labelled parts). Choice = big options; written = `written-answer.tsx`
+  (one labelled line per part, ONE Check, "x / n parts correct"); venn = shade mode, one Check (no AI). In every card:
+  calculation paper (`ink/scratch-paper.tsx`, never sent to the AI) + calculator. Quiz: one attempt, explanation after.
+- Written answers: typing into the labelled lines is the DEFAULT (math keyboard); "Write by hand" (remembered per device)
+  = one Answer Paper with the labels printed on it (desktop: label left of the line; phone: label above a full-width
+  line, full-screen writing sheet). Ink = vector data (`src/lib/ink/model.ts`), perfect-freehand (`render.ts`), IndexedDB
+  (`store.ts`); engine `ink-canvas.tsx` (pen/highlighter/eraser tap+scribble/shapes/smart shapes/symbols, 2 fingers
+  pan-zoom, Pen only), tools `ink-editor.tsx`.
+- Check → the whole worksheet (labels included) cropped, black on white → `/api/handwriting` → the model READS every line
+  in ONE call (low detail, temperature 0, strict JSON `RECOGNITION_PARTS_SCHEMA`; correct answers are NEVER sent) → our
+  checkers grade each line. Cached by ink hash (IndexedDB + server memory). Confidence < 0.8 → "Did I read that right?";
+  per-line "Fix it" / "Did I read it wrong?". Limits: login, 60 reads / user / day, own switch (`app_settings.ai.ink_*`,
+  Admin → AI tutor); `start_ink_check()` + `record_ink_tokens()` count in `ai_usage` (cost chart + monthly budget).
+  Off / limit / logged out → typing with a note. Images ≤ 200 KB, never logged. Live test: `npm run test:ink`.
 
 ## AI study tutor "Rem" ✨
 - **OpenAI is ONLY for the student chat tutor.** Never use it to write lesson notes: lessons are always added by hand (ADD_LESSON.md).

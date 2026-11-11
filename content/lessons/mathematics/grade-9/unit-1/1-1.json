@@ -1,0 +1,5441 @@
+{
+  "subject": "mathematics",
+  "grade": 9,
+  "unit": {
+    "number": 1,
+    "slug": "unit-1",
+    "label": {
+      "en": "Unit One",
+      "am": "ምዕራፍ አንድ"
+    },
+    "title": {
+      "en": "Further on Sets",
+      "am": "ስለ ስብስቦች ተጨማሪ"
+    },
+    "description": {
+      "en": "Chapter 1 in class: Sets and Operations on Sets. Describing sets, subsets, operations with Venn diagrams, the laws of sets and counting.",
+      "am": "በክፍል ውስጥ ምዕራፍ 1፦ ስብስቦችና በስብስቦች ላይ የሚደረጉ ስሌቶች። ስብስቦችን መግለጽ፣ ንዑስ ስብስቦች፣ በቬን ዲያግራም የሚደረጉ ስሌቶች፣ የስብስብ ሕጎችና ቆጠራ።"
+    }
+  },
+  "lesson": {
+    "code": "1.1",
+    "slug": "1-1",
+    "sort_order": 1,
+    "minutes": 28,
+    "section": {
+      "code": "1",
+      "title": {
+        "en": "Sets and Operations on Sets",
+        "am": "ስብስቦችና በስብስቦች ላይ የሚደረጉ ስሌቶች"
+      }
+    },
+    "title": {
+      "en": "Sets and Operations on Sets",
+      "am": "ስብስቦችና በስብስቦች ላይ የሚደረጉ ስሌቶች"
+    },
+    "summary": {
+      "en": "What a set is, its symbols, number sets, describing sets, kinds of sets and the power set, operations with Venn diagrams, the laws of sets, three-set diagrams, counting formulas and two fully worked exam questions.",
+      "am": "ስብስብ ምን እንደሆነ፣ ምልክቶቹ፣ የቁጥር ስብስቦች፣ ስብስብን መግለጽ፣ የስብስብ ዓይነቶችና የኃይል ስብስብ፣ በቬን ዲያግራም የሚደረጉ ስሌቶች፣ የስብስብ ሕጎች፣ ባለ ሦስት ስብስብ ዲያግራም፣ የቆጠራ ቀመሮችና ሁለት ሙሉ በሙሉ የተሠሩ የፈተና ጥያቄዎች።"
+    }
+  },
+  "sections": [
+    {
+      "title": {
+        "en": "What is a set?",
+        "am": "ስብስብ ምንድን ነው?"
+      },
+      "icon": "layers",
+      "blocks": [
+        {
+          "type": "keypoint",
+          "variant": "definition",
+          "title": {
+            "en": "Set",
+            "am": "ስብስብ (Set)"
+          },
+          "text": {
+            "en": "A **set** is a collection of **well-defined** objects: for any object we can clearly say whether it is in the set or not.",
+            "am": "**ስብስብ (Set)** በግልጽ የተወሰኑ (**well-defined**) ነገሮች ስብስብ ነው፤ ማንኛውም ነገር በስብስቡ ውስጥ መኖሩን ወይም አለመኖሩን በግልጽ መናገር እንችላለን።"
+          }
+        },
+        {
+          "type": "example",
+          "title": {
+            "en": "Well-defined or not?",
+            "am": "በግልጽ የተወሰነ ነው ወይስ አይደለም?"
+          },
+          "text": {
+            "en": "\"The vowels in English\" is well-defined: $\\{a, e, i, o, u\\}$. \"The beautiful cities\" is NOT: \"beautiful\" depends on the person.",
+            "am": "«የእንግሊዝኛ አናባቢዎች» በግልጽ የተወሰነ ነው፦ $\\{a, e, i, o, u\\}$። «ቆንጆ ከተሞች» ግን አይደለም፤ «ቆንጆ» እንደ ሰው ይለያያል።"
+          }
+        },
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "Sets are named with CAPITAL letters ($A, B, C$). The objects inside are **elements** (members), written with small letters ($a, b, c$).",
+            "am": "ስብስቦች በትልልቅ ፊደላት ($A, B, C$) ይሰየማሉ። በውስጣቸው ያሉት ነገሮች **አባላት (Elements)** ይባላሉ፤ በትንንሽ ፊደላት ($a, b, c$) ይጻፋሉ።"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Symbols you must know",
+        "am": "ማወቅ ያለብዎ ምልክቶች"
+      },
+      "icon": "scan-search",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            {
+              "en": "Symbol",
+              "am": "ምልክት"
+            },
+            {
+              "en": "Read it as",
+              "am": "አነባበብ"
+            },
+            {
+              "en": "Example",
+              "am": "ምሳሌ"
+            }
+          ],
+          "rows": [
+            [
+              {
+                "en": "$a \\in A$",
+                "am": "$a \\in A$"
+              },
+              {
+                "en": "a is an element of A",
+                "am": "a የA አባል ነው"
+              },
+              {
+                "en": "$2 \\in \\{1,2,3\\}$",
+                "am": "$2 \\in \\{1,2,3\\}$"
+              }
+            ],
+            [
+              {
+                "en": "$b \\notin A$",
+                "am": "$b \\notin A$"
+              },
+              {
+                "en": "b is not an element of A",
+                "am": "b የA አባል አይደለም"
+              },
+              {
+                "en": "$5 \\notin \\{1,2,3\\}$",
+                "am": "$5 \\notin \\{1,2,3\\}$"
+              }
+            ],
+            [
+              {
+                "en": "$A \\subseteq B$",
+                "am": "$A \\subseteq B$"
+              },
+              {
+                "en": "A is a subset of B",
+                "am": "A የB ንዑስ ስብስብ ነው"
+              },
+              {
+                "en": "$\\{1,2\\} \\subseteq \\{1,2,3\\}$",
+                "am": "$\\{1,2\\} \\subseteq \\{1,2,3\\}$"
+              }
+            ],
+            [
+              {
+                "en": "$A \\subset B$",
+                "am": "$A \\subset B$"
+              },
+              {
+                "en": "A is a proper subset of B ($A \\subseteq B$ and $A \\ne B$)",
+                "am": "A የB ትክክለኛ ንዑስ ስብስብ ነው ($A \\subseteq B$ እና $A \\ne B$)"
+              },
+              {
+                "en": "$\\{1,2\\} \\subset \\{1,2,3\\}$",
+                "am": "$\\{1,2\\} \\subset \\{1,2,3\\}$"
+              }
+            ],
+            [
+              {
+                "en": "$n(A)$",
+                "am": "$n(A)$"
+              },
+              {
+                "en": "the number of elements of A",
+                "am": "የA አባላት ብዛት"
+              },
+              {
+                "en": "$n(\\{a,b,c\\}) = 3$",
+                "am": "$n(\\{a,b,c\\}) = 3$"
+              }
+            ],
+            [
+              {
+                "en": "$P(A)$",
+                "am": "$P(A)$"
+              },
+              {
+                "en": "the power set of A (all subsets)",
+                "am": "የA የኃይል ስብስብ (ሁሉም ንዑስ ስብስቦች)"
+              },
+              {
+                "en": "see the worked example",
+                "am": "የተሠራውን ምሳሌ ይመልከቱ"
+              }
+            ],
+            [
+              {
+                "en": "$\\emptyset$ or $\\{\\,\\}$",
+                "am": "$\\emptyset$ or $\\{\\,\\}$"
+              },
+              {
+                "en": "the empty set (no elements)",
+                "am": "ባዶ ስብስብ (አባል የለውም)"
+              },
+              {
+                "en": "$\\{x \\in \\mathbb{N} \\mid x < 1\\} = \\emptyset$",
+                "am": "$\\{x \\in \\mathbb{N} \\mid x < 1\\} = \\emptyset$"
+              }
+            ],
+            [
+              {
+                "en": "$U$",
+                "am": "$U$"
+              },
+              {
+                "en": "the universal set (everything we talk about)",
+                "am": "ሁሉን አቀፍ ስብስብ (የምንነጋገርበት ሁሉ)"
+              },
+              {
+                "en": "$U = \\{1, 2, 3, 4\\}$",
+                "am": "$U = \\{1, 2, 3, 4\\}$"
+              }
+            ]
+          ]
+        },
+        {
+          "type": "keypoint",
+          "variant": "important",
+          "title": {
+            "en": "Careful!",
+            "am": "ጥንቃቄ!"
+          },
+          "text": {
+            "en": "$\\in$ connects an ELEMENT to a set ($2 \\in A$). $\\subseteq$ connects a SET to a set ($\\{2\\} \\subseteq A$). Writing $2 \\subseteq A$ or $\\{2\\} \\in A$ is a common exam mistake.",
+            "am": "$\\in$ አባልን ከስብስብ ጋር ያገናኛል ($2 \\in A$)። $\\subseteq$ ስብስብን ከስብስብ ጋር ያገናኛል ($\\{2\\} \\subseteq A$)። $2 \\subseteq A$ ወይም $\\{2\\} \\in A$ ብሎ መጻፍ የተለመደ የፈተና ስህተት ነው።"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Useful number sets",
+        "am": "ጠቃሚ የቁጥር ስብስቦች"
+      },
+      "icon": "list-checks",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            {
+              "en": "Symbol",
+              "am": "ምልክት"
+            },
+            {
+              "en": "Name",
+              "am": "ስም"
+            },
+            {
+              "en": "Elements",
+              "am": "አባላት"
+            }
+          ],
+          "rows": [
+            [
+              {
+                "en": "$\\mathbb{N}$",
+                "am": "$\\mathbb{N}$"
+              },
+              {
+                "en": "Natural numbers",
+                "am": "የተፈጥሮ ቁጥሮች"
+              },
+              {
+                "en": "$\\{1, 2, 3, \\dots\\}$",
+                "am": "$\\{1, 2, 3, \\dots\\}$"
+              }
+            ],
+            [
+              {
+                "en": "$\\mathbb{W}$",
+                "am": "$\\mathbb{W}$"
+              },
+              {
+                "en": "Whole numbers",
+                "am": "ሙሉ ቁጥሮች"
+              },
+              {
+                "en": "$\\{0, 1, 2, 3, \\dots\\}$",
+                "am": "$\\{0, 1, 2, 3, \\dots\\}$"
+              }
+            ],
+            [
+              {
+                "en": "$\\mathbb{Z}$",
+                "am": "$\\mathbb{Z}$"
+              },
+              {
+                "en": "Integers",
+                "am": "ኢንቲጀሮች"
+              },
+              {
+                "en": "$\\{\\dots, -2, -1, 0, 1, 2, \\dots\\}$",
+                "am": "$\\{\\dots, -2, -1, 0, 1, 2, \\dots\\}$"
+              }
+            ],
+            [
+              {
+                "en": "$\\mathbb{Q}$",
+                "am": "$\\mathbb{Q}$"
+              },
+              {
+                "en": "Rational numbers",
+                "am": "ምክንያታዊ ቁጥሮች"
+              },
+              {
+                "en": "$\\frac{a}{b}$ with $a, b \\in \\mathbb{Z}$, $b \\ne 0$ (e.g. $\\frac12$, $-3$, $0.25$)",
+                "am": "$\\frac{a}{b}$ ($a, b \\in \\mathbb{Z}$፣ $b \\ne 0$)፤ ለምሳሌ $\\frac12$፣ $-3$፣ $0.25$"
+              }
+            ],
+            [
+              {
+                "en": "$\\mathbb{I}$ (or $\\mathbb{Q}'$)",
+                "am": "$\\mathbb{I}$ (or $\\mathbb{Q}'$)"
+              },
+              {
+                "en": "Irrational numbers",
+                "am": "ኢ-ምክንያታዊ ቁጥሮች"
+              },
+              {
+                "en": "not a fraction (e.g. $\\sqrt2$, $\\pi$)",
+                "am": "በክፍልፋይ የማይጻፉ (ለምሳሌ $\\sqrt2$፣ $\\pi$)"
+              }
+            ],
+            [
+              {
+                "en": "$\\mathbb{R}$",
+                "am": "$\\mathbb{R}$"
+              },
+              {
+                "en": "Real numbers",
+                "am": "እውነተኛ ቁጥሮች"
+              },
+              {
+                "en": "$\\mathbb{R} = \\mathbb{Q} \\cup \\mathbb{I}$",
+                "am": "$\\mathbb{R} = \\mathbb{Q} \\cup \\mathbb{I}$"
+              }
+            ]
+          ]
+        },
+        {
+          "type": "tip",
+          "title": {
+            "en": "Memory trick",
+            "am": "የማስታወሻ ዘዴ"
+          },
+          "text": {
+            "en": "$\\mathbb{N} \\subset \\mathbb{W} \\subset \\mathbb{Z} \\subset \\mathbb{Q} \\subset \\mathbb{R}$: each set is inside the next one, like boxes inside boxes.",
+            "am": "$\\mathbb{N} \\subset \\mathbb{W} \\subset \\mathbb{Z} \\subset \\mathbb{Q} \\subset \\mathbb{R}$፦ እያንዳንዱ ስብስብ በሚቀጥለው ውስጥ ነው፤ ልክ በሳጥን ውስጥ እንዳለ ሳጥን።"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Describing sets",
+        "am": "ስብስቦችን መግለጽ"
+      },
+      "icon": "pen-line",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "Let A be the set containing 1, 2, 3, 4, 5, 6 and 7. There are **3 ways** to write it:",
+            "am": "A 1፣ 2፣ 3፣ 4፣ 5፣ 6 እና 7ን የያዘ ስብስብ ይሁን። በ**3 መንገዶች** መጻፍ ይቻላል፦"
+          }
+        },
+        {
+          "type": "table",
+          "headers": [
+            {
+              "en": "Method",
+              "am": "ዘዴ"
+            },
+            {
+              "en": "How",
+              "am": "እንዴት"
+            },
+            {
+              "en": "A written this way",
+              "am": "A በዚህ መንገድ"
+            }
+          ],
+          "rows": [
+            [
+              {
+                "en": "Complete listing",
+                "am": "ሙሉ ዝርዝር"
+              },
+              {
+                "en": "write EVERY element in { }",
+                "am": "እያንዳንዱን አባል በ{ } ውስጥ መጻፍ"
+              },
+              {
+                "en": "$A = \\{1, 2, 3, 4, 5, 6, 7\\}$",
+                "am": "$A = \\{1, 2, 3, 4, 5, 6, 7\\}$"
+              }
+            ],
+            [
+              {
+                "en": "Partial listing",
+                "am": "ከፊል ዝርዝር"
+              },
+              {
+                "en": "a few, then …, then the last (clear pattern)",
+                "am": "ጥቂቶቹን፣ ከዚያ …፣ ከዚያ የመጨረሻውን"
+              },
+              {
+                "en": "$A = \\{1, 2, 3, \\dots, 7\\}$",
+                "am": "$A = \\{1, 2, 3, \\dots, 7\\}$"
+              }
+            ],
+            [
+              {
+                "en": "Set-builder",
+                "am": "የስብስብ መገንቢያ"
+              },
+              {
+                "en": "describe the RULE",
+                "am": "ሕጉን መግለጽ"
+              },
+              {
+                "en": "$A = \\{x \\mid x \\in \\mathbb{N} \\text{ and } x \\le 7\\}$",
+                "am": "$A = \\{x \\mid x \\in \\mathbb{N} \\text{ and } x \\le 7\\}$"
+              }
+            ]
+          ]
+        },
+        {
+          "type": "keypoint",
+          "variant": "definition",
+          "title": {
+            "en": "Reading set-builder notation",
+            "am": "የስብስብ መገንቢያን ማንበብ"
+          },
+          "text": {
+            "en": "$\\{x \\mid x \\in \\mathbb{N} \\text{ and } x \\le 7\\}$: \"the set of all $x$ **such that** ($\\mid$, sometimes written $:$) $x$ is a natural number and $x$ is at most 7\".",
+            "am": "$\\{x \\mid x \\in \\mathbb{N} \\text{ and } x \\le 7\\}$፦ «$x$ የተፈጥሮ ቁጥር የሆነና $x$ ከ7 የማይበልጥ (**such that** = $\\mid$ ወይም $:$) የሆኑ የሁሉም $x$ ስብስብ»።"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Kinds of sets and subsets",
+        "am": "የስብስብ ዓይነቶችና ንዑስ ስብስቦች"
+      },
+      "icon": "git-branch",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            {
+              "en": "Term",
+              "am": "ቃል"
+            },
+            {
+              "en": "Meaning",
+              "am": "ትርጉም"
+            },
+            {
+              "en": "Example",
+              "am": "ምሳሌ"
+            }
+          ],
+          "rows": [
+            [
+              {
+                "en": "Empty set",
+                "am": "ባዶ ስብስብ"
+              },
+              {
+                "en": "no elements",
+                "am": "አባል የለውም"
+              },
+              {
+                "en": "$\\{x \\in \\mathbb{N} \\mid x < 1\\} = \\emptyset$",
+                "am": "$\\{x \\in \\mathbb{N} \\mid x < 1\\} = \\emptyset$"
+              }
+            ],
+            [
+              {
+                "en": "Finite set",
+                "am": "ውሱን ስብስብ"
+              },
+              {
+                "en": "countable number of elements",
+                "am": "የሚቆጠር የአባላት ብዛት"
+              },
+              {
+                "en": "$\\{2, 4, 6\\}$",
+                "am": "$\\{2, 4, 6\\}$"
+              }
+            ],
+            [
+              {
+                "en": "Infinite set",
+                "am": "ወሰን የለሽ ስብስብ"
+              },
+              {
+                "en": "never ends",
+                "am": "አያልቅም"
+              },
+              {
+                "en": "$\\mathbb{N} = \\{1, 2, 3, \\dots\\}$",
+                "am": "$\\mathbb{N} = \\{1, 2, 3, \\dots\\}$"
+              }
+            ],
+            [
+              {
+                "en": "Equal sets $A = B$",
+                "am": "እኩል ስብስቦች $A = B$"
+              },
+              {
+                "en": "exactly the same elements",
+                "am": "በትክክል አንድ ዓይነት አባላት"
+              },
+              {
+                "en": "$\\{1,2,3\\} = \\{3,1,2\\}$",
+                "am": "$\\{1,2,3\\} = \\{3,1,2\\}$"
+              }
+            ],
+            [
+              {
+                "en": "Equivalent sets $A \\sim B$",
+                "am": "ተመጣጣኝ ስብስቦች $A \\sim B$"
+              },
+              {
+                "en": "same NUMBER of elements: $n(A) = n(B)$",
+                "am": "እኩል የአባላት ብዛት፦ $n(A) = n(B)$"
+              },
+              {
+                "en": "$\\{a, b\\} \\sim \\{5, 9\\}$",
+                "am": "$\\{a, b\\} \\sim \\{5, 9\\}$"
+              }
+            ]
+          ]
+        },
+        {
+          "type": "list",
+          "items": [
+            {
+              "en": "Every set is a subset of itself: $A \\subseteq A$.",
+              "am": "እያንዳንዱ ስብስብ የራሱ ንዑስ ስብስብ ነው፦ $A \\subseteq A$።"
+            },
+            {
+              "en": "The empty set is a subset of every set: $\\emptyset \\subseteq A$.",
+              "am": "ባዶ ስብስብ የሁሉም ስብስቦች ንዑስ ስብስብ ነው፦ $\\emptyset \\subseteq A$።"
+            },
+            {
+              "en": "If $n(A) = n$: number of subsets $= 2^n$, number of proper subsets $= 2^n - 1$.",
+              "am": "$n(A) = n$ ከሆነ፦ የንዑስ ስብስቦች ብዛት $= 2^n$፣ የትክክለኛ ንዑስ ስብስቦች ብዛት $= 2^n - 1$።"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Worked example: the power set",
+        "am": "የተሠራ ምሳሌ፦ የኃይል ስብስብ"
+      },
+      "icon": "layers",
+      "blocks": [
+        {
+          "type": "worked",
+          "title": {
+            "en": "Find $P(A)$ for $A = \\{a, b, c\\}$",
+            "am": "ለ $A = \\{a, b, c\\}$ $P(A)$ን ፈልጉ"
+          },
+          "problem": {
+            "en": "Find $P(A)$, the number of subsets and the number of proper subsets of $A = \\{a, b, c\\}$.",
+            "am": "የ$A = \\{a, b, c\\}$ን $P(A)$፣ የንዑስ ስብስቦች ብዛትና የትክክለኛ ንዑስ ስብስቦች ብዛት ፈልጉ።"
+          },
+          "steps": [
+            {
+              "text": {
+                "en": "$n(A) = 3$",
+                "am": "$n(A) = 3$"
+              },
+              "why": {
+                "en": "Count the elements first: a, b and c.",
+                "am": "መጀመሪያ አባላቱን ቁጠሩ፦ a፣ b እና c።"
+              }
+            },
+            {
+              "text": {
+                "en": "0 elements: $\\emptyset$ · 1 element: $\\{a\\}, \\{b\\}, \\{c\\}$",
+                "am": "0 አባል፦ $\\emptyset$ · 1 አባል፦ $\\{a\\}, \\{b\\}, \\{c\\}$"
+              },
+              "why": {
+                "en": "List the subsets by size, so you don't forget any. Don't forget the empty set!",
+                "am": "ምንም እንዳይረሳ ንዑስ ስብስቦቹን በመጠናቸው ዘርዝሩ። ባዶውን ስብስብ አትርሱ!"
+              }
+            },
+            {
+              "text": {
+                "en": "2 elements: $\\{a,b\\}, \\{a,c\\}, \\{b,c\\}$ · 3 elements: $\\{a,b,c\\}$",
+                "am": "2 አባላት፦ $\\{a,b\\}, \\{a,c\\}, \\{b,c\\}$ · 3 አባላት፦ $\\{a,b,c\\}$"
+              },
+              "why": {
+                "en": "A itself is also a subset of A.",
+                "am": "A ራሱም የA ንዑስ ስብስብ ነው።"
+              }
+            },
+            {
+              "text": {
+                "en": "$P(A) = \\{\\emptyset, \\{a\\}, \\{b\\}, \\{c\\}, \\{a,b\\}, \\{a,c\\}, \\{b,c\\}, \\{a,b,c\\}\\}$",
+                "am": "$P(A) = \\{\\emptyset, \\{a\\}, \\{b\\}, \\{c\\}, \\{a,b\\}, \\{a,c\\}, \\{b,c\\}, \\{a,b,c\\}\\}$"
+              },
+              "why": {
+                "en": "The power set is the set of ALL the subsets we listed.",
+                "am": "የኃይል ስብስብ የዘረዘርናቸው የሁሉም ንዑስ ስብስቦች ስብስብ ነው።"
+              }
+            },
+            {
+              "text": {
+                "en": "Subsets: $2^3 = 8$ · proper subsets: $2^3 - 1 = 7$",
+                "am": "ንዑስ ስብስቦች፦ $2^3 = 8$ · ትክክለኛ ንዑስ ስብስቦች፦ $2^3 - 1 = 7$"
+              },
+              "why": {
+                "en": "The formula agrees with our list (8). Proper subsets are all except A itself.",
+                "am": "ቀመሩ ከዝርዝራችን (8) ጋር ይስማማል። ትክክለኛ ንዑስ ስብስቦች ከA ራሱ በስተቀር ሁሉም ናቸው።"
+              }
+            }
+          ],
+          "answer": {
+            "en": "$n(P(A)) = 8$ subsets, $7$ proper subsets",
+            "am": "$8$ ንዑስ ስብስቦች፣ $7$ ትክክለኛ ንዑስ ስብስቦች"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Operations on sets",
+        "am": "በስብስቦች ላይ የሚደረጉ ስሌቶች"
+      },
+      "icon": "git-branch",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            {
+              "en": "Operation",
+              "am": "ስሌት"
+            },
+            {
+              "en": "Definition",
+              "am": "ትርጓሜ"
+            },
+            {
+              "en": "In words",
+              "am": "በቃላት"
+            }
+          ],
+          "rows": [
+            [
+              {
+                "en": "Union $A \\cup B$",
+                "am": "ውህደት $A \\cup B$"
+              },
+              {
+                "en": "$\\{x \\mid x \\in A \\text{ or } x \\in B\\}$",
+                "am": "$\\{x \\mid x \\in A \\text{ or } x \\in B\\}$"
+              },
+              {
+                "en": "in A, in B, or both (join them)",
+                "am": "በA፣ በB ወይም በሁለቱም"
+              }
+            ],
+            [
+              {
+                "en": "Intersection $A \\cap B$",
+                "am": "መገናኛ $A \\cap B$"
+              },
+              {
+                "en": "$\\{x \\mid x \\in A \\text{ and } x \\in B\\}$",
+                "am": "$\\{x \\mid x \\in A \\text{ and } x \\in B\\}$"
+              },
+              {
+                "en": "only what is in BOTH",
+                "am": "በሁለቱም ውስጥ ያለው ብቻ"
+              }
+            ],
+            [
+              {
+                "en": "Complement $A'$",
+                "am": "ማሟያ $A'$"
+              },
+              {
+                "en": "$U \\setminus A = \\{x \\mid x \\in U \\text{ and } x \\notin A\\}$",
+                "am": "$U \\setminus A = \\{x \\mid x \\in U \\text{ and } x \\notin A\\}$"
+              },
+              {
+                "en": "in U but NOT in A",
+                "am": "በU ውስጥ ያለ ግን በA ውስጥ የሌለ"
+              }
+            ],
+            [
+              {
+                "en": "Difference $A \\setminus B$",
+                "am": "ልዩነት $A \\setminus B$"
+              },
+              {
+                "en": "$\\{x \\mid x \\in A \\text{ and } x \\notin B\\}$",
+                "am": "$\\{x \\mid x \\in A \\text{ and } x \\notin B\\}$"
+              },
+              {
+                "en": "in A but NOT in B (also $A - B$)",
+                "am": "በA ያለ ግን በB የሌለ ($A - B$ም ይባላል)"
+              }
+            ],
+            [
+              {
+                "en": "Symmetric difference $A \\,\\Delta\\, B$",
+                "am": "ሲሜትሪክ ልዩነት $A \\,\\Delta\\, B$"
+              },
+              {
+                "en": "$(A \\setminus B) \\cup (B \\setminus A)$",
+                "am": "$(A \\setminus B) \\cup (B \\setminus A)$"
+              },
+              {
+                "en": "in A or B, but NOT in both",
+                "am": "በA ወይም በB፣ በሁለቱም ግን ያልሆነ"
+              }
+            ]
+          ]
+        },
+        {
+          "type": "venn",
+          "venn": {
+            "sets": 2,
+            "labels": [
+              "A",
+              "B"
+            ]
+          },
+          "shade": "A∪B",
+          "caption": {
+            "en": "Tap \"Show me\" to see each operation, or tap a region.",
+            "am": "እያንዳንዱን ስሌት ለማየት «አሳየኝ»ን ይጫኑ ወይም አንድ ክፍል ይጫኑ።"
+          },
+          "steps": [
+            {
+              "shade": "A∪B",
+              "text": {
+                "en": "$A \\cup B$: everything in A or B (or both).",
+                "am": "$A \\cup B$፦ በA ወይም በB (ወይም በሁለቱም) ያለው ሁሉ።"
+              }
+            },
+            {
+              "shade": "A∩B",
+              "text": {
+                "en": "$A \\cap B$: only the overlap.",
+                "am": "$A \\cap B$፦ የሚገናኙበት ክፍል ብቻ።"
+              }
+            },
+            {
+              "shade": "A∖B",
+              "text": {
+                "en": "$A \\setminus B$: A without the overlap.",
+                "am": "$A \\setminus B$፦ A ያለ መገናኛው።"
+              }
+            },
+            {
+              "shade": "A′",
+              "text": {
+                "en": "$A'$: everything outside A (inside U).",
+                "am": "$A'$፦ ከA ውጭ ያለው ሁሉ (በU ውስጥ)።"
+              }
+            },
+            {
+              "shade": "AΔB",
+              "text": {
+                "en": "$A \\,\\Delta\\, B$: A or B, but not both.",
+                "am": "$A \\,\\Delta\\, B$፦ A ወይም B፣ በሁለቱም ግን ያልሆነ።"
+              }
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "title": {
+            "en": "Easy trick",
+            "am": "ቀላል ዘዴ"
+          },
+          "text": {
+            "en": "$\\cup$ looks like a cup: it holds everything (union = OR). $\\cap$ looks like a cap: only the shared part (intersection = AND).",
+            "am": "$\\cup$ ጽዋ ይመስላል፦ ሁሉንም ይይዛል (ውህደት = ወይም)። $\\cap$ ቆብ ይመስላል፦ የጋራውን ክፍል ብቻ (መገናኛ = እና)።"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Worked example 1 (from class)",
+        "am": "የተሠራ ምሳሌ 1 (ከክፍል)"
+      },
+      "icon": "target",
+      "blocks": [
+        {
+          "type": "worked",
+          "title": {
+            "en": "$U = \\{1,2,3,4\\}$, $A = \\{1,2\\}$, $B = \\{2,3\\}$",
+            "am": "$U = \\{1,2,3,4\\}$, $A = \\{1,2\\}$, $B = \\{2,3\\}$"
+          },
+          "problem": {
+            "en": "Find $A \\cup B$, $A \\cap B$, $A \\setminus B$, $B \\setminus A$, $A \\,\\Delta\\, B$, $A'$ and $B'$.",
+            "am": "$A \\cup B$፣ $A \\cap B$፣ $A \\setminus B$፣ $B \\setminus A$፣ $A \\,\\Delta\\, B$፣ $A'$ እና $B'$ን ፈልጉ።"
+          },
+          "venn": {
+            "sets": 2,
+            "labels": [
+              "A",
+              "B"
+            ],
+            "elements": {
+              "A": [
+                "1"
+              ],
+              "AB": [
+                "2"
+              ],
+              "B": [
+                "3"
+              ],
+              "none": [
+                "4"
+              ]
+            }
+          },
+          "steps": [
+            {
+              "text": {
+                "en": "$A \\cup B = \\{1, 2, 3\\}$",
+                "am": "$A \\cup B = \\{1, 2, 3\\}$"
+              },
+              "why": {
+                "en": "Put together 1, 2 (from A) and 2, 3 (from B). Write 2 only once.",
+                "am": "1፣ 2 (ከA) እና 2፣ 3 (ከB) አንድ ላይ አድርጉ። 2ን አንድ ጊዜ ብቻ ጻፉ።"
+              },
+              "shade": "A∪B"
+            },
+            {
+              "text": {
+                "en": "$A \\cap B = \\{2\\}$",
+                "am": "$A \\cap B = \\{2\\}$"
+              },
+              "why": {
+                "en": "Which number is in BOTH circles? Only 2.",
+                "am": "በሁለቱም ክበቦች ውስጥ ያለው ቁጥር የትኛው ነው? 2 ብቻ።"
+              },
+              "shade": "A∩B"
+            },
+            {
+              "text": {
+                "en": "$A \\setminus B = \\{1\\}$",
+                "am": "$A \\setminus B = \\{1\\}$"
+              },
+              "why": {
+                "en": "Start with A and remove what is also in B (remove 2).",
+                "am": "በA ጀምሩና በB ውስጥም ያለውን (2ን) አስወግዱ።"
+              },
+              "shade": "A∖B"
+            },
+            {
+              "text": {
+                "en": "$B \\setminus A = \\{3\\}$",
+                "am": "$B \\setminus A = \\{3\\}$"
+              },
+              "why": {
+                "en": "Start with B and remove what is also in A (remove 2).",
+                "am": "በB ጀምሩና በA ውስጥም ያለውን (2ን) አስወግዱ።"
+              },
+              "shade": "B∖A"
+            },
+            {
+              "text": {
+                "en": "$A \\,\\Delta\\, B = \\{1\\} \\cup \\{3\\} = \\{1, 3\\}$",
+                "am": "$A \\,\\Delta\\, B = \\{1\\} \\cup \\{3\\} = \\{1, 3\\}$"
+              },
+              "why": {
+                "en": "Join the two differences we just found.",
+                "am": "አሁን ያገኘናቸውን ሁለቱን ልዩነቶች አንድ ላይ አድርጉ።"
+              },
+              "shade": "AΔB"
+            },
+            {
+              "text": {
+                "en": "$A' = \\{3, 4\\}$ and $B' = \\{1, 4\\}$",
+                "am": "$A' = \\{3, 4\\}$ እና $B' = \\{1, 4\\}$"
+              },
+              "why": {
+                "en": "Complement = what is in U but not in the set. 4 is outside both circles.",
+                "am": "ማሟያ = በU ውስጥ ያለ ግን በስብስቡ ውስጥ የሌለ። 4 ከሁለቱም ክበቦች ውጭ ነው።"
+              },
+              "shade": "A′"
+            }
+          ],
+          "answer": {
+            "en": "$\\{1,2,3\\}$, $\\{2\\}$, $\\{1\\}$, $\\{3\\}$, $\\{1,3\\}$, $\\{3,4\\}$, $\\{1,4\\}$",
+            "am": "$\\{1,2,3\\}$, $\\{2\\}$, $\\{1\\}$, $\\{3\\}$, $\\{1,3\\}$, $\\{3,4\\}$, $\\{1,4\\}$"
+          }
+        },
+        {
+          "type": "keypoint",
+          "variant": "note",
+          "title": {
+            "en": "Correction from the notes",
+            "am": "ከማስታወሻው የተደረገ እርማት"
+          },
+          "text": {
+            "en": "One notebook line wrote $B \\setminus A$ as $\\{\\,\\}$ (empty). The correct answer, as on the board, is $B \\setminus A = \\{3\\}$.",
+            "am": "በአንድ የማስታወሻ መስመር $B \\setminus A$ $\\{\\,\\}$ (ባዶ) ተብሎ ተጽፏል። ትክክለኛው መልስ፣ በሰሌዳው ላይ እንዳለው፣ $B \\setminus A = \\{3\\}$ ነው።"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "The laws of sets",
+        "am": "የስብስብ ሕጎች"
+      },
+      "icon": "scale",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            {
+              "en": "Law",
+              "am": "ሕግ"
+            },
+            {
+              "en": "Rules",
+              "am": "ደንቦች"
+            }
+          ],
+          "rows": [
+            [
+              {
+                "en": "Identity laws",
+                "am": "የማንነት ሕጎች"
+              },
+              {
+                "en": "$A \\cup \\emptyset = A$ · $A \\cap U = A$",
+                "am": "$A \\cup \\emptyset = A$ · $A \\cap U = A$"
+              }
+            ],
+            [
+              {
+                "en": "Complement laws",
+                "am": "የማሟያ ሕጎች"
+              },
+              {
+                "en": "$A \\cup A' = U$ · $A \\cap A' = \\emptyset$ · $(A')' = A$",
+                "am": "$A \\cup A' = U$ · $A \\cap A' = \\emptyset$ · $(A')' = A$"
+              }
+            ],
+            [
+              {
+                "en": "Distributive laws",
+                "am": "የማከፋፈል ሕጎች"
+              },
+              {
+                "en": "$A \\cup (B \\cap C) = (A \\cup B) \\cap (A \\cup C)$ · $A \\cap (B \\cup C) = (A \\cap B) \\cup (A \\cap C)$",
+                "am": "$A \\cup (B \\cap C) = (A \\cup B) \\cap (A \\cup C)$ · $A \\cap (B \\cup C) = (A \\cap B) \\cup (A \\cap C)$"
+              }
+            ],
+            [
+              {
+                "en": "De Morgan's laws",
+                "am": "የደ ሞርጋን ሕጎች"
+              },
+              {
+                "en": "$(A \\cup B)' = A' \\cap B'$ · $(A \\cap B)' = A' \\cup B'$",
+                "am": "$(A \\cup B)' = A' \\cap B'$ · $(A \\cap B)' = A' \\cup B'$"
+              }
+            ],
+            [
+              {
+                "en": "Difference rule",
+                "am": "የልዩነት ደንብ"
+              },
+              {
+                "en": "$A \\setminus B = A \\cap B'$",
+                "am": "$A \\setminus B = A \\cap B'$"
+              }
+            ]
+          ]
+        },
+        {
+          "type": "tip",
+          "title": {
+            "en": "De Morgan trick",
+            "am": "የደ ሞርጋን ዘዴ"
+          },
+          "text": {
+            "en": "When the $'$ (prime) goes inside the bracket, it FLIPS the sign: $\\cup$ becomes $\\cap$, and $\\cap$ becomes $\\cup$.",
+            "am": "$'$ (ፕራይም) ወደ ቅንፉ ውስጥ ሲገባ ምልክቱን ይገለብጣል፦ $\\cup$ $\\cap$ ይሆናል፣ $\\cap$ ደግሞ $\\cup$ ይሆናል።"
+          }
+        },
+        {
+          "type": "keypoint",
+          "variant": "note",
+          "title": {
+            "en": "Corrections from the notes",
+            "am": "ከማስታወሻው የተደረጉ እርማቶች"
+          },
+          "text": {
+            "en": "1) The complement is $A' = \\{x \\mid x \\in U \\text{ and } x \\notin A\\}$ (the notebook wrote $x \\in A$). 2) The second De Morgan law is $(A \\cap B)' = U \\setminus (A \\cap B) = A' \\cup B'$ (the notebook wrote $U \\setminus (A \\cup B)$).",
+            "am": "1) ማሟያው $A' = \\{x \\mid x \\in U \\text{ and } x \\notin A\\}$ ነው (ማስታወሻው $x \\in A$ ብሎ ጽፏል)። 2) ሁለተኛው የደ ሞርጋን ሕግ $(A \\cap B)' = U \\setminus (A \\cap B) = A' \\cup B'$ ነው (ማስታወሻው $U \\setminus (A \\cup B)$ ብሎ ጽፏል)።"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Checking De Morgan's law",
+        "am": "የደ ሞርጋንን ሕግ ማረጋገጥ"
+      },
+      "icon": "scale",
+      "blocks": [
+        {
+          "type": "worked",
+          "title": {
+            "en": "Verify $(A \\cup B)' = A' \\cap B'$",
+            "am": "$(A \\cup B)' = A' \\cap B'$ን አረጋግጡ"
+          },
+          "problem": {
+            "en": "Use $U = \\{1,2,3,4\\}$, $A = \\{1,2\\}$, $B = \\{2,3\\}$.",
+            "am": "$U = \\{1,2,3,4\\}$፣ $A = \\{1,2\\}$፣ $B = \\{2,3\\}$ን ተጠቀሙ።"
+          },
+          "venn": {
+            "sets": 2,
+            "labels": [
+              "A",
+              "B"
+            ],
+            "elements": {
+              "A": [
+                "1"
+              ],
+              "AB": [
+                "2"
+              ],
+              "B": [
+                "3"
+              ],
+              "none": [
+                "4"
+              ]
+            }
+          },
+          "steps": [
+            {
+              "text": {
+                "en": "Left: $A \\cup B = \\{1, 2, 3\\}$",
+                "am": "ግራ፦ $A \\cup B = \\{1, 2, 3\\}$"
+              },
+              "why": {
+                "en": "Work out the inside of the bracket first.",
+                "am": "መጀመሪያ የቅንፉን ውስጥ ሥሩ።"
+              },
+              "shade": "A∪B"
+            },
+            {
+              "text": {
+                "en": "$(A \\cup B)' = U \\setminus \\{1,2,3\\} = \\{4\\}$",
+                "am": "$(A \\cup B)' = U \\setminus \\{1,2,3\\} = \\{4\\}$"
+              },
+              "why": {
+                "en": "The complement keeps only what is outside the union.",
+                "am": "ማሟያው ከውህደቱ ውጭ ያለውን ብቻ ይይዛል።"
+              },
+              "shade": "(A∪B)′"
+            },
+            {
+              "text": {
+                "en": "Right: $A' = \\{3, 4\\}$, $B' = \\{1, 4\\}$",
+                "am": "ቀኝ፦ $A' = \\{3, 4\\}$፣ $B' = \\{1, 4\\}$"
+              },
+              "why": {
+                "en": "Find each complement separately.",
+                "am": "እያንዳንዱን ማሟያ ለየብቻ ፈልጉ።"
+              }
+            },
+            {
+              "text": {
+                "en": "$A' \\cap B' = \\{4\\}$",
+                "am": "$A' \\cap B' = \\{4\\}$"
+              },
+              "why": {
+                "en": "Only 4 is in both complements.",
+                "am": "በሁለቱም ማሟያዎች ውስጥ ያለው 4 ብቻ ነው።"
+              },
+              "shade": "A′∩B′"
+            }
+          ],
+          "answer": {
+            "en": "Left $=$ Right $= \\{4\\}$, so the law is true for this example.",
+            "am": "ግራ $=$ ቀኝ $= \\{4\\}$፤ ስለዚህ ሕጉ ለዚህ ምሳሌ እውነት ነው።"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Three-set Venn diagrams",
+        "am": "ባለ ሦስት ስብስብ የቬን ዲያግራም"
+      },
+      "icon": "layers",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "Three circles make **8 regions**. In the class example each region has one number:",
+            "am": "ሦስት ክበቦች **8 ክፍሎችን** ይሠራሉ። በክፍሉ ምሳሌ እያንዳንዱ ክፍል አንድ ቁጥር አለው፦"
+          }
+        },
+        {
+          "type": "venn",
+          "venn": {
+            "sets": 3,
+            "labels": [
+              "A",
+              "B",
+              "C"
+            ],
+            "elements": {
+              "A": [
+                "1"
+              ],
+              "B": [
+                "2"
+              ],
+              "C": [
+                "3"
+              ],
+              "AC": [
+                "4"
+              ],
+              "AB": [
+                "5"
+              ],
+              "BC": [
+                "6"
+              ],
+              "ABC": [
+                "7"
+              ],
+              "none": [
+                "8"
+              ]
+            }
+          },
+          "showElements": true,
+          "caption": {
+            "en": "1 only A · 2 only B · 3 only C · 5 A and B · 4 A and C · 6 B and C · 7 all three · 8 none",
+            "am": "1 A ብቻ · 2 B ብቻ · 3 C ብቻ · 5 A እና B · 4 A እና C · 6 B እና C · 7 በሦስቱም · 8 በምንም"
+          }
+        },
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "So $A = \\{1, 4, 5, 7\\}$, $B = \\{2, 5, 6, 7\\}$, $C = \\{3, 4, 6, 7\\}$ and $U = \\{1, 2, \\dots, 8\\}$.",
+            "am": "ስለዚህ $A = \\{1, 4, 5, 7\\}$፣ $B = \\{2, 5, 6, 7\\}$፣ $C = \\{3, 4, 6, 7\\}$ እና $U = \\{1, 2, \\dots, 8\\}$።"
+          }
+        },
+        {
+          "type": "worked",
+          "title": {
+            "en": "Find $(A \\cap B) \\setminus C$ and $(A \\cup B) \\setminus C$",
+            "am": "$(A \\cap B) \\setminus C$ እና $(A \\cup B) \\setminus C$ን ፈልጉ"
+          },
+          "problem": {
+            "en": "Use the 3-set class diagram.",
+            "am": "የክፍሉን ባለ ሦስት ስብስብ ዲያግራም ተጠቀሙ።"
+          },
+          "venn": {
+            "sets": 3,
+            "labels": [
+              "A",
+              "B",
+              "C"
+            ],
+            "elements": {
+              "A": [
+                "1"
+              ],
+              "B": [
+                "2"
+              ],
+              "C": [
+                "3"
+              ],
+              "AC": [
+                "4"
+              ],
+              "AB": [
+                "5"
+              ],
+              "BC": [
+                "6"
+              ],
+              "ABC": [
+                "7"
+              ],
+              "none": [
+                "8"
+              ]
+            }
+          },
+          "steps": [
+            {
+              "text": {
+                "en": "$A \\cap B = \\{5, 7\\}$",
+                "am": "$A \\cap B = \\{5, 7\\}$"
+              },
+              "why": {
+                "en": "The numbers in both A and B.",
+                "am": "በA እና በB ውስጥ ያሉ ቁጥሮች።"
+              },
+              "shade": "A∩B"
+            },
+            {
+              "text": {
+                "en": "$(A \\cap B) \\setminus C = \\{5\\}$",
+                "am": "$(A \\cap B) \\setminus C = \\{5\\}$"
+              },
+              "why": {
+                "en": "Remove C's elements: 7 is in C, so remove 7.",
+                "am": "የC አባላትን አስወግዱ፦ 7 በC ውስጥ ስላለ 7ን አስወግዱ።"
+              },
+              "shade": "(A∩B)∖C"
+            },
+            {
+              "text": {
+                "en": "$A \\cup B = \\{1, 2, 4, 5, 6, 7\\}$",
+                "am": "$A \\cup B = \\{1, 2, 4, 5, 6, 7\\}$"
+              },
+              "why": {
+                "en": "Everything in A or B.",
+                "am": "በA ወይም በB ያለ ሁሉ።"
+              },
+              "shade": "A∪B"
+            },
+            {
+              "text": {
+                "en": "$(A \\cup B) \\setminus C = \\{1, 2, 5\\}$",
+                "am": "$(A \\cup B) \\setminus C = \\{1, 2, 5\\}$"
+              },
+              "why": {
+                "en": "Remove $C = \\{3, 4, 6, 7\\}$: take away 4, 6 and 7.",
+                "am": "$C = \\{3, 4, 6, 7\\}$ን አስወግዱ፦ 4፣ 6 እና 7ን አውጡ።"
+              },
+              "shade": "(A∪B)∖C"
+            }
+          ],
+          "answer": {
+            "en": "$\\{5\\}$ and $\\{1, 2, 5\\}$",
+            "am": "$\\{5\\}$ እና $\\{1, 2, 5\\}$"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Proving an identity with Venn diagrams",
+        "am": "ማንነትን በቬን ዲያግራም ማረጋገጥ"
+      },
+      "icon": "eye",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "Method: shade the LEFT side in one diagram and the RIGHT side in another. If the shaded parts are exactly the same, the identity is true.",
+            "am": "ዘዴ፦ የግራውን ጎን በአንድ ዲያግራም፣ የቀኙን ጎን በሌላ ዲያግራም ላይ አጥሉ። የተጠሉት ክፍሎች በትክክል አንድ ከሆኑ ማንነቱ እውነት ነው።"
+          }
+        },
+        {
+          "type": "venn",
+          "venn": {
+            "sets": 3,
+            "labels": [
+              "A",
+              "B",
+              "C"
+            ]
+          },
+          "shade": "A∖(B∪C)",
+          "caption": {
+            "en": "Show that $A \\setminus (B \\cup C) = (A \\setminus B) \\cap (A \\setminus C)$",
+            "am": "$A \\setminus (B \\cup C) = (A \\setminus B) \\cap (A \\setminus C)$ መሆኑን አሳዩ"
+          },
+          "steps": [
+            {
+              "shade": "B∪C",
+              "text": {
+                "en": "Left side, step 1: shade $B \\cup C$.",
+                "am": "ግራ ጎን፣ ደረጃ 1፦ $B \\cup C$ን አጥሉ።"
+              }
+            },
+            {
+              "shade": "A∖(B∪C)",
+              "text": {
+                "en": "Step 2: keep the part of A outside $B \\cup C$: region 1 (only A).",
+                "am": "ደረጃ 2፦ ከ$B \\cup C$ ውጭ ያለውን የA ክፍል ያዙ፦ ክፍል 1 (A ብቻ)።"
+              }
+            },
+            {
+              "shade": "A∖B",
+              "text": {
+                "en": "Right side, step 3: shade $A \\setminus B$.",
+                "am": "ቀኝ ጎን፣ ደረጃ 3፦ $A \\setminus B$ን አጥሉ።"
+              }
+            },
+            {
+              "shade": "A∖C",
+              "text": {
+                "en": "Step 4: shade $A \\setminus C$.",
+                "am": "ደረጃ 4፦ $A \\setminus C$ን አጥሉ።"
+              }
+            },
+            {
+              "shade": "(A∖B)∩(A∖C)",
+              "text": {
+                "en": "Step 5: their overlap is region 1 again: the same as step 2, so the identity is true!",
+                "am": "ደረጃ 5፦ መገናኛቸው እንደገና ክፍል 1 ነው፤ ከደረጃ 2 ጋር አንድ ነው፣ ስለዚህ ማንነቱ እውነት ነው!"
+              }
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "items": [
+            {
+              "en": "Try the same way: $A \\cap (B \\cup C) = (A \\cap B) \\cup (A \\cap C)$",
+              "am": "በተመሳሳይ መንገድ ሞክሩ፦ $A \\cap (B \\cup C) = (A \\cap B) \\cup (A \\cap C)$"
+            },
+            {
+              "en": "and $A \\setminus B = A \\setminus (A \\cap B)$ (also written $A - B = A - (A \\cap B)$).",
+              "am": "እና $A \\setminus B = A \\setminus (A \\cap B)$ ($A - B = A - (A \\cap B)$ ተብሎም ይጻፋል)።"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Counting elements",
+        "am": "አባላትን መቁጠር"
+      },
+      "icon": "list-checks",
+      "blocks": [
+        {
+          "type": "keypoint",
+          "variant": "important",
+          "title": {
+            "en": "Formula for 2 sets",
+            "am": "ለ2 ስብስቦች ቀመር"
+          },
+          "text": {
+            "en": "$n(A \\cup B) = n(A) + n(B) - n(A \\cap B)$. Why subtract? Elements in $A \\cap B$ are counted twice, so we remove them once.",
+            "am": "$n(A \\cup B) = n(A) + n(B) - n(A \\cap B)$። ለምን እንቀንሳለን? በ$A \\cap B$ ያሉ አባላት ሁለት ጊዜ ስለሚቆጠሩ አንድ ጊዜ እናስወግዳቸዋለን።"
+          }
+        },
+        {
+          "type": "keypoint",
+          "variant": "important",
+          "title": {
+            "en": "Formula for 3 sets",
+            "am": "ለ3 ስብስቦች ቀመር"
+          },
+          "text": {
+            "en": "$n(A \\cup B \\cup C) = n(A) + n(B) + n(C) - n(A \\cap B) - n(A \\cap C) - n(B \\cap C) + n(A \\cap B \\cap C)$",
+            "am": "$n(A \\cup B \\cup C) = n(A) + n(B) + n(C) - n(A \\cap B) - n(A \\cap C) - n(B \\cap C) + n(A \\cap B \\cap C)$"
+          }
+        },
+        {
+          "type": "tip",
+          "title": {
+            "en": "Memory trick",
+            "am": "የማስታወሻ ዘዴ"
+          },
+          "text": {
+            "en": "Add the singles, subtract the pairs, add back the triple.",
+            "am": "ነጠላዎቹን ደምሩ፣ ጥንዶቹን ቀንሱ፣ ሦስቱን መልሳችሁ ደምሩ።"
+          }
+        },
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "Also useful: the number in NONE of the sets $= n(U) - n(A \\cup B)$.",
+            "am": "ጠቃሚ፦ በምንም ስብስብ ውስጥ የሌሉት ብዛት $= n(U) - n(A \\cup B)$።"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Exam question 1: the distributive trick",
+        "am": "የፈተና ጥያቄ 1፦ የማከፋፈል ዘዴ"
+      },
+      "icon": "brain",
+      "blocks": [
+        {
+          "type": "worked",
+          "title": {
+            "en": "Find $(A \\cap B) \\cup C$",
+            "am": "$(A \\cap B) \\cup C$ን ፈልጉ"
+          },
+          "problem": {
+            "en": "If $A \\cup C = \\{x \\in \\mathbb{Z} \\mid -3 < x < 3\\}$ and $B \\cup C = \\{x \\in \\mathbb{R} \\mid x^3 = x\\}$, then $(A \\cap B) \\cup C$ is: a) $\\{0,1,2\\}$ b) $\\{-1,0,1\\}$ c) $\\{-2,-1,0,1,2\\}$ d) $\\{0\\}$",
+            "am": "$A \\cup C = \\{x \\in \\mathbb{Z} \\mid -3 < x < 3\\}$ እና $B \\cup C = \\{x \\in \\mathbb{R} \\mid x^3 = x\\}$ ከሆኑ፣ $(A \\cap B) \\cup C$፦ ሀ) $\\{0,1,2\\}$ ለ) $\\{-1,0,1\\}$ ሐ) $\\{-2,-1,0,1,2\\}$ መ) $\\{0\\}$"
+          },
+          "steps": [
+            {
+              "text": {
+                "en": "$A \\cup C = \\{-2, -1, 0, 1, 2\\}$",
+                "am": "$A \\cup C = \\{-2, -1, 0, 1, 2\\}$"
+              },
+              "why": {
+                "en": "Integers strictly between $-3$ and $3$: $-3$ and $3$ are NOT included.",
+                "am": "በ$-3$ እና በ$3$ መካከል ያሉ ኢንቲጀሮች፤ $-3$ እና $3$ አይካተቱም።"
+              }
+            },
+            {
+              "text": {
+                "en": "$x^3 - x = 0 \\Rightarrow x(x^2 - 1) = 0$",
+                "am": "$x^3 - x = 0 \\Rightarrow x(x^2 - 1) = 0$"
+              },
+              "why": {
+                "en": "Bring everything to one side, then take $x$ out as a common factor.",
+                "am": "ሁሉንም ወደ አንድ ጎን አምጡ፣ ከዚያ $x$ን እንደ የጋራ አካፋይ አውጡ።"
+              }
+            },
+            {
+              "text": {
+                "en": "$x(x - 1)(x + 1) = 0 \\Rightarrow x = 0, 1, -1$",
+                "am": "$x(x - 1)(x + 1) = 0 \\Rightarrow x = 0, 1, -1$"
+              },
+              "why": {
+                "en": "$x^2 - 1$ is a difference of two squares. A product is 0 when one factor is 0.",
+                "am": "$x^2 - 1$ የሁለት ካሬዎች ልዩነት ነው። ብዜት 0 የሚሆነው አንዱ አባዢ 0 ሲሆን ነው።"
+              }
+            },
+            {
+              "text": {
+                "en": "$B \\cup C = \\{-1, 0, 1\\}$",
+                "am": "$B \\cup C = \\{-1, 0, 1\\}$"
+              },
+              "why": {
+                "en": "Solving over $\\mathbb{R}$ gives only these three numbers. Write them as a set.",
+                "am": "በ$\\mathbb{R}$ ላይ ስንፈታ እነዚህን ሦስት ቁጥሮች ብቻ እናገኛለን። እንደ ስብስብ ጻፏቸው።"
+              }
+            },
+            {
+              "text": {
+                "en": "$(A \\cap B) \\cup C = (A \\cup C) \\cap (B \\cup C)$",
+                "am": "$(A \\cap B) \\cup C = (A \\cup C) \\cap (B \\cup C)$"
+              },
+              "why": {
+                "en": "We can't find A, B and C alone. The distributive law lets us use the two sets we know!",
+                "am": "A፣ B እና Cን ለብቻ ማግኘት አንችልም። የማከፋፈል ሕግ የምናውቃቸውን ሁለቱን ስብስቦች እንድንጠቀም ያስችለናል!"
+              }
+            },
+            {
+              "text": {
+                "en": "$= \\{-2,-1,0,1,2\\} \\cap \\{-1,0,1\\} = \\{-1,0,1\\}$",
+                "am": "$= \\{-2,-1,0,1,2\\} \\cap \\{-1,0,1\\} = \\{-1,0,1\\}$"
+              },
+              "why": {
+                "en": "Keep only what is in BOTH sets.",
+                "am": "በሁለቱም ስብስቦች ያለውን ብቻ ያዙ።"
+              }
+            }
+          ],
+          "answer": {
+            "en": "b) $\\{-1, 0, 1\\}$",
+            "am": "ለ) $\\{-1, 0, 1\\}$"
+          }
+        },
+        {
+          "type": "tip",
+          "title": {
+            "en": "Key idea",
+            "am": "ቁልፍ ሐሳብ"
+          },
+          "text": {
+            "en": "We could not find A, B and C separately. The distributive law let us use $A \\cup C$ and $B \\cup C$ directly. Exams love this trick!",
+            "am": "A፣ B እና Cን ለየብቻ ማግኘት አልቻልንም። የማከፋፈል ሕግ $A \\cup C$ እና $B \\cup C$ን በቀጥታ እንድንጠቀም አስቻለን። ፈተናዎች ይህን ዘዴ ይወዳሉ!"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Exam question 2: counting with a Venn diagram",
+        "am": "የፈተና ጥያቄ 2፦ በቬን ዲያግራም መቁጠር"
+      },
+      "icon": "users",
+      "blocks": [
+        {
+          "type": "worked",
+          "title": {
+            "en": "How many boys like both games?",
+            "am": "ስንት ልጆች ሁለቱንም ጨዋታዎች ይወዳሉ?"
+          },
+          "problem": {
+            "en": "In a group of 40 boys, 28 like football and 18 like basketball. If 3 boys like neither game, how many like both? a) 4 b) 6 c) 9 d) 12",
+            "am": "ከ40 ልጆች 28ቱ እግር ኳስ፣ 18ቱ ቅርጫት ኳስ ይወዳሉ። 3 ልጆች ሁለቱንም ካልወደዱ፣ ስንቱ ሁለቱንም ይወዳሉ? ሀ) 4 ለ) 6 ሐ) 9 መ) 12"
+          },
+          "venn": {
+            "sets": 2,
+            "labels": [
+              "F",
+              "B"
+            ],
+            "elements": {
+              "A": [
+                "19"
+              ],
+              "AB": [
+                "9"
+              ],
+              "B": [
+                "9"
+              ],
+              "none": [
+                "3"
+              ]
+            }
+          },
+          "steps": [
+            {
+              "text": {
+                "en": "Let $F$ = football, $B$ = basketball, $x$ = both.",
+                "am": "$F$ = እግር ኳስ፣ $B$ = ቅርጫት ኳስ፣ $x$ = ሁለቱም ይሁኑ።"
+              },
+              "why": {
+                "en": "Name everything first; it makes the working clear.",
+                "am": "መጀመሪያ ሁሉንም ስም ስጡ፤ አሠራሩን ግልጽ ያደርጋል።"
+              }
+            },
+            {
+              "text": {
+                "en": "$n(F \\cup B) = 40 - 3 = 37$",
+                "am": "$n(F \\cup B) = 40 - 3 = 37$"
+              },
+              "why": {
+                "en": "Everyone except the 3 who like neither.",
+                "am": "ሁለቱንም ከማይወዱት 3 በስተቀር ሁሉም።"
+              },
+              "shade": "F∪B"
+            },
+            {
+              "text": {
+                "en": "$37 = 28 + 18 - x$",
+                "am": "$37 = 28 + 18 - x$"
+              },
+              "why": {
+                "en": "Use $n(F \\cup B) = n(F) + n(B) - n(F \\cap B)$.",
+                "am": "$n(F \\cup B) = n(F) + n(B) - n(F \\cap B)$ን ተጠቀሙ።"
+              }
+            },
+            {
+              "text": {
+                "en": "$37 = 46 - x \\Rightarrow x = 9$",
+                "am": "$37 = 46 - x \\Rightarrow x = 9$"
+              },
+              "why": {
+                "en": "Solve for $x$: $46 - 37 = 9$.",
+                "am": "$x$ን ፍቱ፦ $46 - 37 = 9$።"
+              },
+              "shade": "F∩B"
+            },
+            {
+              "text": {
+                "en": "Check: $19 + 9 + 9 + 3 = 40$",
+                "am": "ማረጋገጫ፦ $19 + 9 + 9 + 3 = 40$"
+              },
+              "why": {
+                "en": "Only F $= 28 - 9 = 19$, only B $= 18 - 9 = 9$. The total is 40, so we are right.",
+                "am": "F ብቻ $= 28 - 9 = 19$፣ B ብቻ $= 18 - 9 = 9$። ድምሩ 40 ስለሆነ ትክክል ነን።"
+              }
+            }
+          ],
+          "answer": {
+            "en": "c) 9",
+            "am": "ሐ) 9"
+          }
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "term": {
+        "en": "Set",
+        "am": "ስብስብ"
+      },
+      "definition": {
+        "en": "A collection of well-defined objects.",
+        "am": "በግልጽ የተወሰኑ ነገሮች ስብስብ።"
+      }
+    },
+    {
+      "term": {
+        "en": "Elements",
+        "am": "አባላት"
+      },
+      "definition": {
+        "en": "The objects inside a set (also called members).",
+        "am": "በስብስብ ውስጥ ያሉ ነገሮች።"
+      }
+    },
+    {
+      "term": {
+        "en": "Well-defined",
+        "am": "በግልጽ የተወሰነ"
+      },
+      "definition": {
+        "en": "We can clearly say whether any object is in the set or not.",
+        "am": "ማንኛውም ነገር በስብስቡ ውስጥ መኖሩን ወይም አለመኖሩን በግልጽ መናገር የሚቻልበት።"
+      }
+    },
+    {
+      "term": {
+        "en": "Empty set",
+        "am": "ባዶ ስብስብ"
+      },
+      "definition": {
+        "en": "The set with no elements: ∅ or { }.",
+        "am": "አባል የሌለው ስብስብ፦ ∅ ወይም { }።"
+      }
+    },
+    {
+      "term": {
+        "en": "Universal set",
+        "am": "ሁሉን አቀፍ ስብስብ"
+      },
+      "definition": {
+        "en": "The set U of everything we are talking about.",
+        "am": "የምንነጋገርበትን ሁሉ የያዘው U ስብስብ።"
+      }
+    },
+    {
+      "term": {
+        "en": "Subset",
+        "am": "ንዑስ ስብስብ"
+      },
+      "definition": {
+        "en": "A ⊆ B: every element of A is also in B.",
+        "am": "A ⊆ B፦ እያንዳንዱ የA አባል በB ውስጥም አለ።"
+      }
+    },
+    {
+      "term": {
+        "en": "Power set",
+        "am": "የኃይል ስብስብ"
+      },
+      "definition": {
+        "en": "P(A): the set of all subsets of A. If n(A) = n it has 2ⁿ elements.",
+        "am": "P(A)፦ የA የሁሉም ንዑስ ስብስቦች ስብስብ። n(A) = n ከሆነ 2ⁿ አባላት አሉት።"
+      }
+    },
+    {
+      "term": {
+        "en": "Equivalent sets",
+        "am": "ተመጣጣኝ ስብስቦች"
+      },
+      "definition": {
+        "en": "Sets with the same number of elements.",
+        "am": "እኩል የአባላት ብዛት ያላቸው ስብስቦች።"
+      }
+    },
+    {
+      "term": {
+        "en": "Union",
+        "am": "ውህደት"
+      },
+      "definition": {
+        "en": "A ∪ B: the elements in A or B (or both).",
+        "am": "A ∪ B፦ በA ወይም በB (ወይም በሁለቱም) ያሉ አባላት።"
+      }
+    },
+    {
+      "term": {
+        "en": "Intersection",
+        "am": "መገናኛ"
+      },
+      "definition": {
+        "en": "A ∩ B: the elements in both A and B.",
+        "am": "A ∩ B፦ በሁለቱም በA እና በB ውስጥ ያሉ አባላት።"
+      }
+    },
+    {
+      "term": {
+        "en": "Complement",
+        "am": "ማሟያ"
+      },
+      "definition": {
+        "en": "A′ = U \\ A: the elements of U that are not in A.",
+        "am": "A′ = U \\ A፦ በA ውስጥ የሌሉ የU አባላት።"
+      }
+    },
+    {
+      "term": {
+        "en": "Difference",
+        "am": "ልዩነት"
+      },
+      "definition": {
+        "en": "A \\ B: the elements in A but not in B.",
+        "am": "A \\ B፦ በA ያሉ ግን በB የሌሉ አባላት።"
+      }
+    },
+    {
+      "term": {
+        "en": "Symmetric difference",
+        "am": "ሲሜትሪክ ልዩነት"
+      },
+      "definition": {
+        "en": "A Δ B = (A \\ B) ∪ (B \\ A): in A or B but not both.",
+        "am": "A Δ B = (A \\ B) ∪ (B \\ A)፦ በA ወይም በB፣ በሁለቱም ግን ያልሆነ።"
+      }
+    },
+    {
+      "term": {
+        "en": "Venn diagram",
+        "am": "የቬን ዲያግራም"
+      },
+      "definition": {
+        "en": "A drawing of sets as circles inside a rectangle (U).",
+        "am": "ስብስቦችን በአራት ማዕዘን (U) ውስጥ እንደ ክበቦች የሚያሳይ ሥዕል።"
+      }
+    },
+    {
+      "term": {
+        "en": "De Morgan's laws",
+        "am": "የደ ሞርጋን ሕጎች"
+      },
+      "definition": {
+        "en": "(A ∪ B)′ = A′ ∩ B′ and (A ∩ B)′ = A′ ∪ B′.",
+        "am": "(A ∪ B)′ = A′ ∩ B′ እና (A ∩ B)′ = A′ ∪ B′።"
+      }
+    }
+  ],
+  "main_topics": [
+    {
+      "title": {
+        "en": "Sets and symbols",
+        "am": "ስብስቦችና ምልክቶች"
+      },
+      "points": [
+        {
+          "en": "A **set** is a collection of **well-defined** objects.",
+          "am": "**ስብስብ** በግልጽ የተወሰኑ ነገሮች ስብስብ ነው።"
+        },
+        {
+          "en": "$\\in$ element → set; $\\subseteq$ set → set.",
+          "am": "$\\in$ አባል → ስብስብ፤ $\\subseteq$ ስብስብ → ስብስብ።"
+        },
+        {
+          "en": "$\\mathbb{N} \\subset \\mathbb{W} \\subset \\mathbb{Z} \\subset \\mathbb{Q} \\subset \\mathbb{R}$",
+          "am": "$\\mathbb{N} \\subset \\mathbb{W} \\subset \\mathbb{Z} \\subset \\mathbb{Q} \\subset \\mathbb{R}$"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Describing sets and subsets",
+        "am": "ስብስቦችን መግለጽና ንዑስ ስብስቦች"
+      },
+      "points": [
+        {
+          "en": "Complete listing, partial listing, set-builder: $\\{x \\mid \\dots\\}$.",
+          "am": "ሙሉ ዝርዝር፣ ከፊል ዝርዝር፣ የስብስብ መገንቢያ፦ $\\{x \\mid \\dots\\}$።"
+        },
+        {
+          "en": "$n(A) = n$ → $2^n$ subsets, $2^n - 1$ proper subsets.",
+          "am": "$n(A) = n$ → $2^n$ ንዑስ ስብስቦች፣ $2^n - 1$ ትክክለኛ ንዑስ ስብስቦች።"
+        },
+        {
+          "en": "$\\emptyset \\subseteq A$ and $A \\subseteq A$ always.",
+          "am": "$\\emptyset \\subseteq A$ እና $A \\subseteq A$ ሁልጊዜ።"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Operations",
+        "am": "ስሌቶች"
+      },
+      "points": [
+        {
+          "en": "$A \\cup B$ = OR · $A \\cap B$ = AND · $A' = U \\setminus A$",
+          "am": "$A \\cup B$ = ወይም · $A \\cap B$ = እና · $A' = U \\setminus A$"
+        },
+        {
+          "en": "$A \\setminus B = A \\cap B'$ · $A \\,\\Delta\\, B = (A \\setminus B) \\cup (B \\setminus A)$",
+          "am": "$A \\setminus B = A \\cap B'$ · $A \\,\\Delta\\, B = (A \\setminus B) \\cup (B \\setminus A)$"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Laws of sets",
+        "am": "የስብስብ ሕጎች"
+      },
+      "points": [
+        {
+          "en": "Distributive: $A \\cap (B \\cup C) = (A \\cap B) \\cup (A \\cap C)$",
+          "am": "ማከፋፈል፦ $A \\cap (B \\cup C) = (A \\cap B) \\cup (A \\cap C)$"
+        },
+        {
+          "en": "De Morgan: $(A \\cup B)' = A' \\cap B'$, $(A \\cap B)' = A' \\cup B'$",
+          "am": "ደ ሞርጋን፦ $(A \\cup B)' = A' \\cap B'$፣ $(A \\cap B)' = A' \\cup B'$"
+        },
+        {
+          "en": "Prove identities by shading both sides of a Venn diagram.",
+          "am": "ማንነቶችን የቬን ዲያግራሙን ሁለቱንም ጎኖች በማጥለል አረጋግጡ።"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Counting",
+        "am": "ቆጠራ"
+      },
+      "points": [
+        {
+          "en": "$n(A \\cup B) = n(A) + n(B) - n(A \\cap B)$",
+          "am": "$n(A \\cup B) = n(A) + n(B) - n(A \\cap B)$"
+        },
+        {
+          "en": "3 sets: add singles, subtract pairs, add the triple.",
+          "am": "3 ስብስቦች፦ ነጠላዎችን ደምሩ፣ ጥንዶችን ቀንሱ፣ ሦስቱን ደምሩ።"
+        },
+        {
+          "en": "None $= n(U) - n(A \\cup B)$",
+          "am": "በምንም $= n(U) - n(A \\cup B)$"
+        }
+      ]
+    }
+  ],
+  "homework": [
+    {
+      "id": "w1",
+      "type": "written",
+      "warmup": true,
+      "question": {
+        "en": "Warm-up: using the drawing, find $(A \\cap B) \\setminus C$ and $(A \\cup B) \\setminus C$.",
+        "am": "ማሟሟቂያ፦ ሥዕሉን በመጠቀም $(A \\cap B) \\setminus C$ እና $(A \\cup B) \\setminus C$ን ፈልጉ።"
+      },
+      "tip": {
+        "en": "First write A, B and C as sets of region numbers from the drawing.",
+        "am": "መጀመሪያ A፣ B እና Cን ከሥዕሉ በክፍል ቁጥሮች እንደ ስብስብ ጻፉ።"
+      },
+      "hints": [
+        {
+          "en": "$A = \\{1, 4, 5, 7\\}$, $B = \\{2, 5, 6, 7\\}$, $C = \\{3, 4, 6, 7\\}$.",
+          "am": "$A = \\{1, 4, 5, 7\\}$, $B = \\{2, 5, 6, 7\\}$, $C = \\{3, 4, 6, 7\\}$."
+        },
+        {
+          "en": "Work out the inside bracket first, then the outside operation.",
+          "am": "መጀመሪያ በቅንፉ ውስጥ ያለውን ሥሩ፣ ከዚያ የውጩን ሥራ።"
+        }
+      ],
+      "figure": {
+        "venn": {
+          "sets": 3,
+          "labels": [
+            "A",
+            "B",
+            "C"
+          ],
+          "elements": {
+            "A": [
+              "1"
+            ],
+            "B": [
+              "2"
+            ],
+            "C": [
+              "3"
+            ],
+            "AC": [
+              "4"
+            ],
+            "AB": [
+              "5"
+            ],
+            "BC": [
+              "6"
+            ],
+            "ABC": [
+              "7"
+            ],
+            "none": [
+              "8"
+            ]
+          }
+        },
+        "caption": {
+          "en": "The drawing from class: each region has a number. Tap a region to see its number.",
+          "am": "ከክፍል የተሰጠው ሥዕል፦ እያንዳንዱ ክፍል ቁጥር አለው። ቁጥሩን ለማየት ክፍሉን ንኩ።"
+        }
+      },
+      "answers": [
+        {
+          "label": {
+            "en": "$(A \\cap B) \\setminus C$",
+            "am": "$(A \\cap B) \\setminus C$"
+          },
+          "spec": {
+            "kind": "set",
+            "value": [
+              "5"
+            ]
+          }
+        },
+        {
+          "label": {
+            "en": "$(A \\cup B) \\setminus C$",
+            "am": "$(A \\cup B) \\setminus C$"
+          },
+          "spec": {
+            "kind": "set",
+            "value": [
+              "1",
+              "2",
+              "5"
+            ]
+          }
+        }
+      ],
+      "solution": {
+        "venn": {
+          "sets": 3,
+          "labels": [
+            "A",
+            "B",
+            "C"
+          ],
+          "elements": {
+            "A": [
+              "1"
+            ],
+            "B": [
+              "2"
+            ],
+            "C": [
+              "3"
+            ],
+            "AC": [
+              "4"
+            ],
+            "AB": [
+              "5"
+            ],
+            "BC": [
+              "6"
+            ],
+            "ABC": [
+              "7"
+            ],
+            "none": [
+              "8"
+            ]
+          }
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "$A = \\{1, 4, 5, 7\\}$, $B = \\{2, 5, 6, 7\\}$, $C = \\{3, 4, 6, 7\\}$",
+              "am": "$A = \\{1, 4, 5, 7\\}$, $B = \\{2, 5, 6, 7\\}$, $C = \\{3, 4, 6, 7\\}$"
+            },
+            "why": {
+              "en": "Read each circle from the drawing: write every region number inside it.",
+              "am": "እያንዳንዱን ክበብ ከሥዕሉ አንብቡ፦ በውስጡ ያሉትን የክፍል ቁጥሮች በሙሉ ጻፉ።"
+            }
+          },
+          {
+            "text": {
+              "en": "$A \\cap B = \\{5, 7\\}$",
+              "am": "$A \\cap B = \\{5, 7\\}$"
+            },
+            "why": {
+              "en": "Numbers in BOTH A and B.",
+              "am": "በA እና በB ሁለቱም ያሉ ቁጥሮች።"
+            },
+            "shade": "A∩B"
+          },
+          {
+            "text": {
+              "en": "$(A \\cap B) \\setminus C = \\{5\\}$",
+              "am": "$(A \\cap B) \\setminus C = \\{5\\}$"
+            },
+            "why": {
+              "en": "Remove the numbers that are also in C (7).",
+              "am": "በC ውስጥም ያሉትን ቁጥሮች (7) አስወግዱ።"
+            },
+            "shade": "(A∩B)∖C"
+          },
+          {
+            "text": {
+              "en": "$A \\cup B = \\{1, 2, 4, 5, 6, 7\\}$",
+              "am": "$A \\cup B = \\{1, 2, 4, 5, 6, 7\\}$"
+            },
+            "why": {
+              "en": "Numbers in A OR B.",
+              "am": "በA ወይም በB ያሉ ቁጥሮች።"
+            },
+            "shade": "A∪B"
+          },
+          {
+            "text": {
+              "en": "$(A \\cup B) \\setminus C = \\{1, 2, 5\\}$",
+              "am": "$(A \\cup B) \\setminus C = \\{1, 2, 5\\}$"
+            },
+            "why": {
+              "en": "Remove 4, 6 and 7, which are in C.",
+              "am": "በC ውስጥ ያሉትን 4፣ 6 እና 7 አስወግዱ።"
+            },
+            "shade": "(A∪B)∖C"
+          }
+        ],
+        "answer": {
+          "en": "$(A \\cap B) \\setminus C = \\{5\\}$, $(A \\cup B) \\setminus C = \\{1, 2, 5\\}$",
+          "am": "$(A \\cap B) \\setminus C = \\{5\\}$, $(A \\cup B) \\setminus C = \\{1, 2, 5\\}$"
+        }
+      }
+    },
+    {
+      "id": "h1",
+      "type": "written",
+      "question": {
+        "en": "Using the numbered drawing, show that $A \\cup (B \\cap C) = (A \\cup B) \\cap (A \\cup C)$. Find each side as a set of region numbers.",
+        "am": "በቁጥር የተሰየመውን ሥዕል በመጠቀም $A \\cup (B \\cap C) = (A \\cup B) \\cap (A \\cup C)$ መሆኑን አሳዩ። እያንዳንዱን ጎን በክፍል ቁጥሮች ስብስብ ፈልጉ።"
+      },
+      "tip": {
+        "en": "First write A, B and C as sets of region numbers from the drawing.",
+        "am": "መጀመሪያ A፣ B እና Cን ከሥዕሉ በክፍል ቁጥሮች እንደ ስብስብ ጻፉ።"
+      },
+      "hints": [
+        {
+          "en": "$A = \\{1, 4, 5, 7\\}$, $B = \\{2, 5, 6, 7\\}$, $C = \\{3, 4, 6, 7\\}$.",
+          "am": "$A = \\{1, 4, 5, 7\\}$, $B = \\{2, 5, 6, 7\\}$, $C = \\{3, 4, 6, 7\\}$."
+        },
+        {
+          "en": "Work out the inside bracket first, then the outside operation.",
+          "am": "መጀመሪያ በቅንፉ ውስጥ ያለውን ሥሩ፣ ከዚያ የውጩን ሥራ።"
+        }
+      ],
+      "figure": {
+        "venn": {
+          "sets": 3,
+          "labels": [
+            "A",
+            "B",
+            "C"
+          ],
+          "elements": {
+            "A": [
+              "1"
+            ],
+            "B": [
+              "2"
+            ],
+            "C": [
+              "3"
+            ],
+            "AC": [
+              "4"
+            ],
+            "AB": [
+              "5"
+            ],
+            "BC": [
+              "6"
+            ],
+            "ABC": [
+              "7"
+            ],
+            "none": [
+              "8"
+            ]
+          }
+        },
+        "caption": {
+          "en": "The drawing from class: each region has a number. Tap a region to see its number.",
+          "am": "ከክፍል የተሰጠው ሥዕል፦ እያንዳንዱ ክፍል ቁጥር አለው። ቁጥሩን ለማየት ክፍሉን ንኩ።"
+        }
+      },
+      "compare": [
+        {
+          "label": {
+            "en": "Left side: $A \\cup (B \\cap C)$",
+            "am": "ግራ ጎን፦ $A \\cup (B \\cap C)$"
+          },
+          "shade": "A∪(B∩C)"
+        },
+        {
+          "label": {
+            "en": "Right side: $(A \\cup B) \\cap (A \\cup C)$",
+            "am": "ቀኝ ጎን፦ $(A \\cup B) \\cap (A \\cup C)$"
+          },
+          "shade": "(A∪B)∩(A∪C)"
+        }
+      ],
+      "answers": [
+        {
+          "label": {
+            "en": "$B \\cap C$",
+            "am": "$B \\cap C$"
+          },
+          "group": {
+            "en": "Left side",
+            "am": "ግራ ጎን"
+          },
+          "spec": {
+            "kind": "set",
+            "value": [
+              "6",
+              "7"
+            ]
+          }
+        },
+        {
+          "label": {
+            "en": "$A \\cup (B \\cap C)$",
+            "am": "$A \\cup (B \\cap C)$"
+          },
+          "group": {
+            "en": "Left side",
+            "am": "ግራ ጎን"
+          },
+          "spec": {
+            "kind": "set",
+            "value": [
+              "1",
+              "4",
+              "5",
+              "6",
+              "7"
+            ]
+          }
+        },
+        {
+          "label": {
+            "en": "$A \\cup B$",
+            "am": "$A \\cup B$"
+          },
+          "group": {
+            "en": "Right side",
+            "am": "ቀኝ ጎን"
+          },
+          "spec": {
+            "kind": "set",
+            "value": [
+              "1",
+              "2",
+              "4",
+              "5",
+              "6",
+              "7"
+            ]
+          }
+        },
+        {
+          "label": {
+            "en": "$A \\cup C$",
+            "am": "$A \\cup C$"
+          },
+          "group": {
+            "en": "Right side",
+            "am": "ቀኝ ጎን"
+          },
+          "spec": {
+            "kind": "set",
+            "value": [
+              "1",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7"
+            ]
+          }
+        },
+        {
+          "label": {
+            "en": "$(A \\cup B) \\cap (A \\cup C)$",
+            "am": "$(A \\cup B) \\cap (A \\cup C)$"
+          },
+          "group": {
+            "en": "Right side",
+            "am": "ቀኝ ጎን"
+          },
+          "spec": {
+            "kind": "set",
+            "value": [
+              "1",
+              "4",
+              "5",
+              "6",
+              "7"
+            ]
+          }
+        },
+        {
+          "label": {
+            "en": "Left side = Right side?",
+            "am": "ግራ ጎን = ቀኝ ጎን?"
+          },
+          "group": {
+            "en": "Conclusion",
+            "am": "መደምደሚያ"
+          },
+          "spec": {
+            "kind": "choice",
+            "options": [
+              {
+                "en": "Equal ✓",
+                "am": "እኩል ናቸው ✓"
+              },
+              {
+                "en": "Not equal ✗",
+                "am": "እኩል አይደሉም ✗"
+              }
+            ],
+            "correct": 0
+          }
+        }
+      ],
+      "solution": {
+        "venn": {
+          "sets": 3,
+          "labels": [
+            "A",
+            "B",
+            "C"
+          ],
+          "elements": {
+            "A": [
+              "1"
+            ],
+            "B": [
+              "2"
+            ],
+            "C": [
+              "3"
+            ],
+            "AC": [
+              "4"
+            ],
+            "AB": [
+              "5"
+            ],
+            "BC": [
+              "6"
+            ],
+            "ABC": [
+              "7"
+            ],
+            "none": [
+              "8"
+            ]
+          }
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "$A = \\{1, 4, 5, 7\\}$, $B = \\{2, 5, 6, 7\\}$, $C = \\{3, 4, 6, 7\\}$",
+              "am": "$A = \\{1, 4, 5, 7\\}$, $B = \\{2, 5, 6, 7\\}$, $C = \\{3, 4, 6, 7\\}$"
+            },
+            "why": {
+              "en": "Read each circle from the drawing: write every region number inside it.",
+              "am": "እያንዳንዱን ክበብ ከሥዕሉ አንብቡ፦ በውስጡ ያሉትን የክፍል ቁጥሮች በሙሉ ጻፉ።"
+            }
+          },
+          {
+            "text": {
+              "en": "$B \\cap C = \\{6, 7\\}$",
+              "am": "$B \\cap C = \\{6, 7\\}$"
+            },
+            "why": {
+              "en": "Left side, bracket first: numbers in both B and C.",
+              "am": "ግራ ጎን፣ መጀመሪያ ቅንፍ፦ በB እና በC ሁለቱም ያሉ ቁጥሮች።"
+            },
+            "shade": "B∩C"
+          },
+          {
+            "text": {
+              "en": "$A \\cup (B \\cap C) = \\{1, 4, 5, 6, 7\\}$",
+              "am": "$A \\cup (B \\cap C) = \\{1, 4, 5, 6, 7\\}$"
+            },
+            "why": {
+              "en": "Add every number of A: 1, 4, 5, 7.",
+              "am": "የAን ቁጥሮች በሙሉ ጨምሩ፦ 1፣ 4፣ 5፣ 7።"
+            },
+            "shade": "A∪(B∩C)"
+          },
+          {
+            "text": {
+              "en": "$A \\cup B = \\{1, 2, 4, 5, 6, 7\\}$",
+              "am": "$A \\cup B = \\{1, 2, 4, 5, 6, 7\\}$"
+            },
+            "why": {
+              "en": "Right side: everything in A or B.",
+              "am": "ቀኝ ጎን፦ በA ወይም በB ያለ ሁሉ።"
+            },
+            "shade": "A∪B"
+          },
+          {
+            "text": {
+              "en": "$A \\cup C = \\{1, 3, 4, 5, 6, 7\\}$",
+              "am": "$A \\cup C = \\{1, 3, 4, 5, 6, 7\\}$"
+            },
+            "why": {
+              "en": "Everything in A or C.",
+              "am": "በA ወይም በC ያለ ሁሉ።"
+            },
+            "shade": "A∪C"
+          },
+          {
+            "text": {
+              "en": "$(A \\cup B) \\cap (A \\cup C) = \\{1, 4, 5, 6, 7\\}$",
+              "am": "$(A \\cup B) \\cap (A \\cup C) = \\{1, 4, 5, 6, 7\\}$"
+            },
+            "why": {
+              "en": "Keep the numbers that are in BOTH lists.",
+              "am": "በሁለቱም ዝርዝሮች ያሉትን ቁጥሮች ያዙ።"
+            },
+            "shade": "(A∪B)∩(A∪C)"
+          },
+          {
+            "text": {
+              "en": "Both sides are $\\{1, 4, 5, 6, 7\\}$, so they are equal ✓",
+              "am": "ሁለቱም ጎኖች $\\{1, 4, 5, 6, 7\\}$ ናቸው፤ ስለዚህ እኩል ናቸው ✓"
+            },
+            "why": {
+              "en": "Two sets with exactly the same elements are equal.",
+              "am": "በትክክል አንድ ዓይነት አባላት ያሏቸው ሁለት ስብስቦች እኩል ናቸው።"
+            },
+            "shade": "A∪(B∩C)"
+          }
+        ],
+        "answer": {
+          "en": "$A \\cup (B \\cap C) = (A \\cup B) \\cap (A \\cup C) = \\{1, 4, 5, 6, 7\\}$",
+          "am": "$A \\cup (B \\cap C) = (A \\cup B) \\cap (A \\cup C) = \\{1, 4, 5, 6, 7\\}$"
+        }
+      }
+    },
+    {
+      "id": "h2",
+      "type": "written",
+      "question": {
+        "en": "Using the numbered drawing, show that $A - (B \\cup C) = (A - B) \\cap (A - C)$, the same as $A \\setminus (B \\cup C) = (A \\setminus B) \\cap (A \\setminus C)$. Find each side as a set of region numbers.",
+        "am": "በቁጥር የተሰየመውን ሥዕል በመጠቀም $A - (B \\cup C) = (A - B) \\cap (A - C)$ መሆኑን አሳዩ፤ ይህም $A \\setminus (B \\cup C) = (A \\setminus B) \\cap (A \\setminus C)$ ማለት ነው። እያንዳንዱን ጎን በክፍል ቁጥሮች ስብስብ ፈልጉ።"
+      },
+      "tip": {
+        "en": "First write A, B and C as sets of region numbers from the drawing.",
+        "am": "መጀመሪያ A፣ B እና Cን ከሥዕሉ በክፍል ቁጥሮች እንደ ስብስብ ጻፉ።"
+      },
+      "hints": [
+        {
+          "en": "$A = \\{1, 4, 5, 7\\}$, $B = \\{2, 5, 6, 7\\}$, $C = \\{3, 4, 6, 7\\}$.",
+          "am": "$A = \\{1, 4, 5, 7\\}$, $B = \\{2, 5, 6, 7\\}$, $C = \\{3, 4, 6, 7\\}$."
+        },
+        {
+          "en": "Work out the inside bracket first, then the outside operation.",
+          "am": "መጀመሪያ በቅንፉ ውስጥ ያለውን ሥሩ፣ ከዚያ የውጩን ሥራ።"
+        }
+      ],
+      "figure": {
+        "venn": {
+          "sets": 3,
+          "labels": [
+            "A",
+            "B",
+            "C"
+          ],
+          "elements": {
+            "A": [
+              "1"
+            ],
+            "B": [
+              "2"
+            ],
+            "C": [
+              "3"
+            ],
+            "AC": [
+              "4"
+            ],
+            "AB": [
+              "5"
+            ],
+            "BC": [
+              "6"
+            ],
+            "ABC": [
+              "7"
+            ],
+            "none": [
+              "8"
+            ]
+          }
+        },
+        "caption": {
+          "en": "The drawing from class: each region has a number. Tap a region to see its number.",
+          "am": "ከክፍል የተሰጠው ሥዕል፦ እያንዳንዱ ክፍል ቁጥር አለው። ቁጥሩን ለማየት ክፍሉን ንኩ።"
+        }
+      },
+      "compare": [
+        {
+          "label": {
+            "en": "Left side: $A \\setminus (B \\cup C)$",
+            "am": "ግራ ጎን፦ $A \\setminus (B \\cup C)$"
+          },
+          "shade": "A∖(B∪C)"
+        },
+        {
+          "label": {
+            "en": "Right side: $(A \\setminus B) \\cap (A \\setminus C)$",
+            "am": "ቀኝ ጎን፦ $(A \\setminus B) \\cap (A \\setminus C)$"
+          },
+          "shade": "(A∖B)∩(A∖C)"
+        }
+      ],
+      "answers": [
+        {
+          "label": {
+            "en": "$B \\cup C$",
+            "am": "$B \\cup C$"
+          },
+          "group": {
+            "en": "Left side",
+            "am": "ግራ ጎን"
+          },
+          "spec": {
+            "kind": "set",
+            "value": [
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7"
+            ]
+          }
+        },
+        {
+          "label": {
+            "en": "$A \\setminus (B \\cup C)$",
+            "am": "$A \\setminus (B \\cup C)$"
+          },
+          "group": {
+            "en": "Left side",
+            "am": "ግራ ጎን"
+          },
+          "spec": {
+            "kind": "set",
+            "value": [
+              "1"
+            ]
+          }
+        },
+        {
+          "label": {
+            "en": "$A \\setminus B$",
+            "am": "$A \\setminus B$"
+          },
+          "group": {
+            "en": "Right side",
+            "am": "ቀኝ ጎን"
+          },
+          "spec": {
+            "kind": "set",
+            "value": [
+              "1",
+              "4"
+            ]
+          }
+        },
+        {
+          "label": {
+            "en": "$A \\setminus C$",
+            "am": "$A \\setminus C$"
+          },
+          "group": {
+            "en": "Right side",
+            "am": "ቀኝ ጎን"
+          },
+          "spec": {
+            "kind": "set",
+            "value": [
+              "1",
+              "5"
+            ]
+          }
+        },
+        {
+          "label": {
+            "en": "$(A \\setminus B) \\cap (A \\setminus C)$",
+            "am": "$(A \\setminus B) \\cap (A \\setminus C)$"
+          },
+          "group": {
+            "en": "Right side",
+            "am": "ቀኝ ጎን"
+          },
+          "spec": {
+            "kind": "set",
+            "value": [
+              "1"
+            ]
+          }
+        },
+        {
+          "label": {
+            "en": "Left side = Right side?",
+            "am": "ግራ ጎን = ቀኝ ጎን?"
+          },
+          "group": {
+            "en": "Conclusion",
+            "am": "መደምደሚያ"
+          },
+          "spec": {
+            "kind": "choice",
+            "options": [
+              {
+                "en": "Equal ✓",
+                "am": "እኩል ናቸው ✓"
+              },
+              {
+                "en": "Not equal ✗",
+                "am": "እኩል አይደሉም ✗"
+              }
+            ],
+            "correct": 0
+          }
+        }
+      ],
+      "solution": {
+        "venn": {
+          "sets": 3,
+          "labels": [
+            "A",
+            "B",
+            "C"
+          ],
+          "elements": {
+            "A": [
+              "1"
+            ],
+            "B": [
+              "2"
+            ],
+            "C": [
+              "3"
+            ],
+            "AC": [
+              "4"
+            ],
+            "AB": [
+              "5"
+            ],
+            "BC": [
+              "6"
+            ],
+            "ABC": [
+              "7"
+            ],
+            "none": [
+              "8"
+            ]
+          }
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "$A = \\{1, 4, 5, 7\\}$, $B = \\{2, 5, 6, 7\\}$, $C = \\{3, 4, 6, 7\\}$",
+              "am": "$A = \\{1, 4, 5, 7\\}$, $B = \\{2, 5, 6, 7\\}$, $C = \\{3, 4, 6, 7\\}$"
+            },
+            "why": {
+              "en": "Read each circle from the drawing: write every region number inside it.",
+              "am": "እያንዳንዱን ክበብ ከሥዕሉ አንብቡ፦ በውስጡ ያሉትን የክፍል ቁጥሮች በሙሉ ጻፉ።"
+            }
+          },
+          {
+            "text": {
+              "en": "$B \\cup C = \\{2, 3, 4, 5, 6, 7\\}$",
+              "am": "$B \\cup C = \\{2, 3, 4, 5, 6, 7\\}$"
+            },
+            "why": {
+              "en": "Left side, bracket first: everything in B or C.",
+              "am": "ግራ ጎን፣ መጀመሪያ ቅንፍ፦ በB ወይም በC ያለ ሁሉ።"
+            },
+            "shade": "B∪C"
+          },
+          {
+            "text": {
+              "en": "$A \\setminus (B \\cup C) = \\{1\\}$",
+              "am": "$A \\setminus (B \\cup C) = \\{1\\}$"
+            },
+            "why": {
+              "en": "From A = {1, 4, 5, 7} remove every number of $B \\cup C$.",
+              "am": "ከA = {1, 4, 5, 7} የ$B \\cup C$ን ቁጥሮች በሙሉ አስወግዱ።"
+            },
+            "shade": "A∖(B∪C)"
+          },
+          {
+            "text": {
+              "en": "$A \\setminus B = \\{1, 4\\}$",
+              "am": "$A \\setminus B = \\{1, 4\\}$"
+            },
+            "why": {
+              "en": "Right side: A without 5 and 7 (they are in B).",
+              "am": "ቀኝ ጎን፦ ያለ 5 እና 7 ያለው A (በB ውስጥ ናቸው)።"
+            },
+            "shade": "A∖B"
+          },
+          {
+            "text": {
+              "en": "$A \\setminus C = \\{1, 5\\}$",
+              "am": "$A \\setminus C = \\{1, 5\\}$"
+            },
+            "why": {
+              "en": "A without 4 and 7 (they are in C).",
+              "am": "ያለ 4 እና 7 ያለው A (በC ውስጥ ናቸው)።"
+            },
+            "shade": "A∖C"
+          },
+          {
+            "text": {
+              "en": "$(A \\setminus B) \\cap (A \\setminus C) = \\{1\\}$",
+              "am": "$(A \\setminus B) \\cap (A \\setminus C) = \\{1\\}$"
+            },
+            "why": {
+              "en": "Only 1 is in both lists.",
+              "am": "በሁለቱም ዝርዝሮች ያለው 1 ብቻ ነው።"
+            },
+            "shade": "(A∖B)∩(A∖C)"
+          },
+          {
+            "text": {
+              "en": "Both sides are $\\{1\\}$, so they are equal ✓",
+              "am": "ሁለቱም ጎኖች $\\{1\\}$ ናቸው፤ ስለዚህ እኩል ናቸው ✓"
+            },
+            "why": {
+              "en": "$A - B$ and $A \\setminus B$ are two ways to write the same thing.",
+              "am": "$A - B$ እና $A \\setminus B$ አንድን ነገር የሚጽፉባቸው ሁለት መንገዶች ናቸው።"
+            },
+            "shade": "A∖(B∪C)"
+          }
+        ],
+        "answer": {
+          "en": "$A - (B \\cup C) = (A - B) \\cap (A - C) = \\{1\\}$",
+          "am": "$A - (B \\cup C) = (A - B) \\cap (A - C) = \\{1\\}$"
+        }
+      }
+    },
+    {
+      "id": "h3",
+      "type": "written",
+      "question": {
+        "en": "Using the numbered drawing, show that $A \\setminus B = A \\setminus (A \\cap B)$, the same as $A - B = A - (A \\cap B)$. Find each side as a set of region numbers.",
+        "am": "በቁጥር የተሰየመውን ሥዕል በመጠቀም $A \\setminus B = A \\setminus (A \\cap B)$ መሆኑን አሳዩ፤ ይህም $A - B = A - (A \\cap B)$ ማለት ነው። እያንዳንዱን ጎን በክፍል ቁጥሮች ስብስብ ፈልጉ።"
+      },
+      "tip": {
+        "en": "First write A, B and C as sets of region numbers from the drawing.",
+        "am": "መጀመሪያ A፣ B እና Cን ከሥዕሉ በክፍል ቁጥሮች እንደ ስብስብ ጻፉ።"
+      },
+      "hints": [
+        {
+          "en": "$A = \\{1, 4, 5, 7\\}$, $B = \\{2, 5, 6, 7\\}$, $C = \\{3, 4, 6, 7\\}$.",
+          "am": "$A = \\{1, 4, 5, 7\\}$, $B = \\{2, 5, 6, 7\\}$, $C = \\{3, 4, 6, 7\\}$."
+        },
+        {
+          "en": "Work out the inside bracket first, then the outside operation.",
+          "am": "መጀመሪያ በቅንፉ ውስጥ ያለውን ሥሩ፣ ከዚያ የውጩን ሥራ።"
+        }
+      ],
+      "figure": {
+        "venn": {
+          "sets": 3,
+          "labels": [
+            "A",
+            "B",
+            "C"
+          ],
+          "elements": {
+            "A": [
+              "1"
+            ],
+            "B": [
+              "2"
+            ],
+            "C": [
+              "3"
+            ],
+            "AC": [
+              "4"
+            ],
+            "AB": [
+              "5"
+            ],
+            "BC": [
+              "6"
+            ],
+            "ABC": [
+              "7"
+            ],
+            "none": [
+              "8"
+            ]
+          }
+        },
+        "caption": {
+          "en": "The drawing from class: each region has a number. Tap a region to see its number.",
+          "am": "ከክፍል የተሰጠው ሥዕል፦ እያንዳንዱ ክፍል ቁጥር አለው። ቁጥሩን ለማየት ክፍሉን ንኩ።"
+        }
+      },
+      "compare": [
+        {
+          "label": {
+            "en": "Left side: $A \\setminus B$",
+            "am": "ግራ ጎን፦ $A \\setminus B$"
+          },
+          "shade": "A∖B"
+        },
+        {
+          "label": {
+            "en": "Right side: $A \\setminus (A \\cap B)$",
+            "am": "ቀኝ ጎን፦ $A \\setminus (A \\cap B)$"
+          },
+          "shade": "A∖(A∩B)"
+        }
+      ],
+      "answers": [
+        {
+          "label": {
+            "en": "$A \\setminus B$",
+            "am": "$A \\setminus B$"
+          },
+          "group": {
+            "en": "Left side",
+            "am": "ግራ ጎን"
+          },
+          "spec": {
+            "kind": "set",
+            "value": [
+              "1",
+              "4"
+            ]
+          }
+        },
+        {
+          "label": {
+            "en": "$A \\cap B$",
+            "am": "$A \\cap B$"
+          },
+          "group": {
+            "en": "Right side",
+            "am": "ቀኝ ጎን"
+          },
+          "spec": {
+            "kind": "set",
+            "value": [
+              "5",
+              "7"
+            ]
+          }
+        },
+        {
+          "label": {
+            "en": "$A \\setminus (A \\cap B)$",
+            "am": "$A \\setminus (A \\cap B)$"
+          },
+          "group": {
+            "en": "Right side",
+            "am": "ቀኝ ጎን"
+          },
+          "spec": {
+            "kind": "set",
+            "value": [
+              "1",
+              "4"
+            ]
+          }
+        },
+        {
+          "label": {
+            "en": "Left side = Right side?",
+            "am": "ግራ ጎን = ቀኝ ጎን?"
+          },
+          "group": {
+            "en": "Conclusion",
+            "am": "መደምደሚያ"
+          },
+          "spec": {
+            "kind": "choice",
+            "options": [
+              {
+                "en": "Equal ✓",
+                "am": "እኩል ናቸው ✓"
+              },
+              {
+                "en": "Not equal ✗",
+                "am": "እኩል አይደሉም ✗"
+              }
+            ],
+            "correct": 0
+          }
+        }
+      ],
+      "solution": {
+        "venn": {
+          "sets": 3,
+          "labels": [
+            "A",
+            "B",
+            "C"
+          ],
+          "elements": {
+            "A": [
+              "1"
+            ],
+            "B": [
+              "2"
+            ],
+            "C": [
+              "3"
+            ],
+            "AC": [
+              "4"
+            ],
+            "AB": [
+              "5"
+            ],
+            "BC": [
+              "6"
+            ],
+            "ABC": [
+              "7"
+            ],
+            "none": [
+              "8"
+            ]
+          }
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "$A = \\{1, 4, 5, 7\\}$, $B = \\{2, 5, 6, 7\\}$, $C = \\{3, 4, 6, 7\\}$",
+              "am": "$A = \\{1, 4, 5, 7\\}$, $B = \\{2, 5, 6, 7\\}$, $C = \\{3, 4, 6, 7\\}$"
+            },
+            "why": {
+              "en": "Read each circle from the drawing: write every region number inside it.",
+              "am": "እያንዳንዱን ክበብ ከሥዕሉ አንብቡ፦ በውስጡ ያሉትን የክፍል ቁጥሮች በሙሉ ጻፉ።"
+            }
+          },
+          {
+            "text": {
+              "en": "$A \\setminus B = \\{1, 4\\}$",
+              "am": "$A \\setminus B = \\{1, 4\\}$"
+            },
+            "why": {
+              "en": "Left side: A without the numbers that are in B (5 and 7).",
+              "am": "ግራ ጎን፦ በB ውስጥ ያሉት ቁጥሮች (5 እና 7) የሌሉበት A።"
+            },
+            "shade": "A∖B"
+          },
+          {
+            "text": {
+              "en": "$A \\cap B = \\{5, 7\\}$",
+              "am": "$A \\cap B = \\{5, 7\\}$"
+            },
+            "why": {
+              "en": "Right side, bracket first: numbers in both A and B.",
+              "am": "ቀኝ ጎን፣ መጀመሪያ ቅንፍ፦ በA እና በB ሁለቱም ያሉ ቁጥሮች።"
+            },
+            "shade": "A∩B"
+          },
+          {
+            "text": {
+              "en": "$A \\setminus (A \\cap B) = \\{1, 4\\}$",
+              "am": "$A \\setminus (A \\cap B) = \\{1, 4\\}$"
+            },
+            "why": {
+              "en": "From A remove 5 and 7.",
+              "am": "ከA 5 እና 7ን አስወግዱ።"
+            },
+            "shade": "A∖(A∩B)"
+          },
+          {
+            "text": {
+              "en": "Both sides are $\\{1, 4\\}$, so they are equal ✓",
+              "am": "ሁለቱም ጎኖች $\\{1, 4\\}$ ናቸው፤ ስለዚህ እኩል ናቸው ✓"
+            },
+            "why": {
+              "en": "Removing B from A only removes the part of B inside A, which is $A \\cap B$.",
+              "am": "Bን ከA ማስወገድ በA ውስጥ ያለውን የB ክፍል ብቻ ያስወግዳል፤ ይህም $A \\cap B$ ነው።"
+            },
+            "shade": "A∖B"
+          }
+        ],
+        "answer": {
+          "en": "$A \\setminus B = A \\setminus (A \\cap B) = \\{1, 4\\}$",
+          "am": "$A \\setminus B = A \\setminus (A \\cap B) = \\{1, 4\\}$"
+        }
+      }
+    },
+    {
+      "id": "h4",
+      "type": "choice",
+      "question": {
+        "en": "Exam question: For sets A, B and C, if $A \\cup C = \\{x \\in \\mathbb{Z} \\mid -3 < x < 3\\}$ and $B \\cup C = \\{x \\in \\mathbb{R} \\mid x^3 = x\\}$, then $(A \\cap B) \\cup C$ is equal to:",
+        "am": "የፈተና ጥያቄ፦ ለስብስቦች A፣ B እና C፣ $A \\cup C = \\{x \\in \\mathbb{Z} \\mid -3 < x < 3\\}$ እና $B \\cup C = \\{x \\in \\mathbb{R} \\mid x^3 = x\\}$ ከሆኑ፣ $(A \\cap B) \\cup C$ ከምን ጋር እኩል ነው?"
+      },
+      "tip": {
+        "en": "Use the distributive law: $(A \\cap B) \\cup C = (A \\cup C) \\cap (B \\cup C)$. Then you only need the two sets you are given.",
+        "am": "የማሰራጨት ሕግን ተጠቀሙ፦ $(A \\cap B) \\cup C = (A \\cup C) \\cap (B \\cup C)$። ከዚያ የተሰጡትን ሁለት ስብስቦች ብቻ ትፈልጋላችሁ።"
+      },
+      "hints": [
+        {
+          "en": "List $A \\cup C$: the integers between −3 and 3 (not including them).",
+          "am": "$A \\cup C$ን ዘርዝሩ፦ በ−3 እና በ3 መካከል ያሉ ኢንቲጀሮች (እነሱን ሳይጨምር)።"
+        },
+        {
+          "en": "Solve $x^3 = x$ by factoring: $x(x - 1)(x + 1) = 0$.",
+          "am": "$x^3 = x$ን በመፍታት ፈቱ፦ $x(x - 1)(x + 1) = 0$።"
+        }
+      ],
+      "answers": [
+        {
+          "label": {
+            "en": "Choose the answer",
+            "am": "መልሱን ምረጡ"
+          },
+          "spec": {
+            "kind": "choice",
+            "options": [
+              {
+                "en": "$\\{0, 1, 2\\}$",
+                "am": "$\\{0, 1, 2\\}$"
+              },
+              {
+                "en": "$\\{-1, 0, 1\\}$",
+                "am": "$\\{-1, 0, 1\\}$"
+              },
+              {
+                "en": "$\\{-2, -1, 0, 1, 2\\}$",
+                "am": "$\\{-2, -1, 0, 1, 2\\}$"
+              },
+              {
+                "en": "$\\{0\\}$",
+                "am": "$\\{0\\}$"
+              }
+            ],
+            "correct": 1
+          }
+        }
+      ],
+      "solution": {
+        "steps": [
+          {
+            "text": {
+              "en": "$A \\cup C = \\{-2, -1, 0, 1, 2\\}$",
+              "am": "$A \\cup C = \\{-2, -1, 0, 1, 2\\}$"
+            },
+            "why": {
+              "en": "Integers strictly between −3 and 3.",
+              "am": "በ−3 እና በ3 መካከል ብቻ ያሉ ኢንቲጀሮች።"
+            }
+          },
+          {
+            "text": {
+              "en": "$x^3 = x \\Rightarrow x^3 - x = 0$",
+              "am": "$x^3 = x \\Rightarrow x^3 - x = 0$"
+            },
+            "why": {
+              "en": "Move everything to one side so we can factor.",
+              "am": "ለመፍታት ሁሉንም ወደ አንድ ጎን አምጡ።"
+            }
+          },
+          {
+            "text": {
+              "en": "$x(x^2 - 1) = 0 \\Rightarrow x(x - 1)(x + 1) = 0$",
+              "am": "$x(x^2 - 1) = 0 \\Rightarrow x(x - 1)(x + 1) = 0$"
+            },
+            "why": {
+              "en": "Take out x, then $x^2 - 1$ is a difference of squares.",
+              "am": "xን አውጡ፣ ከዚያ $x^2 - 1$ የካሬዎች ልዩነት ነው።"
+            }
+          },
+          {
+            "text": {
+              "en": "$x = 0,\\ 1,\\ -1$, so $B \\cup C = \\{-1, 0, 1\\}$",
+              "am": "$x = 0,\\ 1,\\ -1$፤ ስለዚህ $B \\cup C = \\{-1, 0, 1\\}$"
+            },
+            "why": {
+              "en": "A product is 0 when one factor is 0.",
+              "am": "ብዜት 0 የሚሆነው አንዱ ተባዥ 0 ሲሆን ነው።"
+            }
+          },
+          {
+            "text": {
+              "en": "$(A \\cap B) \\cup C = (A \\cup C) \\cap (B \\cup C)$",
+              "am": "$(A \\cap B) \\cup C = (A \\cup C) \\cap (B \\cup C)$"
+            },
+            "why": {
+              "en": "Distributive law: union distributes over intersection.",
+              "am": "የማሰራጨት ሕግ፦ ውህደት በመገናኛ ላይ ይሰራጫል።"
+            }
+          },
+          {
+            "text": {
+              "en": "$= \\{-2, -1, 0, 1, 2\\} \\cap \\{-1, 0, 1\\} = \\{-1, 0, 1\\}$",
+              "am": "$= \\{-2, -1, 0, 1, 2\\} \\cap \\{-1, 0, 1\\} = \\{-1, 0, 1\\}$"
+            },
+            "why": {
+              "en": "Keep the elements that are in both sets.",
+              "am": "በሁለቱም ስብስቦች ያሉትን አባላት ያዙ።"
+            }
+          }
+        ],
+        "answer": {
+          "en": "b) $\\{-1, 0, 1\\}$",
+          "am": "ለ) $\\{-1, 0, 1\\}$"
+        }
+      }
+    },
+    {
+      "id": "h5",
+      "type": "choice",
+      "question": {
+        "en": "Exam question: In a group of 40 boys, 28 like football while 18 like basketball. If 3 boys like neither of the games, then the number of boys who like both games is:",
+        "am": "የፈተና ጥያቄ፦ በ40 ወንዶች ቡድን ውስጥ 28ቱ እግር ኳስ፣ 18ቱ ቅርጫት ኳስ ይወዳሉ። 3 ወንዶች ሁለቱንም ጨዋታ ካልወደዱ፣ ሁለቱንም ጨዋታ የሚወዱ ወንዶች ቁጥር ስንት ነው?"
+      },
+      "tip": {
+        "en": "First find how many like at least one game, then use $n(F \\cup B) = n(F) + n(B) - n(F \\cap B)$.",
+        "am": "መጀመሪያ ቢያንስ አንዱን ጨዋታ የሚወዱትን ፈልጉ፣ ከዚያ $n(F \\cup B) = n(F) + n(B) - n(F \\cap B)$ን ተጠቀሙ።"
+      },
+      "hints": [
+        {
+          "en": "Boys who like at least one game: $40 - 3$.",
+          "am": "ቢያንስ አንዱን ጨዋታ የሚወዱ፦ $40 - 3$።"
+        },
+        {
+          "en": "$37 = 28 + 18 - x$. Solve for x.",
+          "am": "$37 = 28 + 18 - x$። xን ፈልጉ።"
+        }
+      ],
+      "answers": [
+        {
+          "label": {
+            "en": "Choose the answer",
+            "am": "መልሱን ምረጡ"
+          },
+          "spec": {
+            "kind": "choice",
+            "options": [
+              {
+                "en": "4",
+                "am": "4"
+              },
+              {
+                "en": "6",
+                "am": "6"
+              },
+              {
+                "en": "9",
+                "am": "9"
+              },
+              {
+                "en": "12",
+                "am": "12"
+              }
+            ],
+            "correct": 2
+          }
+        }
+      ],
+      "solution": {
+        "venn": {
+          "sets": 2,
+          "labels": [
+            "F",
+            "B"
+          ],
+          "elements": {
+            "A": [
+              "19"
+            ],
+            "AB": [
+              "9"
+            ],
+            "B": [
+              "9"
+            ],
+            "none": [
+              "3"
+            ]
+          }
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "$n(F \\cup B) = 40 - 3 = 37$",
+              "am": "$n(F \\cup B) = 40 - 3 = 37$"
+            },
+            "why": {
+              "en": "Everyone except the 3 who like neither game.",
+              "am": "ሁለቱንም ከማይወዱት 3 በስተቀር ሁሉም።"
+            },
+            "shade": "F∪B"
+          },
+          {
+            "text": {
+              "en": "$n(F \\cup B) = n(F) + n(B) - n(F \\cap B)$",
+              "am": "$n(F \\cup B) = n(F) + n(B) - n(F \\cap B)$"
+            },
+            "why": {
+              "en": "Adding F and B counts the boys in both twice, so subtract them once.",
+              "am": "Fን እና Bን መደመር በሁለቱም ያሉትን ሁለት ጊዜ ይቆጥራል፤ ስለዚህ አንድ ጊዜ ቀንሱ።"
+            }
+          },
+          {
+            "text": {
+              "en": "$37 = 28 + 18 - x = 46 - x$",
+              "am": "$37 = 28 + 18 - x = 46 - x$"
+            },
+            "why": {
+              "en": "Put in the numbers, with x = boys who like both.",
+              "am": "ቁጥሮቹን አስገቡ፤ x = ሁለቱንም የሚወዱ።"
+            }
+          },
+          {
+            "text": {
+              "en": "$x = 46 - 37 = 9$",
+              "am": "$x = 46 - 37 = 9$"
+            },
+            "why": {
+              "en": "Move x to one side.",
+              "am": "xን ወደ አንድ ጎን አምጡ።"
+            },
+            "shade": "F∩B"
+          },
+          {
+            "text": {
+              "en": "Check: only football $28 - 9 = 19$, both 9, only basketball $18 - 9 = 9$, neither 3. $19 + 9 + 9 + 3 = 40$ ✓",
+              "am": "ማረጋገጫ፦ እግር ኳስ ብቻ $28 - 9 = 19$፣ ሁለቱም 9፣ ቅርጫት ኳስ ብቻ $18 - 9 = 9$፣ ምንም 3። $19 + 9 + 9 + 3 = 40$ ✓"
+            },
+            "why": {
+              "en": "The four regions of the Venn diagram must add up to all 40 boys.",
+              "am": "የቬን ዲያግራሙ አራቱ ክፍሎች ሁሉንም 40 ወንዶች መሆን አለባቸው።"
+            },
+            "shade": "U"
+          }
+        ],
+        "answer": {
+          "en": "c) 9",
+          "am": "ሐ) 9"
+        }
+      }
+    }
+  ],
+  "quiz": {
+    "title": {
+      "en": "Quiz: Sets and Operations on Sets",
+      "am": "ፈተና፦ ስብስቦችና በስብስቦች ላይ የሚደረጉ ስሌቶች"
+    },
+    "description": {
+      "en": "28 exam-style questions: multiple choice, set answers, numbers and Venn shading.",
+      "am": "28 የፈተና ዓይነት ጥያቄዎች፦ ምርጫ፣ የስብስብ መልሶች፣ ቁጥሮችና የቬን ማጥለል።"
+    },
+    "questions": [
+      {
+        "question": {
+          "en": "Which collection is a well-defined set?",
+          "am": "የትኛው ስብስብ በግልጽ የተወሰነ ነው?"
+        },
+        "options": [
+          {
+            "en": "Beautiful cities in Ethiopia",
+            "am": "በኢትዮጵያ ያሉ ቆንጆ ከተሞች"
+          },
+          {
+            "en": "Natural numbers less than 5",
+            "am": "ከ5 ያነሱ የተፈጥሮ ቁጥሮች"
+          },
+          {
+            "en": "Good students in class",
+            "am": "በክፍል ያሉ ጎበዝ ተማሪዎች"
+          },
+          {
+            "en": "Tall people",
+            "am": "ረጃጅም ሰዎች"
+          }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "Only \"natural numbers less than 5\" lets us decide clearly: $\\{1, 2, 3, 4\\}$.",
+          "am": "«ከ5 ያነሱ የተፈጥሮ ቁጥሮች» ብቻ በግልጽ ለመወሰን ያስችላል፦ $\\{1, 2, 3, 4\\}$።"
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "Beautiful, good and tall depend on opinion.",
+              "am": "ቆንጆ፣ ጎበዝና ረጅም በአስተያየት ይለያያሉ።"
+            }
+          },
+          {
+            "text": {
+              "en": "Natural numbers less than 5 are exactly 1, 2, 3, 4.",
+              "am": "ከ5 ያነሱ የተፈጥሮ ቁጥሮች በትክክል 1፣ 2፣ 3፣ 4 ናቸው።"
+            }
+          }
+        ]
+      },
+      {
+        "question": {
+          "en": "Which statement is correct for $A = \\{1, 2, 3\\}$?",
+          "am": "ለ$A = \\{1, 2, 3\\}$ የትኛው ዓረፍተ ነገር ትክክል ነው?"
+        },
+        "options": [
+          {
+            "en": "$2 \\subseteq A$",
+            "am": "$2 \\subseteq A$"
+          },
+          {
+            "en": "$\\{2\\} \\in A$",
+            "am": "$\\{2\\} \\in A$"
+          },
+          {
+            "en": "$2 \\in A$",
+            "am": "$2 \\in A$"
+          },
+          {
+            "en": "$\\{2\\} \\notin A$ is always true",
+            "am": "$\\{2\\} \\notin A$ ሁልጊዜ እውነት ነው"
+          }
+        ],
+        "answer": 2,
+        "explanation": {
+          "en": "$\\in$ links an element to a set: $2 \\in A$.",
+          "am": "$\\in$ አባልን ከስብስብ ጋር ያገናኛል፦ $2 \\in A$።"
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "2 is an element, so use $\\in$.",
+              "am": "2 አባል ስለሆነ $\\in$ ተጠቀሙ።"
+            }
+          },
+          {
+            "text": {
+              "en": "$\\{2\\}$ is a set, so it goes with $\\subseteq$: $\\{2\\} \\subseteq A$.",
+              "am": "$\\{2\\}$ ስብስብ ስለሆነ ከ$\\subseteq$ ጋር ይሄዳል፦ $\\{2\\} \\subseteq A$።"
+            }
+          }
+        ]
+      },
+      {
+        "question": {
+          "en": "$\\{x \\mid x \\in \\mathbb{N} \\text{ and } x \\le 4\\}$ written by complete listing is:",
+          "am": "$\\{x \\mid x \\in \\mathbb{N} \\text{ and } x \\le 4\\}$ በሙሉ ዝርዝር ሲጻፍ፦"
+        },
+        "options": [
+          {
+            "en": "$\\{0, 1, 2, 3, 4\\}$",
+            "am": "$\\{0, 1, 2, 3, 4\\}$"
+          },
+          {
+            "en": "$\\{1, 2, 3, 4\\}$",
+            "am": "$\\{1, 2, 3, 4\\}$"
+          },
+          {
+            "en": "$\\{1, 2, 3\\}$",
+            "am": "$\\{1, 2, 3\\}$"
+          },
+          {
+            "en": "$\\{0, 1, 2, 3\\}$",
+            "am": "$\\{0, 1, 2, 3\\}$"
+          }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "Natural numbers start at 1, and $\\le 4$ includes 4.",
+          "am": "የተፈጥሮ ቁጥሮች ከ1 ይጀምራሉ፤ $\\le 4$ 4ን ያካትታል።"
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "$\\mathbb{N} = \\{1, 2, 3, \\dots\\}$: no 0.",
+              "am": "$\\mathbb{N} = \\{1, 2, 3, \\dots\\}$፦ 0 የለም።"
+            }
+          },
+          {
+            "text": {
+              "en": "$x \\le 4$ means 4 is included.",
+              "am": "$x \\le 4$ ማለት 4 ይካተታል።"
+            }
+          }
+        ]
+      },
+      {
+        "question": {
+          "en": "Which number is NOT a rational number?",
+          "am": "ምክንያታዊ ቁጥር ያልሆነው የትኛው ነው?"
+        },
+        "options": [
+          {
+            "en": "$0.5$",
+            "am": "$0.5$"
+          },
+          {
+            "en": "$-7$",
+            "am": "$-7$"
+          },
+          {
+            "en": "$\\sqrt{2}$",
+            "am": "$\\sqrt{2}$"
+          },
+          {
+            "en": "$\\frac{3}{4}$",
+            "am": "$\\frac{3}{4}$"
+          }
+        ],
+        "answer": 2,
+        "explanation": {
+          "en": "$\\sqrt2$ cannot be written as a fraction $\\frac{a}{b}$.",
+          "am": "$\\sqrt2$ እንደ ክፍልፋይ $\\frac{a}{b}$ ሊጻፍ አይችልም።"
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "$0.5 = \\frac12$, $-7 = \\frac{-7}{1}$, $\\frac34$ are fractions.",
+              "am": "$0.5 = \\frac12$፣ $-7 = \\frac{-7}{1}$፣ $\\frac34$ ክፍልፋዮች ናቸው።"
+            }
+          },
+          {
+            "text": {
+              "en": "$\\sqrt2 = 1.41421\\dots$ never ends or repeats: irrational.",
+              "am": "$\\sqrt2 = 1.41421\\dots$ አያልቅም አይደጋገምም፦ ኢ-ምክንያታዊ።"
+            }
+          }
+        ]
+      },
+      {
+        "question": {
+          "en": "If $n(A) = 4$, the number of subsets of A is:",
+          "am": "$n(A) = 4$ ከሆነ የA ንዑስ ስብስቦች ብዛት፦"
+        },
+        "options": [
+          {
+            "en": "4",
+            "am": "4"
+          },
+          {
+            "en": "8",
+            "am": "8"
+          },
+          {
+            "en": "15",
+            "am": "15"
+          },
+          {
+            "en": "16",
+            "am": "16"
+          }
+        ],
+        "answer": 3,
+        "explanation": {
+          "en": "$2^4 = 16$.",
+          "am": "$2^4 = 16$."
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "Number of subsets $= 2^n$.",
+              "am": "የንዑስ ስብስቦች ብዛት $= 2^n$።"
+            }
+          },
+          {
+            "text": {
+              "en": "$2^4 = 16$.",
+              "am": "$2^4 = 16$."
+            }
+          }
+        ]
+      },
+      {
+        "question": {
+          "en": "If $n(A) = 3$, the number of proper subsets of A is:",
+          "am": "$n(A) = 3$ ከሆነ የA ትክክለኛ ንዑስ ስብስቦች ብዛት፦"
+        },
+        "options": [
+          {
+            "en": "3",
+            "am": "3"
+          },
+          {
+            "en": "6",
+            "am": "6"
+          },
+          {
+            "en": "7",
+            "am": "7"
+          },
+          {
+            "en": "8",
+            "am": "8"
+          }
+        ],
+        "answer": 2,
+        "explanation": {
+          "en": "$2^3 - 1 = 7$.",
+          "am": "$2^3 - 1 = 7$."
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "Proper subsets $= 2^n - 1$.",
+              "am": "ትክክለኛ ንዑስ ስብስቦች $= 2^n - 1$።"
+            }
+          },
+          {
+            "text": {
+              "en": "$2^3 - 1 = 8 - 1 = 7$.",
+              "am": "$2^3 - 1 = 8 - 1 = 7$."
+            }
+          }
+        ]
+      },
+      {
+        "question": {
+          "en": "$\\{1, 2, 3\\}$ and $\\{a, b, c\\}$ are:",
+          "am": "$\\{1, 2, 3\\}$ እና $\\{a, b, c\\}$፦"
+        },
+        "options": [
+          {
+            "en": "equal sets",
+            "am": "እኩል ስብስቦች"
+          },
+          {
+            "en": "equivalent sets",
+            "am": "ተመጣጣኝ ስብስቦች"
+          },
+          {
+            "en": "empty sets",
+            "am": "ባዶ ስብስቦች"
+          },
+          {
+            "en": "infinite sets",
+            "am": "ወሰን የለሽ ስብስቦች"
+          }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "Same number of elements (3), different elements: equivalent.",
+          "am": "እኩል የአባላት ብዛት (3)፣ የተለያዩ አባላት፦ ተመጣጣኝ።"
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "Equal needs the SAME elements; here they differ.",
+              "am": "እኩልነት አንድ ዓይነት አባላትን ይፈልጋል፤ እዚህ ይለያያሉ።"
+            }
+          },
+          {
+            "text": {
+              "en": "$n = 3$ for both, so they are equivalent.",
+              "am": "ለሁለቱም $n = 3$ ስለሆነ ተመጣጣኝ ናቸው።"
+            }
+          }
+        ]
+      },
+      {
+        "question": {
+          "en": "$A \\cap B$ is the set of elements that are:",
+          "am": "$A \\cap B$ የሚከተሉት አባላት ስብስብ ነው፦"
+        },
+        "options": [
+          {
+            "en": "in A or B",
+            "am": "በA ወይም በB"
+          },
+          {
+            "en": "in both A and B",
+            "am": "በሁለቱም በA እና በB"
+          },
+          {
+            "en": "in A but not in B",
+            "am": "በA ያሉ ግን በB የሌሉ"
+          },
+          {
+            "en": "in neither A nor B",
+            "am": "በA ወይም በB የሌሉ"
+          }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "Intersection = AND: in both.",
+          "am": "መገናኛ = እና፦ በሁለቱም።"
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "$\\cap$ looks like a cap: only the shared part.",
+              "am": "$\\cap$ ቆብ ይመስላል፦ የጋራው ክፍል ብቻ።"
+            }
+          }
+        ]
+      },
+      {
+        "question": {
+          "en": "If $U = \\{1,2,3,4,5\\}$ and $A = \\{1,3,5\\}$, then $A'$ is:",
+          "am": "$U = \\{1,2,3,4,5\\}$ እና $A = \\{1,3,5\\}$ ከሆኑ $A'$፦"
+        },
+        "options": [
+          {
+            "en": "$\\{2, 4\\}$",
+            "am": "$\\{2, 4\\}$"
+          },
+          {
+            "en": "$\\{1, 3, 5\\}$",
+            "am": "$\\{1, 3, 5\\}$"
+          },
+          {
+            "en": "$\\{1, 2, 3, 4, 5\\}$",
+            "am": "$\\{1, 2, 3, 4, 5\\}$"
+          },
+          {
+            "en": "$\\emptyset$",
+            "am": "$\\emptyset$"
+          }
+        ],
+        "answer": 0,
+        "explanation": {
+          "en": "$A' = U \\setminus A = \\{2, 4\\}$.",
+          "am": "$A' = U \\setminus A = \\{2, 4\\}$."
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "Start with U.",
+              "am": "በU ጀምሩ።"
+            }
+          },
+          {
+            "text": {
+              "en": "Remove 1, 3, 5: $\\{2, 4\\}$ is left.",
+              "am": "1፣ 3፣ 5ን አስወግዱ፦ $\\{2, 4\\}$ ይቀራል።"
+            }
+          }
+        ]
+      },
+      {
+        "question": {
+          "en": "If $A = \\{1,2,3,4\\}$ and $B = \\{3,4,5\\}$, then $A \\setminus B$ is:",
+          "am": "$A = \\{1,2,3,4\\}$ እና $B = \\{3,4,5\\}$ ከሆኑ $A \\setminus B$፦"
+        },
+        "options": [
+          {
+            "en": "$\\{5\\}$",
+            "am": "$\\{5\\}$"
+          },
+          {
+            "en": "$\\{3, 4\\}$",
+            "am": "$\\{3, 4\\}$"
+          },
+          {
+            "en": "$\\{1, 2\\}$",
+            "am": "$\\{1, 2\\}$"
+          },
+          {
+            "en": "$\\{1, 2, 5\\}$",
+            "am": "$\\{1, 2, 5\\}$"
+          }
+        ],
+        "answer": 2,
+        "explanation": {
+          "en": "Remove 3 and 4 (they are in B): $\\{1, 2\\}$.",
+          "am": "3 እና 4ን አስወግዱ (በB ውስጥ ናቸው)፦ $\\{1, 2\\}$።"
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "Start with A = {1,2,3,4}.",
+              "am": "በA = {1,2,3,4} ጀምሩ።"
+            }
+          },
+          {
+            "text": {
+              "en": "3 and 4 are also in B, remove them.",
+              "am": "3 እና 4 በB ውስጥም ስላሉ አስወግዷቸው።"
+            }
+          }
+        ]
+      },
+      {
+        "question": {
+          "en": "With $A = \\{1,2,3,4\\}$ and $B = \\{3,4,5\\}$, $A \\,\\Delta\\, B$ is:",
+          "am": "$A = \\{1,2,3,4\\}$ እና $B = \\{3,4,5\\}$ ሲሆኑ $A \\,\\Delta\\, B$፦"
+        },
+        "options": [
+          {
+            "en": "$\\{3, 4\\}$",
+            "am": "$\\{3, 4\\}$"
+          },
+          {
+            "en": "$\\{1, 2, 5\\}$",
+            "am": "$\\{1, 2, 5\\}$"
+          },
+          {
+            "en": "$\\{1, 2, 3, 4, 5\\}$",
+            "am": "$\\{1, 2, 3, 4, 5\\}$"
+          },
+          {
+            "en": "$\\{1, 2\\}$",
+            "am": "$\\{1, 2\\}$"
+          }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "$(A \\setminus B) \\cup (B \\setminus A) = \\{1,2\\} \\cup \\{5\\}$.",
+          "am": "$(A \\setminus B) \\cup (B \\setminus A) = \\{1,2\\} \\cup \\{5\\}$."
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "$A \\setminus B = \\{1, 2\\}$, $B \\setminus A = \\{5\\}$.",
+              "am": "$A \\setminus B = \\{1, 2\\}$, $B \\setminus A = \\{5\\}$."
+            }
+          },
+          {
+            "text": {
+              "en": "Join them: $\\{1, 2, 5\\}$.",
+              "am": "አንድ አድርጓቸው፦ $\\{1, 2, 5\\}$።"
+            }
+          }
+        ]
+      },
+      {
+        "question": {
+          "en": "Which is De Morgan's law?",
+          "am": "የደ ሞርጋን ሕግ የትኛው ነው?"
+        },
+        "options": [
+          {
+            "en": "$(A \\cup B)' = A' \\cup B'$",
+            "am": "$(A \\cup B)' = A' \\cup B'$"
+          },
+          {
+            "en": "$(A \\cup B)' = A' \\cap B'$",
+            "am": "$(A \\cup B)' = A' \\cap B'$"
+          },
+          {
+            "en": "$(A \\cap B)' = A' \\cap B'$",
+            "am": "$(A \\cap B)' = A' \\cap B'$"
+          },
+          {
+            "en": "$(A')' = A'$",
+            "am": "$(A')' = A'$"
+          }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "The $'$ goes inside and flips $\\cup$ to $\\cap$.",
+          "am": "$'$ ወደ ውስጥ ገብቶ $\\cup$ን ወደ $\\cap$ ይገለብጣል።"
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "De Morgan: the sign flips when the prime goes inside.",
+              "am": "ደ ሞርጋን፦ ፕራይሙ ወደ ውስጥ ሲገባ ምልክቱ ይገለበጣል።"
+            }
+          },
+          {
+            "text": {
+              "en": "Careful: $(A')' = A$, not $A'$.",
+              "am": "ጥንቃቄ፦ $(A')' = A$ እንጂ $A'$ አይደለም።"
+            }
+          }
+        ]
+      },
+      {
+        "question": {
+          "en": "$A \\cup (B \\cap C)$ is equal to:",
+          "am": "$A \\cup (B \\cap C)$ እኩል ነው ከ፦"
+        },
+        "options": [
+          {
+            "en": "$(A \\cup B) \\cap (A \\cup C)$",
+            "am": "$(A \\cup B) \\cap (A \\cup C)$"
+          },
+          {
+            "en": "$(A \\cap B) \\cup (A \\cap C)$",
+            "am": "$(A \\cap B) \\cup (A \\cap C)$"
+          },
+          {
+            "en": "$(A \\cup B) \\cup C$",
+            "am": "$(A \\cup B) \\cup C$"
+          },
+          {
+            "en": "$A \\cap B \\cap C$",
+            "am": "$A \\cap B \\cap C$"
+          }
+        ],
+        "answer": 0,
+        "explanation": {
+          "en": "The distributive law.",
+          "am": "የማከፋፈል ሕግ።"
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "A is shared out into each bracket with $\\cup$, and $\\cap$ stays between the brackets.",
+              "am": "A በ$\\cup$ ወደ እያንዳንዱ ቅንፍ ይከፋፈላል፤ በቅንፎቹ መካከል $\\cap$ ይቀራል።"
+            }
+          }
+        ]
+      },
+      {
+        "question": {
+          "en": "$A \\cap A'$ is equal to:",
+          "am": "$A \\cap A'$ እኩል ነው ከ፦"
+        },
+        "options": [
+          {
+            "en": "$A$",
+            "am": "$A$"
+          },
+          {
+            "en": "$U$",
+            "am": "$U$"
+          },
+          {
+            "en": "$\\emptyset$",
+            "am": "$\\emptyset$"
+          },
+          {
+            "en": "$A'$",
+            "am": "$A'$"
+          }
+        ],
+        "answer": 2,
+        "explanation": {
+          "en": "Nothing can be in A and outside A at the same time.",
+          "am": "አንድ ነገር በአንድ ጊዜ በA ውስጥና ከA ውጭ ሊሆን አይችልም።"
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "Complement law: $A \\cap A' = \\emptyset$.",
+              "am": "የማሟያ ሕግ፦ $A \\cap A' = \\emptyset$።"
+            }
+          }
+        ]
+      },
+      {
+        "question": {
+          "en": "$A \\setminus B$ is the same as:",
+          "am": "$A \\setminus B$ ተመሳሳይ ነው ከ፦"
+        },
+        "options": [
+          {
+            "en": "$A \\cap B$",
+            "am": "$A \\cap B$"
+          },
+          {
+            "en": "$A \\cup B'$",
+            "am": "$A \\cup B'$"
+          },
+          {
+            "en": "$A \\cap B'$",
+            "am": "$A \\cap B'$"
+          },
+          {
+            "en": "$B \\cap A'$",
+            "am": "$B \\cap A'$"
+          }
+        ],
+        "answer": 2,
+        "explanation": {
+          "en": "In A AND not in B: $A \\cap B'$.",
+          "am": "በA ውስጥ እና በB ውስጥ ያልሆነ፦ $A \\cap B'$።"
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "\"Not in B\" means \"in $B'$\".",
+              "am": "«በB የሌለ» ማለት «በ$B'$ ያለ» ማለት ነው።"
+            }
+          }
+        ]
+      },
+      {
+        "question": {
+          "en": "If $n(A) = 12$, $n(B) = 9$ and $n(A \\cap B) = 4$, then $n(A \\cup B)$ is:",
+          "am": "$n(A) = 12$፣ $n(B) = 9$ እና $n(A \\cap B) = 4$ ከሆኑ $n(A \\cup B)$፦"
+        },
+        "options": [
+          {
+            "en": "21",
+            "am": "21"
+          },
+          {
+            "en": "17",
+            "am": "17"
+          },
+          {
+            "en": "25",
+            "am": "25"
+          },
+          {
+            "en": "13",
+            "am": "13"
+          }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "$12 + 9 - 4 = 17$.",
+          "am": "$12 + 9 - 4 = 17$."
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "$n(A \\cup B) = n(A) + n(B) - n(A \\cap B)$",
+              "am": "$n(A \\cup B) = n(A) + n(B) - n(A \\cap B)$"
+            }
+          },
+          {
+            "text": {
+              "en": "$= 12 + 9 - 4 = 17$",
+              "am": "$= 12 + 9 - 4 = 17$"
+            }
+          }
+        ]
+      },
+      {
+        "question": {
+          "en": "$\\{x \\in \\mathbb{R} \\mid x^2 = 4\\}$ is:",
+          "am": "$\\{x \\in \\mathbb{R} \\mid x^2 = 4\\}$ is:"
+        },
+        "options": [
+          {
+            "en": "$\\{2\\}$",
+            "am": "$\\{2\\}$"
+          },
+          {
+            "en": "$\\{-2, 2\\}$",
+            "am": "$\\{-2, 2\\}$"
+          },
+          {
+            "en": "$\\{4\\}$",
+            "am": "$\\{4\\}$"
+          },
+          {
+            "en": "$\\emptyset$",
+            "am": "$\\emptyset$"
+          }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "Both $2^2$ and $(-2)^2$ equal 4.",
+          "am": "$2^2$ እና $(-2)^2$ ሁለቱም 4 ናቸው።"
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "$x^2 = 4 \\Rightarrow x = 2$ or $x = -2$.",
+              "am": "$x^2 = 4 \\Rightarrow x = 2$ ወይም $x = -2$።"
+            }
+          },
+          {
+            "text": {
+              "en": "Both are real numbers.",
+              "am": "ሁለቱም እውነተኛ ቁጥሮች ናቸው።"
+            }
+          }
+        ]
+      },
+      {
+        "question": {
+          "en": "$\\{x \\in \\mathbb{Z} \\mid -2 < x \\le 2\\}$ is:",
+          "am": "$\\{x \\in \\mathbb{Z} \\mid -2 < x \\le 2\\}$ is:"
+        },
+        "options": [
+          {
+            "en": "$\\{-2, -1, 0, 1, 2\\}$",
+            "am": "$\\{-2, -1, 0, 1, 2\\}$"
+          },
+          {
+            "en": "$\\{-1, 0, 1, 2\\}$",
+            "am": "$\\{-1, 0, 1, 2\\}$"
+          },
+          {
+            "en": "$\\{-1, 0, 1\\}$",
+            "am": "$\\{-1, 0, 1\\}$"
+          },
+          {
+            "en": "$\\{0, 1, 2\\}$",
+            "am": "$\\{0, 1, 2\\}$"
+          }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "$-2 < x$ excludes $-2$; $x \\le 2$ includes 2.",
+          "am": "$-2 < x$ $-2$ን አያካትትም፤ $x \\le 2$ 2ን ያካትታል።"
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "$<$ means the end is NOT included.",
+              "am": "$<$ ማለት ጫፉ አይካተትም።"
+            }
+          },
+          {
+            "text": {
+              "en": "$\\le$ means the end IS included.",
+              "am": "$\\le$ ማለት ጫፉ ይካተታል።"
+            }
+          }
+        ]
+      },
+      {
+        "question": {
+          "en": "In the 3-set class diagram ($A = \\{1,4,5,7\\}$, $B = \\{2,5,6,7\\}$, $C = \\{3,4,6,7\\}$), $A \\cap B \\cap C$ is:",
+          "am": "በክፍሉ ባለ 3 ስብስብ ዲያግራም ($A = \\{1,4,5,7\\}$፣ $B = \\{2,5,6,7\\}$፣ $C = \\{3,4,6,7\\}$) $A \\cap B \\cap C$፦"
+        },
+        "options": [
+          {
+            "en": "$\\{7\\}$",
+            "am": "$\\{7\\}$"
+          },
+          {
+            "en": "$\\{5, 7\\}$",
+            "am": "$\\{5, 7\\}$"
+          },
+          {
+            "en": "$\\{4, 6, 7\\}$",
+            "am": "$\\{4, 6, 7\\}$"
+          },
+          {
+            "en": "$\\emptyset$",
+            "am": "$\\emptyset$"
+          }
+        ],
+        "answer": 0,
+        "explanation": {
+          "en": "7 is the only number in all three sets.",
+          "am": "በሦስቱም ስብስቦች ያለው ብቸኛ ቁጥር 7 ነው።"
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "$A \\cap B = \\{5, 7\\}$.",
+              "am": "$A \\cap B = \\{5, 7\\}$."
+            }
+          },
+          {
+            "text": {
+              "en": "Of these, only 7 is in C.",
+              "am": "ከእነዚህ በC ያለው 7 ብቻ ነው።"
+            }
+          }
+        ]
+      },
+      {
+        "question": {
+          "en": "In a class of 30, 18 study Math, 15 study English and 5 study both. How many study neither?",
+          "am": "30 ተማሪዎች ባሉበት ክፍል 18ቱ ሒሳብ፣ 15ቱ እንግሊዝኛ፣ 5ቱ ሁለቱንም ያጠናሉ። ስንቶቹ ምንም አያጠኑም?"
+        },
+        "options": [
+          {
+            "en": "2",
+            "am": "2"
+          },
+          {
+            "en": "3",
+            "am": "3"
+          },
+          {
+            "en": "7",
+            "am": "7"
+          },
+          {
+            "en": "12",
+            "am": "12"
+          }
+        ],
+        "answer": 0,
+        "explanation": {
+          "en": "$18 + 15 - 5 = 28$, so $30 - 28 = 2$.",
+          "am": "$18 + 15 - 5 = 28$፤ ስለዚህ $30 - 28 = 2$።"
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "$n(M \\cup E) = 18 + 15 - 5 = 28$.",
+              "am": "$n(M \\cup E) = 18 + 15 - 5 = 28$."
+            }
+          },
+          {
+            "text": {
+              "en": "Neither $= 30 - 28 = 2$.",
+              "am": "በምንም $= 30 - 28 = 2$።"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "set",
+        "question": {
+          "en": "If $A = \\{1, 2, 3, 4, 5\\}$ and $B = \\{4, 5, 6\\}$, write $A \\cap B$.",
+          "am": "$A = \\{1, 2, 3, 4, 5\\}$ እና $B = \\{4, 5, 6\\}$ ከሆኑ $A \\cap B$ን ጻፉ።"
+        },
+        "answer": {
+          "value": [
+            "4",
+            "5"
+          ]
+        },
+        "explanation": {
+          "en": "$A \\cap B = \\{4, 5\\}$: the elements in both.",
+          "am": "$A \\cap B = \\{4, 5\\}$፦ በሁለቱም ያሉ አባላት።"
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "Go through A: 1, 2, 3 are not in B.",
+              "am": "Aን ተመልከቱ፦ 1፣ 2፣ 3 በB የሉም።"
+            }
+          },
+          {
+            "text": {
+              "en": "4 and 5 are in B too.",
+              "am": "4 እና 5 በB ውስጥም አሉ።"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "set",
+        "question": {
+          "en": "$U = \\{1, 2, 3, 4, 5, 6\\}$ and $A = \\{2, 4, 6\\}$. Write $A'$.",
+          "am": "$U = \\{1, 2, 3, 4, 5, 6\\}$ እና $A = \\{2, 4, 6\\}$። $A'$ን ጻፉ።"
+        },
+        "answer": {
+          "value": [
+            "1",
+            "3",
+            "5"
+          ]
+        },
+        "explanation": {
+          "en": "$A' = U \\setminus A = \\{1, 3, 5\\}$.",
+          "am": "$A' = U \\setminus A = \\{1, 3, 5\\}$."
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "Start with U and remove 2, 4, 6.",
+              "am": "በU ጀምራችሁ 2፣ 4፣ 6ን አስወግዱ።"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "set",
+        "question": {
+          "en": "Write $\\{x \\in \\mathbb{Z} \\mid x^2 = 9\\}$ by complete listing.",
+          "am": "$\\{x \\in \\mathbb{Z} \\mid x^2 = 9\\}$ን በሙሉ ዝርዝር ጻፉ።"
+        },
+        "answer": {
+          "value": [
+            "-3",
+            "3"
+          ]
+        },
+        "explanation": {
+          "en": "$3^2 = 9$ and $(-3)^2 = 9$.",
+          "am": "$3^2 = 9$ እና $(-3)^2 = 9$።"
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "$x^2 = 9 \\Rightarrow x = \\pm 3$.",
+              "am": "$x^2 = 9 \\Rightarrow x = \\pm 3$."
+            }
+          },
+          {
+            "text": {
+              "en": "Both are integers: $\\{-3, 3\\}$.",
+              "am": "ሁለቱም ኢንቲጀሮች ናቸው፦ $\\{-3, 3\\}$።"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "number",
+        "question": {
+          "en": "If $n(A) = 15$, $n(B) = 10$ and $n(A \\cup B) = 20$, find $n(A \\cap B)$.",
+          "am": "$n(A) = 15$፣ $n(B) = 10$ እና $n(A \\cup B) = 20$ ከሆኑ $n(A \\cap B)$ን ፈልጉ።"
+        },
+        "answer": {
+          "value": 5
+        },
+        "explanation": {
+          "en": "$20 = 15 + 10 - n(A \\cap B)$, so $n(A \\cap B) = 5$.",
+          "am": "$20 = 15 + 10 - n(A \\cap B)$፤ ስለዚህ $n(A \\cap B) = 5$።"
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "Write the formula: $n(A \\cup B) = n(A) + n(B) - n(A \\cap B)$.",
+              "am": "ቀመሩን ጻፉ፦ $n(A \\cup B) = n(A) + n(B) - n(A \\cap B)$።"
+            }
+          },
+          {
+            "text": {
+              "en": "$20 = 25 - n(A \\cap B) \\Rightarrow n(A \\cap B) = 5$.",
+              "am": "$20 = 25 - n(A \\cap B) \\Rightarrow n(A \\cap B) = 5$."
+            }
+          }
+        ]
+      },
+      {
+        "kind": "number",
+        "question": {
+          "en": "How many subsets does a set with 5 elements have?",
+          "am": "5 አባላት ያሉት ስብስብ ስንት ንዑስ ስብስቦች አሉት?"
+        },
+        "answer": {
+          "value": 32
+        },
+        "explanation": {
+          "en": "$2^5 = 32$.",
+          "am": "$2^5 = 32$."
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "Subsets $= 2^n$ with $n = 5$.",
+              "am": "ንዑስ ስብስቦች $= 2^n$፣ $n = 5$።"
+            }
+          },
+          {
+            "text": {
+              "en": "$2^5 = 32$.",
+              "am": "$2^5 = 32$."
+            }
+          }
+        ]
+      },
+      {
+        "kind": "venn",
+        "question": {
+          "en": "Shade $(A \\cup B)'$.",
+          "am": "$(A \\cup B)'$ን አጥሉ።"
+        },
+        "answer": {
+          "venn": {
+            "sets": 2,
+            "labels": [
+              "A",
+              "B"
+            ]
+          },
+          "regions": [
+            "none"
+          ]
+        },
+        "explanation": {
+          "en": "$(A \\cup B)'$ is everything OUTSIDE both circles.",
+          "am": "$(A \\cup B)'$ ከሁለቱም ክበቦች ውጭ ያለው ሁሉ ነው።"
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "$A \\cup B$ = both circles.",
+              "am": "$A \\cup B$ = ሁለቱም ክበቦች።"
+            }
+          },
+          {
+            "text": {
+              "en": "The complement is the outside part only.",
+              "am": "ማሟያው ውጭ ያለው ክፍል ብቻ ነው።"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "venn",
+        "question": {
+          "en": "Shade $A \\cap B'$.",
+          "am": "$A \\cap B'$ን አጥሉ።"
+        },
+        "answer": {
+          "venn": {
+            "sets": 2,
+            "labels": [
+              "A",
+              "B"
+            ]
+          },
+          "regions": [
+            "A"
+          ]
+        },
+        "explanation": {
+          "en": "$A \\cap B' = A \\setminus B$: the part of A outside B.",
+          "am": "$A \\cap B' = A \\setminus B$፦ ከB ውጭ ያለው የA ክፍል።"
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "$B'$ is everything outside B.",
+              "am": "$B'$ ከB ውጭ ያለው ሁሉ ነው።"
+            }
+          },
+          {
+            "text": {
+              "en": "Inside A AND outside B: only A's own part.",
+              "am": "በA ውስጥ እና ከB ውጭ፦ የA የራሱ ክፍል ብቻ።"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "venn",
+        "question": {
+          "en": "Shade $(A \\cap B) \\cup C$.",
+          "am": "$(A \\cap B) \\cup C$ን አጥሉ።"
+        },
+        "answer": {
+          "venn": {
+            "sets": 3,
+            "labels": [
+              "A",
+              "B",
+              "C"
+            ]
+          },
+          "regions": [
+            "C",
+            "AB",
+            "AC",
+            "BC",
+            "ABC"
+          ]
+        },
+        "explanation": {
+          "en": "All of circle C, plus the part where A and B overlap.",
+          "am": "ክበብ C በሙሉ፣ እና A እና B የሚገናኙበት ክፍል።"
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "$A \\cap B$: the lens between A and B (2 regions).",
+              "am": "$A \\cap B$፦ በA እና በB መካከል ያለው መገናኛ (2 ክፍሎች)።"
+            }
+          },
+          {
+            "text": {
+              "en": "Add all of C (4 regions); one region is shared.",
+              "am": "ሙሉውን C (4 ክፍሎች) ጨምሩ፤ አንዱ ክፍል የጋራ ነው።"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "practice": [
+    {
+      "id": "hw1",
+      "question": {
+        "en": "Describe $\\{2, 4, 6, 8, 10\\}$ using set-builder notation.",
+        "am": "$\\{2, 4, 6, 8, 10\\}$ን በስብስብ መገንቢያ ግለጹ።"
+      },
+      "tip": {
+        "en": "Find the rule: they are even natural numbers up to 10.",
+        "am": "ሕጉን ፈልጉ፦ እስከ 10 ያሉ ሙሉ ጥንድ የተፈጥሮ ቁጥሮች ናቸው።"
+      },
+      "hints": [
+        {
+          "en": "Every element is $2 \\times$ something.",
+          "am": "እያንዳንዱ አባል $2 \\times$ የሆነ ነገር ነው።"
+        },
+        {
+          "en": "Try $x = 2k$ where $k \\in \\mathbb{N}$ and $k \\le 5$.",
+          "am": "$x = 2k$ ሞክሩ፤ $k \\in \\mathbb{N}$ እና $k \\le 5$።"
+        }
+      ],
+      "answers": [],
+      "solution": {
+        "steps": [
+          {
+            "text": {
+              "en": "Look for the pattern: $2, 4, 6, 8, 10$ are $2\\times1, 2\\times2, \\dots, 2\\times5$.",
+              "am": "ቅደም ተከተሉን ፈልጉ፦ $2, 4, 6, 8, 10$ $2\\times1, 2\\times2, \\dots, 2\\times5$ ናቸው።"
+            },
+            "why": {
+              "en": "Set-builder needs the RULE, so find what all the elements have in common.",
+              "am": "የስብስብ መገንቢያ ሕጉን ይፈልጋል፤ ስለዚህ የሁሉም አባላት የጋራ ባሕርይ ፈልጉ።"
+            }
+          },
+          {
+            "text": {
+              "en": "Write the rule with $k$: $x = 2k$, $k \\in \\mathbb{N}$, $k \\le 5$.",
+              "am": "ሕጉን በ$k$ ጻፉ፦ $x = 2k$፣ $k \\in \\mathbb{N}$፣ $k \\le 5$።"
+            },
+            "why": {
+              "en": "$k$ counts from 1 to 5, which gives exactly our five numbers.",
+              "am": "$k$ ከ1 እስከ 5 ይቆጥራል፤ ይህም በትክክል አምስቱን ቁጥሮቻችንን ይሰጣል።"
+            }
+          }
+        ],
+        "answer": {
+          "en": "$\\{x \\mid x = 2k,\\ k \\in \\mathbb{N},\\ k \\le 5\\}$ or $\\{x \\mid x \\text{ is an even natural number and } x \\le 10\\}$",
+          "am": "$\\{x \\mid x = 2k,\\ k \\in \\mathbb{N},\\ k \\le 5\\}$ ወይም $\\{x \\mid x \\text{ ሙሉ ጥንድ የተፈጥሮ ቁጥር እና } x \\le 10\\}$"
+        }
+      }
+    },
+    {
+      "id": "hw2",
+      "question": {
+        "en": "Let $A = \\{a, b, c, d\\}$. (i) How many subsets does A have? (ii) How many proper subsets?",
+        "am": "$A = \\{a, b, c, d\\}$ ይሁን። (i) A ስንት ንዑስ ስብስቦች አሉት? (ii) ስንት ትክክለኛ ንዑስ ስብስቦች?"
+      },
+      "tip": {
+        "en": "Use $2^n$ and $2^n - 1$ with $n = n(A)$.",
+        "am": "$2^n$ እና $2^n - 1$ን በ$n = n(A)$ ተጠቀሙ።"
+      },
+      "hints": [
+        {
+          "en": "First count: $n(A) = 4$.",
+          "am": "መጀመሪያ ቁጠሩ፦ $n(A) = 4$።"
+        },
+        {
+          "en": "$2^4 = 2 \\times 2 \\times 2 \\times 2$.",
+          "am": "$2^4 = 2 \\times 2 \\times 2 \\times 2$."
+        }
+      ],
+      "answers": [
+        {
+          "label": {
+            "en": "(i) subsets",
+            "am": "(i) ንዑስ ስብስቦች"
+          },
+          "spec": {
+            "kind": "number",
+            "value": 16
+          }
+        },
+        {
+          "label": {
+            "en": "(ii) proper subsets",
+            "am": "(ii) ትክክለኛ ንዑስ ስብስቦች"
+          },
+          "spec": {
+            "kind": "number",
+            "value": 15
+          }
+        }
+      ],
+      "solution": {
+        "steps": [
+          {
+            "text": {
+              "en": "$n(A) = 4$",
+              "am": "$n(A) = 4$"
+            },
+            "why": {
+              "en": "A has 4 elements: a, b, c, d.",
+              "am": "A 4 አባላት አሉት፦ a፣ b፣ c፣ d።"
+            }
+          },
+          {
+            "text": {
+              "en": "Subsets $= 2^4 = 16$",
+              "am": "ንዑስ ስብስቦች $= 2^4 = 16$"
+            },
+            "why": {
+              "en": "Each element is either in a subset or not: 2 choices, 4 times.",
+              "am": "እያንዳንዱ አባል በንዑስ ስብስቡ ውስጥ አለ ወይም የለም፦ 2 ምርጫዎች፣ 4 ጊዜ።"
+            }
+          },
+          {
+            "text": {
+              "en": "Proper subsets $= 16 - 1 = 15$",
+              "am": "ትክክለኛ ንዑስ ስብስቦች $= 16 - 1 = 15$"
+            },
+            "why": {
+              "en": "All subsets except A itself.",
+              "am": "ከA ራሱ በስተቀር ሁሉም ንዑስ ስብስቦች።"
+            }
+          }
+        ],
+        "answer": {
+          "en": "(i) 16 (ii) 15",
+          "am": "(i) 16 (ii) 15"
+        }
+      }
+    },
+    {
+      "id": "hw3",
+      "question": {
+        "en": "Let $U = \\{1, 2, \\dots, 10\\}$, $A$ = even numbers in U, $B$ = multiples of 3 in U. Find $A \\cup B$, $A \\cap B$, $A'$, $A \\setminus B$ and $A \\,\\Delta\\, B$.",
+        "am": "$U = \\{1, 2, \\dots, 10\\}$፣ $A$ = በU ውስጥ ያሉ ጥንድ ቁጥሮች፣ $B$ = በU ውስጥ ያሉ የ3 ብዜቶች ይሁኑ። $A \\cup B$፣ $A \\cap B$፣ $A'$፣ $A \\setminus B$ እና $A \\,\\Delta\\, B$ን ፈልጉ።"
+      },
+      "tip": {
+        "en": "First list A and B. Then place each number in a Venn diagram.",
+        "am": "መጀመሪያ Aን እና Bን ዘርዝሩ። ከዚያ እያንዳንዱን ቁጥር በቬን ዲያግራም ውስጥ አስቀምጡ።"
+      },
+      "hints": [
+        {
+          "en": "$A = \\{2, 4, 6, 8, 10\\}$ and $B = \\{3, 6, 9\\}$.",
+          "am": "$A = \\{2, 4, 6, 8, 10\\}$ እና $B = \\{3, 6, 9\\}$።"
+        },
+        {
+          "en": "Only 6 is in both; 1, 5, 7 are in neither.",
+          "am": "በሁለቱም ያለው 6 ብቻ ነው፤ 1፣ 5፣ 7 በምንም ውስጥ የሉም።"
+        }
+      ],
+      "answers": [
+        {
+          "label": {
+            "en": "$A \\cup B$",
+            "am": "$A \\cup B$"
+          },
+          "spec": {
+            "kind": "set",
+            "value": [
+              "2",
+              "3",
+              "4",
+              "6",
+              "8",
+              "9",
+              "10"
+            ]
+          }
+        },
+        {
+          "label": {
+            "en": "$A \\cap B$",
+            "am": "$A \\cap B$"
+          },
+          "spec": {
+            "kind": "set",
+            "value": [
+              "6"
+            ]
+          }
+        },
+        {
+          "label": {
+            "en": "$A'$",
+            "am": "$A'$"
+          },
+          "spec": {
+            "kind": "set",
+            "value": [
+              "1",
+              "3",
+              "5",
+              "7",
+              "9"
+            ]
+          }
+        },
+        {
+          "label": {
+            "en": "$A \\setminus B$",
+            "am": "$A \\setminus B$"
+          },
+          "spec": {
+            "kind": "set",
+            "value": [
+              "2",
+              "4",
+              "8",
+              "10"
+            ]
+          }
+        },
+        {
+          "label": {
+            "en": "$A \\,\\Delta\\, B$",
+            "am": "$A \\,\\Delta\\, B$"
+          },
+          "spec": {
+            "kind": "set",
+            "value": [
+              "2",
+              "3",
+              "4",
+              "8",
+              "9",
+              "10"
+            ]
+          }
+        }
+      ],
+      "solution": {
+        "venn": {
+          "sets": 2,
+          "labels": [
+            "A",
+            "B"
+          ],
+          "elements": {
+            "A": [
+              "2",
+              "4",
+              "8",
+              "10"
+            ],
+            "AB": [
+              "6"
+            ],
+            "B": [
+              "3",
+              "9"
+            ],
+            "none": [
+              "1",
+              "5",
+              "7"
+            ]
+          }
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "$A = \\{2, 4, 6, 8, 10\\}$, $B = \\{3, 6, 9\\}$",
+              "am": "$A = \\{2, 4, 6, 8, 10\\}$, $B = \\{3, 6, 9\\}$"
+            },
+            "why": {
+              "en": "List both sets before doing any operation.",
+              "am": "ማንኛውንም ስሌት ከመሥራታችሁ በፊት ሁለቱንም ስብስቦች ዘርዝሩ።"
+            }
+          },
+          {
+            "text": {
+              "en": "$A \\cup B = \\{2, 3, 4, 6, 8, 9, 10\\}$",
+              "am": "$A \\cup B = \\{2, 3, 4, 6, 8, 9, 10\\}$"
+            },
+            "why": {
+              "en": "Join them; write 6 only once.",
+              "am": "አንድ አድርጓቸው፤ 6ን አንድ ጊዜ ብቻ ጻፉ።"
+            },
+            "shade": "A∪B"
+          },
+          {
+            "text": {
+              "en": "$A \\cap B = \\{6\\}$",
+              "am": "$A \\cap B = \\{6\\}$"
+            },
+            "why": {
+              "en": "6 is the only even multiple of 3 up to 10.",
+              "am": "እስከ 10 ያለ ብቸኛ ጥንድ የ3 ብዜት 6 ነው።"
+            },
+            "shade": "A∩B"
+          },
+          {
+            "text": {
+              "en": "$A' = \\{1, 3, 5, 7, 9\\}$",
+              "am": "$A' = \\{1, 3, 5, 7, 9\\}$"
+            },
+            "why": {
+              "en": "Everything in U that is not even.",
+              "am": "በU ውስጥ ጥንድ ያልሆነ ሁሉ።"
+            },
+            "shade": "A′"
+          },
+          {
+            "text": {
+              "en": "$A \\setminus B = \\{2, 4, 8, 10\\}$",
+              "am": "$A \\setminus B = \\{2, 4, 8, 10\\}$"
+            },
+            "why": {
+              "en": "A without 6.",
+              "am": "A ያለ 6።"
+            },
+            "shade": "A∖B"
+          },
+          {
+            "text": {
+              "en": "$B \\setminus A = \\{3, 9\\}$, so $A \\,\\Delta\\, B = \\{2, 3, 4, 8, 9, 10\\}$",
+              "am": "$B \\setminus A = \\{3, 9\\}$፣ ስለዚህ $A \\,\\Delta\\, B = \\{2, 3, 4, 8, 9, 10\\}$"
+            },
+            "why": {
+              "en": "Join the two differences.",
+              "am": "ሁለቱን ልዩነቶች አንድ አድርጉ።"
+            },
+            "shade": "AΔB"
+          }
+        ],
+        "answer": {
+          "en": "$\\{2,3,4,6,8,9,10\\}$, $\\{6\\}$, $\\{1,3,5,7,9\\}$, $\\{2,4,8,10\\}$, $\\{2,3,4,8,9,10\\}$",
+          "am": "$\\{2,3,4,6,8,9,10\\}$, $\\{6\\}$, $\\{1,3,5,7,9\\}$, $\\{2,4,8,10\\}$, $\\{2,3,4,8,9,10\\}$"
+        }
+      }
+    },
+    {
+      "id": "hw4",
+      "question": {
+        "en": "Using the sets in Question 3, verify that $(A \\cap B)' = A' \\cup B'$.",
+        "am": "በጥያቄ 3 ያሉትን ስብስቦች በመጠቀም $(A \\cap B)' = A' \\cup B'$ መሆኑን አረጋግጡ።"
+      },
+      "tip": {
+        "en": "Work out the left side and the right side separately, then compare.",
+        "am": "የግራውንና የቀኙን ጎን ለየብቻ ሥሩ፣ ከዚያ አወዳድሩ።"
+      },
+      "hints": [
+        {
+          "en": "Left: $A \\cap B = \\{6\\}$, so take everything in U except 6.",
+          "am": "ግራ፦ $A \\cap B = \\{6\\}$፤ ስለዚህ ከ6 በስተቀር በU ያለውን ሁሉ ውሰዱ።"
+        },
+        {
+          "en": "Right: $B' = \\{1, 2, 4, 5, 7, 8, 10\\}$; join it with $A'$.",
+          "am": "ቀኝ፦ $B' = \\{1, 2, 4, 5, 7, 8, 10\\}$፤ ከ$A'$ ጋር አንድ አድርጉት።"
+        }
+      ],
+      "answers": [
+        {
+          "label": {
+            "en": "$(A \\cap B)'$",
+            "am": "$(A \\cap B)'$"
+          },
+          "spec": {
+            "kind": "set",
+            "value": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "7",
+              "8",
+              "9",
+              "10"
+            ]
+          }
+        }
+      ],
+      "solution": {
+        "venn": {
+          "sets": 2,
+          "labels": [
+            "A",
+            "B"
+          ],
+          "elements": {
+            "A": [
+              "2",
+              "4",
+              "8",
+              "10"
+            ],
+            "AB": [
+              "6"
+            ],
+            "B": [
+              "3",
+              "9"
+            ],
+            "none": [
+              "1",
+              "5",
+              "7"
+            ]
+          }
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "Left: $(A \\cap B)' = U \\setminus \\{6\\} = \\{1,2,3,4,5,7,8,9,10\\}$",
+              "am": "ግራ፦ $(A \\cap B)' = U \\setminus \\{6\\} = \\{1,2,3,4,5,7,8,9,10\\}$"
+            },
+            "why": {
+              "en": "The complement of $\\{6\\}$ is everything else in U.",
+              "am": "የ$\\{6\\}$ ማሟያ በU ውስጥ ያለው ሌላው ሁሉ ነው።"
+            },
+            "shade": "(A∩B)′"
+          },
+          {
+            "text": {
+              "en": "Right: $A' = \\{1,3,5,7,9\\}$, $B' = \\{1,2,4,5,7,8,10\\}$",
+              "am": "ቀኝ፦ $A' = \\{1,3,5,7,9\\}$፣ $B' = \\{1,2,4,5,7,8,10\\}$"
+            },
+            "why": {
+              "en": "Find each complement from U.",
+              "am": "እያንዳንዱን ማሟያ ከU ፈልጉ።"
+            }
+          },
+          {
+            "text": {
+              "en": "$A' \\cup B' = \\{1,2,3,4,5,7,8,9,10\\}$",
+              "am": "$A' \\cup B' = \\{1,2,3,4,5,7,8,9,10\\}$"
+            },
+            "why": {
+              "en": "Join them: every number except 6.",
+              "am": "አንድ አድርጓቸው፦ ከ6 በስተቀር ሁሉም ቁጥሮች።"
+            },
+            "shade": "A′∪B′"
+          }
+        ],
+        "answer": {
+          "en": "Left $=$ Right $= \\{1,2,3,4,5,7,8,9,10\\}$ ✓",
+          "am": "ግራ $=$ ቀኝ $= \\{1,2,3,4,5,7,8,9,10\\}$ ✓"
+        }
+      }
+    },
+    {
+      "id": "hw5",
+      "question": {
+        "en": "Using Venn diagrams, show that $A \\cap (B \\cup C) = (A \\cap B) \\cup (A \\cap C)$. Shade the left side and the right side: they must match.",
+        "am": "በቬን ዲያግራም $A \\cap (B \\cup C) = (A \\cap B) \\cup (A \\cap C)$ መሆኑን አሳዩ። ግራውንና ቀኙን ጎን አጥሉ፤ አንድ ዓይነት መሆን አለባቸው።"
+      },
+      "tip": {
+        "en": "Shade $B \\cup C$ first, then keep only the part inside A.",
+        "am": "መጀመሪያ $B \\cup C$ን አጥሉ፣ ከዚያ በA ውስጥ ያለውን ክፍል ብቻ ያዙ።"
+      },
+      "hints": [
+        {
+          "en": "$B \\cup C$ is everything inside circle B or circle C.",
+          "am": "$B \\cup C$ በክበብ B ወይም በክበብ C ውስጥ ያለ ሁሉ ነው።"
+        },
+        {
+          "en": "Inside A, that leaves three small regions: A∩B only, A∩C only and the centre.",
+          "am": "በA ውስጥ ሦስት ትንንሽ ክፍሎች ይቀራሉ፦ A∩B ብቻ፣ A∩C ብቻ እና መሀሉ።"
+        }
+      ],
+      "answers": [
+        {
+          "label": {
+            "en": "Left side: $A \\cap (B \\cup C)$",
+            "am": "ግራ ጎን፦ $A \\cap (B \\cup C)$"
+          },
+          "spec": {
+            "kind": "venn",
+            "venn": {
+              "sets": 3,
+              "labels": [
+                "A",
+                "B",
+                "C"
+              ]
+            },
+            "regions": [
+              "AB",
+              "AC",
+              "ABC"
+            ]
+          }
+        },
+        {
+          "label": {
+            "en": "Right side: $(A \\cap B) \\cup (A \\cap C)$",
+            "am": "ቀኝ ጎን፦ $(A \\cap B) \\cup (A \\cap C)$"
+          },
+          "spec": {
+            "kind": "venn",
+            "venn": {
+              "sets": 3,
+              "labels": [
+                "A",
+                "B",
+                "C"
+              ]
+            },
+            "regions": [
+              "AB",
+              "AC",
+              "ABC"
+            ]
+          }
+        }
+      ],
+      "solution": {
+        "venn": {
+          "sets": 3,
+          "labels": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "Left: shade $B \\cup C$.",
+              "am": "ግራ፦ $B \\cup C$ን አጥሉ።"
+            },
+            "why": {
+              "en": "Work inside the bracket first.",
+              "am": "መጀመሪያ በቅንፉ ውስጥ ሥሩ።"
+            },
+            "shade": "B∪C"
+          },
+          {
+            "text": {
+              "en": "Keep only the part inside A: regions $A\\cap B$, $A \\cap C$ and the centre.",
+              "am": "በA ውስጥ ያለውን ብቻ ያዙ፦ $A\\cap B$፣ $A \\cap C$ እና መሀሉ።"
+            },
+            "why": {
+              "en": "Intersection with A means: stay inside circle A.",
+              "am": "ከA ጋር መገናኘት ማለት በክበብ A ውስጥ መቆየት ማለት ነው።"
+            },
+            "shade": "A∩(B∪C)"
+          },
+          {
+            "text": {
+              "en": "Right: $A \\cap B$ and $A \\cap C$, then join them.",
+              "am": "ቀኝ፦ $A \\cap B$ እና $A \\cap C$፣ ከዚያ አንድ አድርጓቸው።"
+            },
+            "why": {
+              "en": "Each is a lens-shaped overlap; together they cover the same three regions.",
+              "am": "እያንዳንዳቸው የመገናኛ ክፍል ናቸው፤ አንድ ላይ ተመሳሳዩን ሦስት ክፍሎች ይሸፍናሉ።"
+            },
+            "shade": "(A∩B)∪(A∩C)"
+          }
+        ],
+        "answer": {
+          "en": "Both sides shade the same regions, so the identity is true.",
+          "am": "ሁለቱም ጎኖች ተመሳሳይ ክፍሎችን ያጠላሉ፤ ስለዚህ ማንነቱ እውነት ነው።"
+        }
+      },
+      "type": "venn"
+    },
+    {
+      "id": "hw6",
+      "question": {
+        "en": "If $n(A) = 20$, $n(B) = 15$ and $n(A \\cap B) = 6$, find $n(A \\cup B)$, $n(A \\setminus B)$ and $n(B \\setminus A)$.",
+        "am": "$n(A) = 20$፣ $n(B) = 15$ እና $n(A \\cap B) = 6$ ከሆኑ $n(A \\cup B)$፣ $n(A \\setminus B)$ እና $n(B \\setminus A)$ን ፈልጉ።"
+      },
+      "tip": {
+        "en": "$n(A \\setminus B) = n(A) - n(A \\cap B)$.",
+        "am": "$n(A \\setminus B) = n(A) - n(A \\cap B)$።"
+      },
+      "hints": [
+        {
+          "en": "Use the formula $n(A \\cup B) = n(A) + n(B) - n(A \\cap B)$.",
+          "am": "ቀመሩን ተጠቀሙ፦ $n(A \\cup B) = n(A) + n(B) - n(A \\cap B)$።"
+        },
+        {
+          "en": "$20 + 15 - 6 = ?$",
+          "am": "$20 + 15 - 6 = ?$"
+        }
+      ],
+      "answers": [
+        {
+          "label": {
+            "en": "$n(A \\cup B)$",
+            "am": "$n(A \\cup B)$"
+          },
+          "spec": {
+            "kind": "number",
+            "value": 29
+          }
+        },
+        {
+          "label": {
+            "en": "$n(A \\setminus B)$",
+            "am": "$n(A \\setminus B)$"
+          },
+          "spec": {
+            "kind": "number",
+            "value": 14
+          }
+        },
+        {
+          "label": {
+            "en": "$n(B \\setminus A)$",
+            "am": "$n(B \\setminus A)$"
+          },
+          "spec": {
+            "kind": "number",
+            "value": 9
+          }
+        }
+      ],
+      "solution": {
+        "venn": {
+          "sets": 2,
+          "labels": [
+            "A",
+            "B"
+          ],
+          "elements": {
+            "A": [
+              "14"
+            ],
+            "AB": [
+              "6"
+            ],
+            "B": [
+              "9"
+            ]
+          }
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "$n(A \\cup B) = 20 + 15 - 6 = 29$",
+              "am": "$n(A \\cup B) = 20 + 15 - 6 = 29$"
+            },
+            "why": {
+              "en": "The 6 shared elements were counted twice, so subtract them once.",
+              "am": "6ቱ የጋራ አባላት ሁለት ጊዜ ተቆጥረዋል፤ ስለዚህ አንድ ጊዜ ቀንሷቸው።"
+            },
+            "shade": "A∪B"
+          },
+          {
+            "text": {
+              "en": "$n(A \\setminus B) = 20 - 6 = 14$",
+              "am": "$n(A \\setminus B) = 20 - 6 = 14$"
+            },
+            "why": {
+              "en": "A without the shared part.",
+              "am": "A ያለ የጋራው ክፍል።"
+            },
+            "shade": "A∖B"
+          },
+          {
+            "text": {
+              "en": "$n(B \\setminus A) = 15 - 6 = 9$",
+              "am": "$n(B \\setminus A) = 15 - 6 = 9$"
+            },
+            "why": {
+              "en": "B without the shared part.",
+              "am": "B ያለ የጋራው ክፍል።"
+            },
+            "shade": "B∖A"
+          }
+        ],
+        "answer": {
+          "en": "29, 14, 9",
+          "am": "29, 14, 9"
+        }
+      }
+    },
+    {
+      "id": "hw7",
+      "question": {
+        "en": "In a class of 50 students, 30 like Mathematics, 25 like English and 10 like both. How many like neither subject?",
+        "am": "50 ተማሪዎች ባሉበት ክፍል 30ዎቹ ሒሳብ፣ 25ቱ እንግሊዝኛ፣ 10ሩ ሁለቱንም ይወዳሉ። ስንቶቹ ሁለቱንም አይወዱም?"
+      },
+      "tip": {
+        "en": "Find $n(M \\cup E)$ first, then subtract from 50.",
+        "am": "መጀመሪያ $n(M \\cup E)$ን ፈልጉ፣ ከዚያ ከ50 ቀንሱ።"
+      },
+      "hints": [
+        {
+          "en": "$n(M \\cup E) = 30 + 25 - 10$.",
+          "am": "$n(M \\cup E) = 30 + 25 - 10$።"
+        },
+        {
+          "en": "Neither $= 50 - n(M \\cup E)$.",
+          "am": "በምንም $= 50 - n(M \\cup E)$።"
+        }
+      ],
+      "answers": [
+        {
+          "label": {
+            "en": "Neither",
+            "am": "በምንም"
+          },
+          "spec": {
+            "kind": "number",
+            "value": 5
+          }
+        }
+      ],
+      "solution": {
+        "venn": {
+          "sets": 2,
+          "labels": [
+            "M",
+            "E"
+          ],
+          "elements": {
+            "A": [
+              "20"
+            ],
+            "AB": [
+              "10"
+            ],
+            "B": [
+              "15"
+            ],
+            "none": [
+              "5"
+            ]
+          }
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "$n(M \\cup E) = 30 + 25 - 10 = 45$",
+              "am": "$n(M \\cup E) = 30 + 25 - 10 = 45$"
+            },
+            "why": {
+              "en": "Students who like at least one subject.",
+              "am": "ቢያንስ አንድ ትምህርት የሚወዱ ተማሪዎች።"
+            },
+            "shade": "M∪E"
+          },
+          {
+            "text": {
+              "en": "Neither $= 50 - 45 = 5$",
+              "am": "በምንም $= 50 - 45 = 5$"
+            },
+            "why": {
+              "en": "Everyone else is outside both circles.",
+              "am": "ሌሎቹ ሁሉ ከሁለቱም ክበቦች ውጭ ናቸው።"
+            },
+            "shade": "(M∪E)′"
+          }
+        ],
+        "answer": {
+          "en": "5 students",
+          "am": "5 ተማሪዎች"
+        }
+      }
+    },
+    {
+      "id": "hw8",
+      "question": {
+        "en": "Out of 100 students: 45 study Geography (G), 40 History (H), 35 Mathematics (M); 15 study G and H, 10 study G and M, 12 study H and M, and 5 study all three. (i) How many study at least one subject? (ii) None? (iii) Only Geography?",
+        "am": "ከ100 ተማሪዎች፦ 45ቱ ጂኦግራፊ (G)፣ 40ው ታሪክ (H)፣ 35ቱ ሒሳብ (M)፤ 15ቱ G እና H፣ 10ሩ G እና M፣ 12ቱ H እና M፣ 5ቱ ሦስቱንም ያጠናሉ። (i) ቢያንስ አንድ የሚያጠኑ ስንት ናቸው? (ii) ምንም? (iii) ጂኦግራፊ ብቻ?"
+      },
+      "tip": {
+        "en": "Start from the centre (all three = 5) and work outwards in the Venn diagram.",
+        "am": "ከመሀሉ (ሦስቱም = 5) ጀምራችሁ በቬን ዲያግራሙ ወደ ውጭ ሥሩ።"
+      },
+      "hints": [
+        {
+          "en": "Use the 3-set formula: add singles, subtract pairs, add the triple.",
+          "am": "የ3 ስብስብ ቀመሩን ተጠቀሙ፦ ነጠላዎችን ደምሩ፣ ጥንዶችን ቀንሱ፣ ሦስቱን ደምሩ።"
+        },
+        {
+          "en": "Only G = $45 - 15 - 10 + 5$.",
+          "am": "G ብቻ = $45 - 15 - 10 + 5$።"
+        }
+      ],
+      "answers": [
+        {
+          "label": {
+            "en": "(i) at least one",
+            "am": "(i) ቢያንስ አንድ"
+          },
+          "spec": {
+            "kind": "number",
+            "value": 88
+          }
+        },
+        {
+          "label": {
+            "en": "(ii) none",
+            "am": "(ii) ምንም"
+          },
+          "spec": {
+            "kind": "number",
+            "value": 12
+          }
+        },
+        {
+          "label": {
+            "en": "(iii) only Geography",
+            "am": "(iii) ጂኦግራፊ ብቻ"
+          },
+          "spec": {
+            "kind": "number",
+            "value": 25
+          }
+        }
+      ],
+      "solution": {
+        "venn": {
+          "sets": 3,
+          "labels": [
+            "G",
+            "H",
+            "M"
+          ],
+          "elements": {
+            "A": [
+              "25"
+            ],
+            "B": [
+              "18"
+            ],
+            "C": [
+              "18"
+            ],
+            "AB": [
+              "10"
+            ],
+            "AC": [
+              "5"
+            ],
+            "BC": [
+              "7"
+            ],
+            "ABC": [
+              "5"
+            ],
+            "none": [
+              "12"
+            ]
+          }
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "$45 + 40 + 35 = 120$",
+              "am": "$45 + 40 + 35 = 120$"
+            },
+            "why": {
+              "en": "Add the singles.",
+              "am": "ነጠላዎቹን ደምሩ።"
+            }
+          },
+          {
+            "text": {
+              "en": "$120 - 15 - 10 - 12 = 83$",
+              "am": "$120 - 15 - 10 - 12 = 83$"
+            },
+            "why": {
+              "en": "Subtract the pairs (they were counted twice).",
+              "am": "ጥንዶቹን ቀንሱ (ሁለት ጊዜ ተቆጥረዋል)።"
+            }
+          },
+          {
+            "text": {
+              "en": "$83 + 5 = 88$",
+              "am": "$83 + 5 = 88$"
+            },
+            "why": {
+              "en": "Add back the triple, which we subtracted too many times.",
+              "am": "ከልክ በላይ የቀነስነውን ሦስቱን መልሳችሁ ደምሩ።"
+            },
+            "shade": "G∪H∪M"
+          },
+          {
+            "text": {
+              "en": "None $= 100 - 88 = 12$",
+              "am": "ምንም $= 100 - 88 = 12$"
+            },
+            "why": {
+              "en": "Everyone outside all three circles.",
+              "am": "ከሦስቱም ክበቦች ውጭ ያሉ ሁሉ።"
+            },
+            "shade": "(G∪H∪M)′"
+          },
+          {
+            "text": {
+              "en": "Only G $= 45 - 15 - 10 + 5 = 25$",
+              "am": "G ብቻ $= 45 - 15 - 10 + 5 = 25$"
+            },
+            "why": {
+              "en": "Subtract both pairs with G, then add back the 5 that were subtracted twice.",
+              "am": "ከG ጋር ያሉትን ሁለቱን ጥንዶች ቀንሱ፣ ከዚያ ሁለት ጊዜ የተቀነሱትን 5 መልሳችሁ ደምሩ።"
+            },
+            "shade": "G∖(H∪M)"
+          }
+        ],
+        "answer": {
+          "en": "(i) 88 (ii) 12 (iii) 25",
+          "am": "(i) 88 (ii) 12 (iii) 25"
+        }
+      }
+    },
+    {
+      "id": "hw9",
+      "question": {
+        "en": "$A = \\{x \\in \\mathbb{Z} \\mid -2 \\le x \\le 2\\}$ and $B = \\{x \\in \\mathbb{N} \\mid x < 4\\}$. Find $A \\cap B$, $A \\setminus B$ and $B \\setminus A$.",
+        "am": "$A = \\{x \\in \\mathbb{Z} \\mid -2 \\le x \\le 2\\}$ እና $B = \\{x \\in \\mathbb{N} \\mid x < 4\\}$። $A \\cap B$፣ $A \\setminus B$ እና $B \\setminus A$ን ፈልጉ።"
+      },
+      "tip": {
+        "en": "List both sets first. Remember $\\mathbb{N}$ starts at 1.",
+        "am": "መጀመሪያ ሁለቱንም ስብስቦች ዘርዝሩ። $\\mathbb{N}$ ከ1 እንደሚጀምር አስታውሱ።"
+      },
+      "hints": [
+        {
+          "en": "$A = \\{-2, -1, 0, 1, 2\\}$ ($-2$ and $2$ ARE included).",
+          "am": "$A = \\{-2, -1, 0, 1, 2\\}$ ($-2$ እና $2$ ይካተታሉ)።"
+        },
+        {
+          "en": "$B = \\{1, 2, 3\\}$.",
+          "am": "$B = \\{1, 2, 3\\}$."
+        }
+      ],
+      "answers": [
+        {
+          "label": {
+            "en": "$A \\cap B$",
+            "am": "$A \\cap B$"
+          },
+          "spec": {
+            "kind": "set",
+            "value": [
+              "1",
+              "2"
+            ]
+          }
+        },
+        {
+          "label": {
+            "en": "$A \\setminus B$",
+            "am": "$A \\setminus B$"
+          },
+          "spec": {
+            "kind": "set",
+            "value": [
+              "-2",
+              "-1",
+              "0"
+            ]
+          }
+        },
+        {
+          "label": {
+            "en": "$B \\setminus A$",
+            "am": "$B \\setminus A$"
+          },
+          "spec": {
+            "kind": "set",
+            "value": [
+              "3"
+            ]
+          }
+        }
+      ],
+      "solution": {
+        "venn": {
+          "sets": 2,
+          "labels": [
+            "A",
+            "B"
+          ],
+          "elements": {
+            "A": [
+              "-2",
+              "-1",
+              "0"
+            ],
+            "AB": [
+              "1",
+              "2"
+            ],
+            "B": [
+              "3"
+            ]
+          }
+        },
+        "steps": [
+          {
+            "text": {
+              "en": "$A = \\{-2, -1, 0, 1, 2\\}$, $B = \\{1, 2, 3\\}$",
+              "am": "$A = \\{-2, -1, 0, 1, 2\\}$, $B = \\{1, 2, 3\\}$"
+            },
+            "why": {
+              "en": "$\\le$ includes the end numbers; $\\mathbb{N}$ has no 0.",
+              "am": "$\\le$ የመጨረሻ ቁጥሮችን ያካትታል፤ $\\mathbb{N}$ 0 የለውም።"
+            }
+          },
+          {
+            "text": {
+              "en": "$A \\cap B = \\{1, 2\\}$",
+              "am": "$A \\cap B = \\{1, 2\\}$"
+            },
+            "why": {
+              "en": "In both sets.",
+              "am": "በሁለቱም ስብስቦች።"
+            },
+            "shade": "A∩B"
+          },
+          {
+            "text": {
+              "en": "$A \\setminus B = \\{-2, -1, 0\\}$",
+              "am": "$A \\setminus B = \\{-2, -1, 0\\}$"
+            },
+            "why": {
+              "en": "A without 1 and 2.",
+              "am": "A ያለ 1 እና 2።"
+            },
+            "shade": "A∖B"
+          },
+          {
+            "text": {
+              "en": "$B \\setminus A = \\{3\\}$",
+              "am": "$B \\setminus A = \\{3\\}$"
+            },
+            "why": {
+              "en": "B without 1 and 2.",
+              "am": "B ያለ 1 እና 2።"
+            },
+            "shade": "B∖A"
+          }
+        ],
+        "answer": {
+          "en": "$\\{1, 2\\}$, $\\{-2, -1, 0\\}$, $\\{3\\}$",
+          "am": "$\\{1, 2\\}$, $\\{-2, -1, 0\\}$, $\\{3\\}$"
+        }
+      }
+    },
+    {
+      "id": "hw10",
+      "question": {
+        "en": "True or false? (i) $\\emptyset \\subset \\{0\\}$ (ii) $0 \\in \\emptyset$ (iii) $\\{0\\} = \\emptyset$",
+        "am": "እውነት ወይስ ሐሰት? (i) $\\emptyset \\subset \\{0\\}$ (ii) $0 \\in \\emptyset$ (iii) $\\{0\\} = \\emptyset$"
+      },
+      "tip": {
+        "en": "$\\emptyset$ has NO elements, but $\\{0\\}$ has one element: 0.",
+        "am": "$\\emptyset$ አባል የለውም፤ $\\{0\\}$ ግን አንድ አባል አለው፦ 0።"
+      },
+      "hints": [
+        {
+          "en": "The empty set is a subset of every set.",
+          "am": "ባዶ ስብስብ የሁሉም ስብስቦች ንዑስ ስብስብ ነው።"
+        },
+        {
+          "en": "Can anything be an element of a set with no elements?",
+          "am": "አባል በሌለው ስብስብ ውስጥ አንድ ነገር አባል ሊሆን ይችላል?"
+        }
+      ],
+      "answers": [
+        {
+          "label": {
+            "en": "(i)",
+            "am": "(i)"
+          },
+          "spec": {
+            "kind": "choice",
+            "options": [
+              {
+                "en": "True",
+                "am": "እውነት"
+              },
+              {
+                "en": "False",
+                "am": "ሐሰት"
+              }
+            ],
+            "correct": 0
+          }
+        },
+        {
+          "label": {
+            "en": "(ii)",
+            "am": "(ii)"
+          },
+          "spec": {
+            "kind": "choice",
+            "options": [
+              {
+                "en": "True",
+                "am": "እውነት"
+              },
+              {
+                "en": "False",
+                "am": "ሐሰት"
+              }
+            ],
+            "correct": 1
+          }
+        },
+        {
+          "label": {
+            "en": "(iii)",
+            "am": "(iii)"
+          },
+          "spec": {
+            "kind": "choice",
+            "options": [
+              {
+                "en": "True",
+                "am": "እውነት"
+              },
+              {
+                "en": "False",
+                "am": "ሐሰት"
+              }
+            ],
+            "correct": 1
+          }
+        }
+      ],
+      "solution": {
+        "steps": [
+          {
+            "text": {
+              "en": "(i) True",
+              "am": "(i) እውነት"
+            },
+            "why": {
+              "en": "$\\emptyset$ is a subset of every set, and $\\emptyset \\ne \\{0\\}$, so it is a PROPER subset.",
+              "am": "$\\emptyset$ የሁሉም ስብስቦች ንዑስ ስብስብ ነው፤ $\\emptyset \\ne \\{0\\}$ ስለሆነ ትክክለኛ ንዑስ ስብስብ ነው።"
+            }
+          },
+          {
+            "text": {
+              "en": "(ii) False",
+              "am": "(ii) ሐሰት"
+            },
+            "why": {
+              "en": "$\\emptyset$ has no elements, so 0 cannot be in it.",
+              "am": "$\\emptyset$ አባል ስለሌለው 0 በውስጡ ሊኖር አይችልም።"
+            }
+          },
+          {
+            "text": {
+              "en": "(iii) False",
+              "am": "(iii) ሐሰት"
+            },
+            "why": {
+              "en": "$\\{0\\}$ has one element, $\\emptyset$ has none.",
+              "am": "$\\{0\\}$ አንድ አባል አለው፤ $\\emptyset$ ምንም የለውም።"
+            }
+          }
+        ],
+        "answer": {
+          "en": "True, False, False",
+          "am": "እውነት፣ ሐሰት፣ ሐሰት"
+        }
+      }
+    }
+  ]
+}

@@ -37,13 +37,16 @@ import { ReadAll } from "@/components/study/study-view";
 import { MainTopics } from "@/components/study/main-topics";
 import { GlossaryProvider } from "@/components/study/glossary";
 import { LanguageToggle } from "@/components/study/language-toggle";
+import { HomeworkEditor, RegionsInput, SetValueInput, VennDataEditor } from "@/components/admin/pages/math-editors";
 
-type Tab = "details" | "parts" | "terms" | "topics" | "quiz" | "preview";
+type Tab = "details" | "parts" | "terms" | "topics" | "homework" | "practice" | "quiz" | "preview";
 const TABS: { id: Tab; label: string }[] = [
   { id: "details", label: "Details" },
   { id: "parts", label: "Parts" },
   { id: "terms", label: "Key terms" },
   { id: "topics", label: "Main topics" },
+  { id: "homework", label: "Homework" },
+  { id: "practice", label: "Extra practice" },
   { id: "quiz", label: "Quiz" },
   { id: "preview", label: "Preview" },
 ];
@@ -194,6 +197,8 @@ export function LessonEditor({
           {tab === "parts" && <PartsTab data={data} patch={patch} />}
           {tab === "terms" && <TermsTab data={data} patch={patch} />}
           {tab === "topics" && <TopicsTab data={data} patch={patch} />}
+          {tab === "homework" && <HomeworkEditor items={data.homework ?? []} onChange={(h) => patch((d) => ((d.homework = h), d))} />}
+          {tab === "practice" && <HomeworkEditor idPrefix="p" items={data.practice ?? []} onChange={(h) => patch((d) => ((d.practice = h), d))} />}
           {tab === "quiz" && <QuizTab data={data} patch={patch} focus={focusQuestion} />}
           {tab === "preview" && <PreviewTab data={data} />}
         </motion.div>
@@ -574,7 +579,40 @@ function QuestionCard({ q, index, highlight, onChange, onRemove }: { q: EditorQu
           <Button size="sm" variant="ghost" className="ml-auto" aria-label={`Delete question ${index + 1}`} onClick={onRemove} icon={<Trash2 className="size-3.5" aria-hidden />} />
         </div>
         <div className="space-y-3">
-          <BiField label="Question" multiline rows={2} en={q.question_en} am={q.question_am} onChange={(v) => onChange({ ...q, question_en: v.en, question_am: v.am })} />
+          <Field label="Answer type">
+            <Select
+              value={q.kind ?? "choice"}
+              onChange={(e) => {
+                const kind = e.target.value as NonNullable<EditorQuestion["kind"]>;
+                onChange({
+                  ...q,
+                  kind,
+                  answer: kind === "number" ? { value: 0 } : kind === "set" ? { value: [] } : kind === "venn" ? { venn: { sets: 2, labels: ["A", "B"] }, regions: [] } : null,
+                  options_en: kind === "choice" && q.options_en.length < 2 ? ["", "", "", ""] : q.options_en,
+                  options_am: kind === "choice" && q.options_am.length < 2 ? ["", "", "", ""] : q.options_am,
+                });
+              }}
+            >
+              <option value="choice">Multiple choice</option>
+              <option value="number">Number</option>
+              <option value="set">Set, e.g. {"{-1, 0, 1}"}</option>
+              <option value="venn">Shade the Venn diagram</option>
+            </Select>
+          </Field>
+          <BiField label="Question (math in $…$)" multiline rows={2} en={q.question_en} am={q.question_am} onChange={(v) => onChange({ ...q, question_en: v.en, question_am: v.am })} />
+          {q.kind === "number" && (
+            <Field label="Correct number">
+              <Input type="number" step="any" value={Number(q.answer?.value ?? 0)} onChange={(e) => onChange({ ...q, answer: { value: Number(e.target.value) } })} />
+            </Field>
+          )}
+          {q.kind === "set" && <SetValueInput value={Array.isArray(q.answer?.value) ? q.answer.value : []} onChange={(value) => onChange({ ...q, answer: { value } })} />}
+          {q.kind === "venn" && q.answer?.venn && (
+            <>
+              <VennDataEditor venn={q.answer.venn} withElements={false} onChange={(venn) => onChange({ ...q, answer: { venn, regions: venn.sets === q.answer?.venn?.sets ? (q.answer?.regions ?? []) : [] } })} />
+              <RegionsInput venn={q.answer.venn} regions={q.answer.regions ?? []} onChange={(regions) => onChange({ ...q, answer: { ...q.answer, regions } })} />
+            </>
+          )}
+          {(q.kind ?? "choice") === "choice" && (
           <fieldset>
             <legend className="mb-1.5 text-[13px] font-medium text-ink/80">Options (choose the correct one)</legend>
             <div className="space-y-2">
@@ -613,7 +651,24 @@ function QuestionCard({ q, index, highlight, onChange, onRemove }: { q: EditorQu
               </Button>
             )}
           </fieldset>
+          )}
           <BiField label="Explanation (why)" multiline rows={2} en={q.explanation_en} am={q.explanation_am} onChange={(v) => onChange({ ...q, explanation_en: v.en, explanation_am: v.am })} />
+          <div className="space-y-2">
+            <p className="text-[13px] font-medium text-ink/80">Step-by-step explanation (shown after answering)</p>
+            {(q.steps ?? []).map((s, k, all) => (
+              <div key={k} className="flex items-start gap-2">
+                <div className="min-w-0 flex-1">
+                  <BiField label={`Step ${k + 1}`} en={s.text.en} am={s.text.am} onChange={(text) => onChange({ ...q, steps: all.map((x, j) => (j === k ? { text } : x)) })} />
+                </div>
+                <Button size="sm" variant="ghost" className="mt-6" aria-label={`Remove step ${k + 1}`} onClick={() => onChange({ ...q, steps: all.filter((_, j) => j !== k) })} icon={<Trash2 className="size-3.5" aria-hidden />} />
+              </div>
+            ))}
+            {(q.steps?.length ?? 0) < 10 && (
+              <Button size="sm" icon={<Plus className="size-3.5" aria-hidden />} onClick={() => onChange({ ...q, steps: [...(q.steps ?? []), { text: { en: "", am: "" } }] })}>
+                Add step
+              </Button>
+            )}
+          </div>
         </div>
       </Card>
     </Reorder.Item>
