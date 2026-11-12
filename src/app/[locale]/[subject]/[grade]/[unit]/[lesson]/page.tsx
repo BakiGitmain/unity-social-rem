@@ -75,6 +75,8 @@ export default async function LessonPage({ params }: { params: Params }) {
       ) : (
       <StudyView
         locale={locale}
+        subject={tree.slug}
+        subjectId={tree.id}
         lesson={l}
         sections={content.sections}
         mainTopics={content.mainTopics}

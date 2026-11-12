@@ -15,9 +15,12 @@ const IDLE_MS = 10_000;
 const snap = { type: "spring", stiffness: 420, damping: 32, mass: 0.9 } as const;
 
 export type Side = "left" | "right";
+
 export type BubbleHandle = { focus: () => void };
 
 /** Safe area for the bubble: below the header, above the mobile tab bar. */
+/** Height of the 📝 notes button stacked above Rem (it moves together with Rem). */
+const STACK = 54;
 function bounds() {
   const w = window.innerWidth;
   const h = window.innerHeight;
@@ -25,7 +28,7 @@ function bounds() {
   return {
     minX: EDGE,
     maxX: w - SIZE - EDGE,
-    minY: mobile ? 72 : 88,
+    minY: (mobile ? 72 : 88) + STACK,
     maxY: h - SIZE - (mobile ? 104 : 24),
   };
 }
@@ -50,8 +53,18 @@ function savePos(side: Side, y: number) {
  */
 export const Bubble = forwardRef<
   BubbleHandle,
-  { hidden: boolean; locale: Locale; onOpen: () => void; onSide: (s: Side) => void; onWarmUp: () => void }
->(function Bubble({ hidden, locale, onOpen, onSide, onWarmUp }, ref) {
+  {
+    hidden: boolean;
+    locale: Locale;
+    onOpen: () => void;
+    onSide: (s: Side) => void;
+    onWarmUp: () => void;
+    /** Shown just above Rem and dragged together with it (the 📝 notes button). */
+    extra?: React.ReactNode;
+    /** Hide Rem itself (AI tutor switched off) but keep `extra`. */
+    remHidden?: boolean;
+  }
+>(function Bubble({ hidden, locale, onOpen, onSide, onWarmUp, extra, remHidden = false }, ref) {
   const x = useMotionValue(-200);
   const y = useMotionValue(-200);
   const [ready, setReady] = useState(false);
@@ -189,9 +202,10 @@ export const Bubble = forwardRef<
             onWarmUp();
           }}
         >
+          {extra && <div className="absolute bottom-[calc(100%+10px)] left-1/2 -translate-x-1/2">{extra}</div>}
           {/* Tooltip, on the side facing the page */}
           <AnimatePresence>
-            {tip && (
+            {tip && !remHidden && (
               <motion.button
                 type="button"
                 onClick={dismissTip}
@@ -211,6 +225,7 @@ export const Bubble = forwardRef<
           <motion.button
             ref={btn}
             type="button"
+            hidden={remHidden}
             aria-label={t(locale, "askRem")}
             onClick={() => {
               if (dragged.current) return; // a drag is not a tap

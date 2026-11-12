@@ -6,10 +6,13 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useDragControls, type PanInfo } from "framer-motion";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
-import { ArrowUp, Check, Copy, Globe, RotateCcw, Sparkles, Square, ThumbsDown, ThumbsUp, X } from "lucide-react";
+import { ArrowUp, Check, Copy, Globe, NotebookPen, RotateCcw, Sparkles, Square, ThumbsDown, ThumbsUp, X } from "lucide-react";
+import { useSaveNote } from "@/components/notes/save-context";
 import { createClient } from "@/lib/supabase/client";
 import { useUser } from "@/components/user-provider";
 import { Markdown } from "@/components/tutor/markdown";
+import { MathText } from "@/components/math/tex";
+import { healStreaming } from "@/lib/tutor/stream-md";
 import { t, type SiteKey } from "@/lib/site-i18n";
 import type { Locale } from "@/lib/locale";
 import {
@@ -376,6 +379,8 @@ function Chat({
   const { messages, sendMessage, status, stop, setMessages, error, clearError, regenerate } = useChat<RemMessage>({
     id: `rem-${lessonId}`,
     transport,
+    // re-render (Markdown + KaTeX) at most every 50 ms while streaming, not on every token
+    throttle: 50,
     onFinish: ({ messages: all, message, isAbort, isError }) => {
       const meta = message.metadata;
       if (typeof meta?.messagesLeft === "number") setLeft(meta.messagesLeft);
@@ -705,7 +710,8 @@ function AssistantMessage({
         {searched && <p className={`mb-1.5 text-xs font-medium text-muted ${am}`}>{ui("searchedWeb")}</p>}
         {body && (
           <div className="text-[15px] leading-relaxed text-ink/90">
-            <Markdown text={body} />
+            {/* while streaming: open **, $, [ … are closed/hidden so raw Markdown never flashes */}
+            <Markdown text={streaming ? healStreaming(body) : body} />
             {streaming && <span className="ml-0.5 inline-block h-4 w-1.5 translate-y-0.5 animate-pulse rounded-full bg-accent/60 align-baseline" aria-hidden />}
           </div>
         )}
@@ -752,7 +758,7 @@ function AssistantMessage({
                 onClick={() => onSend(f)}
                 className="rounded-full bg-[var(--accent-tint)] px-3 py-1.5 text-left text-[13px] font-medium text-accent-ink ring-1 ring-accent/20 transition-colors hover:bg-accent-soft disabled:opacity-50"
               >
-                {f}
+                <MathText text={f} />
               </button>
             ))}
           </div>
@@ -793,6 +799,7 @@ function Actions({
   const am = locale === "am" ? "am" : "";
   const [copied, setCopied] = useState(false);
   const [vote, setVote] = useState<1 | -1 | null>(null);
+  const saveNote = useSaveNote();
 
   const copy = async () => {
     try {
@@ -823,6 +830,12 @@ function Actions({
         {copied ? <Check className="size-3.5 text-good" aria-hidden /> : <Copy className="size-3.5" aria-hidden />}
         <span className="sr-only sm:not-sr-only">{copied ? ui("copied") : ui("copy")}</span>
       </button>
+      {saveNote && (
+        <button type="button" onClick={() => saveNote(body, question)} className={chip} aria-label={ui("saveToNotes")}>
+          <NotebookPen className="size-3.5" aria-hidden />
+          <span className="sr-only sm:not-sr-only">{ui("saveToNotes")}</span>
+        </button>
+      )}
       {full && (
         <>
           <button type="button" disabled={!canAct} onClick={() => onSend(ui("askSimpler"))} className={chip}>

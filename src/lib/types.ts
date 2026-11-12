@@ -64,6 +64,8 @@ export type HomeworkItem = {
   compare?: { label: Bi; shade: string }[];
   /** Warm-up before the homework: shown first, never counted. */
   warmup?: boolean;
+  /** Show "Calculation paper" + "Calculator" (default: Mathematics written / choice questions only). */
+  needs_calculation?: boolean;
   solution: { steps: WorkedStep[]; answer: Bi; venn?: VennData };
 };
 
@@ -179,6 +181,8 @@ export type QuizQuestion = {
   explanation_am: string;
   /** choice (default) | number | set | venn */
   kind?: "choice" | "number" | "set" | "venn";
+  /** Show "Calculation paper" + "Calculator" for this question. */
+  needs_calculation?: boolean;
   /** number: { value } · set: { value: [...] } · venn: { venn, regions } */
   answer?: { value?: number | string[]; venn?: VennData; regions?: string[] } | null;
   /** Step-by-step explanation shown after answering. */

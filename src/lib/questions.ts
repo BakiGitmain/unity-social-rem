@@ -16,6 +16,8 @@ export type UQuestion = {
   tip?: Bi;
   hints?: Bi[];
   solution?: { steps: WorkedStep[]; answer: Bi; venn?: VennData };
+  /** Show "Calculation paper" + "Calculator" (only where calculating or drawing helps). */
+  needsCalc: boolean;
   /** Numbered drawing shown at the top (tap a region to see its number). */
   figure?: { venn: VennData; caption?: Bi };
   /** After Check: these shadings side by side (e.g. left side vs right side). */
@@ -37,15 +39,22 @@ function fieldSpec(spec: AnswerSpec, lang: Lang): FieldSpec {
   return spec;
 }
 
-export function fromHomework(item: HomeworkItem, lang: Lang): UQuestion {
+/** Default for homework items without the flag: Mathematics written / choice questions only. */
+export function defaultNeedsCalc(subject: string | undefined, type: QuestionType): boolean {
+  return subject === "mathematics" && (type === "written" || type === "choice");
+}
+
+export function fromHomework(item: HomeworkItem, lang: Lang, subject?: string): UQuestion {
   const parts = item.answers.map((a) => ({
     label: lang === "am" ? a.label.am : a.label.en,
     spec: fieldSpec(a.spec, lang),
     group: a.group ? (lang === "am" ? a.group.am : a.group.en) : undefined,
   }));
+  const type = item.type ?? inferType(parts.map((p) => p.spec.kind));
   return {
     id: item.id,
-    type: item.type ?? inferType(parts.map((p) => p.spec.kind)),
+    type,
+    needsCalc: item.needs_calculation ?? defaultNeedsCalc(subject, type),
     text: item.question,
     parts,
     tip: item.tip,
@@ -71,6 +80,7 @@ export function fromQuiz(q: QuizQuestion, lang: "en" | "am"): UQuestion {
     type: inferType([spec.kind]),
     text: { en: q.question_en, am: q.question_am },
     parts: [{ label: "", spec }],
+    needsCalc: q.needs_calculation === true,
     explanation: { en: q.explanation_en, am: q.explanation_am },
     steps: q.steps,
   };

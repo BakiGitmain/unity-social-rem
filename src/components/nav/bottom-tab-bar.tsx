@@ -4,7 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, type PanInfo, type Transition } from "framer-motion";
-import { CalendarDays, CircleUserRound, House, type LucideIcon } from "lucide-react";
+import { CalendarDays, CircleUserRound, House, NotebookPen, type LucideIcon } from "lucide-react";
+import { useDueCount } from "@/lib/notes/use-due";
 import { useUser } from "@/components/user-provider";
 import { useSiteSettings } from "@/components/site-settings";
 import { AccountPanel } from "@/components/nav/account-panel";
@@ -37,7 +38,10 @@ export function BottomTabBar({ locale }: { locale: Locale }) {
   const themed = subject && SUBJECT_THEMES[subject] ? subjectStyle(subject) : undefined;
 
   const onAuthPage = /^\/(login|signup)/.test(pathname);
-  const active = sheet || onAuthPage ? "profile" : pathname.startsWith("/schedule") ? "schedule" : "home";
+  // A notes board has its own bottom toolbar.
+  const onBoard = /^\/notes\/(?!review)[^/]+/.test(pathname);
+  const active = sheet || onAuthPage ? "profile" : pathname.startsWith("/schedule") ? "schedule" : pathname.startsWith("/notes") ? "notes" : "home";
+  const due = useDueCount();
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -59,6 +63,7 @@ export function BottomTabBar({ locale }: { locale: Locale }) {
   const allTabs: TabDef[] = [
     { id: "home", href: "/", label: t(locale, "home"), am: locale === "am", icon: { kind: "lucide", Icon: House, bounce: true } },
     { id: "schedule", href: "/schedule", label: t(locale, "schedule"), am: locale === "am", icon: { kind: "lucide", Icon: CalendarDays, bounce: true } },
+    { id: "notes", href: "/notes", label: t(locale, "notes"), am: locale === "am", badge: due, icon: { kind: "lucide", Icon: NotebookPen, bounce: true } },
     {
       id: "profile",
       label: username ? `@${username}` : t(locale, "login"),
@@ -76,7 +81,7 @@ export function BottomTabBar({ locale }: { locale: Locale }) {
         style={themed}
         className="pointer-events-none fixed inset-x-0 bottom-[calc(16px+env(safe-area-inset-bottom))] z-40 flex justify-center px-4 md:hidden"
         initial={false}
-        animate={{ y: hidden ? 130 : 0, opacity: hidden ? 0.6 : 1 }}
+        animate={{ y: hidden || onBoard ? 130 : 0, opacity: hidden || onBoard ? 0 : 1 }}
         transition={{ type: "spring", stiffness: 420, damping: 40 }}
       >
         <div className="pointer-events-auto flex items-center gap-1 rounded-full bg-white/80 p-1.5 shadow-[0_10px_30px_-10px_rgba(29,42,44,0.28),0_1px_2px_rgba(29,42,44,0.06)] ring-1 ring-black/[0.06] backdrop-blur-xl backdrop-saturate-150">
@@ -127,7 +132,7 @@ export function BottomTabBar({ locale }: { locale: Locale }) {
 /* ---------------- tabs ---------------- */
 
 type TabIcon = { kind: "lucide"; Icon: LucideIcon; bounce?: boolean } | { kind: "avatar"; letter: string };
-type TabDef = { id: string; label: string; am: boolean; icon: TabIcon; href?: string; onClick?: () => void };
+type TabDef = { id: string; label: string; am: boolean; icon: TabIcon; href?: string; onClick?: () => void; badge?: number };
 
 function Tab({ tab, active }: { tab: TabDef; active: boolean }) {
   const content = (
@@ -140,6 +145,11 @@ function Tab({ tab, active }: { tab: TabDef; active: boolean }) {
         <motion.span layoutId="tabbar-pill" className="absolute inset-0 rounded-full bg-accent-soft" transition={glide} />
       )}
       <TabGlyph icon={tab.icon} active={active} />
+      {!!tab.badge && (
+        <span className="absolute top-1 right-1 grid min-w-[18px] place-items-center rounded-full bg-accent px-1 text-[10px] leading-[18px] font-semibold text-white tabular-nums ring-2 ring-white" aria-hidden>
+          {tab.badge > 99 ? "99+" : tab.badge}
+        </span>
+      )}
       <AnimatePresence initial={false}>
         {active && (
           <motion.span
@@ -160,7 +170,7 @@ function Tab({ tab, active }: { tab: TabDef; active: boolean }) {
   );
 
   const common = {
-    "aria-label": tab.label,
+    "aria-label": tab.badge ? `${tab.label} (${tab.badge})` : tab.label,
     className: "rounded-full outline-offset-2 [-webkit-tap-highlight-color:transparent]",
   };
   return tab.href ? (

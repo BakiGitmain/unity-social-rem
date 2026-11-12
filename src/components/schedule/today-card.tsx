@@ -104,7 +104,7 @@ export function TodayCard({ entries, overrides, locale }: { entries: ClassEntry[
             )}
             {status.kind === "rest" && (
               <div className="flex items-center gap-4 rounded-2xl bg-[var(--accent-tint)] px-4 py-4">
-                <Image src="/illustrations/rest-day.svg" alt="" width={120} height={90} className="h-20 w-auto shrink-0 sm:h-24" />
+                <Image src="/illustrations/rest-day.svg" alt="" width={120} height={90} loading="eager" className="h-20 w-auto shrink-0 sm:h-24" />
                 <div className="min-w-0">
                   <p className="font-semibold text-ink">{t(locale, "restDay")}</p>
                   <p className="mt-0.5 text-sm text-muted">{t(locale, "restDayText")}</p>

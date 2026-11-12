@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 import { LOCALE_COOKIE, isLocale } from "@/lib/locale";
-import { ADMIN_ACTIVE_COOKIE, decideAdminAccess, isAdminPath } from "@/lib/admin/access";
+import { decideAdminAccess, isAdminPath } from "@/lib/admin/access";
 import { mergeSettings, type SiteSettings } from "@/lib/settings";
 
 /**
@@ -83,35 +83,14 @@ export async function proxy(request: NextRequest) {
 
   /* ---------- /admin: layer 1 ---------- */
   if (admin) {
-    const raw = request.cookies.get(ADMIN_ACTIVE_COOKIE)?.value;
     const access = decideAdminAccess({
       hasUser: !!claims?.sub,
       isAdminRole: await isAdminRole(),
       aal: claims?.aal as string | undefined,
-      lastActive: raw ? Number(raw) : null,
-      now: Date.now(),
     });
     if (access === "not_found") return notFound(request, locale);
-    if (access === "expired") {
-      await supabase!.auth.signOut();
-      const url = request.nextUrl.clone();
-      url.pathname = "/login";
-      url.search = "?next=/admin";
-      const redirect = NextResponse.redirect(url);
-      response.cookies.getAll().forEach((c) => redirect.cookies.set(c));
-      redirect.cookies.delete(ADMIN_ACTIVE_COOKIE);
-      return redirect;
-    }
-    // Sliding 30-minute idle window (only once 2FA is done).
-    if (access === "ok") {
-      response.cookies.set(ADMIN_ACTIVE_COOKIE, String(Date.now()), {
-        httpOnly: true,
-        sameSite: "strict",
-        secure: process.env.NODE_ENV === "production",
-        path: "/",
-        maxAge: 60 * 60 * 12,
-      });
-    }
+    // The old idle cookie is no longer used.
+    if (request.cookies.has("usr-admin-active")) response.cookies.delete("usr-admin-active");
     for (const [k, v] of Object.entries(SECURITY_HEADERS)) response.headers.set(k, v);
     return response;
   }

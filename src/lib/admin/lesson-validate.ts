@@ -17,6 +17,8 @@ export type EditorQuestion = {
   correct_index: number;
   /** choice (default) | number | set | venn */
   kind?: "choice" | "number" | "set" | "venn";
+  /** Show "Calculation paper" + "Calculator" for this question. */
+  needs_calculation?: boolean;
   /** number: { value } · set: { value: [...] } · venn: { venn, regions } */
   answer?: { value?: number | string[]; venn?: VennData; regions?: string[] } | null;
   steps?: { text: Bi }[];

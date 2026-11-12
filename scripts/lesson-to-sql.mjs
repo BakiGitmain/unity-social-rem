@@ -394,13 +394,13 @@ out.push(`  insert into public.quizzes (lesson_id, title_en, title_am, descripti
   returning id into v_quiz_id;`);
 out.push("");
 out.push(
-  "  insert into public.quiz_questions (quiz_id, sort_order, kind, question_en, question_am, options_en, options_am, correct_index, answer, steps, explanation_en, explanation_am) values",
+  "  insert into public.quiz_questions (quiz_id, sort_order, kind, needs_calculation, question_en, question_am, options_en, options_am, correct_index, answer, steps, explanation_en, explanation_am) values",
 );
 out.push(
   q.questions
     .map(
       (qq, i) =>
-        `    (v_quiz_id, ${i + 1}, ${lit(qq.kind ?? "choice")}, ${lit(qq.question.en)}, ${lit(qq.question.am)},\n     ${arr((qq.options ?? []).map((o) => o.en))},\n     ${arr((qq.options ?? []).map((o) => o.am))},\n     ${(qq.kind ?? "choice") === "choice" ? qq.answer : 0}, ${(qq.kind ?? "choice") === "choice" ? "null" : json(qq.answer)}, ${json(qq.steps ?? [])},\n     ${lit(qq.explanation.en)}, ${lit(qq.explanation.am)})`,
+        `    (v_quiz_id, ${i + 1}, ${lit(qq.kind ?? "choice")}, ${qq.needs_calculation ?? (data.subject === "mathematics" && (qq.kind ?? "choice") !== "venn") ? "true" : "false"}, ${lit(qq.question.en)}, ${lit(qq.question.am)},\n     ${arr((qq.options ?? []).map((o) => o.en))},\n     ${arr((qq.options ?? []).map((o) => o.am))},\n     ${(qq.kind ?? "choice") === "choice" ? qq.answer : 0}, ${(qq.kind ?? "choice") === "choice" ? "null" : json(qq.answer)}, ${json(qq.steps ?? [])},\n     ${lit(qq.explanation.en)}, ${lit(qq.explanation.am)})`,
     )
     .join(",\n") + ";",
 );

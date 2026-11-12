@@ -7,6 +7,8 @@ export type SiteSettings = {
   site: { name: string; logo_url: string | null; default_locale: "en" | "am" };
   maintenance: { enabled: boolean; message_en: string; message_am: string };
   features: { signups: boolean; ai_tutor: boolean; schedule: boolean; learn_mode: boolean };
+  /** Notes limits (the database enforces them too). */
+  notes: { max_boards: number; max_cards: number; image_mb: number; storage_mb: number };
 };
 
 export type AiSettings = {
@@ -35,6 +37,7 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   site: { name: "Unity Social Rem", logo_url: null, default_locale: "en" },
   maintenance: { enabled: false, message_en: "", message_am: "" },
   features: { signups: true, ai_tutor: true, schedule: true, learn_mode: true },
+  notes: { max_boards: 200, max_cards: 1000, image_mb: 2, storage_mb: 100 },
 };
 
 export const DEFAULT_AI: AiSettings = {

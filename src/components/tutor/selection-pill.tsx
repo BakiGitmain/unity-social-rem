@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Languages, Sparkles } from "lucide-react";
+import { Languages, NotebookPen, Sparkles } from "lucide-react";
 import { t } from "@/lib/site-i18n";
 import type { Locale } from "@/lib/locale";
 import { TUTOR } from "@/lib/tutor/config";
@@ -20,9 +20,15 @@ const PARA = "p, li, td, th, blockquote, h2, h3, [data-block]";
 export function SelectionPill({
   locale,
   onAsk,
+  onNote,
+  canAsk = true,
 }: {
   locale: Locale;
   onAsk: (quote: string, paragraph: string, amharic: boolean) => void;
+  /** "📝 Add to notes": quote the selection on a notes board. */
+  onNote?: (quote: string, paragraph: string) => void;
+  /** Rem's buttons (off when the AI tutor is switched off). */
+  canAsk?: boolean;
 }) {
   const [picked, setPicked] = useState<Picked | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
@@ -73,6 +79,12 @@ export function SelectionPill({
     setPicked(null);
   };
 
+  const note = () => {
+    if (!picked) return;
+    onNote?.(picked.text, picked.paragraph);
+    window.getSelection()?.removeAllRanges();
+    setPicked(null);
+  };
   const am = locale === "am" ? "am" : "";
 
   return (
@@ -91,6 +103,8 @@ export function SelectionPill({
           // Keep the selection while clicking the pill (desktop).
           onPointerDown={(e) => e.preventDefault()}
         >
+{canAsk && (
+            <>
           <button
             type="button"
             onClick={() => ask(false)}
@@ -108,6 +122,21 @@ export function SelectionPill({
             <Languages className="size-3.5 text-accent-soft" aria-hidden />
             {t(locale, "inAmharic")}
           </button>
+            </>
+          )}
+          {onNote && (
+            <>
+              {canAsk && <span className="h-4 w-px bg-white/20" aria-hidden />}
+              <button
+                type="button"
+                onClick={note}
+                className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 transition-colors hover:bg-white/15 focus-visible:bg-white/15 focus-visible:outline-none ${am}`}
+              >
+                <NotebookPen className="size-3.5 text-accent-soft" aria-hidden />
+                {t(locale, "addToNotes")}
+              </button>
+            </>
+          )}
         </motion.div>
       )}
     </AnimatePresence>

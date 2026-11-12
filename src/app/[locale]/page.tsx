@@ -44,7 +44,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
                     alt=""
                     width={320}
                     height={240}
-                    priority={i < 2}
+                    loading="eager"
                     className="mx-auto h-36 w-auto transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                   />
                 </div>

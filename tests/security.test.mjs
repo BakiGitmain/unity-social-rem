@@ -10,7 +10,7 @@ import assert from "node:assert/strict";
 import { createHmac, randomBytes } from "node:crypto";
 import { createClient } from "@supabase/supabase-js";
 import { createServerClient } from "@supabase/ssr";
-import { decideAdminAccess, ADMIN_IDLE_MS } from "../src/lib/admin/access.ts";
+import { decideAdminAccess } from "../src/lib/admin/access.ts";
 
 process.loadEnvFile(new URL("../.env.local", import.meta.url));
 const URL_ = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -66,17 +66,15 @@ after(async () => {
 /* ------------------------------------------------------------------ 1. access rule */
 
 describe("access decision (shared by the proxy and the admin layout)", () => {
-  const now = Date.now();
   test("no session or not an admin → 404", () => {
-    assert.equal(decideAdminAccess({ hasUser: false, isAdminRole: false, aal: null, lastActive: null, now }), "not_found");
-    assert.equal(decideAdminAccess({ hasUser: true, isAdminRole: false, aal: "aal2", lastActive: null, now }), "not_found");
+    assert.equal(decideAdminAccess({ hasUser: false, isAdminRole: false, aal: null }), "not_found");
+    assert.equal(decideAdminAccess({ hasUser: true, isAdminRole: false, aal: "aal2" }), "not_found");
   });
   test("admin without 2FA (AAL1) → only the 2FA screen", () => {
-    assert.equal(decideAdminAccess({ hasUser: true, isAdminRole: true, aal: "aal1", lastActive: null, now }), "mfa");
+    assert.equal(decideAdminAccess({ hasUser: true, isAdminRole: true, aal: "aal1" }), "mfa");
   });
-  test("admin with AAL2 → ok; idle > 30 min → signed out", () => {
-    assert.equal(decideAdminAccess({ hasUser: true, isAdminRole: true, aal: "aal2", lastActive: now - 60_000, now }), "ok");
-    assert.equal(decideAdminAccess({ hasUser: true, isAdminRole: true, aal: "aal2", lastActive: now - ADMIN_IDLE_MS - 1000, now }), "expired");
+  test("admin with AAL2 → ok: ONE code per login, no idle sign-out", () => {
+    assert.equal(decideAdminAccess({ hasUser: true, isAdminRole: true, aal: "aal2" }), "ok");
   });
 });
 
@@ -178,6 +176,9 @@ describe("an admin", () => {
     assert.equal((await a.sb.rpc("has_admin_role")).data, true);
     assert.equal((await a.sb.rpc("is_admin")).data, false);
     assert.ok((await a.sb.rpc("admin_users")).error, "admin_users must need AAL2");
+    assert.ok((await a.sb.rpc("admin_my_sessions")).error, "admin sessions need AAL2");
+    assert.ok((await a.sb.rpc("admin_revoke_my_sessions", { p_id: null })).error, "revoking sessions needs AAL2");
+    assert.ok((await a.sb.rpc("admin_user_notes_stats", { p_user: user.id })).error, "notes stats need AAL2");
     const res = await getAdminPage(a.cookie());
     assert.equal(res.status, 200);
     const html = await res.text();
@@ -229,6 +230,21 @@ describe("an admin", () => {
       const expect = { "/admin": /Recent activity/, "/admin/users": /accounts/, "/admin/ai": /System prompt/, "/admin/audit": /append-only/i }[path];
       if (expect) assert.match(html, expect, `${path} content missing`);
     }
+
+    // ONE code per login: an old "idle" cookie from hours ago no longer signs the admin out or asks for 2FA again.
+    const old = await fetch(`${BASE}/admin`, { headers: { cookie: `${a.cookie()}; usr-admin-active=${Date.now() - 6 * 3600_000}` }, redirect: "manual" });
+    assert.equal(old.status, 200, "no idle sign-out");
+    assert.doesNotMatch(await old.text(), /two-step verification/i, "no second code in the same login");
+
+    // Own sessions: list them; the database still requires AAL2 for it.
+    const sessions = await a.sb.rpc("admin_my_sessions");
+    assert.ifError(sessions.error);
+    assert.ok(sessions.data.some((x) => x.is_current), "the current device is listed");
+
+    // Notes privacy: an admin gets counts, never the content.
+    const stats = await a.sb.rpc("admin_user_notes_stats", { p_user: user.id });
+    assert.ifError(stats.error);
+    assert.equal(typeof stats.data.boards, "number");
 
     // The audit log is append-only, even for admins.
     const logged = await a.sb.rpc("log_admin_action", { p_action: "test.ping", p_target_type: null, p_target_id: null, p_before: null, p_after: null });

@@ -303,3 +303,52 @@ export async function getTutorLesson(lessonId: string): Promise<import("@/lib/tu
     glossary: r.glossary ?? [],
   };
 }
+
+/** Notes: every lesson with its place (subject → grade → unit), for lesson chips and links. Public content only. */
+export type NotesLesson = {
+  id: string;
+  code: string;
+  title_en: string;
+  title_am: string;
+  href: string;
+  subject: { id: string; slug: string; name_en: string; name_am: string; color: string | null };
+  grade: number;
+  unit_en: string;
+  unit_am: string;
+  order: number;
+};
+export async function getNotesIndex(): Promise<NotesLesson[]> {
+  "use cache";
+  life();
+  cacheTag("content");
+  const { data, error } = await createPublicClient()
+    .from("subjects")
+    .select("id, slug, name_en, name_am, color, sort_order, grades(number, slug, units(number, slug, label_en, label_am, lessons(id, code, slug, sort_order, title_en, title_am, status)))")
+    .order("sort_order");
+  if (error) throw new Error(`Could not load the lesson index: ${error.message}`);
+  type L = { id: string; code: string; slug: string; sort_order: number; title_en: string; title_am: string; status?: string };
+  type U = { number: number; slug: string; label_en: string; label_am: string; lessons: L[] };
+  type G = { number: number; slug: string; units: U[] };
+  type S = { id: string; slug: string; name_en: string; name_am: string; color: string | null; sort_order: number; grades: G[] };
+  const out: NotesLesson[] = [];
+  let order = 0;
+  for (const s of data as S[])
+    for (const g of [...s.grades].sort(byNumber))
+      for (const u of [...g.units].sort(byNumber))
+        for (const l of [...u.lessons].sort(bySort)) {
+          if (l.status && l.status !== "published") continue;
+          out.push({
+            id: l.id,
+            code: l.code,
+            title_en: l.title_en,
+            title_am: l.title_am,
+            href: `/${s.slug}/${g.slug}/${u.slug}/${l.slug}`,
+            subject: { id: s.id, slug: s.slug, name_en: s.name_en, name_am: s.name_am, color: s.color },
+            grade: g.number,
+            unit_en: u.label_en,
+            unit_am: u.label_am,
+            order: order++,
+          });
+        }
+  return out;
+}

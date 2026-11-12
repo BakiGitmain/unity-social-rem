@@ -31,10 +31,11 @@ const spring = { type: "spring", stiffness: 520, damping: 38 } as const;
 
 /* ------------------------------------------------------------------ document + history (saved in IndexedDB) */
 
-export function useInkDoc(storageKey: string | null) {
-  const [doc, setDoc] = useState<InkDoc>(EMPTY_DOC);
+/** `initial`: a drawing to start from when it is not stored by key (e.g. a drawing card on a notes board). */
+export function useInkDoc(storageKey: string | null, initial?: InkDoc | null) {
+  const [doc, setDoc] = useState<InkDoc>(() => initial ?? EMPTY_DOC);
   const [loaded, setLoaded] = useState(!storageKey);
-  const history = useRef(createHistory<InkItem[]>([]));
+  const history = useRef(createHistory<InkItem[]>(initial?.items ?? []));
   const docRef = useRef(doc);
   const [hist, setHist] = useState({ undo: false, redo: false });
   const save = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);

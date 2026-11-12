@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useId, useState } from "react";
+import { useActionState, useEffect, useId, useLayoutEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
@@ -15,7 +15,22 @@ type Availability = "idle" | "invalid" | "checking" | "available" | "taken";
 
 const spring = { type: "spring", stiffness: 500, damping: 32 } as const;
 
-export function AuthForm({ mode, locale }: { mode: "login" | "signup"; locale: Locale }) {
+/**
+ * Next.js keeps the previous page alive but hidden (React Activity), so going login → signup would leave a
+ * second, invisible set of username/password inputs in the page that password managers and screen readers
+ * could fill. Only render the real form while this page is the visible one.
+ */
+export function AuthForm(props: { mode: "login" | "signup"; locale: Locale }) {
+  const [active, setActive] = useState(true);
+  useLayoutEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setActive(true);
+    return () => setActive(false);
+  }, []);
+  return active ? <AuthFormInner {...props} /> : <AuthFormSkeleton />;
+}
+
+function AuthFormInner({ mode, locale }: { mode: "login" | "signup"; locale: Locale }) {
   const isSignup = mode === "signup";
   const next = safeNext(useSearchParams().get("next"));
   const [state, action, pending] = useActionState<AuthState, FormData>(isSignup ? signUp : logIn, null);

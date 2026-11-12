@@ -29,10 +29,18 @@ import {
 
 /**
  * AI study tutor "Rem". Streams answers from OpenAI (key stays on the server).
- * Order: burst limit → login → start_ai_message (kill switch, budget, daily limit, settings)
- *        + moderation + lesson, in parallel → stream → record tokens/cost.
+ * Order: burst limit → login → start_ai_message (kill switch, budget, daily limit, settings) + lesson, in parallel
+ *        → the model starts → moderation (started at the same time as the DB call) must pass before ANY of the
+ *        answer is sent; flagged → the model call is aborted → record tokens/cost.
+ * Speed (tests/tutor-speed.mjs): the model's first token is the slow part (~1–2 s), so moderation (~0.3–0.6 s) runs
+ * while the model is already working instead of before it.
  */
 export const maxDuration = 30;
+
+/** Warm-up ping (the chat bubble calls it on hover / touch): starts a cold server function before the question. */
+export function GET() {
+  return new Response(null, { status: 204, headers: { "cache-control": "no-store" } });
+}
 
 type Body = {
   messages?: UIMessage[];
@@ -159,10 +167,11 @@ export async function POST(req: Request) {
   if (!question) return json(400, "bad_request");
   if (question.length > TUTOR.maxInputChars) return json(400, "too_long");
 
-  // 3) Kill switch + budget + daily limit + settings (one DB call), moderation and the lesson, in parallel.
-  const [start, mod, lesson] = await Promise.all([
+  // 3) Kill switch + budget + daily limit + settings (one DB call) and the lesson, in parallel. Moderation starts
+  //    now too, but is only awaited after the model has started (see below).
+  const moderation = moderate(question);
+  const [start, lesson] = await Promise.all([
     supabase.rpc("start_ai_message", { p_lesson_id: body.lessonId }),
-    moderate(question),
     getTutorLesson(body.lessonId),
   ]);
   const s = start.data as Start | null;
@@ -174,11 +183,6 @@ export async function POST(req: Request) {
     return staticReply(MSG.resting[locale], { resting: true });
   }
   const messagesLeft = Math.max(0, (s.limit ?? TUTOR.dailyMessages) - (s.messages ?? 0));
-
-  if (mod.flagged) {
-    await supabase.rpc("log_ai_moderation", { p_lesson_id: body.lessonId, p_message: question, p_categories: mod.categories });
-    return staticReply(MSG.flagged[locale], { messagesLeft });
-  }
 
   // 4) Model input: short stable system prompt + current part only + last messages (text only).
   const messages: ModelMessage[] = [];
@@ -227,7 +231,9 @@ export async function POST(req: Request) {
     }
   });
 
+  const abort = new AbortController();
   const result = streamText({
+    abortSignal: abort.signal,
     model: openai(s.model || process.env.OPENAI_MODEL || "gpt-6-luna"),
     instructions: `${systemPrompt(s.system_prompt)}\n\n${buildContext(lesson, view, part)}`,
     messages,
@@ -265,6 +271,14 @@ export async function POST(req: Request) {
     onError: () => resolveUsage(null),
     onAbort: () => resolveUsage(null),
   });
+
+  // Nothing of the answer leaves the server before moderation has passed.
+  const mod = await moderation;
+  if (mod.flagged) {
+    abort.abort();
+    await supabase.rpc("log_ai_moderation", { p_lesson_id: body.lessonId, p_message: question, p_categories: mod.categories });
+    return staticReply(MSG.flagged[locale], { messagesLeft });
+  }
 
   return createUIMessageStreamResponse({
     stream: toUIMessageStream({

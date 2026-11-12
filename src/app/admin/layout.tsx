@@ -31,7 +31,7 @@ export const viewport: Viewport = { themeColor: "#faf8f3" };
  */
 async function AdminGate({ children }: { children: React.ReactNode }) {
   const gate = await getAdminGate();
-  if (gate.access === "not_found" || gate.access === "expired") notFound();
+  if (gate.access === "not_found") notFound();
   if (gate.access === "mfa") return <MfaScreen username={gate.username ?? ""} />;
   return <AdminShell username={gate.username ?? ""}>{children}</AdminShell>;
 }

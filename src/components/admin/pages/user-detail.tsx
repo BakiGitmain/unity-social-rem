@@ -41,7 +41,10 @@ export function UserDetailView({
   usage,
   chats,
   lessons,
+  notes = null,
 }: {
+  /** Notes are private: admins only see counts and storage used, never the content. */
+  notes?: { boards: number; cards: number; flashcards: number; storage_bytes: number } | null;
   user: AdminUser;
   me: string;
   events: Ev[];
@@ -126,6 +129,13 @@ export function UserDetailView({
             ["Average quiz", u.avg_quiz === null ? "—" : `${u.avg_quiz}%`],
             ["Quiz attempts", u.quiz_attempts],
             ["AI messages", `${u.ai_messages}${u.ai_daily_limit !== null ? ` · limit ${u.ai_daily_limit}/day` : ""}`],
+            ...(notes
+              ? [
+                  ["Note boards", notes.boards],
+                  ["Note cards", `${notes.cards} · ${notes.flashcards} flashcards`],
+                  ["Note images", notes.storage_bytes > 1e6 ? `${(notes.storage_bytes / 1e6).toFixed(1)} MB` : `${Math.round(notes.storage_bytes / 1e3)} KB`],
+                ]
+              : []),
           ].map(([k, v]) => (
             <div key={k as string} className="rounded-2xl bg-paper px-4 py-3">
               <p className="text-xs text-muted">{k}</p>
@@ -261,7 +271,6 @@ export function UserDetailView({
         onClose={() => setDialog(null)}
         title="Change role"
         message={<>Admins can open this dashboard (with 2FA). Students can&apos;t. You can&apos;t change your own role.</>}
-        confirmText={u.username}
         actionLabel={`Make ${role}`}
         onConfirm={async () => {
           act(`@${u.username} is now ${role}`, { role }, () => changeRole(u.id, role));
@@ -280,7 +289,6 @@ export function UserDetailView({
         onClose={() => setDialog(null)}
         title={`Ban @${u.username}`}
         message="They can't log in until the ban ends, and their sessions are ended now."
-        confirmText={u.username}
         actionLabel="Ban"
         onConfirm={async () => {
           act(`@${u.username} is banned`, { banned: true, banned_until: new Date(Date.now() + (length === "permanent" ? 1e11 : Number(length) * 3600e3)).toISOString() }, () =>
@@ -301,7 +309,6 @@ export function UserDetailView({
         onClose={() => setDialog(null)}
         title={`Unban @${u.username}`}
         message="They will be able to log in again."
-        confirmText={u.username}
         actionLabel="Unban"
         danger={false}
         onConfirm={async () => {
@@ -314,7 +321,6 @@ export function UserDetailView({
         onClose={() => setDialog(null)}
         title={`Sign out @${u.username}`}
         message="Ends their sessions on all devices. Pages already open stop working within the hour."
-        confirmText={u.username}
         actionLabel="Sign out everywhere"
         onConfirm={async () => {
           act(`@${u.username} was signed out`, null, () => forceLogout([u.id]));
@@ -326,7 +332,6 @@ export function UserDetailView({
         onClose={() => setDialog(null)}
         title={`Reset the password of @${u.username}`}
         message="A temporary password is created and shown ONCE. Give it to the student in person; they're signed out everywhere."
-        confirmText={u.username}
         actionLabel="Create temporary password"
         onConfirm={async () => {
           const r = await resetPassword(u.id);
@@ -368,7 +373,6 @@ export function UserDetailView({
         onClose={() => setDialog(null)}
         title={`Change the username of @${u.username}`}
         message="The new username is also their login name. Tell them before they log in next time."
-        confirmText={u.username}
         actionLabel="Change username"
         danger={false}
         onConfirm={async () => {

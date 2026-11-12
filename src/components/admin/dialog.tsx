@@ -102,8 +102,8 @@ export function ConfirmDialog({
   onClose: () => void;
   title: string;
   message: React.ReactNode;
-  /** What must be typed. */
-  confirmText: string;
+  /** What must be typed (ONLY for permanent deletes). Leave it out for a one-click "Are you sure?". */
+  confirmText?: string;
   actionLabel: string;
   onConfirm: () => Promise<void> | void;
   children?: React.ReactNode;
@@ -111,7 +111,7 @@ export function ConfirmDialog({
 }) {
   const [typed, setTyped] = useState("");
   const [busy, setBusy] = useState(false);
-  const ok = typed.trim() === confirmText;
+  const ok = !confirmText || typed.trim() === confirmText;
 
   return (
     <Modal
@@ -153,6 +153,7 @@ export function ConfirmDialog({
         <div className="min-w-0 text-sm text-ink/80">{message}</div>
       </div>
       {children && <div className="mt-4">{children}</div>}
+      {confirmText && (
       <label className="mt-5 block">
         <span className="mb-1.5 block text-[13px] text-muted">
           Type <span className="rounded bg-ink/[0.06] px-1.5 py-0.5 font-mono text-[12.5px] text-ink">{confirmText}</span> to confirm
@@ -167,6 +168,7 @@ export function ConfirmDialog({
           }}
         />
       </label>
+      )}
     </Modal>
   );
 }

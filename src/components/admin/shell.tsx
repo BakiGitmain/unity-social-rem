@@ -28,7 +28,6 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
-import { ADMIN_IDLE_MS } from "@/lib/admin/access";
 import { paletteData, toggleAiTutor } from "@/lib/admin/actions/misc";
 import { useToast } from "@/components/admin/toast";
 import { LiveProvider, useLiveStatus } from "@/components/live";
@@ -162,7 +161,6 @@ export function AdminShell({ username, children }: { username: string; children:
     <LiveProvider>
     <NowProvider>
     <CrumbCtx value={setCrumb}>
-      <IdleLogout />
       <div className="flex min-h-dvh">
         {/* desktop sidebar */}
         <motion.aside
@@ -306,51 +304,6 @@ function SignOut() {
     >
       <LogOut className="size-4" aria-hidden />
     </button>
-  );
-}
-
-/** Signs the admin out after 30 minutes without activity (the proxy also enforces this on the server). */
-function IdleLogout() {
-  const router = useRouter();
-  const last = useRef(0);
-  const [warn, setWarn] = useState(false);
-
-  useEffect(() => {
-    last.current = Date.now();
-    const bump = () => {
-      last.current = Date.now();
-      setWarn(false);
-    };
-    const events = ["pointerdown", "keydown", "scroll", "touchstart"] as const;
-    events.forEach((e) => window.addEventListener(e, bump, { passive: true }));
-    const timer = setInterval(async () => {
-      const idle = Date.now() - last.current;
-      if (idle > ADMIN_IDLE_MS) {
-        clearInterval(timer);
-        await createClient().auth.signOut();
-        router.replace("/login?next=/admin");
-      } else if (idle > ADMIN_IDLE_MS - 2 * 60 * 1000) setWarn(true);
-    }, 15_000);
-    return () => {
-      clearInterval(timer);
-      events.forEach((e) => window.removeEventListener(e, bump));
-    };
-  }, [router]);
-
-  return (
-    <AnimatePresence>
-      {warn && (
-        <motion.div
-          initial={{ y: -40, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -40, opacity: 0 }}
-          className="fixed inset-x-0 top-2 z-[95] mx-auto w-fit rounded-full bg-ink px-4 py-2 text-sm text-white shadow-lg"
-          role="alert"
-        >
-          You&apos;ll be signed out in 2 minutes for safety. Move the mouse to stay.
-        </motion.div>
-      )}
-    </AnimatePresence>
   );
 }
 

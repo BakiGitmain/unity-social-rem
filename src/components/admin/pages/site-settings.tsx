@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ImageUp, Save, Wrench } from "lucide-react";
 import type { SiteSettings } from "@/lib/settings";
-import { saveFeatures, saveMaintenance, saveSiteSettings } from "@/lib/admin/actions/settings";
+import { saveFeatures, saveMaintenance, saveNotesLimits, saveSiteSettings } from "@/lib/admin/actions/settings";
 import { uploadImage } from "@/components/admin/upload";
 import { ConfirmDialog } from "@/components/admin/dialog";
 import { useToast } from "@/components/admin/toast";
@@ -20,6 +20,7 @@ export function SiteSettingsAdmin({ settings }: { settings: SiteSettings }) {
   const [confirm, setConfirm] = useState<null | boolean>(null);
   const [busy, setBusy] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [notes, setNotes] = useState(settings.notes);
 
   const done = (title: string, r: { ok: boolean; error?: string }) => {
     setBusy(null);
@@ -83,6 +84,34 @@ export function SiteSettingsAdmin({ settings }: { settings: SiteSettings }) {
             <Switch label="Schedule" description="The Today card and the Schedule page." checked={features.schedule} onChange={(v) => void flip("schedule", v)} />
             <Switch label="Learn mode" description="One part per screen. Off = notes open in Read all." checked={features.learn_mode} onChange={(v) => void flip("learn_mode", v)} />
           </div>
+        </Card>
+
+        <Card>
+          <CardTitle sub="Students' private study boards. The database enforces these limits.">Notes limits</CardTitle>
+          <div className="grid grid-cols-2 gap-3">
+            {(
+              [
+                ["max_boards", "Boards per student", 1],
+                ["max_cards", "Cards per board", 10],
+                ["image_mb", "Max image size (MB, ≤ 2)", 0.5],
+                ["storage_mb", "Image storage per student (MB)", 1],
+              ] as const
+            ).map(([k, label, step]) => (
+              <Field key={k} label={label}>
+                <Input type="number" step={step} value={notes[k]} onChange={(e) => setNotes({ ...notes, [k]: Number(e.target.value) })} />
+              </Field>
+            ))}
+          </div>
+          <Button
+            className="mt-3"
+            loading={busy === "notes"}
+            onClick={async () => {
+              setBusy("notes");
+              done("Notes limits saved", await saveNotesLimits(notes));
+            }}
+          >
+            Save limits
+          </Button>
         </Card>
 
         <Card className="lg:col-span-2">
@@ -156,7 +185,6 @@ export function SiteSettingsAdmin({ settings }: { settings: SiteSettings }) {
         onClose={() => setConfirm(null)}
         title={confirm ? "Turn maintenance mode ON" : "Turn maintenance mode OFF"}
         message={confirm ? "Every student page is replaced by the maintenance page (within ~15 seconds). You keep full access as an admin." : "The site opens for students again."}
-        confirmText="maintenance"
         actionLabel={confirm ? "Turn ON" : "Turn OFF"}
         danger={!!confirm}
         onConfirm={async () => {

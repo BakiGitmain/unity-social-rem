@@ -54,6 +54,8 @@ const fade = {
 } as const;
 
 export function StudyView({
+  subject,
+  subjectId,
   lesson,
   sections,
   mainTopics,
@@ -67,6 +69,9 @@ export function StudyView({
   unitHref,
   locale,
 }: {
+  /** Subject slug (e.g. "mathematics"): decides defaults like the calculation tools. */
+  subject?: string;
+  subjectId?: string;
   lesson: LessonSummary;
   sections: LessonSection[];
   mainTopics: MainTopic[];
@@ -103,6 +108,14 @@ export function StudyView({
     [lesson.id],
   );
   useEffect(() => track({ type: "lesson_view", lessonId: lesson.id }), [lesson.id]);
+  useEffect(() => {
+    const p = Number(new URLSearchParams(window.location.search).get("part"));
+    if (!Number.isInteger(p) || p < 1) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMode("all");
+    const id = setTimeout(() => document.getElementById(`part-${p}`)?.scrollIntoView({ behavior: "smooth", block: "start" }), 450);
+    return () => clearTimeout(id);
+  }, []);
   const amUi = locale === "am" ? "am" : "";
 
   // Rem (AI tutor): only on the notes and Main Topics, never in the quiz or on the finished screen.
@@ -285,7 +298,7 @@ export function StudyView({
 
           {tab === "homework" && (homework.length > 0 || practice.length > 0) && (
             <motion.div key="homework" id="panel-homework" role="tabpanel" aria-labelledby="tab-homework" {...fade}>
-              <Homework lessonId={lesson.id} items={homework} practice={practice} lang={lang} locale={locale} />
+              <Homework lessonId={lesson.id} subject={subject} items={homework} practice={practice} lang={lang} locale={locale} />
             </motion.div>
           )}
         </AnimatePresence>
@@ -322,6 +335,11 @@ export function StudyView({
         view={tutorView}
         part={tutorPart}
         hidden={tutorHidden}
+        notes={{
+          lesson: { id: lesson.id, subjectId, code: lesson.code, title: loc(lesson, "title", locale) },
+          href: `${unitHref}/${lesson.slug}`,
+          label: `${unitLabel.split(" · ")[0]} · ${lesson.code} ${loc(lesson, "title", locale)}`,
+        }}
       />
     </GlossaryProvider>
   );

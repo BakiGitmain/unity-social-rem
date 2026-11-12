@@ -15,7 +15,7 @@ export default async function UserPage({ params }: PageProps<"/admin/users/[id]"
   if (!UUID.test(id)) notFound();
   const sb = ctx.supabase;
 
-  const [users, events, progress, attempts, usage, chats, lessons] = await Promise.all([
+  const [users, events, progress, attempts, usage, chats, lessons, notes] = await Promise.all([
     sb.rpc("admin_users"),
     sb.from("events").select("id, type, created_at, lesson_id, metadata").eq("user_id", id).order("created_at", { ascending: false }).limit(100),
     sb.from("lesson_progress").select("lesson_id, parts_done, total_parts, completed_at, best_quiz_score, best_quiz_total, updated_at").eq("user_id", id),
@@ -23,6 +23,7 @@ export default async function UserPage({ params }: PageProps<"/admin/users/[id]"
     sb.from("ai_usage").select("day, messages, searches, input_tokens, output_tokens").eq("user_id", id).order("day", { ascending: false }).limit(60),
     sb.from("ai_chats").select("lesson_id, updated_at").eq("user_id", id).order("updated_at", { ascending: false }),
     getLessonIndex(ctx),
+    sb.rpc("admin_user_notes_stats", { p_user: id }),
   ]);
   const row = ((users.data ?? []) as Omit<AdminUser, "banned">[]).find((u) => u.id === id);
   if (!row) notFound();
@@ -38,6 +39,7 @@ export default async function UserPage({ params }: PageProps<"/admin/users/[id]"
       usage={usage.data ?? []}
       chats={chats.data ?? []}
       lessons={lessons}
+      notes={(notes.data as { boards: number; cards: number; flashcards: number; storage_bytes: number } | null) ?? null}
     />
   );
 }

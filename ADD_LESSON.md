@@ -138,6 +138,9 @@ Copy `content/lessons/mathematics/grade-9/unit-1/1-1.json` as the template. Ever
      with the numbered drawing, use written lines (each side as a set of region numbers), not shading.
    - **`"compare"`** `[{ "label", "shade" }, …]` (needs a figure): shown after Check, side by side (left vs right side).
    - **`"warmup": true`**: shown first, labelled "Warm-up", never counted in the homework %.
+   - **`"needs_calculation"`** (homework, practice AND quiz questions): `true` ONLY when the question really involves
+     calculating or drawing (it shows "Calculation paper" + "Calculator" in the card). Never for Geography, History or
+     English, and not for pure recall or Venn-shading questions. Missing → on for Mathematics written / choice only.
    - **Homework = ONLY what the teacher gave** (e.g. the exercises on the board). Everything else goes in
      **`"practice"`** (same shape, "Extra practice", optional, never counted). Ids must differ from the homework ids.
    Homework: 6–12 items from the textbook exercises, broken down the way the Ethiopian textbook does.

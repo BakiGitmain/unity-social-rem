@@ -1,7 +1,7 @@
 /** Shared (client + server) rules for username accounts. */
 
 export const USERNAME_RE = /^[a-z0-9_]{3,20}$/;
-export const MIN_PASSWORD = 6;
+export const MIN_PASSWORD = 8;
 
 /** Users only ever see their username; Supabase Auth needs an email, so we map it to an internal one (no inbox). */
 const EMAIL_DOMAIN = "users.unitysocialrem.app";

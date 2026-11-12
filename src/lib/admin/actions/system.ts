@@ -49,3 +49,13 @@ export async function healthCheck() {
     };
   }, { revalidate: false });
 }
+
+/** Sign out one of my OTHER admin sessions (id), or all of them (null). Audited in the database function. */
+export async function revokeMySessions(id: string | null) {
+  return adminAction(async (ctx) => {
+    if (id !== null && !/^[0-9a-f-]{36}$/i.test(id)) throw new Error("Invalid session");
+    const { data, error } = await ctx.supabase.rpc("admin_revoke_my_sessions", { p_id: id });
+    if (error) throw new Error("Could not sign the device out");
+    return (data as number) ?? 0;
+  });
+}

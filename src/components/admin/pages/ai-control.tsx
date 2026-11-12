@@ -301,7 +301,6 @@ export function AiControl({
         onClose={() => setOffConfirm(false)}
         title="Turn the AI tutor off"
         message="Rem disappears for every student right away (the notes and quizzes still work)."
-        confirmText="turn off"
         actionLabel="Turn off"
         onConfirm={async () => {
           setOn(false);
@@ -314,7 +313,6 @@ export function AiControl({
         onClose={() => setResetOpen(false)}
         title="Reset the system prompt"
         message="Rem goes back to the default prompt from the code. The current custom prompt stays in the version history."
-        confirmText="reset"
         actionLabel="Reset to default"
         danger={false}
         onConfirm={async () => {

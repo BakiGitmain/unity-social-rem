@@ -7,7 +7,7 @@ import type { AdminContext } from "@/lib/admin/auth";
  */
 export async function saveSetting(
   ctx: AdminContext,
-  key: "site" | "maintenance" | "features" | "ai",
+  key: "site" | "maintenance" | "features" | "ai" | "notes",
   update: (current: Record<string, unknown>) => Record<string, unknown>,
   action = `settings.${key}`,
 ) {

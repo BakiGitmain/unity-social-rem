@@ -62,7 +62,9 @@ in English, Amharic, or both.
 - ONE card for every question: `components/questions/question-card.tsx`, model `src/lib/questions.ts` (`fromHomework`,
   `fromQuiz`; type choice | written | venn | open, labelled parts). Choice = big options; written = `written-answer.tsx`
   (one labelled line per part, ONE Check, "x / n parts correct"); venn = shade mode, one Check (no AI). In every card:
-  calculation paper (`ink/scratch-paper.tsx`, never sent to the AI) + calculator. Quiz: one attempt, explanation after.
+  calculation paper (`ink/scratch-paper.tsx`, never sent to the AI) + calculator ONLY when the question needs it
+  (`needs_calculation`: quiz column / homework field; default on for Mathematics written + choice, off for every other
+  subject). Quiz: one attempt, explanation after.
 - Written answers: typing into the labelled lines is the DEFAULT (math keyboard); "Write by hand" (remembered per device)
   = one Answer Paper with the labels printed on it (desktop: label left of the line; phone: label above a full-width
   line, full-screen writing sheet). Ink = vector data (`src/lib/ink/model.ts`), perfect-freehand (`render.ts`), IndexedDB
@@ -74,6 +76,30 @@ in English, Amharic, or both.
   per-line "Fix it" / "Did I read it wrong?". Limits: login, 60 reads / user / day, own switch (`app_settings.ai.ink_*`,
   Admin → AI tutor); `start_ink_check()` + `record_ink_tokens()` count in `ai_usage` (cost chart + monthly budget).
   Off / limit / logged out → typing with a note. Images ≤ 200 KB, never logged. Live test: `npm run test:ink`.
+
+## Notes (visual study boards) — PRIVATE
+- Subject → Lesson → Boards: a board ALWAYS belongs to one lesson (`boards.lesson_id`) and one user. Routes:
+  `/notes` (search, recent boards with thumbnails, due flashcards, subjects → lessons → boards, Recently deleted),
+  `/notes/board?id=…` (the id is read in the browser so the page stays static), `/notes/review?board=|lesson=`.
+  Nav: desktop Home · Schedule · Notes; phone bottom bar Home · Schedule · Notes · Profile (due-cards badge).
+- Tables: `boards` (title, `emoji` = an ICON KEY from `components/notes/board-icon.tsx`, never an emoji; colour,
+  template, viewport, deleted_at), `board_nodes` (type, x/y/w/h, z_index, parent_id = frame, data jsonb),
+  `board_edges` (source, target, label, style), `flashcards` (SM-2: ease, interval, reps, due_at), private bucket
+  `note-images` (`<user id>/<board id>/<card id>.webp`).
+- **PRIVACY: own rows only (RLS + `owns_board()`); NO admin policy on any notes table or image.** Admins only get
+  counts via `admin_user_notes_stats()` (Admin → Users). Tested in `tests/notes.test.mjs` (user B, visitor, 2FA admin).
+- Limits (`app_settings.notes`, public, Admin → Site settings; enforced by triggers + the storage policy): boards per
+  user, cards per board, 2 MB per image, image storage per user. Deleted boards: "Recently deleted" 30 days, then purged.
+- Pure logic + tests (`src/lib/notes/`, `npm test`): `srs.ts` (SM-2), `outline.ts` (outline + Markdown), `layout.ts`
+  (Tidy up), `templates.ts`, `sync.ts` (diff, pending queue, one sync attempt). Browser: `client.ts` (Supabase +
+  IndexedDB copy, images, flashcards), `components/notes/use-board.ts` (undo/redo, autosave ~800 ms, Offline → retry).
+  Logged out: boards live only on the device; after login the Notes home offers to upload them.
+- Board UI: `components/notes/board-editor.tsx` (React Flow `@xyflow/react`, lazy-loaded via `board-loader.tsx`; only
+  visible cards render; it mounts only once its box has a size), `card-node.tsx` (8 card types, inline editor),
+  `outline-view.tsx` (reading mode < 400 px, print = PDF). Lesson page: notes button stacked above Rem (`Bubble extra`),
+  "Add to notes" in the selection pill (quote card → `lesson?part=N`), "Save to notes" on Rem's answers
+  (`SaveNoteContext`). Board AI: `/api/notes-ai` (summary / flashcards / check) uses Rem's limits and cost tracking
+  and never changes the student's notes. Tests: `npm run test:notes` (RLS), `npm run test:notes-ui` (browser).
 
 ## AI study tutor "Rem" ✨
 - **OpenAI is ONLY for the student chat tutor.** Never use it to write lesson notes: lessons are always added by hand (ADD_LESSON.md).
@@ -92,7 +118,10 @@ in English, Amharic, or both.
   Tools are only sent when needed (each adds hidden tokens + latency): the quiz tool only for quiz intent (`QUIZ_RE` or
   the 🎯 chip), web search (`openai.tools.webSearch`, $10 / 1k calls) only when `SEARCH_RE` matches (latest, current,
   years…) and the admin allows it, max 3 per user per day. Sources go to the UI as `source-url` parts.
-  Live-tested: ~1.5–2 s to first token, ≈ $0.02–0.05 per 100 questions.
+  Live-tested: ~1.2 s to first token, ~2 s total (`npm run test:tutor-speed`, BASE_URL=… for production;
+  LANG_Q=am for Amharic). Moderation runs WHILE the model starts (nothing is sent before it passes; flagged → abort).
+  The bubble pings `GET /api/tutor` on hover/touch to wake a cold function. While streaming, `healStreaming()`
+  (`src/lib/tutor/stream-md.ts`) closes open **, $, [ … so raw Markdown never flashes; useChat `throttle: 50`.
 - "Quiz me": `intent: "quiz"` forces the `quiz_question` tool (structured JSON: question, 4 options, answer, explanation),
   rendered as tappable buttons. Answers end with a `FOLLOWUPS: a | b | c` line that the UI turns into chips.
 - Limits (defaults, editable in /admin/ai; per-user override in /admin/users): 30 questions + 3 web searches per user
@@ -123,7 +152,7 @@ in English, Amharic, or both.
   (logo, EN | አማ) + floating bottom tab bar (Home, Schedule, Profile → bottom sheet). Files: `src/components/site-header.tsx`, `src/components/nav/*`.
 - Accounts are username + password. Supabase Auth needs an email, so `<username>@users.unitysocialrem.app` is used
   internally (no inbox; "Confirm email" is OFF). Users only see `@username`. Rules: `src/lib/auth/username.ts`
-  (3–20 chars `a-z 0-9 _`, password ≥ 6, simple is fine).
+  (3–20 chars `a-z 0-9 _`, password ≥ 8, simple is fine).
 - Server actions: `src/lib/auth/actions.ts` (logIn, signUp, logOut). Generic errors only ("Wrong username or password").
 - `profiles` + `profiles_private` rows are created by the `on_auth_user_created` trigger; only admins can rename a user
   (Admin → Users, which also updates the login email). Admins see an "Admin dashboard" item in the profile menu.
@@ -141,12 +170,14 @@ in English, Amharic, or both.
 - `has_admin_role()` = role only. `is_admin()` = role **and an AAL2 (2FA) session** (JWT `aal`). Every admin RLS
   policy and admin SQL function uses `is_admin()`, so even the database refuses admin data without 2FA.
 - **Three layers, never trust the client:**
-  1. `src/proxy.ts`: `/admin/**` → non-admins get a real 404 (rewrite to the site not-found); idle > 30 min → signed out
-     (`usr-admin-active` cookie, sliding window); `X-Robots-Tag: noindex`.
+  1. `src/proxy.ts`: `/admin/**` → non-admins get a real 404 (rewrite to the site not-found); `X-Robots-Tag: noindex`.
   2. Admin layout `AdminGate` (`getAdminGate()`): 404 for non-admins; admin without AAL2 → only the 2FA screen.
   3. EVERY admin server action uses `adminAction()` → `requireAdmin()` → `checkAdmin()` (verified JWT + `is_admin()` RPC)
      and writes the audit log. Every admin page calls `requireAdmin()` too. Decision logic: `src/lib/admin/access.ts`.
-- **2FA**: Supabase MFA TOTP. First visit to /admin = enrollment (QR + key + verify); then a 6-digit code each session.
+- **2FA**: Supabase MFA TOTP. First visit to /admin = enrollment (QR + key + verify); then the 6-digit code ONCE per
+  login on a device (the AAL2 session lasts as long as that login; there is NO idle sign-out). Admin → System lists the
+  admin's own sessions (`admin_my_sessions()`) with "Sign out this device" / "Sign out all other devices"
+  (`admin_revoke_my_sessions()`, audited).
   **Lost authenticator?** Create a NEW migration with
   `delete from auth.mfa_factors where user_id = (select id from public.profiles where username = 'eyosiyas');`
   push it, log in and open /admin to enroll again.
@@ -154,8 +185,10 @@ in English, Amharic, or both.
   auth-admin operations (ban, delete user, set password, rename login email) AFTER `requireAdmin()`. Never log it.
 - **Audit log** `admin_audit_log`: written only via `log_admin_action()` (admin_id = caller), admin read-only, update /
   delete / truncate blocked by triggers. Log every admin action (`ctx.audit(...)`). Viewing a student's chat is logged.
-- **Dangerous actions** (delete user, ban, role, maintenance, AI off, discard/restore, delete schedule items) use
-  `ConfirmDialog` = type the username/name to confirm; delete-user re-checks the typed name on the server.
+- **Confirmations**: type-to-confirm (`ConfirmDialog confirmText`) ONLY for permanent deletes (delete user(s), delete
+  announcement / schedule items, delete a notes board forever); delete-user re-checks the typed name on the server.
+  Everything else (ban, role, maintenance, AI switch, publish, discard, restore…) = one-click "Are you sure?"
+  (`ConfirmDialog` without `confirmText`).
 - **Activity tracking** (first-party): `events` (lesson_view, lesson_complete, quiz_start, quiz_finish, ai_message,
   signup, login), `quiz_attempts` (score computed IN SQL from the answers), `profiles_private.last_seen_at` (≤ 1 write /
   5 min). Written only through SECURITY DEFINER functions called from server code (`/api/track`, auth actions, the

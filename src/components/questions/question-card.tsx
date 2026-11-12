@@ -118,7 +118,8 @@ export function QuestionCard({
         )}
       </AnimatePresence>
 
-      {/* tools: calculation paper (never sent to the AI) + calculator */}
+      {/* tools: calculation paper (never sent to the AI) + calculator: only where calculating / drawing helps */}
+      {q.needsCalc && (
       <div className="mt-4 grid grid-cols-2 gap-2 sm:flex">
         <button type="button" onClick={() => setPaper(true)} className={`${pill} justify-center bg-ink/[0.05] text-ink hover:bg-ink/[0.08]`}>
           <NotebookPen className="size-4 shrink-0" aria-hidden />
@@ -131,6 +132,7 @@ export function QuestionCard({
           <CalcIcon className="size-4 shrink-0" aria-hidden /> Calculator
         </button>
       </div>
+      )}
 
       {/* help: practice = any time; quiz = after answering */}
       {!quiz && (q.tip || q.hints?.length || q.solution) && (

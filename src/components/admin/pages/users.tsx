@@ -209,7 +209,7 @@ export function UsersView({ users, me }: { users: AdminUser[]; me: string }) {
             "These users are signed out on all devices (within the hour for already-open pages)."
           )
         }
-        confirmText={dialog ? confirmText(dialog.ids) : ""}
+        confirmText={dialog?.kind === "delete" ? confirmText(dialog.ids) : undefined}
         actionLabel={dialog?.kind === "delete" ? "Delete forever" : dialog?.kind === "ban" ? "Ban" : dialog?.kind === "unban" ? "Unban" : "Sign them out"}
         danger={dialog?.kind !== "unban"}
         onConfirm={run}

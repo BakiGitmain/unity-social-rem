@@ -3,7 +3,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 import { connection } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { ADMIN_ACTIVE_COOKIE, decideAdminAccess, type AdminAccess } from "@/lib/admin/access";
+import { decideAdminAccess, type AdminAccess } from "@/lib/admin/access";
 
 export class AdminDenied extends Error {
   constructor() {
@@ -57,7 +57,7 @@ export async function requireAdmin(): Promise<AdminContext> {
 
 /** For the admin layout: decides between 404, the 2FA screen and the admin area. */
 export async function getAdminGate(): Promise<{ access: AdminAccess; username: string | null; userId: string | null }> {
-  // Always per request (never prerendered): reads cookies and the clock (30-minute idle check).
+  // Always per request (never prerendered): reads the session cookies.
   await connection();
   const supabase = await createClient();
   const { data } = await supabase.auth.getClaims();
@@ -72,14 +72,7 @@ export async function getAdminGate(): Promise<{ access: AdminAccess; username: s
     isAdminRole = role === true;
     username = p?.username ?? null;
   }
-  const raw = (await cookies()).get(ADMIN_ACTIVE_COOKIE)?.value;
-  const access = decideAdminAccess({
-    hasUser: !!userId,
-    isAdminRole,
-    aal: data?.claims?.aal as string | undefined,
-    lastActive: raw ? Number(raw) : null,
-    now: Date.now(),
-  });
+  const access = decideAdminAccess({ hasUser: !!userId, isAdminRole, aal: data?.claims?.aal as string | undefined });
   // A fully verified admin is also double-checked against the database (role + AAL2).
   if (access === "ok") {
     const { data: ok } = await supabase.rpc("is_admin");

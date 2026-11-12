@@ -237,7 +237,6 @@ export function LessonEditor({
         onClose={() => setDiscardOpen(false)}
         title="Discard unpublished changes"
         message="Your unpublished edits are deleted and the editor goes back to the live lesson."
-        confirmText={data.lesson.code}
         actionLabel="Discard changes"
         onConfirm={async () => {
           const r = await discardLessonDraft(lessonId);
@@ -599,6 +598,15 @@ function QuestionCard({ q, index, highlight, onChange, onRemove }: { q: EditorQu
               <option value="venn">Shade the Venn diagram</option>
             </Select>
           </Field>
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              className="accent-[var(--accent)]"
+              checked={!!q.needs_calculation}
+              onChange={(e) => onChange({ ...q, needs_calculation: e.target.checked })}
+            />
+            Show &quot;Calculation paper&quot; and &quot;Calculator&quot; (only if this question needs calculating or drawing)
+          </label>
           <BiField label="Question (math in $…$)" multiline rows={2} en={q.question_en} am={q.question_am} onChange={(v) => onChange({ ...q, question_en: v.en, question_am: v.am })} />
           {q.kind === "number" && (
             <Field label="Correct number">
@@ -775,7 +783,6 @@ function HistoryModal({ open, onClose, lessonId, code }: { open: boolean; onClos
         onClose={() => setRestore(null)}
         title={`Restore version #${restore}`}
         message="This version becomes the live lesson. The current live version is saved in History first."
-        confirmText={code}
         actionLabel="Restore"
         danger={false}
         onConfirm={async () => {

@@ -20,12 +20,14 @@ type List = "homework" | "practice";
  */
 export function Homework({
   lessonId,
+  subject,
   items,
   practice = [],
   lang,
   locale,
 }: {
   lessonId: string;
+  subject?: string;
   items: HomeworkItem[];
   practice?: HomeworkItem[];
   lang: Lang;
@@ -137,7 +139,7 @@ export function Homework({
       <AnimatePresence mode="wait" initial={false}>
         <motion.div key={`${list}:${item.id}`} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -16 }} className="mt-4" transition={spring}>
           <QuestionCard
-            q={fromHomework(item, lang)}
+            q={fromHomework(item, lang, subject)}
             kicker={
               item.warmup
                 ? am

@@ -75,6 +75,20 @@ export async function saveSiteSettings(input: SiteSettings["site"]) {
   });
 }
 
+/** Notes limits: boards per student, cards per board, image size, image storage per student. */
+export async function saveNotesLimits(input: SiteSettings["notes"]) {
+  return adminAction(async (ctx) => {
+    const next = {
+      max_boards: Math.round(num(input.max_boards, 1, 5000, "Boards per student")),
+      max_cards: Math.round(num(input.max_cards, 10, 20000, "Cards per board")),
+      image_mb: num(input.image_mb, 0.5, 2, "Image size (MB)"),
+      storage_mb: Math.round(num(input.storage_mb, 1, 2000, "Image storage (MB)")),
+    };
+    await saveSetting(ctx, "notes", () => next, "notes.limits");
+    return null;
+  });
+}
+
 export async function saveFeatures(input: SiteSettings["features"]) {
   return adminAction(async (ctx) => {
     const next = { signups: !!input.signups, ai_tutor: !!input.ai_tutor, schedule: !!input.schedule, learn_mode: !!input.learn_mode };

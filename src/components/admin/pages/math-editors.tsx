@@ -310,6 +310,15 @@ export function HomeworkEditor({ items, onChange, idPrefix = "hw" }: { items: Ho
           </summary>
           <div className="space-y-4 border-t border-line p-4">
             <BiField label="Question" multiline rows={2} en={it.question.en} am={it.question.am} onChange={(question) => set(i, { question })} />
+            <label className="flex items-center gap-2 text-sm">
+              <input
+                type="checkbox"
+                className="accent-[var(--accent)]"
+                checked={it.needs_calculation ?? false}
+                onChange={(e) => set(i, { needs_calculation: e.target.checked })}
+              />
+              Show &quot;Calculation paper&quot; and &quot;Calculator&quot; (only if it needs calculating or drawing)
+            </label>
             <BiField label="Tip" multiline rows={2} en={it.tip.en} am={it.tip.am} onChange={(tip) => set(i, { tip })} />
             <div className="space-y-2">
               <p className="text-sm font-medium text-ink">Hints (shown one at a time)</p>
