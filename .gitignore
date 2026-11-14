@@ -47,3 +47,7 @@ next-env.d.ts
 lessons-inbox/
 # lesson PDFs dropped in for "add this lesson"
 lessons-inbox/
+
+# tutorial voice-over audio (generated, never committed)
+tutorial-voice/
+tutorial-voice-v2/
