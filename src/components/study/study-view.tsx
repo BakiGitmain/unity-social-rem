@@ -108,6 +108,17 @@ export function StudyView({
     [lesson.id],
   );
   useEffect(() => track({ type: "lesson_view", lessonId: lesson.id }), [lesson.id]);
+  // Links from the Telegram bot: ?tab=homework | quiz opens that tab.
+  useEffect(() => {
+    const want = new URLSearchParams(window.location.search).get("tab");
+    if (want === "homework" && (homework.length || practice.length)) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setTab("homework");
+    } else if (want === "quiz") {
+      setTab("quiz");
+      setQuizVisited(true);
+    }
+  }, [homework.length, practice.length]);
   useEffect(() => {
     const p = Number(new URLSearchParams(window.location.search).get("part"));
     if (!Number.isInteger(p) || p < 1) return;

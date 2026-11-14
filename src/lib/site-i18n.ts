@@ -260,6 +260,7 @@ const DICT = {
   remResting: { en: "Rem AI is resting 😴", am: "ሬም AI እያረፈ ነው 😴" },
   remRestingText: { en: "The study tutor is switched off for now. The notes and quizzes still work!", am: "የጥናት ረዳቱ ለጊዜው ጠፍቷል። ማስታወሻዎቹና ፈተናዎቹ አሁንም ይሠራሉ!" },
   adminDashboard: { en: "Admin dashboard", am: "የአስተዳዳሪ ዳሽቦርድ" },
+  telegramBot: { en: "Telegram bot", am: "የቴሌግራም ቦት" },
   youSaid: { en: "You", am: "እርስዎ" },
   // notes (study boards)
   notes: { en: "Notes", am: "ማስታወሻዎች" },

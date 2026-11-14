@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640">
+  <!-- @UnitySocialRemBot profile picture: the site's logo mark (two speech bubbles, src/components/subject-icon.tsx)
+       on the brand teal, with a soft grid and orbit rings. Telegram crops it to a circle: everything sits inside r=280. -->
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="75%">
+      <stop offset="0" stop-color="#16897f"/>
+      <stop offset="0.5" stop-color="#0f766e"/>
+      <stop offset="1" stop-color="#073b37"/>
+    </radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse" x="0" y="0">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.07" stroke-width="1.5"/>
+    </pattern>
+    <radialGradient id="fade" cx="50%" cy="50%" r="50%">
+      <stop offset="0.25" stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="gridMask"><rect width="640" height="640" fill="url(#fade)"/></mask>
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="28"/></filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+  </defs>
+
+  <rect width="640" height="640" fill="url(#bg)"/>
+  <rect width="640" height="640" fill="url(#grid)" mask="url(#gridMask)"/>
+
+  <!-- orbit rings -->
+  <circle cx="320" cy="320" r="236" fill="none" stroke="#f6c76b" stroke-opacity="0.45" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 16"/>
+  <circle cx="320" cy="320" r="200" fill="none" stroke="#e3f3ef" stroke-opacity="0.16" stroke-width="2"/>
+  <circle cx="487" cy="153" r="9" fill="#f6c76b" filter="url(#soft)" opacity="0.9"/>
+  <circle cx="487" cy="153" r="6" fill="#fde7b0"/>
+  <circle cx="160" cy="430" r="4" fill="#e3f3ef" opacity="0.7"/>
+
+  <!-- glow behind the mark -->
+  <circle cx="320" cy="322" r="130" fill="#2dd4bf" opacity="0.22" filter="url(#blur)"/>
+
+  <!-- the logo mark (same paths as LogoMark, scaled 13x) -->
+  <g transform="translate(320 322) scale(13) translate(-16 -16.25)">
+    <path d="M9 10.5c0-1 .8-1.8 1.8-1.8h6.4c1 0 1.8.8 1.8 1.8V21l-3-2.4H10.8c-1 0-1.8-.8-1.8-1.8z" fill="#e3f3ef"/>
+    <path d="M13.5 14.5c0-1 .8-1.8 1.8-1.8h6c1 0 1.7.8 1.7 1.8v9.3l-2.8-2.3h-4.9c-1 0-1.8-.8-1.8-1.8z" fill="#f6c76b" opacity=".95"/>
+  </g>
+
+  <!-- sparkle (Rem ✨) -->
+  <path d="M432 212 l7 19 19 7 -19 7 -7 19 -7 -19 -19 -7 19 -7z" fill="#fde7b0"/>
+</svg>

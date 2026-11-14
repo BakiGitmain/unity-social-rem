@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --test \"src/lib/time/*.test.ts\" \"src/lib/live/*.test.ts\" \"src/lib/admin/*.test.ts\" \"src/lib/math/*.test.ts\" \"src/lib/ink/*.test.ts\" \"src/lib/notes/*.test.ts\" \"src/lib/tutor/*.test.ts\"",
+    "test": "node --test \"src/lib/time/*.test.ts\" \"src/lib/live/*.test.ts\" \"src/lib/admin/*.test.ts\" \"src/lib/math/*.test.ts\" \"src/lib/ink/*.test.ts\" \"src/lib/notes/*.test.ts\" \"src/lib/tutor/*.test.ts\" \"src/lib/telegram/*.test.ts\"",
     "test:security": "node --test tests/security.test.mjs",
     "test:e2e": "node --test --test-concurrency=1 tests/e2e.test.mjs",
     "test:ink": "node --test --test-concurrency=1 tests/handwriting.test.mjs",

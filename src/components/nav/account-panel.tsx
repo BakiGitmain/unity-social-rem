@@ -3,7 +3,7 @@
 import { useTransition } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LogIn, LogOut, ShieldCheck, UserPlus, UserRound } from "lucide-react";
+import { LogIn, LogOut, Send, ShieldCheck, UserPlus, UserRound } from "lucide-react";
 import { logOut } from "@/lib/auth/actions";
 import { useUser } from "@/components/user-provider";
 import { t } from "@/lib/site-i18n";
@@ -54,6 +54,11 @@ export function AccountPanel({ locale, onDone, size = "sm" }: { locale: Locale; 
             {t(locale, "adminDashboard")}
           </Link>
         )}
+        {/* A plain link (no prefetch): it creates a one-time token that connects this account to the Telegram bot. */}
+        <a href="/api/telegram/link" target="_blank" rel="noreferrer" onClick={onDone} className={`${item} ${locale === "am" ? "am" : ""}`}>
+          <Send className="size-4.5 text-accent" aria-hidden />
+          {t(locale, "telegramBot")}
+        </a>
         <button
           type="button"
           disabled={pending}
@@ -84,6 +89,10 @@ export function AccountPanel({ locale, onDone, size = "sm" }: { locale: Locale; 
         <UserPlus className="size-4.5 text-muted" aria-hidden />
         {t(locale, "signup")}
       </Link>
+      <a href="https://t.me/UnitySocialRemBot" target="_blank" rel="noreferrer" onClick={onDone} className={item}>
+        <Send className="size-4.5 text-muted" aria-hidden />
+        {t(locale, "telegramBot")}
+      </a>
       {big && <p className="px-3 pt-2 text-sm text-muted">{t(locale, "optionalAccount")}</p>}
     </div>
   );

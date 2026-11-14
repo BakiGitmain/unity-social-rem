@@ -148,6 +148,18 @@ in English, Amharic, or both.
   desktop panel 400×600, mobile bottom sheet 85% with swipe-down). Shown only on Learn mode, Read all and Main Topics;
   hidden in the quiz, focus mode and on the "Lesson complete!" screen. UI labels come from `site-i18n.ts`.
 
+## Telegram bot @UnitySocialRemBot
+- Webhook `src/app/api/telegram/webhook` (header `X-Telegram-Bot-Api-Secret-Token` = `TELEGRAM_WEBHOOK_SECRET`), tick
+  `src/app/api/telegram/tick` (header `x-cron-secret` = `CRON_SECRET`), called every 5 min by pg_cron + pg_net
+  (`telegram_tick()`; URL + secret in Supabase Vault via `telegram_configure_tick`). Account link: `/api/telegram/link`.
+- Code in `src/lib/telegram/`: pure + tested (`format`, `reminders`, `lessons`, `views`, `venn`, `i18n`); server
+  (`api`, `db`, `bot`, `rem`, `tick`, `broadcast`, `venn-image` = PNG via `next/og`). Tables `telegram_*`: service role ONLY.
+- Rem in Telegram = same prompt + `TELEGRAM_RULES` (no tables/LaTeX/text-art; a `VENN: {json}` line → server PNG),
+  15 / chat / day, counted in `ai_spend_since()` (same budget + kill switch as the site).
+- Admin = `TELEGRAM_ADMIN_CHAT_ID` (/announce, /stats, /notify). Setup: `node scripts/telegram-setup.mts profile |
+  webhook <url> | tick <url> | info`. Local test: `node scripts/telegram-poll.mjs` (only after `delete-webhook`).
+  Never print the token or any secret.
+
 ## Class schedule
 - Tables `class_sections` + `schedule_entries` + `schedule_overrides` (public read, admin write). Loaded by `getSchedule()`.
 - Date overrides (cancel, room change, extra class, exam, holiday) are applied by `src/lib/time/overrides.ts`
