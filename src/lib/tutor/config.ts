@@ -14,10 +14,10 @@ export const TUTOR = {
   historyMessages: 8,
   /** The current lesson part sent as context, ~1,500 tokens. */
   contextChars: 6000,
-  /** Max tokens the model may write per answer (answers are meant to be short). */
-  maxOutputTokens: 350,
-  /** Amharic needs ~3x more tokens per word, so Amharic answers get a bit more room. */
-  maxOutputTokensAmharic: 600,
+  /** Max tokens the model may write per answer (short answers; room for a small table or 6 steps). */
+  maxOutputTokens: 600,
+  /** Amharic needs ~3x more tokens per word: enough room that an answer never stops mid-word. */
+  maxOutputTokensAmharic: 1500,
   /** Saved chat history per lesson (messages). */
   savedMessages: 40,
   /** Selected text for "Explain further". */

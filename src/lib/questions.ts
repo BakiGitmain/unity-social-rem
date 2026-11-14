@@ -3,7 +3,7 @@
  * type: choice (tap an option) · written (set / number lines on one Answer Paper) · venn (shade diagrams) ·
  * open (no checkable answer: proofs / descriptions, solution only).
  */
-import type { AnswerSpec, Bi, HomeworkItem, Lang, QuizQuestion, VennData, WorkedStep } from "@/lib/types";
+import type { AnswerSpec, Bi, Guide, HomeworkItem, Lang, QuizQuestion, VennData, WorkedStep } from "@/lib/types";
 import type { FieldSpec } from "@/components/math/answer-field";
 
 export type QuestionType = "choice" | "written" | "venn" | "open";
@@ -15,7 +15,7 @@ export type UQuestion = {
   parts: QPart[];
   tip?: Bi;
   hints?: Bi[];
-  solution?: { steps: WorkedStep[]; answer: Bi; venn?: VennData };
+  solution?: { steps: WorkedStep[]; answer: Bi; venn?: VennData; guide?: Guide };
   /** Show "Calculation paper" + "Calculator" (only where calculating or drawing helps). */
   needsCalc: boolean;
   /** Numbered drawing shown at the top (tap a region to see its number). */
@@ -25,6 +25,7 @@ export type UQuestion = {
   /** Quiz: shown after answering. */
   explanation?: Bi;
   steps?: { text: Bi }[];
+  guide?: Guide;
 };
 
 export function inferType(kinds: FieldSpec["kind"][]): QuestionType {
@@ -83,5 +84,6 @@ export function fromQuiz(q: QuizQuestion, lang: "en" | "am"): UQuestion {
     needsCalc: q.needs_calculation === true,
     explanation: { en: q.explanation_en, am: q.explanation_am },
     steps: q.steps,
+    guide: q.guide ?? undefined,
   };
 }

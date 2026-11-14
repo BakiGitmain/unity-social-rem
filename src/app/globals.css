@@ -58,6 +58,15 @@ html {
   background: var(--paper);
   color-scheme: light;
   -webkit-text-size-adjust: 100%;
+  /* Never scroll sideways on phones: one too-wide element must not widen the page (it pushed the fixed
+     bottom bar off-centre). "clip" (not "hidden") keeps position: sticky working. */
+  overflow-x: clip;
+}
+/* Phones: scrolling to a field / option never leaves it under the floating bottom bar. */
+@media (max-width: 767px) {
+  html {
+    scroll-padding-bottom: calc(6.5rem + env(safe-area-inset-bottom));
+  }
 }
 
 body {
@@ -65,7 +74,7 @@ body {
   color: var(--ink);
   font-family: var(--font-lexend), var(--font-ethiopic), ui-sans-serif, system-ui, sans-serif;
   font-feature-settings: "ss01";
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Amharic text: Noto Sans Ethiopic, a touch more line-height for the taller glyphs. */

@@ -205,6 +205,18 @@ function MathKeyboard({
   onClose: () => void;
   onEnter: () => void;
 }) {
+  // Esc closes the keyboard (first: it must not also close a sheet or dialog behind it).
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      onClose();
+    };
+    window.addEventListener("keydown", onKey, true);
+    return () => window.removeEventListener("keydown", onKey, true);
+  }, [onClose]);
+
   const keys = (
     <>
       <div className="grid grid-cols-8 gap-1.5 sm:grid-cols-11">

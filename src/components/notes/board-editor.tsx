@@ -139,6 +139,8 @@ function Editor({ boardId, locale, lessons }: { boardId: string; locale: Locale;
   const [query, setQuery] = useState("");
   const [matchIdx, setMatchIdx] = useState(0);
   const [connectFrom, setConnectFrom] = useState<string | null>(null);
+  /** Connect pressed with no card selected: the next tapped card becomes the start of the arrow. */
+  const [connectPick, setConnectPick] = useState(false);
   const [selectMode, setSelectMode] = useState(false);
   const [drawingId, setDrawingId] = useState<string | null>(null);
   const [help, setHelp] = useState(false);
@@ -968,11 +970,19 @@ function Editor({ boardId, locale, lessons }: { boardId: string; locale: Locale;
                 onNodeDragStop={() => commitOverride(override)}
                 onConnect={(c: Connection) => c.source && c.target && connect(c.source, c.target)}
                 onNodeClick={(_, n) => {
-                  if (connectFrom) {
-                    connect(connectFrom, n.id);
+                  if (connectPick) {
+                    setConnectPick(false);
+                    setConnectFrom(n.id);
+                    setSelected(new Set([n.id]));
+                  } else if (connectFrom) {
+                    if (n.id !== connectFrom) connect(connectFrom, n.id);
                     setConnectFrom(null);
                   }
                 }}
+                // a finger always moves a little: still a tap (not a drag) within 8 px
+                nodeClickDistance={8}
+                paneClickDistance={8}
+                nodeDragThreshold={phone ? 6 : 1}
                 onEdgeClick={(_, e) => setSelEdge(e.id)}
                 onPaneClick={() => {
                   setSelected(new Set());
@@ -980,6 +990,7 @@ function Editor({ boardId, locale, lessons }: { boardId: string; locale: Locale;
                   setEditing(null);
                   setMenu(null);
                   setConnectFrom(null);
+                  setConnectPick(false);
                 }}
                 onNodeContextMenu={(e, n) => {
                   e.preventDefault();
@@ -1048,10 +1059,17 @@ function Editor({ boardId, locale, lessons }: { boardId: string; locale: Locale;
 
           {/* connect mode hint */}
           <AnimatePresence>
-            {connectFrom && (
-              <motion.p initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="absolute top-3 left-1/2 z-30 -translate-x-1/2 rounded-full bg-ink px-4 py-2 text-sm text-white shadow-lg">
-                Now tap the card to connect to ·{" "}
-                <button type="button" className="underline" onClick={() => setConnectFrom(null)}>
+            {(connectFrom || connectPick) && (
+              <motion.p
+                key={connectPick ? "pick" : "to"}
+                role="status"
+                initial={{ opacity: 0, y: -6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className="absolute top-3 left-1/2 z-30 max-w-[calc(100%-24px)] -translate-x-1/2 rounded-full bg-ink px-4 py-2 text-center text-sm text-white shadow-lg"
+              >
+                {connectPick ? "Tap the card the arrow starts from" : "Now tap the card to connect to"} ·{" "}
+                <button type="button" className="underline" onClick={() => (setConnectFrom(null), setConnectPick(false))}>
                   cancel
                 </button>
               </motion.p>
@@ -1079,7 +1097,7 @@ function Editor({ boardId, locale, lessons }: { boardId: string; locale: Locale;
                   maxLength={80}
                   onBlur={(e) => setContent((c) => ({ ...c, edges: c.edges.map((x) => (x.id === edgeObj.id ? { ...x, label: e.target.value, updated_at: now() } : x)) }))}
                   onKeyDown={(e) => e.key === "Enter" && (e.target as HTMLInputElement).blur()}
-                  className="h-10 min-w-0 flex-1 rounded-xl bg-ink/[0.05] px-3 text-sm"
+                  className="h-11 w-full min-w-0 basis-full rounded-xl bg-ink/[0.05] px-3 text-[15px]"
                 />
                 {EDGE_COLORS.map((c) => (
                   <button
@@ -1139,8 +1157,14 @@ function Editor({ boardId, locale, lessons }: { boardId: string; locale: Locale;
               <PhoneTool
                 icon={Spline}
                 label="Connect"
-                active={!!connectFrom}
-                onClick={() => (selected.size === 1 ? setConnectFrom([...selected][0]!) : say("Select a card first, then Connect"))}
+                active={!!connectFrom || connectPick}
+                onClick={() => {
+                  if (connectFrom || connectPick) return (setConnectFrom(null), setConnectPick(false));
+                  setMenu(null);
+                  setSelectMode(false);
+                  if (selected.size === 1) setConnectFrom([...selected][0]!);
+                  else setConnectPick(true);
+                }}
               />
               <PhoneTool icon={LayoutGrid} label="Tidy" onClick={doTidy} />
               <PhoneTool icon={showOutline ? Spline : List} label={showOutline ? "Board" : "Outline"} active={showOutline} onClick={() => setOutline(!showOutline)} />

@@ -80,8 +80,17 @@ export function LearnMode({
 
   const part = sections[index];
   const isLast = index === total - 1;
+  const many = total > 8;
 
-  const scrollTop = () => requestAnimationFrame(() => topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
+  /** Back to the top of the part: VERTICAL only (scrollIntoView could also shift the page sideways). */
+  const scrollTop = () =>
+    requestAnimationFrame(() => {
+      const el = topRef.current;
+      if (!el) return;
+      const top = el.getBoundingClientRect().top + window.scrollY - 160; // = scroll-mt-40 (below the sticky header)
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (top < window.scrollY) window.scrollTo({ top: Math.max(0, top), left: window.scrollX, behavior: reduce ? "auto" : "smooth" });
+    });
 
   const go = (to: number) => {
     if (to < 0 || to >= total) return;
@@ -168,9 +177,10 @@ export function LearnMode({
   return (
     <div ref={topRef} className="mx-auto max-w-[65ch] scroll-mt-40">
       {/* Progress: "Part 2 of 6" + steps with a checkmark for each finished part */}
-      <div className="flex items-center justify-between gap-3">
-        <p className={`text-sm font-medium text-muted ${amUi}`}>{ui("partOf", { n: index + 1, t: total })}</p>
-        <ol className="flex items-center gap-1.5" aria-label={ui("parts")}>
+      <div className="flex min-w-0 items-center justify-between gap-3">
+        <p className={`shrink-0 text-sm font-medium text-muted ${amUi}`}>{ui("partOf", { n: index + 1, t: total })}</p>
+        {/* many parts (e.g. 15): smaller dots, and the row scrolls instead of overflowing the screen */}
+        <ol className={`flex min-w-0 items-center overflow-x-auto p-1 [scrollbar-width:none] ${many ? "gap-1" : "gap-1.5"}`} aria-label={ui("parts")}>
           {sections.map((s, i) => {
             const done = progress.done.includes(i);
             const current = i === index;
@@ -183,15 +193,15 @@ export function LearnMode({
                   onClick={() => go(i)}
                   aria-label={`${i + 1}`}
                   aria-current={current ? "step" : undefined}
-                  className={`grid size-5 place-items-center rounded-full transition-all duration-300 disabled:cursor-default ${
+                  className={`grid shrink-0 place-items-center rounded-full transition-all duration-300 disabled:cursor-default ${many ? "size-3.5" : "size-5"} ${
                     current
-                      ? "bg-accent text-white ring-4 ring-accent/15"
+                      ? `bg-accent text-white ${many ? "ring-2" : "ring-4"} ring-accent/15`
                       : done
                         ? "bg-accent-soft text-accent-ink"
                         : "bg-line text-transparent"
                   }`}
                 >
-                  {done && !current && <Check className="size-3" strokeWidth={3} aria-hidden />}
+                  {done && !current && !many && <Check className="size-3" strokeWidth={3} aria-hidden />}
                 </button>
               </li>
             );

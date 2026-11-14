@@ -189,7 +189,9 @@ export function StudyView({
                 exit={{ opacity: 0 }}
                 role="tablist"
                 aria-label="Study mode"
-                className="no-scrollbar flex overflow-x-auto rounded-full bg-ink/[0.05] p-1"
+                // 4 tabs (math: Full Notes · Main Topics · Homework · Quiz) must all fit at 375 px: on phones each tab
+                // stacks its icon above a short label in equal columns; from sm up it is the usual pill row.
+                className={`no-scrollbar flex overflow-x-auto bg-ink/[0.05] p-1 ${tabs.length > 3 ? "rounded-2xl sm:rounded-full" : "rounded-full"}`}
               >
                 {tabs.map(({ id, label, icon: Icon }) => {
                   const active = tab === id;
@@ -204,14 +206,18 @@ export function StudyView({
                       onClick={() => openTab(id)}
                       whileTap={{ scale: 0.95 }}
                       transition={{ type: "spring", stiffness: 600, damping: 30 }}
-                      className={`relative flex flex-1 items-center justify-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-medium whitespace-nowrap transition-colors sm:flex-none sm:px-4 ${
+                      className={`relative flex min-w-0 flex-1 items-center justify-center font-medium transition-colors sm:flex-none sm:flex-row sm:gap-1.5 sm:rounded-full sm:px-4 sm:py-2 sm:text-sm sm:whitespace-nowrap ${
+                        tabs.length > 3
+                          ? "flex-col gap-0.5 rounded-xl px-1 py-1.5 text-center text-[12px] leading-tight"
+                          : "gap-1.5 rounded-full px-3.5 py-2 text-sm whitespace-nowrap"
+                      } ${
                         active ? "text-ink" : "text-muted hover:text-ink"
                       } ${amUi ? "am leading-normal" : ""}`}
                     >
                       {active && (
                         <motion.span
                           layoutId="tab-pill"
-                          className="absolute inset-0 rounded-full bg-surface shadow-[0_1px_3px_rgba(29,42,44,0.14)]"
+                          className={`absolute inset-0 bg-surface shadow-[0_1px_3px_rgba(29,42,44,0.14)] ${tabs.length > 3 ? "rounded-xl sm:rounded-full" : "rounded-full"}`}
                           transition={{ type: "spring", stiffness: 500, damping: 38 }}
                         />
                       )}
@@ -323,7 +329,7 @@ export function StudyView({
 
       {/* Previous / next lesson (hidden in focus mode) */}
       {!quizRunning && (prev || next) && (
-        <nav aria-label="Lesson navigation" className="mt-14 grid gap-3 sm:grid-cols-2">
+        <nav aria-label="Lesson navigation" className="mt-14 grid grid-cols-[minmax(0,1fr)] gap-3 sm:grid-cols-2">
           {prev ? <LessonLink item={prev} dir="prev" locale={locale} /> : <span className="hidden sm:block" />}
           {next && <LessonLink item={next} dir="next" locale={locale} />}
         </nav>
@@ -431,7 +437,7 @@ function LessonLink({ item, dir, locale }: { item: NonNullable<NavLesson>; dir: 
   return (
     <Link
       href={item.href}
-      className={`group card-hover flex items-center gap-3 rounded-2xl bg-surface p-4 ring-1 ring-line hover:bg-[var(--accent-tint)] ${
+      className={`group card-hover flex min-w-0 items-center gap-3 rounded-2xl bg-surface p-4 ring-1 ring-line hover:bg-[var(--accent-tint)] ${
         isNext ? "justify-between text-right sm:col-start-2" : ""
       }`}
     >
@@ -440,7 +446,7 @@ function LessonLink({ item, dir, locale }: { item: NonNullable<NavLesson>; dir: 
         <span className="block text-xs font-medium text-faint">
           {t(locale, isNext ? "nextLesson" : "prevLesson")} · {item.code}
         </span>
-        <span className="block truncate font-semibold text-ink">{locale === "am" ? item.title_am : item.title_en}</span>
+        <span className="line-clamp-2 block font-semibold break-words text-ink">{locale === "am" ? item.title_am : item.title_en}</span>
       </span>
       {isNext && <ArrowRight className="size-5 shrink-0 text-faint transition-transform group-hover:translate-x-1 group-hover:text-accent" aria-hidden />}
     </Link>

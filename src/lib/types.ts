@@ -39,8 +39,15 @@ export type VennData = { sets: 2 | 3; labels?: string[]; elements?: Record<strin
 /** Interactive Venn diagram. `shade` and step shades are set expressions like "A∩B∖C". */
 export type VennBlock = { type: "venn"; venn: VennData; shade?: string; steps?: { shade: string; text: Bi }[]; caption?: Bi; showElements?: boolean };
 export type WorkedStep = { text: Bi; why?: Bi; shade?: string };
+/**
+ * The teacher-style solution template, around the numbered steps:
+ * 📌 asks (what the question asks, plain words) · 📋 known (the given sets / numbers) · 🔧 rule (name + simple meaning)
+ * · 👣 steps (one move each, the set after every step) · ✅ answer + wrong (one line per wrong choice)
+ * · ⚠️ mistake (common mistake) · check (a quick check).
+ */
+export type Guide = { asks?: Bi; known?: Bi; rule?: Bi; wrong?: Bi[]; mistake?: Bi; check?: Bi };
 /** Paper-mode worked example: steps appear one at a time, each with a "Why?". */
-export type WorkedBlock = { type: "worked"; title: Bi; problem: Bi; steps: WorkedStep[]; answer: Bi; venn?: VennData };
+export type WorkedBlock = { type: "worked"; title: Bi; problem: Bi; steps: WorkedStep[]; answer: Bi; venn?: VennData; guide?: Guide };
 
 /** How an answer is checked (homework and quiz). */
 export type AnswerSpec =
@@ -66,7 +73,7 @@ export type HomeworkItem = {
   warmup?: boolean;
   /** Show "Calculation paper" + "Calculator" (default: Mathematics written / choice questions only). */
   needs_calculation?: boolean;
-  solution: { steps: WorkedStep[]; answer: Bi; venn?: VennData };
+  solution: { steps: WorkedStep[]; answer: Bi; venn?: VennData; guide?: Guide };
 };
 
 export type Block =
@@ -187,4 +194,6 @@ export type QuizQuestion = {
   answer?: { value?: number | string[]; venn?: VennData; regions?: string[] } | null;
   /** Step-by-step explanation shown after answering. */
   steps?: { text: Bi }[];
+  /** The teacher-style template around the steps (what it asks, rule, why the other choices are wrong, common mistake). */
+  guide?: Guide | null;
 };

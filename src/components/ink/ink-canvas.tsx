@@ -119,6 +119,8 @@ export function InkCanvas({
   const [sel, setSelState] = useState<Set<string>>(new Set());
   const selRef = useRef(sel);
   const [editing, setEditingState] = useState<Editing | null>(null);
+  /** When the current text box was opened: a blur right after it (from the same tap) must not close it. */
+  const startedAt = useRef(0);
   const editingRef = useRef<Editing | null>(null);
   const [busy, setBusy] = useState(false); // dragging: hide the floating bar
   // For the floating bar / text input (rendered by React): the view and the paper width, as state.
@@ -270,6 +272,7 @@ export function InkCanvas({
 
   const startText = (x: number, y: number, existing?: InkText) => {
     finishText();
+    startedAt.current = performance.now();
     const t = opts.current.tool;
     setSel(new Set());
     setEditing(
@@ -518,7 +521,9 @@ export function InkCanvas({
     if (e.pointerType === "mouse" && e.button !== 0) return;
     if (editingRef.current) {
       finishText();
-      if (o.tool.tool === "text") return; // a click outside just finishes the text box
+      // Text tool: the same tap places the new text box right away (no second tap needed). Keep the focus
+      // on the text input: otherwise its blur would close the box we are about to open.
+      if (o.tool.tool === "text") e.preventDefault();
     }
 
     drawingId.current = e.pointerId;
@@ -730,10 +735,7 @@ export function InkCanvas({
       transition={{ type: "spring", stiffness: 520, damping: 36 }}
       onPointerDown={(e) => e.preventDefault()} // keep the text cursor
       className="absolute z-20 flex max-w-[calc(100%-16px)] items-center gap-0.5 overflow-x-auto rounded-xl bg-surface p-1 shadow-[0_8px_24px_-12px_rgba(29,42,44,0.45)] ring-1 ring-line no-scrollbar"
-      style={{
-        left: barAt.x,
-        top: barAt.y,
-      }}
+      style={editing ? { left: 8, bottom: 8 } : { left: barAt.x, top: barAt.y }}
       role="toolbar"
       aria-label={editing ? "Text options" : "Selection options"}
     >
@@ -791,7 +793,12 @@ export function InkCanvas({
   );
 
   return (
-    <div ref={wrap} data-ink-paper={readOnly ? undefined : ""} className={`ink-paper relative overflow-hidden overscroll-contain ${className}`}>
+    // A preview passes "absolute inset-0": then it must NOT also be "relative" (that collapsed it to 0 px high: a blank preview).
+    <div
+      ref={wrap}
+      data-ink-paper={readOnly ? undefined : ""}
+      className={`ink-paper overflow-hidden overscroll-contain ${/\b(absolute|fixed)\b/.test(className) ? "" : "relative"} ${className}`}
+    >
       <canvas
         ref={canvas}
         aria-label={ariaLabel}
@@ -839,7 +846,13 @@ export function InkCanvas({
               finishText();
             }
           }}
-          onBlur={() => finishText()}
+          onBlur={() => {
+            if (performance.now() - startedAt.current < 400) {
+              requestAnimationFrame(() => input.current?.focus({ preventScroll: true }));
+              return;
+            }
+            finishText();
+          }}
           className="absolute z-10 rounded-md bg-accent/[0.06] px-0.5 outline-none ring-1 ring-accent/50"
           style={{
             left: editing.x * v.k + v.x - 2,

@@ -12,7 +12,7 @@ import { createClient } from "@/lib/supabase/client";
 import { useUser } from "@/components/user-provider";
 import { Markdown } from "@/components/tutor/markdown";
 import { MathText } from "@/components/math/tex";
-import { healStreaming } from "@/lib/tutor/stream-md";
+import { fixInlineTables, healStreaming } from "@/lib/tutor/stream-md";
 import { t, type SiteKey } from "@/lib/site-i18n";
 import type { Locale } from "@/lib/locale";
 import {
@@ -711,7 +711,7 @@ function AssistantMessage({
         {body && (
           <div className="text-[15px] leading-relaxed text-ink/90">
             {/* while streaming: open **, $, [ … are closed/hidden so raw Markdown never flashes */}
-            <Markdown text={streaming ? healStreaming(body) : body} />
+            <Markdown text={streaming ? healStreaming(fixInlineTables(body)) : fixInlineTables(body)} />
             {streaming && <span className="ml-0.5 inline-block h-4 w-1.5 translate-y-0.5 animate-pulse rounded-full bg-accent/60 align-baseline" aria-hidden />}
           </div>
         )}

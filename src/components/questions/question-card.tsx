@@ -15,6 +15,7 @@ import { Calculator } from "@/components/math/calculator";
 import { ScratchPaper } from "@/components/ink/scratch-paper";
 import { WrittenAnswer } from "@/components/questions/written-answer";
 import { VennBlock } from "@/components/math/venn-block";
+import { GuideIntro, GuideOutro, SectionHead, StepBadge } from "@/components/math/solution-guide";
 import { evalVenn } from "@/lib/math/venn";
 import type { VennData } from "@/lib/types";
 
@@ -174,7 +175,7 @@ export function QuestionCard({
         ))}
         {solution && q.solution && (
           <Reveal key="solution">
-            <WorkedExample title={{ en: "Full solution", am: "ሙሉ መፍትሔ" }} steps={q.solution.steps} answer={q.solution.answer} venn={q.solution.venn} lang={lang} />
+            <WorkedExample title={{ en: "Full solution", am: "ሙሉ መፍትሔ" }} steps={q.solution.steps} answer={q.solution.answer} venn={q.solution.venn} guide={q.solution.guide} lang={lang} />
           </Reveal>
         )}
         {quiz && answered && (
@@ -212,11 +213,19 @@ function QuizExplanation({ q, lang, right }: { q: UQuestion; lang: Lang; right: 
           <MathText text={am ? q.explanation.am : q.explanation.en} />
         </p>
       )}
+      <GuideIntro guide={q.guide} lang={lang} className="mt-3 rounded-xl bg-white/70 px-3 py-3" />
       {!!q.steps?.length && (
-        <ol className="font-hand mt-3 space-y-1 rounded-xl bg-white/70 px-4 py-2.5 text-[16px] leading-7 text-[#23324a]">
+        <div className="mt-3">
+          <SectionHead kind="steps" lang={lang} />
+        </div>
+      )}
+      {!!q.steps?.length && (
+        <ol className="font-hand mt-2 space-y-1 rounded-xl bg-white/70 px-4 py-2.5 text-[16px] leading-7 text-[#23324a]">
           {q.steps.map((s, i) => (
-            <li key={i} className="flex gap-2">
-              <span className="shrink-0 text-[#c05050]/80">{i + 1}.</span>
+            <li key={i} className="flex items-start gap-2">
+              <span className="mt-0.5">
+                <StepBadge n={i + 1} />
+              </span>
               <span className="min-w-0">
                 <MathText text={am ? s.text.am : s.text.en} />
               </span>
@@ -224,6 +233,7 @@ function QuizExplanation({ q, lang, right }: { q: UQuestion; lang: Lang; right: 
           ))}
         </ol>
       )}
+      <GuideOutro guide={q.guide} lang={lang} className="mt-3" />
     </div>
   );
 }

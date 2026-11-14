@@ -84,7 +84,7 @@ export function BottomTabBar({ locale }: { locale: Locale }) {
         animate={{ y: hidden || onBoard ? 130 : 0, opacity: hidden || onBoard ? 0 : 1 }}
         transition={{ type: "spring", stiffness: 420, damping: 40 }}
       >
-        <div className="pointer-events-auto flex items-center gap-1 rounded-full bg-white/80 p-1.5 shadow-[0_10px_30px_-10px_rgba(29,42,44,0.28),0_1px_2px_rgba(29,42,44,0.06)] ring-1 ring-black/[0.06] backdrop-blur-xl backdrop-saturate-150">
+        <div className="pointer-events-auto flex max-w-full min-w-0 items-center gap-1 rounded-full bg-white/80 p-1.5 shadow-[0_10px_30px_-10px_rgba(29,42,44,0.28),0_1px_2px_rgba(29,42,44,0.06)] ring-1 ring-black/[0.06] backdrop-blur-xl backdrop-saturate-150">
           {tabs.map((tab) => (
             <Tab key={tab.id} tab={tab} active={active === tab.id} />
           ))}
@@ -160,7 +160,7 @@ function Tab({ tab, active }: { tab: TabDef; active: boolean }) {
             transition={glide}
             className="relative overflow-hidden"
           >
-            <span className={`block max-w-[9.5rem] truncate pr-1 text-sm font-semibold whitespace-nowrap text-accent-ink ${tab.am ? "am leading-normal" : ""}`}>
+            <span className={`block max-w-[min(9.5rem,24vw)] truncate pr-1 text-sm font-semibold whitespace-nowrap text-accent-ink ${tab.am ? "am leading-normal" : ""}`}>
               {tab.label}
             </span>
           </motion.span>

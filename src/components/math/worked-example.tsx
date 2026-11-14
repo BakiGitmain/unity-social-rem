@@ -3,10 +3,11 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronRight, HelpCircle, ListChecks, RotateCcw } from "lucide-react";
-import type { Bi, Lang, VennData, WorkedStep } from "@/lib/types";
+import type { Bi, Guide, Lang, VennData, WorkedStep } from "@/lib/types";
 import { evalVenn } from "@/lib/math/venn";
 import { BiText } from "@/components/study/text";
 import { VennDiagram } from "@/components/math/venn-diagram";
+import { GuideIntro, GuideOutro, SECTION, SectionHead, SectionIcon, StepBadge } from "@/components/math/solution-guide";
 
 const spring = { type: "spring", stiffness: 420, damping: 34 } as const;
 
@@ -37,6 +38,7 @@ export function WorkedExample({
   steps,
   answer,
   venn,
+  guide,
   lang,
   startOpen = false,
 }: {
@@ -45,6 +47,8 @@ export function WorkedExample({
   steps: WorkedStep[];
   answer: Bi;
   venn?: VennData;
+  /** Teacher-style template: what it asks, what we know, the rule (above) · wrong choices, common mistake (after). */
+  guide?: Guide;
   lang: Lang;
   startOpen?: boolean;
 }) {
@@ -65,7 +69,7 @@ export function WorkedExample({
 
   return (
     <figure className="my-6 overflow-hidden rounded-2xl ring-1 ring-line">
-      {(title || problem) && (
+      {(
         <div className="bg-surface px-4 py-3 sm:px-5">
           {title && (
             <p className="text-xs font-semibold uppercase tracking-wide text-accent-ink">
@@ -77,6 +81,10 @@ export function WorkedExample({
               <BiText value={problem} lang={lang} />
             </p>
           )}
+          <GuideIntro guide={guide} lang={lang} className={title || problem ? "mt-3" : ""} />
+          <div className={title || problem || guide ? "mt-3" : ""}>
+            <SectionHead kind="steps" lang={lang} />
+          </div>
         </div>
       )}
 
@@ -92,7 +100,9 @@ export function WorkedExample({
                 transition={spring}
                 className="relative"
               >
-                <span className="absolute -left-8 top-0 w-6 text-right text-sm text-[#c05050]/80">{i + 1}.</span>
+                <span className="absolute top-1 -left-9">
+                  <StepBadge n={i + 1} />
+                </span>
                 <span className="mr-1">
                   <BiText value={s.text} lang={lang} />
                 </span>
@@ -133,10 +143,18 @@ export function WorkedExample({
                 initial={{ opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={spring}
-                className="!mt-3 w-fit rounded-xl bg-[#fff3b0] px-3 py-1 shadow-[inset_0_-2px_0_rgba(180,140,0,0.25)]"
+                className="relative !mt-3 -ml-9 flex w-fit max-w-full items-start gap-2 rounded-xl px-3 py-1.5"
+                style={{ backgroundColor: `${SECTION.answer.color}1a`, boxShadow: `inset 0 0 0 1px ${SECTION.answer.color}40` }}
               >
-                <span className="font-bold">Answer: </span>
-                <BiText value={answer} lang={lang} />
+                <SectionIcon kind="answer" className="mt-0.5" />
+                <span className="min-w-0">
+                  <span className="font-sans text-[12px] font-semibold tracking-wide uppercase" style={{ color: SECTION.answer.color }}>
+                    {lang === "am" ? "መልስ" : "Answer"}
+                  </span>
+                  <span className="block">
+                    <BiText value={answer} lang={lang} />
+                  </span>
+                </span>
               </motion.li>
             )}
           </AnimatePresence>
@@ -150,6 +168,14 @@ export function WorkedExample({
           </div>
         )}
       </div>
+
+      <AnimatePresence initial={false}>
+        {done && guide && (guide.wrong?.length || guide.mistake || guide.check) && (
+          <motion.div key="outro" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} transition={spring} className="overflow-hidden bg-paper">
+            <GuideOutro guide={guide} lang={lang} className="px-4 py-3 sm:px-5" />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="flex flex-wrap items-center gap-2 bg-surface px-4 py-3 sm:px-5">
         {!done ? (

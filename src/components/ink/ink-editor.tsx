@@ -7,6 +7,7 @@ import {
   Circle,
   Eraser,
   HelpCircle,
+  MoreHorizontal,
   Highlighter,
   Minus,
   MousePointer2,
@@ -161,7 +162,7 @@ export function InkEditor({
   ariaLabel?: string;
 }) {
   const [tool, setTool] = useState<ToolState>({ tool: "pen", color: PEN_COLORS[0]!, size: 1, shape: "ellipse", symbol: "∪" });
-  const [panel, setPanel] = useState<null | "pen" | "shape" | "symbol" | "paper" | "help">(null);
+  const [panel, setPanel] = useState<null | "pen" | "shape" | "symbol" | "paper" | "help" | "more">(null);
   const [penOnly, setPenOnly, penSeen, markPen] = usePenOnly();
   const phone = useIsPhone();
   const { doc, undo, redo, clear, setItems, patch } = api;
@@ -199,8 +200,9 @@ export function InkEditor({
     return () => window.removeEventListener("keydown", onKey);
   });
 
+  // Phone: 36 px buttons so the whole bar (7 tools + Undo + More) fits on one row at 375 px.
   const btn = (active: boolean) =>
-    `relative grid size-11 shrink-0 place-items-center rounded-xl transition-colors ${active ? "text-white" : "text-muted hover:bg-ink/[0.06] hover:text-ink"}`;
+    `relative grid ${phone ? "size-9" : "size-11"} shrink-0 place-items-center rounded-xl transition-colors ${active ? "text-white" : "text-muted hover:bg-ink/[0.06] hover:text-ink"}`;
   const toolBtn = ({ id, label, icon: Icon, shortcut }: { id: ToolState["tool"]; label: string; icon: typeof PenLine; shortcut?: string }) => (
     <button type="button" onClick={() => pick(id)} aria-label={label} aria-pressed={tool.tool === id} title={shortcut ? `${label} (${shortcut})` : label} className={btn(tool.tool === id)}>
       {tool.tool === id && <motion.span layoutId={`ink-tool-${ariaLabel ?? "x"}`} className="absolute inset-0 rounded-xl bg-accent" transition={spring} />}
@@ -209,29 +211,9 @@ export function InkEditor({
     </button>
   );
 
-  const bar = (
-    <div
-      role="toolbar"
-      aria-label="Writing tools"
-      className={
-        phone
-          ? "no-scrollbar flex items-center gap-1 overflow-x-auto border-t border-line bg-surface px-2 pt-1.5 pb-[calc(0.4rem+env(safe-area-inset-bottom))]"
-          : toolbar === "top"
-            ? "flex flex-wrap items-center gap-1 border-b border-line bg-surface px-2 py-1.5"
-            : "no-scrollbar flex w-14 shrink-0 flex-col items-center gap-1 overflow-y-auto overscroll-contain border-r border-line bg-surface py-2"
-      }
-    >
-      {toolBtn({ id: "select", label: "Select / move", icon: MousePointer2, shortcut: "V" })}
-      {toolBtn({ id: "pen", label: "Pen", icon: PenLine, shortcut: "P", })}
-      {toolBtn({ id: "highlighter", label: "Highlighter", icon: Highlighter, shortcut: "H", })}
-      {toolBtn({ id: "text", label: "Text", icon: Type, shortcut: "T" })}
-      {toolBtn({ id: "eraser", label: "Eraser (tap or scribble)", icon: Eraser, shortcut: "E", })}
-      {toolBtn({ id: "shape", label: "Shapes", icon: Shapes, shortcut: "S", })}
-      {toolBtn({ id: "symbol", label: "Symbols", icon: Sigma, })}
-      <span className={phone || toolbar === "top" ? "mx-0.5 h-7 w-px shrink-0 bg-line" : "my-0.5 h-px w-7 shrink-0 bg-line"} aria-hidden />
-      <button type="button" onClick={undo} disabled={!api.canUndo} aria-label="Undo" title="Undo (Ctrl+Z)" className={`${btn(false)} disabled:opacity-30`}>
-        <Undo2 className="size-5" aria-hidden />
-      </button>
+  /** Redo · Clear · Paper · Pen only · Help: in the bar on desktop, in the "More" panel on phones. */
+  const extraButtons = (
+    <>
       <button type="button" onClick={redo} disabled={!api.canRedo} aria-label="Redo" title="Redo (Ctrl+Shift+Z)" className={`${btn(false)} disabled:opacity-30`}>
         <Redo2 className="size-5" aria-hidden />
       </button>
@@ -250,6 +232,40 @@ export function InkEditor({
       <button type="button" onClick={() => setPanel((p) => (p === "help" ? null : "help"))} aria-label="Help" className={btn(false)}>
         <HelpCircle className="size-5" aria-hidden />
       </button>
+    </>
+  );
+
+  const bar = (
+    <div
+      role="toolbar"
+      aria-label="Writing tools"
+      className={
+        phone
+          ? "no-scrollbar flex min-w-0 items-center justify-between gap-0.5 overflow-x-auto border-t border-line bg-surface px-1.5 pt-1.5 pb-[calc(0.4rem+env(safe-area-inset-bottom))]"
+          : toolbar === "top"
+            ? "flex flex-wrap items-center gap-1 border-b border-line bg-surface px-2 py-1.5"
+            : "no-scrollbar flex w-14 shrink-0 flex-col items-center gap-1 overflow-y-auto overscroll-contain border-r border-line bg-surface py-2"
+      }
+    >
+      {toolBtn({ id: "select", label: "Select / move", icon: MousePointer2, shortcut: "V" })}
+      {toolBtn({ id: "pen", label: "Pen", icon: PenLine, shortcut: "P", })}
+      {toolBtn({ id: "highlighter", label: "Highlighter", icon: Highlighter, shortcut: "H", })}
+      {toolBtn({ id: "text", label: "Text", icon: Type, shortcut: "T" })}
+      {toolBtn({ id: "eraser", label: "Eraser (tap or scribble)", icon: Eraser, shortcut: "E", })}
+      {toolBtn({ id: "shape", label: "Shapes", icon: Shapes, shortcut: "S", })}
+      {toolBtn({ id: "symbol", label: "Symbols", icon: Sigma, })}
+      <span className={phone || toolbar === "top" ? "mx-0.5 h-7 w-px shrink-0 bg-line" : "my-0.5 h-px w-7 shrink-0 bg-line"} aria-hidden />
+      <button type="button" onClick={undo} disabled={!api.canUndo} aria-label="Undo" title="Undo (Ctrl+Z)" className={`${btn(false)} disabled:opacity-30`}>
+        <Undo2 className="size-5" aria-hidden />
+      </button>
+      {phone ? (
+        <button type="button" onClick={() => setPanel((p) => (p === "more" ? null : "more"))} aria-label="More tools" aria-expanded={panel === "more"} className={btn(panel === "more")}>
+          {panel === "more" && <span className="absolute inset-0 rounded-xl bg-accent" />}
+          <MoreHorizontal className="relative size-5" aria-hidden />
+        </button>
+      ) : (
+        extraButtons
+      )}
     </div>
   );
 
@@ -340,6 +356,7 @@ export function InkEditor({
               onPick={(s) => canvasApi.current?.insert(s) || setTool((t) => ({ ...t, tool: "symbol", symbol: s }))}
             />
           )}
+          {panel === "more" && <div className="flex flex-wrap items-center gap-1">{extraButtons}</div>}
           {panel === "paper" && (
             <div className="flex gap-1.5">
               {(["lined", "grid", "blank"] as Paper[]).map((p) => (

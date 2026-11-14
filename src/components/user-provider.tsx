@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { pingSeen } from "@/lib/track";
 
@@ -24,25 +24,41 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
   const pathname = usePathname();
+  const router = useRouter();
 
   const refresh = useCallback(async () => {
     try {
       const supabase = createClient();
       const { data } = await supabase.auth.getSession();
-      const name = data.session?.user.user_metadata?.username;
-      setUsername(typeof name === "string" ? name : null);
       if (data.session) {
+        // A deleted account can still have a valid session cookie for a while: if its profile is gone,
+        // sign out on this device and go to the login page instead of showing it as logged in.
+        const [profile, admin] = await Promise.all([
+          supabase.from("profiles").select("id").eq("id", data.session.user.id).maybeSingle(),
+          supabase.rpc("has_admin_role"),
+        ]);
+        if (!profile.error && !profile.data) {
+          await supabase.auth.signOut({ scope: "local" });
+          setUsername(null);
+          setIsAdmin(false);
+          if (!/\/login$/.test(window.location.pathname)) router.replace("/login");
+          return;
+        }
+        const name = data.session.user.user_metadata?.username;
+        setUsername(typeof name === "string" ? name : null);
         pingSeen();
-        const { data: admin } = await supabase.rpc("has_admin_role");
-        setIsAdmin(admin === true);
-      } else setIsAdmin(false);
+        setIsAdmin(admin.data === true);
+      } else {
+        setUsername(null);
+        setIsAdmin(false);
+      }
     } catch {
       setUsername(null);
       setIsAdmin(false);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [router]);
 
   // Re-check after every navigation (login/signup redirect back with a fresh cookie).
   useEffect(() => {

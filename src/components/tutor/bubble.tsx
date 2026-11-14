@@ -18,19 +18,21 @@ export type Side = "left" | "right";
 
 export type BubbleHandle = { focus: () => void };
 
-/** Safe area for the bubble: below the header, above the mobile tab bar. */
-/** Height of the 📝 notes button stacked above Rem (it moves together with Rem). */
+/** Height of the notes button stacked above Rem (it moves together with Rem). */
 const STACK = 54;
+/**
+ * Safe area for the bubble: below the header (with room for the notes button above Rem), above the mobile tab
+ * bar, inside the VISIBLE viewport (phone URL bar / keyboard). Never off-screen, even on very short screens.
+ */
 function bounds() {
-  const w = window.innerWidth;
-  const h = window.innerHeight;
+  const vv = window.visualViewport;
+  const w = Math.round(vv?.width ?? window.innerWidth);
+  const h = Math.round(vv?.height ?? window.innerHeight);
   const mobile = w < 768;
-  return {
-    minX: EDGE,
-    maxX: w - SIZE - EDGE,
-    minY: (mobile ? 72 : 88) + STACK,
-    maxY: h - SIZE - (mobile ? 104 : 24),
-  };
+  const lowest = h - SIZE - 8; // the bubble's top can never be lower than this
+  const minY = Math.min((mobile ? 72 : 88) + STACK, Math.max(STACK + 8, lowest));
+  const maxY = Math.max(minY, Math.min(lowest, h - SIZE - (mobile ? 104 : 24)));
+  return { minX: EDGE, maxX: Math.max(EDGE, w - SIZE - EDGE), minY, maxY };
 }
 
 function readPos(): { side: Side; y: number } {
@@ -68,6 +70,8 @@ export const Bubble = forwardRef<
   const x = useMotionValue(-200);
   const y = useMotionValue(-200);
   const [ready, setReady] = useState(false);
+  /** Drag limits (kept in sync with the screen size): the bubble can't be dragged off-screen. */
+  const [box, setBox] = useState({ minX: 0, maxX: 0, minY: 0, maxY: 0 });
   const [side, setSide] = useState<Side>("right");
   const [dim, setDim] = useState(false);
   const [tip, setTip] = useState(false);
@@ -88,6 +92,7 @@ export const Bubble = forwardRef<
   const place = useCallback(
     (s: Side, frac: number, smooth: boolean) => {
       const b = bounds();
+      setBox(b);
       const tx = s === "left" ? b.minX : b.maxX;
       const ty = b.minY + frac * Math.max(0, b.maxY - b.minY);
       if (smooth && !reduce) {
@@ -109,8 +114,15 @@ export const Bubble = forwardRef<
     place(p.side, p.y, false);
     setReady(true);
     const onResize = () => place(readPos().side, readPos().y, false);
+    const vv = window.visualViewport;
     window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    window.addEventListener("orientationchange", onResize);
+    vv?.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("orientationchange", onResize);
+      vv?.removeEventListener("resize", onResize);
+    };
   }, [place]);
 
   // Fade when idle; wake when scrolling stops or the pointer comes near.
@@ -166,7 +178,7 @@ export const Bubble = forwardRef<
     const b = bounds();
     // Throwing it sideways picks that edge; otherwise the nearest one.
     const projected = x.get() + SIZE / 2 + info.velocity.x * 0.12;
-    const s: Side = projected < window.innerWidth / 2 ? "left" : "right";
+    const s: Side = projected < (b.minX + b.maxX + SIZE) / 2 ? "left" : "right";
     const ty = Math.min(b.maxY, Math.max(b.minY, y.get() + info.velocity.y * 0.05));
     const frac = b.maxY > b.minY ? (ty - b.minY) / (b.maxY - b.minY) : 1;
     place(s, frac, true);
@@ -186,6 +198,7 @@ export const Bubble = forwardRef<
           drag
           dragMomentum={false}
           dragElastic={0}
+          dragConstraints={{ left: box.minX, right: box.maxX, top: box.minY, bottom: box.maxY }}
           onDragStart={() => {
             dragged.current = true;
             dismissTip();

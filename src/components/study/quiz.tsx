@@ -64,7 +64,7 @@ export default function Quiz({
     setLoadError(false);
     const { data, error } = await createClient()
       .from("quiz_questions")
-      .select("id, sort_order, kind, needs_calculation, answer, steps, question_en, question_am, options_en, options_am, correct_index, explanation_en, explanation_am")
+      .select("id, sort_order, kind, needs_calculation, answer, steps, guide, question_en, question_am, options_en, options_am, correct_index, explanation_en, explanation_am")
       .eq("quiz_id", quiz.id)
       .order("sort_order");
     if (error || !data) setLoadError(true);
@@ -124,7 +124,8 @@ export default function Quiz({
   const score = answers.filter((a) => a?.correct).length;
 
   return (
-    <div ref={topRef} className="scroll-mt-24">
+    // pb on phones: the last answer options and "Next" can always scroll above the floating bottom bar
+    <div ref={topRef} className="scroll-mt-24 pb-24 md:pb-0">
       <AnimatePresence mode="wait" initial={false}>
         {phase === "intro" && (
           <Panel key="intro">

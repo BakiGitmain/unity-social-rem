@@ -231,7 +231,7 @@ export function NoteBlock({ block, lang }: { block: Block; lang: Lang }) {
       return <VennBlock block={block} lang={lang} />;
 
     case "worked":
-      return <WorkedExample title={block.title} problem={block.problem} steps={block.steps} answer={block.answer} venn={block.venn} lang={lang} />;
+      return <WorkedExample title={block.title} problem={block.problem} steps={block.steps} answer={block.answer} venn={block.venn} guide={block.guide} lang={lang} />;
 
     default:
       // Unknown block types are skipped silently rather than showing an error to students.

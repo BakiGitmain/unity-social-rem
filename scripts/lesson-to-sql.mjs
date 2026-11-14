@@ -80,6 +80,18 @@ function checkSteps(steps, path, venn) {
     }
   });
 }
+/** Teacher-style solution template: { asks?, known?, rule?, wrong?: [..], mistake?, check? } (all bilingual). */
+const GUIDE_KEYS = ["asks", "known", "rule", "wrong", "mistake", "check"];
+function checkGuide(g, path) {
+  if (g === undefined || g === null) return;
+  if (typeof g !== "object" || Array.isArray(g)) return fail(path, "must be an object");
+  for (const k of Object.keys(g)) if (!GUIDE_KEYS.includes(k)) fail(`${path}.${k}`, `unknown field (use ${GUIDE_KEYS.join(", ")})`);
+  for (const k of ["asks", "known", "rule", "mistake", "check"]) if (g[k] !== undefined) isBi(g[k], `${path}.${k}`, { amharic: false });
+  if (g.wrong !== undefined) {
+    if (!Array.isArray(g.wrong)) fail(path + ".wrong", "must be an array (one line per wrong choice)");
+    else g.wrong.forEach((w, i) => isBi(w, `${path}.wrong[${i}]`, { amharic: false }));
+  }
+}
 /** Answer spec (homework + quiz): choice | number | set | venn. Set answers are stored in canonical form. */
 function checkAnswer(a, path) {
   if (a?.kind === "choice") {
@@ -114,6 +126,7 @@ function checkBlock(b, path) {
       if (b.venn) checkVenn(b.venn, path + ".venn");
       checkSteps(b.steps, path + ".steps", b.venn);
       isBi(b.answer, path + ".answer", { amharic: false });
+      checkGuide(b.guide, path + ".guide");
       break;
     case "heading":
     case "paragraph":
@@ -244,6 +257,7 @@ else
     isBi(qq.question, p + ".question", { amharic: false });
     isBi(qq.explanation, p + ".explanation", { amharic: false });
     (qq.steps ?? []).forEach((st, j) => isBi(st.text, `${p}.steps[${j}].text`, { amharic: false }));
+    checkGuide(qq.guide, p + ".guide");
     const kind = qq.kind ?? "choice";
     if (kind === "choice") {
       if (!Array.isArray(qq.options) || qq.options.length < 2 || qq.options.length > 6)
@@ -296,6 +310,7 @@ else
     if (h.solution?.venn) checkVenn(h.solution.venn, p + ".solution.venn");
     checkSteps(h.solution?.steps, p + ".solution.steps", h.solution?.venn);
     isBi(h.solution?.answer, p + ".solution.answer", { amharic: false });
+    checkGuide(h.solution?.guide, p + ".solution.guide");
   });
 }
 if ((data.practice ?? []).some((x) => (data.homework ?? []).some((h) => h.id === x.id))) fail("practice", "ids must differ from the homework ids");
@@ -394,13 +409,13 @@ out.push(`  insert into public.quizzes (lesson_id, title_en, title_am, descripti
   returning id into v_quiz_id;`);
 out.push("");
 out.push(
-  "  insert into public.quiz_questions (quiz_id, sort_order, kind, needs_calculation, question_en, question_am, options_en, options_am, correct_index, answer, steps, explanation_en, explanation_am) values",
+  "  insert into public.quiz_questions (quiz_id, sort_order, kind, needs_calculation, question_en, question_am, options_en, options_am, correct_index, answer, steps, guide, explanation_en, explanation_am) values",
 );
 out.push(
   q.questions
     .map(
       (qq, i) =>
-        `    (v_quiz_id, ${i + 1}, ${lit(qq.kind ?? "choice")}, ${qq.needs_calculation ?? (data.subject === "mathematics" && (qq.kind ?? "choice") !== "venn") ? "true" : "false"}, ${lit(qq.question.en)}, ${lit(qq.question.am)},\n     ${arr((qq.options ?? []).map((o) => o.en))},\n     ${arr((qq.options ?? []).map((o) => o.am))},\n     ${(qq.kind ?? "choice") === "choice" ? qq.answer : 0}, ${(qq.kind ?? "choice") === "choice" ? "null" : json(qq.answer)}, ${json(qq.steps ?? [])},\n     ${lit(qq.explanation.en)}, ${lit(qq.explanation.am)})`,
+        `    (v_quiz_id, ${i + 1}, ${lit(qq.kind ?? "choice")}, ${qq.needs_calculation ?? (data.subject === "mathematics" && (qq.kind ?? "choice") !== "venn") ? "true" : "false"}, ${lit(qq.question.en)}, ${lit(qq.question.am)},\n     ${arr((qq.options ?? []).map((o) => o.en))},\n     ${arr((qq.options ?? []).map((o) => o.am))},\n     ${(qq.kind ?? "choice") === "choice" ? qq.answer : 0}, ${(qq.kind ?? "choice") === "choice" ? "null" : json(qq.answer)}, ${json(qq.steps ?? [])}, ${qq.guide ? json(qq.guide) : "null"},\n     ${lit(qq.explanation.en)}, ${lit(qq.explanation.am)})`,
     )
     .join(",\n") + ";",
 );

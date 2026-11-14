@@ -57,6 +57,15 @@ in English, Amharic, or both.
 - Quiz kinds: `quiz_questions.kind` (choice | number | set | venn) + `answer` jsonb + `steps`. Scored IN SQL by
   `quiz_answer_correct()` (set values canonical: sorted, normalized). Tools: math keyboard (`math-input.tsx`, tap or
   drag symbols), calculation paper + calculator inside every question card. Admin editor supports all of it (`math-editors.tsx`).
+- **Teach math like a teacher** (all math content + Rem): plain words FIRST, then the symbol; one small move per step;
+  the set after EVERY step; name the rule + its simple meaning; Venn shading one step at a time; choice questions say
+  why each wrong option is wrong. **Solution template** `Guide` (`src/lib/types.ts`): 📌 `asks` · 📋 `known` · 🔧 `rule`
+  · 👣 steps · ✅ answer + `wrong[]` · ⚠️ `mistake` · `check`, on `worked` blocks (`block.guide`), homework/practice
+  (`solution.guide`) and quiz questions (column `quiz_questions.guide`; admin save keeps it). Rendered by
+  `components/math/solution-guide.tsx`. Quiz `wrong` lines are in option order (letters a)–d) added; buttons show A–D).
+- **Lesson vs Homework**: the lesson (Full Notes) = teaching + the teacher's OWN worked examples only. Exercises given
+  in class go to Homework (counted); extra questions to Extra practice. Math 1.1 homework = 5 board exercises + class
+  questions 3–15 (h6–h18; Q16 waits for its full text).
 
 ## Question card (Homework, Extra practice, Quiz) + Answer Paper
 - ONE card for every question: `components/questions/question-card.tsx`, model `src/lib/questions.ts` (`fromHomework`,
@@ -112,8 +121,11 @@ in English, Amharic, or both.
 - Prompt: `src/lib/tutor/prompt.ts`: a short **stable** system prompt (prompt caching; no per-request text in it), then
   `buildContext()` = subject/grade/unit/lesson + the CURRENT part in full + the lesson's KEY TERMS and summary (compact),
   so questions about other parts get the lesson's meaning (not dictionary meanings). Admins can override the prompt
-  in /admin/ai (versions in `ai_prompt_versions`). Answers: 2–3 short sentences + ONE example (~50–70 words).
-- Cost rules (all in `src/lib/tutor/config.ts`): 350 max output tokens (600 for Amharic answers, which need ~3× tokens),
+  in /admin/ai (versions in `ai_prompt_versions`). Answers like a teacher: **bold** first line with the answer, then 2–3 short
+  sentences / numbered one-move steps (the set after each step) / a GFM table when comparing, then "💡 Tip:" (same format
+  in Amharic). The chat renders GFM tables (scroll sideways on phones), KaTeX, copy buttons on code/math blocks;
+  `fixInlineTables()` repairs a table written on one line.
+- Cost rules (all in `src/lib/tutor/config.ts`): 600 max output tokens (1500 for Amharic answers, which need ~3× tokens: never cut mid-word),
   last 8 messages only, history sent as text only, user messages ≤ 800 chars, `reasoningEffort: "none"`, `store: false`.
   Tools are only sent when needed (each adds hidden tokens + latency): the quiz tool only for quiz intent (`QUIZ_RE` or
   the 🎯 chip), web search (`openai.tools.webSearch`, $10 / 1k calls) only when `SEARCH_RE` matches (latest, current,
