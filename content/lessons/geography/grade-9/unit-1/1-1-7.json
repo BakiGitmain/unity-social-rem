@@ -1,0 +1,586 @@
+{
+  "subject": "geography",
+  "grade": 9,
+  "unit": {
+    "number": 1,
+    "slug": "unit-1",
+    "label": { "en": "Unit One", "am": "ምዕራፍ አንድ" },
+    "title": { "en": "The Concept of Geography and Map-Reading", "am": "የጂኦግራፊ ጽንሰ ሐሳብ እና ካርታ ንባብ" },
+    "description": {
+      "en": "What geography is, how it became a science, its branches and scope, and how to read maps.",
+      "am": "ጂኦግራፊ ምን እንደሆነ፣ እንዴት ሳይንስ እንደሆነ፣ ቅርንጫፎቹና ወሰኑ፣ እንዲሁም ካርታ እንዴት እንደሚነበብ።"
+    }
+  },
+  "lesson": {
+    "code": "1.1.7",
+    "slug": "1-1-7",
+    "sort_order": 7,
+    "minutes": 8,
+    "section": { "code": "1.1", "title": { "en": "The Science of Geography", "am": "የጂኦግራፊ ሳይንስ" } },
+    "title": {
+      "en": "Geography and Other Disciplines (with Review of 1.1)",
+      "am": "ጂኦግራፊና ሌሎች የትምህርት ዘርፎች (ከ1.1 ክለሳ ጋር)"
+    },
+    "summary": {
+      "en": "Geography is an interdisciplinary subject linked to both the natural and the social sciences. Ends with a summary and review exercise of the whole of section 1.1.",
+      "am": "ጂኦግራፊ ከተፈጥሮና ከማኅበራዊ ሳይንሶች ጋር የተያያዘ ሁለገብ የትምህርት ዘርፍ ነው። የክፍል 1.1 ማጠቃለያና የክለሳ መልመጃ ይዟል።"
+    }
+  },
+  "sections": [
+    {
+      "title": { "en": "An interdisciplinary subject", "am": "ሁለገብ የትምህርት ዘርፍ" },
+      "icon": "git-branch",
+      "blocks": [
+        {
+          "type": "keypoint",
+          "variant": "definition",
+          "title": { "en": "Interdisciplinary subject", "am": "ሁለገብ የትምህርት ዘርፍ (Interdisciplinary subject)" },
+          "text": {
+            "en": "Geography is an **interdisciplinary subject**: it shares knowledge with many other disciplines.",
+            "am": "ጂኦግራፊ **ሁለገብ የትምህርት ዘርፍ (Interdisciplinary subject)** ነው፤ ከብዙ ሌሎች የትምህርት ዘርፎች ጋር እውቀትን ይጋራል።"
+          }
+        },
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "It has strong links with both the **natural sciences** and the **social sciences**.",
+            "am": "ከ**ተፈጥሮ ሳይንሶች** እና ከ**ማኅበራዊ ሳይንሶች** ጋር ጠንካራ ግንኙነት አለው።"
+          }
+        },
+        {
+          "type": "points",
+          "items": [
+            {
+              "icon": "mountain",
+              "title": { "en": "Physical geography", "am": "የተፈጥሮ ጂኦግራፊ (Physical Geography)" },
+              "text": { "en": "is linked to the **natural sciences**.", "am": "ከ**ተፈጥሮ ሳይንሶች** ጋር ይያያዛል።" }
+            },
+            {
+              "icon": "users",
+              "title": { "en": "Human geography", "am": "የሰው ጂኦግራፊ (Human Geography)" },
+              "text": { "en": "is linked to the **social sciences**.", "am": "ከ**ማኅበራዊ ሳይንሶች** ጋር ይያያዛል።" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": { "en": "Links with the natural sciences", "am": "ከተፈጥሮ ሳይንሶች ጋር ያለ ግንኙነት" },
+      "icon": "flask-conical",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            { "en": "Discipline", "am": "የትምህርት ዘርፍ" },
+            { "en": "Related field of geography", "am": "ተዛማጅ የጂኦግራፊ ዘርፍ" }
+          ],
+          "rows": [
+            [
+              { "en": "**Biology**", "am": "**ባዮሎጂ**" },
+              { "en": "Biogeography", "am": "ሥነ ሕይወታዊ ጂኦግራፊ (Biogeography)" }
+            ],
+            [
+              { "en": "**Meteorology**", "am": "**ሜትሮሎጂ**" },
+              { "en": "Climatology", "am": "ክላይማቶሎጂ (Climatology)" }
+            ],
+            [
+              { "en": "**Geology**", "am": "**ጂኦሎጂ**" },
+              { "en": "Geomorphology and soil geography", "am": "ጂኦሞርፎሎጂ እና የአፈር ጂኦግራፊ" }
+            ],
+            [
+              { "en": "**Astronomy, chemistry, mathematics**", "am": "**አስትሮኖሚ፣ ኬሚስትሪ፣ ሒሳብ**" },
+              { "en": "The earth in space, soils and water, maps and statistics", "am": "ምድር በኅዋ፣ አፈርና ውኃ፣ ካርታና ስታቲስቲክስ" }
+            ]
+          ]
+        },
+        {
+          "type": "tip",
+          "title": { "en": "Matching trick", "am": "የማዛመድ ዘዴ" },
+          "text": {
+            "en": "**Bio**logy → **Bio**geography. **Geo**logy → **Geo**morphology. The first letters help!",
+            "am": "**ባዮ**ሎጂ → **ባዮ**ጂኦግራፊ። **ጂኦ**ሎጂ → **ጂኦ**ሞርፎሎጂ። የመጀመሪያዎቹ ፊደላት ይረዳሉ!"
+          }
+        }
+      ]
+    },
+    {
+      "title": { "en": "Links with the social sciences", "am": "ከማኅበራዊ ሳይንሶች ጋር ያለ ግንኙነት" },
+      "icon": "landmark",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            { "en": "Discipline", "am": "የትምህርት ዘርፍ" },
+            { "en": "Related field of geography", "am": "ተዛማጅ የጂኦግራፊ ዘርፍ" }
+          ],
+          "rows": [
+            [
+              { "en": "**Economics**", "am": "**ኢኮኖሚክስ**" },
+              { "en": "Economic geography", "am": "የኢኮኖሚ ጂኦግራፊ" }
+            ],
+            [
+              { "en": "**Political science**", "am": "**ፖለቲካል ሳይንስ**" },
+              { "en": "Political geography", "am": "ፖለቲካዊ ጂኦግራፊ" }
+            ],
+            [
+              { "en": "**History**", "am": "**ታሪክ**" },
+              { "en": "Historical geography", "am": "ታሪካዊ ጂኦግራፊ" }
+            ],
+            [
+              { "en": "**Demography**", "am": "**ዲሞግራፊ (የሕዝብ ጥናት)**" },
+              { "en": "Population geography", "am": "የሕዝብ ጂኦግራፊ" }
+            ],
+            [
+              { "en": "**Sociology**", "am": "**ሶሺዮሎጂ**" },
+              { "en": "Cultural (social) geography", "am": "የባህል (ማኅበራዊ) ጂኦግራፊ" }
+            ]
+          ]
+        },
+        {
+          "type": "example",
+          "title": { "en": "Example", "am": "ምሳሌ" },
+          "text": {
+            "en": "To plan a new school in a town, a geographer uses **demography** (how many children), **economics** (cost) and **maps** (where).",
+            "am": "በአንድ ከተማ አዲስ ትምህርት ቤት ለማቀድ ጂኦግራፈር **ዲሞግራፊን** (ስንት ልጆች)፣ **ኢኮኖሚክስን** (ወጪ) እና **ካርታን** (የት) ይጠቀማል።"
+          }
+        }
+      ]
+    },
+    {
+      "title": { "en": "Summary of 1.1 (part 1)", "am": "የ1.1 ማጠቃለያ (ክፍል 1)" },
+      "icon": "list-checks",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            {
+              "en": "**Geography** is a systematic study of the spatial distribution of phenomena on the earth's surface and of the **two-way interaction** between natural and human environments.",
+              "am": "**ጂኦግራፊ** በምድር ገጽ ላይ ያሉ ክስተቶችን ቦታዊ ስርጭት እና በተፈጥሮና በሰው አካባቢዎች መካከል ያለውን **የሁለትዮሽ መስተጋብር** የሚያጠና ሥርዓታዊ ጥናት ነው።"
+            },
+            {
+              "en": "Its **scope** is very wide: lithosphere, hydrosphere, atmosphere, biosphere and anthroposphere.",
+              "am": "**ወሰኑ** በጣም ሰፊ ነው፦ ሊቶስፌር፣ ሃይድሮስፌር፣ አትሞስፌር፣ ባዮስፌር እና አንትሮፖስፌር።"
+            },
+            {
+              "en": "Two approaches: the **regional approach** (all aspects of one region) and the **systematic approach**, also called topical (one phenomenon over a wide area or the world).",
+              "am": "ሁለት አቀራረቦች፦ **ክልላዊ አቀራረብ** (የአንድ ክልል ሁሉም ገጽታዎች) እና **ሥርዓታዊ አቀራረብ**፣ ርዕሳዊም ይባላል (አንድ ክስተት በሰፊ ቦታ ወይም በዓለም)።"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": { "en": "Summary of 1.1 (part 2)", "am": "የ1.1 ማጠቃለያ (ክፍል 2)" },
+      "icon": "brain",
+      "blocks": [
+        {
+          "type": "points",
+          "items": [
+            {
+              "icon": "mountain",
+              "title": { "en": "Determinism", "am": "ወሳኝነት (Determinism)" },
+              "text": { "en": "The environment determines people's way of living.", "am": "አካባቢ የሰዎችን አኗኗር ይወስናል።" }
+            },
+            {
+              "icon": "sprout",
+              "title": { "en": "Possibilism", "am": "ዕድላዊነት (Possibilism)" },
+              "text": { "en": "Two-way relationship; people can change the environment.", "am": "የሁለትዮሽ ግንኙነት፤ ሰዎች አካባቢን መለወጥ ይችላሉ።" }
+            },
+            {
+              "icon": "flask-conical",
+              "title": { "en": "Quantitative Revolution", "am": "መጠናዊ አብዮት" },
+              "text": { "en": "1950s–1960s; brought statistical techniques into geography.", "am": "1950ዎቹ–1960ዎቹ፤ ስታቲስቲካዊ ዘዴዎችን ወደ ጂኦግራፊ አመጣ።" }
+            },
+            {
+              "icon": "lightbulb",
+              "title": { "en": "Applied geography", "am": "ተግባራዊ ጂኦግራፊ" },
+              "text": { "en": "Made geography practical: solves socio-economic and environmental problems.", "am": "ጂኦግራፊን ተግባራዊ አደረገ፦ ማኅበራዊ-ኢኮኖሚያዊና አካባቢያዊ ችግሮችን ይፈታል።" }
+            },
+            {
+              "icon": "git-branch",
+              "title": { "en": "Other disciplines", "am": "ሌሎች ዘርፎች" },
+              "text": { "en": "Geography shares information with the social and natural sciences.", "am": "ጂኦግራፊ ከማኅበራዊና ከተፈጥሮ ሳይንሶች ጋር መረጃ ይጋራል።" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": { "en": "Exam traps from the review exercise", "am": "ከክለሳ መልመጃው የፈተና ወጥመዶች" },
+      "icon": "target",
+      "blocks": [
+        {
+          "type": "example",
+          "title": { "en": "Regional vs systematic", "am": "ክልላዊ እና ሥርዓታዊ" },
+          "text": {
+            "en": "\"Systematic geography is the study of the general characteristics of a region\" is **FALSE**. That describes the **regional** approach.",
+            "am": "«ሥርዓታዊ ጂኦግራፊ የአንድ ክልል አጠቃላይ ባሕርያት ጥናት ነው» የሚለው **ሐሰት** ነው። ይህ **ክልላዊ** አቀራረብን ይገልጻል።"
+          }
+        },
+        {
+          "type": "example",
+          "title": { "en": "One definition?", "am": "አንድ ትርጉም?" },
+          "text": {
+            "en": "Geography does **not have one single definition**, and its definition changes over time.",
+            "am": "ጂኦግራፊ **አንድ ብቻ ትርጉም የለውም**፤ ትርጉሙም በጊዜ ሂደት ይለወጣል።"
+          }
+        },
+        {
+          "type": "example",
+          "title": { "en": "Who is who?", "am": "ማን ማን ነው?" },
+          "text": {
+            "en": "**Eratosthenes** coined the word \"geography\". **Ratzel** (German) showed how people are influenced by the environment. **Demolins** supported determinism; **Febvre** supported possibilism.",
+            "am": "**ኤራቶስቴንስ** «ጂኦግራፊ» የሚለውን ቃል ፈጠረ። **ራትዘል** (ጀርመናዊ) ሰዎች በአካባቢ እንዴት እንደሚጎዱ አሳየ። **ዴሞላን** ወሳኝነትን ደገፈ፤ **ፌብቭር** ዕድላዊነትን ደገፈ።"
+          }
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "term": { "en": "Interdisciplinary subject", "am": "ሁለገብ የትምህርት ዘርፍ" },
+      "definition": {
+        "en": "A subject that shares knowledge and methods with many other disciplines.",
+        "am": "ከብዙ ሌሎች የትምህርት ዘርፎች ጋር እውቀትንና ዘዴዎችን የሚጋራ የትምህርት ዘርፍ።"
+      }
+    },
+    {
+      "term": { "en": "Meteorology", "am": "ሜትሮሎጂ" },
+      "definition": {
+        "en": "The science of the atmosphere and weather; related to climatology.",
+        "am": "የከባቢ አየርና የአየር ሁኔታ ሳይንስ፤ ከክላይማቶሎጂ ጋር ይዛመዳል።"
+      }
+    },
+    {
+      "term": { "en": "Geology", "am": "ጂኦሎጂ" },
+      "definition": {
+        "en": "The science of rocks and the structure of the earth; related to geomorphology and soil geography.",
+        "am": "የዐለቶችና የምድር አወቃቀር ሳይንስ፤ ከጂኦሞርፎሎጂና ከአፈር ጂኦግራፊ ጋር ይዛመዳል።"
+      }
+    },
+    {
+      "term": { "en": "Demography", "am": "ዲሞግራፊ" },
+      "definition": {
+        "en": "The study of human population (size, growth, structure); related to population geography.",
+        "am": "የሰው ሕዝብ (ብዛት፣ ዕድገት፣ አወቃቀር) ጥናት፤ ከሕዝብ ጂኦግራፊ ጋር ይዛመዳል።"
+      }
+    },
+    {
+      "term": { "en": "Biogeography", "am": "ሥነ ሕይወታዊ ጂኦግራፊ" },
+      "definition": {
+        "en": "The field of geography that studies how plants and animals are distributed.",
+        "am": "ዕፅዋትና እንስሳት እንዴት እንደተሰራጩ የሚያጠና የጂኦግራፊ ዘርፍ።"
+      }
+    },
+    {
+      "term": { "en": "Anthroposphere", "am": "አንትሮፖስፌር" },
+      "definition": {
+        "en": "The part of the geosphere that represents the cultural (human-made) landscape of the earth.",
+        "am": "የምድርን ባህላዊ (ሰው ሠራሽ) ገጽታ የሚወክለው የጂኦስፌር ክፍል።"
+      }
+    },
+    {
+      "term": { "en": "Systematic approach", "am": "ሥርዓታዊ አቀራረብ" },
+      "definition": {
+        "en": "Studying one or two elements (e.g. climate) and their distribution over a wide area or the world.",
+        "am": "አንድ ወይም ሁለት ነገሮችን (ለምሳሌ የአየር ንብረት) እና በሰፊ ቦታ ወይም በዓለም ያላቸውን ስርጭት ማጥናት።"
+      }
+    },
+    {
+      "term": { "en": "Regional approach", "am": "ክልላዊ አቀራረብ" },
+      "definition": {
+        "en": "Studying all the aspects of one defined region, e.g. the geography of Africa.",
+        "am": "የአንድን የተወሰነ ክልል ሁሉንም ገጽታዎች ማጥናት፤ ለምሳሌ የአፍሪካ ጂኦግራፊ።"
+      }
+    }
+  ],
+  "main_topics": [
+    {
+      "title": { "en": "An interdisciplinary subject", "am": "ሁለገብ የትምህርት ዘርፍ" },
+      "points": [
+        { "en": "Physical geography ↔ **natural sciences**.", "am": "የተፈጥሮ ጂኦግራፊ ↔ **የተፈጥሮ ሳይንሶች**።" },
+        { "en": "Human geography ↔ **social sciences**.", "am": "የሰው ጂኦግራፊ ↔ **ማኅበራዊ ሳይንሶች**።" }
+      ]
+    },
+    {
+      "title": { "en": "Key pairs", "am": "ዋና ጥንዶች" },
+      "points": [
+        { "en": "Biology → **biogeography**; Meteorology → **climatology**.", "am": "ባዮሎጂ → **ባዮጂኦግራፊ**፤ ሜትሮሎጂ → **ክላይማቶሎጂ**።" },
+        { "en": "Geology → **geomorphology & soil geography**.", "am": "ጂኦሎጂ → **ጂኦሞርፎሎጂና የአፈር ጂኦግራፊ**።" },
+        { "en": "Demography → **population geography**; Economics → **economic geography**.", "am": "ዲሞግራፊ → **የሕዝብ ጂኦግራፊ**፤ ኢኮኖሚክስ → **የኢኮኖሚ ጂኦግራፊ**።" }
+      ]
+    },
+    {
+      "title": { "en": "Review of 1.1", "am": "የ1.1 ክለሳ" },
+      "points": [
+        { "en": "**Regional** = all aspects of one region; **systematic** = one phenomenon globally.", "am": "**ክልላዊ** = የአንድ ክልል ሁሉም ገጽታዎች፤ **ሥርዓታዊ** = አንድ ክስተት በዓለም ደረጃ።" },
+        { "en": "Determinism (nature decides) vs possibilism (two-way).", "am": "ወሳኝነት (ተፈጥሮ ትወስናለች) እና ዕድላዊነት (የሁለትዮሽ)።" },
+        { "en": "Quantitative Revolution → statistics; applied geography → solving problems.", "am": "መጠናዊ አብዮት → ስታቲስቲክስ፤ ተግባራዊ ጂኦግራፊ → ችግር መፍታት።" }
+      ]
+    }
+  ],
+  "quiz": {
+    "title": { "en": "Quiz: Geography, Other Disciplines and Review of 1.1", "am": "ፈተና፦ ጂኦግራፊ፣ ሌሎች ዘርፎችና የ1.1 ክለሳ" },
+    "description": {
+      "en": "18 questions, including the unit review exercise (true/false, matching, multiple choice and fill-in).",
+      "am": "18 ጥያቄዎች፣ የምዕራፉን የክለሳ መልመጃ (እውነት/ሐሰት፣ ማዛመድ፣ ምርጫና ባዶ ቦታ መሙላት) ጨምሮ።"
+    },
+    "questions": [
+      {
+        "question": { "en": "Geography is called an interdisciplinary subject because it:", "am": "ጂኦግራፊ ሁለገብ የትምህርት ዘርፍ የሚባለው፦" },
+        "options": [
+          { "en": "Studies only maps", "am": "ካርታዎችን ብቻ ስለሚያጠና" },
+          { "en": "Has strong links with both natural and social sciences", "am": "ከተፈጥሮና ከማኅበራዊ ሳይንሶች ጋር ጠንካራ ግንኙነት ስላለው" },
+          { "en": "Has no relationship with other disciplines", "am": "ከሌሎች ዘርፎች ጋር ምንም ግንኙነት ስለሌለው" },
+          { "en": "Is a branch of history only", "am": "የታሪክ ቅርንጫፍ ብቻ ስለሆነ" }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "Geography shares information with both the natural and the social sciences.",
+          "am": "ጂኦግራፊ ከተፈጥሮና ከማኅበራዊ ሳይንሶች ጋር መረጃ ይጋራል።"
+        }
+      },
+      {
+        "question": { "en": "Meteorology relates most closely with:", "am": "ሜትሮሎጂ በቅርብ የሚዛመደው ከ፦" },
+        "options": [
+          { "en": "Biogeography", "am": "ባዮጂኦግራፊ" },
+          { "en": "Climatology", "am": "ክላይማቶሎጂ" },
+          { "en": "Political geography", "am": "ፖለቲካዊ ጂኦግራፊ" },
+          { "en": "Urban geography", "am": "የከተማ ጂኦግራፊ" }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "Meteorology (weather science) relates to climatology (study of climate).",
+          "am": "ሜትሮሎጂ (የአየር ሁኔታ ሳይንስ) ከክላይማቶሎጂ (የአየር ንብረት ጥናት) ጋር ይዛመዳል።"
+        }
+      },
+      {
+        "question": { "en": "Geology links with:", "am": "ጂኦሎጂ የሚያያዘው ከ፦" },
+        "options": [
+          { "en": "Geomorphology and soil geography", "am": "ጂኦሞርፎሎጂና የአፈር ጂኦግራፊ" },
+          { "en": "Cultural geography", "am": "የባህል ጂኦግራፊ" },
+          { "en": "Economic geography", "am": "የኢኮኖሚ ጂኦግራፊ" },
+          { "en": "Medical geography", "am": "የሕክምና ጂኦግራፊ" }
+        ],
+        "answer": 0,
+        "explanation": {
+          "en": "Geology studies rocks; geomorphology studies landforms and soil geography studies soils, both made from rocks.",
+          "am": "ጂኦሎጂ ዐለቶችን ያጠናል፤ ጂኦሞርፎሎጂ የመሬት ቅርጾችን፣ የአፈር ጂኦግራፊ ደግሞ አፈርን ያጠናሉ፤ ሁለቱም ከዐለት የተሠሩ ናቸው።"
+        }
+      },
+      {
+        "question": { "en": "Human geography is highly linked with:", "am": "የሰው ጂኦግራፊ በጣም የሚያያዘው ከ፦" },
+        "options": [
+          { "en": "The natural sciences", "am": "የተፈጥሮ ሳይንሶች" },
+          { "en": "The social sciences", "am": "ማኅበራዊ ሳይንሶች" },
+          { "en": "Astronomy only", "am": "አስትሮኖሚ ብቻ" },
+          { "en": "Chemistry only", "am": "ኬሚስትሪ ብቻ" }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "Human geography is linked to the social sciences; physical geography to the natural sciences.",
+          "am": "የሰው ጂኦግራፊ ከማኅበራዊ ሳይንሶች፣ የተፈጥሮ ጂኦግራፊ ደግሞ ከተፈጥሮ ሳይንሶች ጋር ይያያዛል።"
+        }
+      },
+      {
+        "question": { "en": "A branch of geography that deals with the dynamic and static aspects of population is:", "am": "የሕዝብን ተለዋዋጭና ቋሚ ገጽታዎች የሚያጠና የጂኦግራፊ ቅርንጫፍ፦" },
+        "options": [
+          { "en": "Political geography", "am": "ፖለቲካዊ ጂኦግራፊ" },
+          { "en": "Population geography (demography)", "am": "የሕዝብ ጂኦግራፊ (ዲሞግራፊ)" },
+          { "en": "Biogeography", "am": "ባዮጂኦግራፊ" },
+          { "en": "Climatology", "am": "ክላይማቶሎጂ" }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "Population geography (linked to demography) studies the size, growth and structure of population.",
+          "am": "የሕዝብ ጂኦግራፊ (ከዲሞግራፊ ጋር የተያያዘ) የሕዝብን ብዛት፣ ዕድገትና አወቃቀር ያጠናል።"
+        }
+      },
+      {
+        "question": {
+          "en": "A branch of geography that deals with boundaries and activities between countries in relation to political power is:",
+          "am": "ከፖለቲካ ሥልጣን ጋር በተያያዘ የአገሮችን ድንበሮችና እንቅስቃሴዎች የሚያጠና የጂኦግራፊ ቅርንጫፍ፦"
+        },
+        "options": [
+          { "en": "Political geography", "am": "ፖለቲካዊ ጂኦግራፊ" },
+          { "en": "Economic geography", "am": "የኢኮኖሚ ጂኦግራፊ" },
+          { "en": "Applied geography", "am": "ተግባራዊ ጂኦግራፊ" },
+          { "en": "Historical geography", "am": "ታሪካዊ ጂኦግራፊ" }
+        ],
+        "answer": 0,
+        "explanation": {
+          "en": "Political geography studies political systems, boundaries and how power is used across space.",
+          "am": "ፖለቲካዊ ጂኦግራፊ የፖለቲካ ሥርዓቶችን፣ ድንበሮችንና ሥልጣን በቦታ እንዴት እንደሚተገበር ያጠናል።"
+        }
+      },
+      {
+        "question": { "en": "\"Systematic geography is the study of the general characteristics of a region.\" This is:", "am": "«ሥርዓታዊ ጂኦግራፊ የአንድ ክልል አጠቃላይ ባሕርያት ጥናት ነው።» ይህ፦" },
+        "options": [
+          { "en": "True", "am": "እውነት" },
+          { "en": "False: that is the regional approach", "am": "ሐሰት፦ ይህ ክልላዊ አቀራረብ ነው" },
+          { "en": "False: that is determinism", "am": "ሐሰት፦ ይህ ወሳኝነት ነው" },
+          { "en": "True only for Africa", "am": "ለአፍሪካ ብቻ እውነት" }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "The regional approach studies all aspects of one region; the systematic approach studies one phenomenon globally.",
+          "am": "ክልላዊ አቀራረብ የአንድ ክልልን ሁሉንም ገጽታዎች ያጠናል፤ ሥርዓታዊ አቀራረብ አንድን ክስተት በዓለም ደረጃ ያጠናል።"
+        }
+      },
+      {
+        "question": { "en": "A geographic approach that singles out one or two elements and treats their distribution globally is:", "am": "አንድ ወይም ሁለት ነገሮችን መርጦ ስርጭታቸውን በዓለም ደረጃ የሚያጠና አቀራረብ፦" },
+        "options": [
+          { "en": "The regional approach", "am": "ክልላዊ አቀራረብ" },
+          { "en": "The topical (systematic) approach", "am": "ርዕሳዊ (ሥርዓታዊ) አቀራረብ" },
+          { "en": "Possibilism", "am": "ዕድላዊነት" },
+          { "en": "Demography", "am": "ዲሞግራፊ" }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "The topical or systematic approach follows one element (e.g. climate) across the world.",
+          "am": "ርዕሳዊ ወይም ሥርዓታዊ አቀራረብ አንድን ነገር (ለምሳሌ የአየር ንብረት) በዓለም ዙሪያ ይከታተላል።"
+        }
+      },
+      {
+        "question": { "en": "\"According to the determinist approach, humans cannot change or influence the environment.\" This is:", "am": "«በወሳኝነት አቀራረብ መሠረት ሰዎች አካባቢን መለወጥ ወይም ተጽዕኖ ማሳደር አይችሉም።» ይህ፦" },
+        "options": [
+          { "en": "True", "am": "እውነት" },
+          { "en": "False", "am": "ሐሰት" },
+          { "en": "True only in Europe", "am": "በአውሮፓ ብቻ እውነት" },
+          { "en": "It is the view of possibilism", "am": "የዕድላዊነት አመለካከት ነው" }
+        ],
+        "answer": 0,
+        "explanation": {
+          "en": "Determinists see humans as passive agents controlled by the environment.",
+          "am": "የወሳኝነት አራማጆች ሰዎችን በአካባቢ ቁጥጥር ሥር ያሉ ተገዢዎች አድርገው ይመለከቷቸዋል።"
+        }
+      },
+      {
+        "question": { "en": "\"The facts and principles of the natural sciences can be applied in geography.\" This is:", "am": "«የተፈጥሮ ሳይንሶች እውነታዎችና መርሆዎች በጂኦግራፊ ሊተገበሩ ይችላሉ።» ይህ፦" },
+        "options": [
+          { "en": "False, geography is only a social science", "am": "ሐሰት፣ ጂኦግራፊ ማኅበራዊ ሳይንስ ብቻ ነው" },
+          { "en": "True, geography is interdisciplinary", "am": "እውነት፣ ጂኦግራፊ ሁለገብ ነው" },
+          { "en": "False, only mathematics applies", "am": "ሐሰት፣ የሚተገበረው ሒሳብ ብቻ ነው" },
+          { "en": "True only for human geography", "am": "ለሰው ጂኦግራፊ ብቻ እውነት" }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "Physical geography uses facts from biology, geology, meteorology and more.",
+          "am": "የተፈጥሮ ጂኦግራፊ ከባዮሎጂ፣ ከጂኦሎጂ፣ ከሜትሮሎጂና ከሌሎችም እውነታዎችን ይጠቀማል።"
+        }
+      },
+      {
+        "question": { "en": "Which of the following opinions is correct?", "am": "ከሚከተሉት አስተያየቶች ትክክለኛው የትኛው ነው?" },
+        "options": [
+          { "en": "The definition of geography is static", "am": "የጂኦግራፊ ትርጉም አይለወጥም" },
+          { "en": "Geography does not have one single definition", "am": "ጂኦግራፊ አንድ ብቻ ትርጉም የለውም" },
+          { "en": "Geography has no relationship with other disciplines", "am": "ጂኦግራፊ ከሌሎች ዘርፎች ጋር ግንኙነት የለውም" },
+          { "en": "The definition of geography never changes", "am": "የጂኦግራፊ ትርጉም ፈጽሞ አይለወጥም" }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "Geography has been defined differently from the ancient Greeks to modern times.",
+          "am": "ጂኦግራፊ ከጥንታዊ ግሪኮች እስከ ዘመናችን በተለያየ መንገድ ተተርጉሟል።"
+        }
+      },
+      {
+        "question": { "en": "Which statement about geography is correct?", "am": "ስለ ጂኦግራፊ ትክክለኛው አባባል የትኛው ነው?" },
+        "options": [
+          { "en": "Physical phenomena are evenly distributed on the earth", "am": "የተፈጥሮ ክስተቶች በምድር ላይ እኩል ተሰራጭተዋል" },
+          { "en": "There is a one-way relationship between humans and their environment", "am": "በሰውና በአካባቢው መካከል የአንድ አቅጣጫ ግንኙነት አለ" },
+          { "en": "Elements of the natural environment affect the way of life of its inhabitants", "am": "የተፈጥሮ አካባቢ ነገሮች የነዋሪዎቹን አኗኗር ይነካሉ" },
+          { "en": "Human beings cannot modify their environment", "am": "ሰዎች አካባቢያቸውን መለወጥ አይችሉም" }
+        ],
+        "answer": 2,
+        "explanation": {
+          "en": "The environment does affect how people live (the relationship is two-way). The other options are false.",
+          "am": "አካባቢ ሰዎች እንዴት እንደሚኖሩ ይነካል (ግንኙነቱ የሁለትዮሽ ነው)። ሌሎቹ አማራጮች ሐሰት ናቸው።"
+        }
+      },
+      {
+        "question": { "en": "Which statement reflects the deterministic outlook?", "am": "የወሳኝነትን አመለካከት የሚያንጸባርቀው አባባል የትኛው ነው?" },
+        "options": [
+          { "en": "Self-reliance", "am": "በራስ መተማመን" },
+          { "en": "People in cold climates are stronger and braver than those in warm climates", "am": "በቀዝቃዛ የአየር ንብረት የሚኖሩ ሰዎች በሞቃት ከሚኖሩት የበለጠ ጠንካራና ደፋር ናቸው" },
+          { "en": "Humans are capable of modifying their environment", "am": "ሰዎች አካባቢያቸውን መለወጥ ይችላሉ" },
+          { "en": "Social structure is explained by human activities", "am": "ማኅበራዊ አወቃቀር በሰው እንቅስቃሴዎች ይብራራል" }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "Saying climate decides people's strength and character is a deterministic idea.",
+          "am": "የአየር ንብረት የሰዎችን ጥንካሬና ባሕርይ ይወስናል ማለት የወሳኝነት ሐሳብ ነው።"
+        }
+      },
+      {
+        "question": { "en": "A German geographer who tried to show how people adapt to and are influenced by the environment was:", "am": "ሰዎች ከአካባቢ ጋር እንዴት እንደሚላመዱና በአካባቢ እንዴት እንደሚጎዱ ለማሳየት የሞከረው ጀርመናዊ ጂኦግራፈር፦" },
+        "options": [
+          { "en": "Friedrich Ratzel", "am": "ፍሬድሪክ ራትዘል" },
+          { "en": "Febvre", "am": "ፌብቭር" },
+          { "en": "Eratosthenes", "am": "ኤራቶስቴንስ" },
+          { "en": "Hartshorne", "am": "ሃርትሾርን" }
+        ],
+        "answer": 0,
+        "explanation": {
+          "en": "Friedrich Ratzel, a German determinist, studied how the environment influences people.",
+          "am": "ጀርመናዊው የወሳኝነት አራማጅ ፍሬድሪክ ራትዘል አካባቢ በሰዎች ላይ እንዴት ተጽዕኖ እንደሚያሳድር አጥንቷል።"
+        }
+      },
+      {
+        "question": { "en": "The sub-field of geography that studies how plants and animals are distributed is:", "am": "ዕፅዋትና እንስሳት እንዴት እንደተሰራጩ የሚያጠናው የጂኦግራፊ ንዑስ ዘርፍ፦" },
+        "options": [
+          { "en": "Geomorphology", "am": "ጂኦሞርፎሎጂ" },
+          { "en": "Biogeography", "am": "ባዮጂኦግራፊ" },
+          { "en": "Oceanography", "am": "ውቅያኖስ ጥናት" },
+          { "en": "Climatology", "am": "ክላይማቶሎጂ" }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "Biogeography studies plants and animals in relation to their environments.",
+          "am": "ባዮጂኦግራፊ ዕፅዋትንና እንስሳትን ከአካባቢያቸው ጋር በማያያዝ ያጠናል።"
+        }
+      },
+      {
+        "question": { "en": "The part of the geosphere that represents the cultural landscape of the earth is the:", "am": "የምድርን ባህላዊ ገጽታ የሚወክለው የጂኦስፌር ክፍል፦" },
+        "options": [
+          { "en": "Lithosphere", "am": "ሊቶስፌር" },
+          { "en": "Hydrosphere", "am": "ሃይድሮስፌር" },
+          { "en": "Anthroposphere", "am": "አንትሮፖስፌር" },
+          { "en": "Atmosphere", "am": "አትሞስፌር" }
+        ],
+        "answer": 2,
+        "explanation": {
+          "en": "The anthroposphere is the human, cultural landscape (towns, farms, roads).",
+          "am": "አንትሮፖስፌር የሰውና የባህል ገጽታ ነው (ከተሞች፣ እርሻዎች፣ መንገዶች)።"
+        }
+      },
+      {
+        "question": { "en": "The Greek scholar who coined the word \"geography\" for the first time was:", "am": "«ጂኦግራፊ» የሚለውን ቃል ለመጀመሪያ ጊዜ የፈጠረው ግሪካዊ ምሁር፦" },
+        "options": [
+          { "en": "Ratzel", "am": "ራትዘል" },
+          { "en": "Eratosthenes", "am": "ኤራቶስቴንስ" },
+          { "en": "Demolins", "am": "ዴሞላን" },
+          { "en": "Yeates", "am": "ዬትስ" }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "Eratosthenes (276–196 BC) defined geography as the description of the earth.",
+          "am": "ኤራቶስቴንስ (276–196 ዓ.ዓ.) ጂኦግራፊን የምድር ገለጻ ብሎ ተረጎመው።"
+        }
+      },
+      {
+        "question": { "en": "An ardent supporter of environmental determinism was:", "am": "የአካባቢ ወሳኝነት ጠንካራ ደጋፊ የነበረው፦" },
+        "options": [
+          { "en": "Febvre", "am": "ፌብቭር" },
+          { "en": "Demolins", "am": "ዴሞላን" },
+          { "en": "Von Thünen", "am": "ቮን ቲውነን" },
+          { "en": "Weber", "am": "ዌበር" }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "Demolins supported determinism; Febvre supported possibilism; Von Thünen and Weber made location models.",
+          "am": "ዴሞላን ወሳኝነትን ደገፈ፤ ፌብቭር ዕድላዊነትን ደገፈ፤ ቮን ቲውነንና ዌበር የአቀማመጥ ሞዴሎችን ሠሩ።"
+        }
+      }
+    ]
+  }
+}

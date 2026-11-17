@@ -1,0 +1,703 @@
+{
+  "subject": "geography",
+  "grade": 9,
+  "unit": {
+    "number": 1,
+    "slug": "unit-1",
+    "label": { "en": "Unit One", "am": "ምዕራፍ አንድ" },
+    "title": { "en": "The Concept of Geography and Map-Reading", "am": "የጂኦግራፊ ጽንሰ ሐሳብ እና ካርታ ንባብ" },
+    "description": {
+      "en": "What geography is, how it became a science, its branches and scope, and how to read maps.",
+      "am": "ጂኦግራፊ ምን እንደሆነ፣ እንዴት ሳይንስ እንደሆነ፣ ቅርንጫፎቹና ወሰኑ፣ እንዲሁም ካርታ እንዴት እንደሚነበብ።"
+    }
+  },
+  "lesson": {
+    "code": "1.1.6",
+    "slug": "1-1-6",
+    "sort_order": 6,
+    "minutes": 11,
+    "section": { "code": "1.1", "title": { "en": "The Science of Geography", "am": "የጂኦግራፊ ሳይንስ" } },
+    "title": {
+      "en": "Schools of Thought: Possibilism, the Quantitative Revolution and Applied Geography",
+      "am": "የአስተሳሰብ ትምህርት ቤቶች፦ ዕድላዊነት፣ መጠናዊ አብዮትና ተግባራዊ ጂኦግራፊ"
+    },
+    "summary": {
+      "en": "B. Environmental possibilism (people can change nature), C. the Quantitative Revolution of the 1950s (statistics, models and computers), and D. Applied Geography (using geography to solve real problems).",
+      "am": "ለ. የአካባቢ ዕድላዊነት (ሰው ተፈጥሮን መለወጥ ይችላል)፣ ሐ. የ1950ዎቹ መጠናዊ አብዮት (ስታቲስቲክስ፣ ሞዴሎችና ኮምፒውተሮች)፣ እና መ. ተግባራዊ ጂኦግራፊ (ጂኦግራፊን እውነተኛ ችግሮችን ለመፍታት መጠቀም)።"
+    }
+  },
+  "sections": [
+    {
+      "title": { "en": "B. Environmental Possibilism", "am": "ለ. የአካባቢ ዕድላዊነት" },
+      "icon": "sprout",
+      "blocks": [
+        {
+          "type": "keypoint",
+          "variant": "definition",
+          "title": { "en": "Environmental Possibilism", "am": "የአካባቢ ዕድላዊነት (Environmental Possibilism)" },
+          "text": {
+            "en": "**Environmental possibilism** is the idea that **human beings influence** the natural environment.",
+            "am": "**የአካባቢ ዕድላዊነት (Environmental Possibilism)** **ሰዎች** በተፈጥሮ አካባቢ ላይ **ተጽዕኖ ያሳድራሉ** የሚል አስተሳሰብ ነው።"
+          }
+        },
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "The school of possibilism was postulated (put forward) by **Febvre**.",
+            "am": "የዕድላዊነት ትምህርት ቤት የቀረበው በ**ፌብቭር (Febvre)** ነው።"
+          }
+        },
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "Its famous saying: **\"There are no necessities, but only possibilities.\"** Nature offers choices; people decide.",
+            "am": "ታዋቂ አባባሉ፦ **«ግዴታዎች የሉም፣ ዕድሎች ብቻ ናቸው።»** ተፈጥሮ አማራጮችን ታቀርባለች፤ ሰዎች ይወስናሉ።"
+          }
+        },
+        {
+          "type": "keypoint",
+          "variant": "note",
+          "title": { "en": "Textbook note", "am": "የመማሪያ መጽሐፍ ማስታወሻ" },
+          "text": {
+            "en": "**Lucien Febvre** gave the school its name. Many books call **Paul Vidal de la Blache** its founder. In exams, the expected answer is **Febvre**.",
+            "am": "ለትምህርት ቤቱ ስም የሰጠው **ሉሲየን ፌብቭር (Lucien Febvre)** ነው። ብዙ መጻሕፍት **ፖል ቪዳል ዴ ላ ብላሽ (Vidal de la Blache)**ን መሥራቹ ይሉታል። በፈተና የሚጠበቀው መልስ **ፌብቭር** ነው።"
+          }
+        }
+      ]
+    },
+    {
+      "title": { "en": "The main ideas of possibilism", "am": "የዕድላዊነት ዋና ሐሳቦች" },
+      "icon": "users",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            {
+              "en": "Human beings are **masters of the environment** and can judge their own benefits.",
+              "am": "ሰዎች **የአካባቢ ጌቶች** ናቸው፤ የራሳቸውን ጥቅም መመዘን ይችላሉ።"
+            },
+            {
+              "en": "There is a **two-way relationship** between humans and the environment.",
+              "am": "በሰውና በአካባቢ መካከል **የሁለትዮሽ ግንኙነት** አለ።"
+            },
+            {
+              "en": "People can **influence the environment** to improve their way of life.",
+              "am": "ሰዎች አኗኗራቸውን ለማሻሻል **በአካባቢ ላይ ተጽዕኖ ማሳደር** ይችላሉ።"
+            },
+            {
+              "en": "The environment can affect people, but **knowledge and skills** let us control these effects.",
+              "am": "አካባቢ በሰዎች ላይ ተጽዕኖ ሊያሳድር ይችላል፤ ነገር ግን **እውቀትና ክህሎት** እነዚህን ተጽዕኖዎች እንድንቆጣጠር ያስችሉናል።"
+            }
+          ]
+        },
+        {
+          "type": "keypoint",
+          "variant": "important",
+          "title": { "en": "Widely accepted today", "am": "ዛሬ በሰፊው ተቀባይነት ያለው" },
+          "text": {
+            "en": "Possibilism is **widely accepted today** because it recognises that people can change their environment with **better technology**.",
+            "am": "ዕድላዊነት **ዛሬ በሰፊው ተቀባይነት አለው**፤ ምክንያቱም ሰዎች በ**ተሻለ ቴክኖሎጂ** አካባቢያቸውን መለወጥ እንደሚችሉ ይቀበላል።"
+          }
+        }
+      ]
+    },
+    {
+      "title": { "en": "Determinism vs possibilism", "am": "ወሳኝነት እና ዕድላዊነት" },
+      "icon": "scale",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            { "en": "Question", "am": "ጥያቄ" },
+            { "en": "Determinism", "am": "ወሳኝነት" },
+            { "en": "Possibilism", "am": "ዕድላዊነት" }
+          ],
+          "rows": [
+            [
+              { "en": "Who is the master?", "am": "ጌታው ማን ነው?" },
+              { "en": "Nature", "am": "ተፈጥሮ" },
+              { "en": "People", "am": "ሰው" }
+            ],
+            [
+              { "en": "Relationship", "am": "ግንኙነቱ" },
+              { "en": "One-way (nature → people)", "am": "የአንድ አቅጣጫ (ተፈጥሮ → ሰው)" },
+              { "en": "Two-way (nature ↔ people)", "am": "የሁለትዮሽ (ተፈጥሮ ↔ ሰው)" }
+            ],
+            [
+              { "en": "Humans are...", "am": "ሰዎች..." },
+              { "en": "Passive agents", "am": "ተገዢ (ተቀባይ) ናቸው" },
+              { "en": "Active decision makers", "am": "ንቁ ውሳኔ ሰጪዎች ናቸው" }
+            ],
+            [
+              { "en": "Key scholars", "am": "ዋና ምሁራን" },
+              { "en": "Darwin, Demolins, Ratzel", "am": "ዳርዊን፣ ዴሞላን፣ ራትዘል" },
+              { "en": "Febvre (Vidal de la Blache)", "am": "ፌብቭር (ቪዳል ዴ ላ ብላሽ)" }
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "Possibilists **strongly criticised determinism** because it treats people as passive and ignores what people can do.",
+            "am": "የዕድላዊነት አራማጆች **ወሳኝነትን አጥብቀው ተቹ**፤ ምክንያቱም ሰዎችን ተገዢ አድርጎ ይመለከታል፣ ሰዎች ሊያደርጉ የሚችሉትንም ይዘነጋል።"
+          }
+        }
+      ]
+    },
+    {
+      "title": { "en": "Possibilism in real life", "am": "ዕድላዊነት በእውነተኛ ሕይወት" },
+      "icon": "tractor",
+      "blocks": [
+        {
+          "type": "example",
+          "title": { "en": "Textbook example: irrigation", "am": "የመጽሐፉ ምሳሌ፦ መስኖ" },
+          "text": {
+            "en": "People use **irrigation** to turn barren desert land into productive farmland.",
+            "am": "ሰዎች ምድረ በዳውን ወደ ምርታማ የእርሻ መሬት ለመቀየር **መስኖ** ይጠቀማሉ።"
+          }
+        },
+        {
+          "type": "example",
+          "title": { "en": "Ethiopian examples", "am": "የኢትዮጵያ ምሳሌዎች" },
+          "text": {
+            "en": "Sugarcane is grown with irrigation in the hot, dry **Awash valley**. Farmers in **Tigray** build terraces on steep slopes to farm and stop erosion.",
+            "am": "በሞቃታማውና ደረቁ **የአዋሽ ሸለቆ** ሸንኮራ አገዳ በመስኖ ይመረታል። በ**ትግራይ** ገበሬዎች ገደላማ ቦታዎችን ለማረስና የአፈር መሸርሸርን ለማቆም እርከን ይሠራሉ።"
+          }
+        },
+        {
+          "type": "tip",
+          "title": { "en": "Memory trick", "am": "የማስታወሻ ዘዴ" },
+          "text": {
+            "en": "**Possibilism = Possible.** With technology, it is *possible* to change nature.",
+            "am": "**ዕድላዊነት = ዕድል (Possible)።** በቴክኖሎጂ ተፈጥሮን መለወጥ *ይቻላል*።"
+          }
+        }
+      ]
+    },
+    {
+      "title": { "en": "C. The Quantitative Revolution", "am": "ሐ. መጠናዊ አብዮት" },
+      "icon": "flask-conical",
+      "blocks": [
+        {
+          "type": "keypoint",
+          "variant": "definition",
+          "title": { "en": "Quantitative Revolution", "am": "መጠናዊ አብዮት (Quantitative Revolution)" },
+          "text": {
+            "en": "The **Quantitative Revolution** was a change in geography in the **early 1950s** to a theoretical approach that uses **numbers, statistics and mathematical models**.",
+            "am": "**መጠናዊ አብዮት (Quantitative Revolution)** በ**1950ዎቹ መጀመሪያ** በጂኦግራፊ የተከሰተ፣ **ቁጥሮችን፣ ስታቲስቲክስንና የሂሳብ ሞዴሎችን** ወደሚጠቀም ንድፈ ሐሳባዊ አቀራረብ የተደረገ ለውጥ ነው።"
+          }
+        },
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "It used rigorous **mathematical formulae borrowed from the physical sciences**.",
+            "am": "**ከተፈጥሮ ሳይንሶች የተዋሱ** ጥብቅ **የሂሳብ ቀመሮችን** ተጠቅሟል።"
+          }
+        },
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "It was driven by the **computer** and its ability to process data quickly.",
+            "am": "ያንቀሳቀሰው **ኮምፒውተር** እና መረጃን በፍጥነት የማስኬድ ችሎታው ነበር።"
+          }
+        }
+      ]
+    },
+    {
+      "title": { "en": "Why it happened: the 1950s crisis", "am": "ለምን ተከሰተ፦ የ1950ዎቹ ቀውስ" },
+      "icon": "hourglass",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "The Quantitative Revolution was a **response to a crisis** that geography faced in the late 1940s and early 1950s:",
+            "am": "መጠናዊ አብዮት ጂኦግራፊ በ1940ዎቹ መጨረሻና በ1950ዎቹ መጀመሪያ ለገጠመው **ቀውስ የተሰጠ ምላሽ** ነበር፦"
+          }
+        },
+        {
+          "type": "list",
+          "items": [
+            {
+              "en": "Geography departments were **closed**, e.g. at **Harvard University in 1948**.",
+              "am": "የጂኦግራፊ ትምህርት ክፍሎች **ተዘጉ**፤ ለምሳሌ በ**ሀርቫርድ ዩኒቨርሲቲ በ1948**።"
+            },
+            {
+              "en": "Geography was seen as **only descriptive and unscientific**: it did not explain *why* things happen.",
+              "am": "ጂኦግራፊ **ገላጭ ብቻ እና ሳይንሳዊ ያልሆነ** ተብሎ ታየ፤ ነገሮች *ለምን* እንደሚከሰቱ አያብራራም ነበር።"
+            },
+            {
+              "en": "It was seen as **not useful for solving problems**.",
+              "am": "**ችግሮችን ለመፍታት የማይጠቅም** ተብሎ ታየ።"
+            },
+            {
+              "en": "The split between human and physical geography continued.",
+              "am": "በሰው ጂኦግራፊና በተፈጥሮ ጂኦግራፊ መካከል ያለው መከፋፈል ቀጠለ።"
+            },
+            {
+              "en": "People were unsure if geography was a science, an art or a social science.",
+              "am": "ሰዎች ጂኦግራፊ ሳይንስ፣ ጥበብ ወይስ ማኅበራዊ ሳይንስ እንደሆነ እርግጠኛ አልነበሩም።"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": { "en": "Its techniques and contribution", "am": "ዘዴዎቹና አስተዋጽኦው" },
+      "icon": "ruler",
+      "blocks": [
+        {
+          "type": "points",
+          "items": [
+            {
+              "icon": "list-checks",
+              "title": { "en": "Descriptive statistics", "am": "ገላጭ ስታቲስቲክስ (Descriptive statistics)" },
+              "text": { "en": "Summarise data (averages, totals).", "am": "መረጃን ያጠቃልላል (አማካይ፣ ድምር)።" }
+            },
+            {
+              "icon": "search",
+              "title": { "en": "Inferential statistics", "am": "አመላካች ስታቲስቲክስ (Inferential statistics)" },
+              "text": { "en": "Draw conclusions from samples.", "am": "ከናሙናዎች ድምዳሜ ላይ ይደርሳል።" }
+            },
+            {
+              "icon": "route",
+              "title": { "en": "Gravity models", "am": "የስበት ሞዴሎች (Gravity models)" },
+              "text": { "en": "Basic equations, e.g. movement between towns.", "am": "መሠረታዊ ቀመሮች፤ ለምሳሌ በከተሞች መካከል ያለ እንቅስቃሴ።" }
+            },
+            {
+              "icon": "factory",
+              "title": { "en": "Deterministic models", "am": "ወሳኝ ሞዴሎች (Deterministic models)" },
+              "text": { "en": "**Von Thünen's** and **Weber's** location models.", "am": "የ**ቮን ቲውነን** እና የ**ዌበር** የአቀማመጥ ሞዴሎች።" }
+            },
+            {
+              "icon": "circle-help",
+              "title": { "en": "Statistical models", "am": "ስታቲስቲካዊ ሞዴሎች (Statistical models)" },
+              "text": { "en": "Use the concept of **probability**.", "am": "የ**ዕድል (Probability)** ጽንሰ ሐሳብ ይጠቀማሉ።" }
+            }
+          ]
+        },
+        {
+          "type": "keypoint",
+          "variant": "important",
+          "title": { "en": "The big shift", "am": "ትልቁ ለውጥ" },
+          "text": {
+            "en": "Geography shifted **from descriptive geography to empirical, law-making (nomothetic) geography**.",
+            "am": "ጂኦግራፊ **ከገላጭ ጂኦግራፊ ወደ ተጨባጭ፣ ሕግ አውጪ (Nomothetic) ጂኦግራፊ** ተሸጋገረ።"
+          }
+        }
+      ]
+    },
+    {
+      "title": { "en": "D. Applied Geography", "am": "መ. ተግባራዊ ጂኦግራፊ" },
+      "icon": "lightbulb",
+      "blocks": [
+        {
+          "type": "keypoint",
+          "variant": "definition",
+          "title": { "en": "Applied Geography", "am": "ተግባራዊ ጂኦግራፊ (Applied Geography)" },
+          "text": {
+            "en": "**Applied geography** is the use of geographic analysis to **solve socio-economic and political problems** and to **help decision making**.",
+            "am": "**ተግባራዊ ጂኦግራፊ (Applied Geography)** ጂኦግራፊያዊ ትንተናን **ማኅበራዊ-ኢኮኖሚያዊና ፖለቲካዊ ችግሮችን ለመፍታት** እና **ውሳኔ ለመስጠት ለማገዝ** መጠቀም ነው።"
+          }
+        },
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "It emerged in the **latter part of the 20th century** and has its **roots in the Quantitative Revolution**.",
+            "am": "የተነሳው በ**20ኛው ክፍለ ዘመን የኋለኛው ክፍል** ሲሆን **መሠረቱ መጠናዊ አብዮት** ነው።"
+          }
+        },
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "It is used in private business, government and non-profit organisations.",
+            "am": "በግል ንግድ፣ በመንግሥትና በትርፍ አልባ ድርጅቶች ጥቅም ላይ ይውላል።"
+          }
+        }
+      ]
+    },
+    {
+      "title": { "en": "Geographers at work", "am": "ጂኦግራፈሮች በሥራ ላይ" },
+      "icon": "map",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": {
+            "en": "Thanks to applied geography, many geographers today work as:",
+            "am": "በተግባራዊ ጂኦግራፊ ምክንያት ዛሬ ብዙ ጂኦግራፈሮች በሚከተሉት ሙያዎች ይሠራሉ፦"
+          }
+        },
+        {
+          "type": "points",
+          "items": [
+            {
+              "icon": "building-2",
+              "title": { "en": "Urban planners", "am": "የከተማ ፕላን ባለሙያዎች" },
+              "text": { "en": "Plan where homes, roads and schools go.", "am": "ቤቶች፣ መንገዶችና ትምህርት ቤቶች የት እንደሚሠሩ ያቅዳሉ።" }
+            },
+            {
+              "icon": "map-pin",
+              "title": { "en": "GIS analysts & cartographers", "am": "የጂአይኤስ ተንታኞችና ካርታ ሠሪዎች" },
+              "text": { "en": "Make and analyse maps.", "am": "ካርታዎችን ይሠራሉ፣ ይተነትናሉ።" }
+            },
+            {
+              "icon": "leaf",
+              "title": { "en": "Environmentalists", "am": "የአካባቢ ጥበቃ ባለሙያዎች" },
+              "text": { "en": "Protect land, water and forests.", "am": "መሬትን፣ ውኃንና ደንን ይጠብቃሉ።" }
+            },
+            {
+              "icon": "route",
+              "title": { "en": "Transport & location planners", "am": "የትራንስፖርትና የአቀማመጥ ዕቅድ ባለሙያዎች" },
+              "text": { "en": "Highway, public-transport and logistics planning.", "am": "የአውራ ጎዳና፣ የሕዝብ ትራንስፖርትና የሎጂስቲክስ ዕቅድ።" }
+            },
+            {
+              "icon": "users",
+              "title": { "en": "Demographic analysts", "am": "የሕዝብ ቁጥር ተንታኞች" },
+              "text": { "en": "Study population data for planning.", "am": "ለዕቅድ የሕዝብ ቁጥር መረጃን ያጠናሉ።" }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "term": { "en": "Environmental Possibilism", "am": "የአካባቢ ዕድላዊነት" },
+      "definition": {
+        "en": "The school of thought that says humans influence and can change the natural environment; a two-way relationship.",
+        "am": "ሰዎች በተፈጥሮ አካባቢ ላይ ተጽዕኖ ያሳድራሉ፣ ሊለውጡትም ይችላሉ የሚል የአስተሳሰብ ትምህርት ቤት፤ የሁለትዮሽ ግንኙነት።"
+      }
+    },
+    {
+      "term": { "en": "Febvre", "am": "ፌብቭር" },
+      "definition": {
+        "en": "Lucien Febvre, the scholar who postulated (and named) possibilism.",
+        "am": "ዕድላዊነትን ያቀረበው (ስምም የሰጠው) ምሁር ሉሲየን ፌብቭር።"
+      }
+    },
+    {
+      "term": { "en": "Two-way relationship", "am": "የሁለትዮሽ ግንኙነት" },
+      "definition": {
+        "en": "Nature affects people and people also affect nature.",
+        "am": "ተፈጥሮ በሰዎች ላይ ተጽዕኖ ታሳድራለች፤ ሰዎችም በተፈጥሮ ላይ ተጽዕኖ ያሳድራሉ።"
+      }
+    },
+    {
+      "term": { "en": "Quantitative Revolution", "am": "መጠናዊ አብዮት" },
+      "definition": {
+        "en": "The change in geography in the early 1950s to using statistics, mathematical models and computers.",
+        "am": "በ1950ዎቹ መጀመሪያ ጂኦግራፊ ስታቲስቲክስን፣ የሂሳብ ሞዴሎችንና ኮምፒውተሮችን ወደመጠቀም የተሸጋገረበት ለውጥ።"
+      }
+    },
+    {
+      "term": { "en": "Nomothetic", "am": "ሕግ አውጪ (Nomothetic)" },
+      "definition": {
+        "en": "Law-making: looking for general rules (laws) that explain many places, not only describing one place.",
+        "am": "ሕግ አውጪ፦ አንድን ቦታ መግለጽ ብቻ ሳይሆን ብዙ ቦታዎችን የሚያብራሩ አጠቃላይ ሕጎችን መፈለግ።"
+      }
+    },
+    {
+      "term": { "en": "Descriptive statistics", "am": "ገላጭ ስታቲስቲክስ" },
+      "definition": {
+        "en": "Statistics that summarise data, such as averages and totals.",
+        "am": "እንደ አማካይና ድምር ያሉ መረጃን የሚያጠቃልሉ ስታቲስቲክስ።"
+      }
+    },
+    {
+      "term": { "en": "Inferential statistics", "am": "አመላካች ስታቲስቲክስ" },
+      "definition": {
+        "en": "Statistics that draw conclusions about a whole group from a sample.",
+        "am": "ከናሙና ተነስቶ ስለ መላው ቡድን ድምዳሜ ላይ የሚደርስ ስታቲስቲክስ።"
+      }
+    },
+    {
+      "term": { "en": "Gravity models", "am": "የስበት ሞዴሎች" },
+      "definition": {
+        "en": "Simple mathematical models, e.g. of movement between places based on their size and distance.",
+        "am": "ቀላል የሂሳብ ሞዴሎች፤ ለምሳሌ በቦታዎች መጠንና ርቀት ላይ ተመሥርቶ በመካከላቸው ያለ እንቅስቃሴ።"
+      }
+    },
+    {
+      "term": { "en": "Applied Geography", "am": "ተግባራዊ ጂኦግራፊ" },
+      "definition": {
+        "en": "Using geographic analysis to solve socio-economic and political problems and to help decision making.",
+        "am": "ማኅበራዊ-ኢኮኖሚያዊና ፖለቲካዊ ችግሮችን ለመፍታትና ውሳኔ ለመስጠት ለማገዝ ጂኦግራፊያዊ ትንተናን መጠቀም።"
+      }
+    },
+    {
+      "term": { "en": "GIS", "am": "ጂአይኤስ (GIS)" },
+      "definition": {
+        "en": "Geographical Information System: computer tools for storing and analysing map data.",
+        "am": "የጂኦግራፊ መረጃ ሥርዓት፦ የካርታ መረጃን ለማከማቸትና ለመተንተን የሚያገለግሉ የኮምፒውተር መሣሪያዎች።"
+      }
+    }
+  ],
+  "main_topics": [
+    {
+      "title": { "en": "B. Environmental Possibilism", "am": "ለ. የአካባቢ ዕድላዊነት" },
+      "points": [
+        { "en": "**Humans influence** the environment; postulated by **Febvre**.", "am": "**ሰዎች** በአካባቢ ላይ **ተጽዕኖ ያሳድራሉ**፤ ያቀረበው **ፌብቭር** ነው።" },
+        { "en": "**Two-way** human–environment relationship.", "am": "**የሁለትዮሽ** የሰውና የአካባቢ ግንኙነት።" },
+        { "en": "\"No necessities, only possibilities.\" Example: **irrigation** in deserts.", "am": "«ግዴታዎች የሉም፣ ዕድሎች ብቻ ናቸው።» ምሳሌ፦ በምድረ በዳ **መስኖ**።" },
+        { "en": "Widely accepted today; it criticised determinism.", "am": "ዛሬ በሰፊው ተቀባይነት አለው፤ ወሳኝነትን ተችቷል።" }
+      ]
+    },
+    {
+      "title": { "en": "C. The Quantitative Revolution", "am": "ሐ. መጠናዊ አብዮት" },
+      "points": [
+        { "en": "**Early 1950s**; used **statistics, mathematical models and computers**.", "am": "**በ1950ዎቹ መጀመሪያ**፤ **ስታቲስቲክስ፣ የሂሳብ ሞዴሎችና ኮምፒውተሮችን** ተጠቅሟል።" },
+        { "en": "A response to a crisis (e.g. Harvard closed geography in **1948**).", "am": "ለቀውስ የተሰጠ ምላሽ (ለምሳሌ ሀርቫርድ በ**1948** ጂኦግራፊን ዘጋ)።" },
+        { "en": "Shift **from descriptive to empirical law-making** geography.", "am": "**ከገላጭ ወደ ተጨባጭ ሕግ አውጪ** ጂኦግራፊ የተደረገ ሽግግር።" }
+      ]
+    },
+    {
+      "title": { "en": "D. Applied Geography", "am": "መ. ተግባራዊ ጂኦግራፊ" },
+      "points": [
+        { "en": "Using geography to **solve problems** and aid decisions.", "am": "**ችግሮችን ለመፍታትና** ውሳኔ ለማገዝ ጂኦግራፊን መጠቀም።" },
+        { "en": "Latter 20th century; **roots in the Quantitative Revolution**.", "am": "የ20ኛው ክፍለ ዘመን የኋለኛው ክፍል፤ **መሠረቱ መጠናዊ አብዮት**።" },
+        { "en": "Jobs: urban planners, GIS analysts, cartographers, environmentalists...", "am": "ሙያዎች፦ የከተማ ፕላን ባለሙያዎች፣ የጂአይኤስ ተንታኞች፣ ካርታ ሠሪዎች፣ የአካባቢ ጥበቃ ባለሙያዎች..." }
+      ]
+    }
+  ],
+  "quiz": {
+    "title": { "en": "Quiz: Possibilism, Quantitative Revolution, Applied Geography", "am": "ፈተና፦ ዕድላዊነት፣ መጠናዊ አብዮት፣ ተግባራዊ ጂኦግራፊ" },
+    "description": {
+      "en": "16 questions on schools B, C and D, including exam-style questions.",
+      "am": "ስለ ለ፣ ሐ እና መ ትምህርት ቤቶች 16 ጥያቄዎች፣ የፈተና ዓይነት ጥያቄዎችን ጨምሮ።"
+    },
+    "questions": [
+      {
+        "question": { "en": "Environmental possibilism says that:", "am": "የአካባቢ ዕድላዊነት የሚለው፦" },
+        "options": [
+          { "en": "Nature controls every human activity", "am": "ተፈጥሮ እያንዳንዱን የሰው እንቅስቃሴ ትቆጣጠራለች" },
+          { "en": "Human beings influence the natural environment", "am": "ሰዎች በተፈጥሮ አካባቢ ላይ ተጽዕኖ ያሳድራሉ" },
+          { "en": "The environment has no effect on people", "am": "አካባቢ በሰዎች ላይ ምንም ተጽዕኖ የለውም" },
+          { "en": "Only statistics can explain geography", "am": "ጂኦግራፊን ማብራራት የሚችለው ስታቲስቲክስ ብቻ ነው" }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "Possibilism sees people as masters who can influence and change the environment.",
+          "am": "ዕድላዊነት ሰዎችን አካባቢን ተጽዕኖ ሊያሳድሩበትና ሊለውጡት የሚችሉ ጌቶች አድርጎ ይመለከታቸዋል።"
+        }
+      },
+      {
+        "question": { "en": "The school of possibilism was postulated by:", "am": "የዕድላዊነት ትምህርት ቤትን ያቀረበው ማን ነው?" },
+        "options": [
+          { "en": "Friedrich Ratzel", "am": "ፍሬድሪክ ራትዘል" },
+          { "en": "Charles Darwin", "am": "ቻርለስ ዳርዊን" },
+          { "en": "Febvre", "am": "ፌብቭር" },
+          { "en": "Eratosthenes", "am": "ኤራቶስቴንስ" }
+        ],
+        "answer": 2,
+        "explanation": {
+          "en": "Febvre postulated (and named) possibilism. Ratzel and Darwin are linked to determinism; Eratosthenes coined the word \"geography\".",
+          "am": "ዕድላዊነትን ያቀረበው (ስምም የሰጠው) ፌብቭር ነው። ራትዘልና ዳርዊን ከወሳኝነት ጋር ይያያዛሉ፤ ኤራቶስቴንስ «ጂኦግራፊ» የሚለውን ቃል ፈጠረ።"
+        }
+      },
+      {
+        "question": { "en": "The main theme of possibilism is:", "am": "የዕድላዊነት ዋና ጭብጥ፦" },
+        "options": [
+          { "en": "The two-way relationship between humans and nature", "am": "በሰውና በተፈጥሮ መካከል ያለ የሁለትዮሽ ግንኙነት" },
+          { "en": "Human beings cannot modify their environment", "am": "ሰዎች አካባቢያቸውን መለወጥ አይችሉም" },
+          { "en": "Human society is a passive agent", "am": "የሰው ማኅበረሰብ ተገዢ ነው" },
+          { "en": "Humans are always under the influence of nature", "am": "ሰዎች ሁልጊዜ በተፈጥሮ ተጽዕኖ ሥር ናቸው" }
+        ],
+        "answer": 0,
+        "explanation": {
+          "en": "Possibilists stress a two-way relationship. The other three options describe determinism.",
+          "am": "የዕድላዊነት አራማጆች የሁለትዮሽ ግንኙነትን ያጎላሉ። ሌሎቹ ሦስት አማራጮች ወሳኝነትን ይገልጻሉ።"
+        }
+      },
+      {
+        "question": { "en": "Turning desert land into farmland by irrigation supports:", "am": "ምድረ በዳን በመስኖ ወደ እርሻ መሬት መቀየር የሚደግፈው፦" },
+        "options": [
+          { "en": "Environmental determinism", "am": "የአካባቢ ወሳኝነትን" },
+          { "en": "Environmental possibilism", "am": "የአካባቢ ዕድላዊነትን" },
+          { "en": "The regional approach", "am": "ክልላዊ አቀራረብን" },
+          { "en": "Descriptive geography", "am": "ገላጭ ጂኦግራፊን" }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "People using technology to change nature is the classic example of possibilism.",
+          "am": "ሰዎች ቴክኖሎጂን ተጠቅመው ተፈጥሮን መለወጣቸው የዕድላዊነት ዋና ምሳሌ ነው።"
+        }
+      },
+      {
+        "question": { "en": "Which saying belongs to possibilism?", "am": "የትኛው አባባል የዕድላዊነት ነው?" },
+        "options": [
+          { "en": "\"Nature is the master of people.\"", "am": "«ተፈጥሮ የሰው ጌታ ናት።»" },
+          { "en": "\"There are no necessities, only possibilities.\"", "am": "«ግዴታዎች የሉም፣ ዕድሎች ብቻ ናቸው።»" },
+          { "en": "\"Survival of the fittest.\"", "am": "«የብቁዎች መትረፍ።»" },
+          { "en": "\"Geography is the description of the earth.\"", "am": "«ጂኦግራፊ የምድር ገለጻ ነው።»" }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "Possibilists argued that nature offers choices (possibilities), and people decide.",
+          "am": "የዕድላዊነት አራማጆች ተፈጥሮ አማራጮችን (ዕድሎችን) ታቀርባለች፣ ሰዎች ይወስናሉ ብለው ተከራከሩ።"
+        }
+      },
+      {
+        "question": { "en": "Why did possibilists criticise determinism?", "am": "የዕድላዊነት አራማጆች ወሳኝነትን ለምን ተቹ?" },
+        "options": [
+          { "en": "It used too much mathematics", "am": "በጣም ብዙ ሂሳብ ስለተጠቀመ" },
+          { "en": "It treated people as passive agents controlled by nature", "am": "ሰዎችን በተፈጥሮ የሚቆጣጠሩ ተገዢዎች አድርጎ ስለተመለከተ" },
+          { "en": "It ignored the climate", "am": "የአየር ንብረትን ስለዘነጋ" },
+          { "en": "It was invented after the 1950s", "am": "ከ1950ዎቹ በኋላ ስለተፈጠረ" }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "Determinism ignores human knowledge and skills; possibilists showed people can regulate nature's effects.",
+          "am": "ወሳኝነት የሰውን እውቀትና ክህሎት ይዘነጋል፤ የዕድላዊነት አራማጆች ሰዎች የተፈጥሮን ተጽዕኖ መቆጣጠር እንደሚችሉ አሳዩ።"
+        }
+      },
+      {
+        "question": { "en": "The Quantitative Revolution emerged in geography in the:", "am": "መጠናዊ አብዮት በጂኦግራፊ የተነሳው፦" },
+        "options": [
+          { "en": "Early 1900s", "am": "በ1900ዎቹ መጀመሪያ" },
+          { "en": "Early 1950s", "am": "በ1950ዎቹ መጀመሪያ" },
+          { "en": "Late 1990s", "am": "በ1990ዎቹ መጨረሻ" },
+          { "en": "Time of the ancient Greeks", "am": "በጥንታዊ ግሪኮች ዘመን" }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "It emerged in the early 1950s and continued into the 1960s.",
+          "am": "በ1950ዎቹ መጀመሪያ ተነስቶ እስከ 1960ዎቹ ቀጥሏል።"
+        }
+      },
+      {
+        "question": {
+          "en": "A nomothetic (empirical law-making) geography that occurred in the mid-20th century is:",
+          "am": "በ20ኛው ክፍለ ዘመን አጋማሽ የተከሰተው ሕግ አውጪ (Nomothetic) ጂኦግራፊ፦"
+        },
+        "options": [
+          { "en": "Environmental determinism", "am": "የአካባቢ ወሳኝነት" },
+          { "en": "The Quantitative Revolution", "am": "መጠናዊ አብዮት" },
+          { "en": "The regional approach", "am": "ክልላዊ አቀራረብ" },
+          { "en": "Political geography", "am": "ፖለቲካዊ ጂኦግራፊ" }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "The Quantitative Revolution shifted geography from description to empirical law-making.",
+          "am": "መጠናዊ አብዮት ጂኦግራፊን ከገለጻ ወደ ተጨባጭ ሕግ አውጪነት አሸጋገረው።"
+        }
+      },
+      {
+        "question": { "en": "What mainly drove the Quantitative Revolution?", "am": "መጠናዊ አብዮትን በዋናነት ያንቀሳቀሰው ምንድን ነው?" },
+        "options": [
+          { "en": "The computer and fast data processing", "am": "ኮምፒውተርና ፈጣን የመረጃ ማስኬድ" },
+          { "en": "The invention of the compass", "am": "የኮምፓስ መፈልሰፍ" },
+          { "en": "The First World War", "am": "አንደኛው የዓለም ጦርነት" },
+          { "en": "Greek philosophy", "am": "የግሪክ ፍልስፍና" }
+        ],
+        "answer": 0,
+        "explanation": {
+          "en": "Computers made it possible to process large amounts of data quickly.",
+          "am": "ኮምፒውተሮች ብዙ መረጃን በፍጥነት ማስኬድ አስቻሉ።"
+        }
+      },
+      {
+        "question": {
+          "en": "Which was one of the challenges (crisis) geography faced before the Quantitative Revolution?",
+          "am": "ከመጠናዊ አብዮት በፊት ጂኦግራፊ ከገጠሙት ፈተናዎች (ቀውሶች) አንዱ የትኛው ነው?"
+        },
+        "options": [
+          { "en": "Too many geography departments were opened", "am": "በጣም ብዙ የጂኦግራፊ ትምህርት ክፍሎች ተከፈቱ" },
+          { "en": "Geography was seen as only descriptive and unscientific", "am": "ጂኦግራፊ ገላጭ ብቻና ሳይንሳዊ ያልሆነ ተብሎ ታየ" },
+          { "en": "Geography used too many computers", "am": "ጂኦግራፊ በጣም ብዙ ኮምፒውተሮችን ተጠቀመ" },
+          { "en": "Geography solved every problem", "am": "ጂኦግራፊ እያንዳንዱን ችግር ፈታ" }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "Critics said geography only described places and did not explain why things happen.",
+          "am": "ተቺዎች ጂኦግራፊ ቦታዎችን ብቻ ይገልጻል፣ ነገሮች ለምን እንደሚከሰቱ አያብራራም አሉ።"
+        }
+      },
+      {
+        "question": { "en": "Which university closed its geography programme in 1948?", "am": "በ1948 የጂኦግራፊ ፕሮግራሙን የዘጋው ዩኒቨርሲቲ የትኛው ነው?" },
+        "options": [
+          { "en": "Addis Ababa University", "am": "አዲስ አበባ ዩኒቨርሲቲ" },
+          { "en": "Oxford University", "am": "ኦክስፎርድ ዩኒቨርሲቲ" },
+          { "en": "Harvard University", "am": "ሀርቫርድ ዩኒቨርሲቲ" },
+          { "en": "Cambridge University", "am": "ካምብሪጅ ዩኒቨርሲቲ" }
+        ],
+        "answer": 2,
+        "explanation": {
+          "en": "The closing of the Harvard geography programme in 1948 is the textbook's example of the crisis.",
+          "am": "በ1948 የሀርቫርድ የጂኦግራፊ ፕሮግራም መዘጋት የመጽሐፉ የቀውሱ ምሳሌ ነው።"
+        }
+      },
+      {
+        "question": { "en": "Von Thünen's and Weber's location models are examples of:", "am": "የቮን ቲውነንና የዌበር የአቀማመጥ ሞዴሎች የምን ምሳሌዎች ናቸው?" },
+        "options": [
+          { "en": "Deterministic models", "am": "ወሳኝ ሞዴሎች (Deterministic models)" },
+          { "en": "Descriptive regional studies", "am": "ገላጭ ክልላዊ ጥናቶች" },
+          { "en": "Physiographic diagrams", "am": "የመልክዓ ምድር ሥዕሎች" },
+          { "en": "Schools of determinism", "am": "የወሳኝነት ትምህርት ቤቶች" }
+        ],
+        "answer": 0,
+        "explanation": {
+          "en": "They are deterministic models used during the Quantitative Revolution (not the school of determinism).",
+          "am": "በመጠናዊ አብዮት ዘመን ጥቅም ላይ የዋሉ ወሳኝ ሞዴሎች ናቸው (የወሳኝነት ትምህርት ቤት አይደሉም)።"
+        }
+      },
+      {
+        "question": {
+          "en": "The use of geography for socio-economic and political problem solving and planning is known as:",
+          "am": "ጂኦግራፊን ለማኅበራዊ-ኢኮኖሚያዊና ፖለቲካዊ ችግሮች መፍቻና ለዕቅድ መጠቀም ምን ይባላል?"
+        },
+        "options": [
+          { "en": "Historical geography", "am": "ታሪካዊ ጂኦግራፊ" },
+          { "en": "Applied geography", "am": "ተግባራዊ ጂኦግራፊ" },
+          { "en": "Environmental determinism", "am": "የአካባቢ ወሳኝነት" },
+          { "en": "Cultural geography", "am": "የባህል ጂኦግራፊ" }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "Applied geography uses geographic analysis to solve problems and aid decision making.",
+          "am": "ተግባራዊ ጂኦግራፊ ችግሮችን ለመፍታትና ውሳኔ ለማገዝ ጂኦግራፊያዊ ትንተናን ይጠቀማል።"
+        }
+      },
+      {
+        "question": { "en": "Applied geography has its roots in:", "am": "የተግባራዊ ጂኦግራፊ መሠረቱ፦" },
+        "options": [
+          { "en": "Environmental determinism", "am": "የአካባቢ ወሳኝነት" },
+          { "en": "The Quantitative Revolution", "am": "መጠናዊ አብዮት" },
+          { "en": "The work of Eratosthenes", "am": "የኤራቶስቴንስ ሥራ" },
+          { "en": "The First World War", "am": "አንደኛው የዓለም ጦርነት" }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "The tools of the Quantitative Revolution made geography useful for solving real problems.",
+          "am": "የመጠናዊ አብዮት መሣሪያዎች ጂኦግራፊን እውነተኛ ችግሮችን ለመፍታት ጠቃሚ አደረጉት።"
+        }
+      },
+      {
+        "question": { "en": "\"Geography is less practical in today's world than it was before.\" This statement is:", "am": "«ጂኦግራፊ በዛሬው ዓለም ከበፊቱ ያነሰ ተግባራዊ ነው።» ይህ አባባል፦" },
+        "options": [
+          { "en": "True, because of computers", "am": "እውነት ነው፣ በኮምፒውተሮች ምክንያት" },
+          { "en": "False, applied geography made it more practical", "am": "ሐሰት ነው፣ ተግባራዊ ጂኦግራፊ የበለጠ ተግባራዊ አደረገው" },
+          { "en": "True, departments are closed", "am": "እውነት ነው፣ ትምህርት ክፍሎች ተዘግተዋል" },
+          { "en": "False, because geography is only descriptive", "am": "ሐሰት ነው፣ ምክንያቱም ጂኦግራፊ ገላጭ ብቻ ነው" }
+        ],
+        "answer": 1,
+        "explanation": {
+          "en": "Today geographers work as planners, GIS analysts and more, so geography is more practical than before.",
+          "am": "ዛሬ ጂኦግራፈሮች የፕላን ባለሙያዎች፣ የጂአይኤስ ተንታኞችና ሌሎችም ሆነው ይሠራሉ፤ ስለዚህ ጂኦግራፊ ከበፊቱ የበለጠ ተግባራዊ ነው።"
+        }
+      },
+      {
+        "question": { "en": "Which job is an example of applied geography?", "am": "የተግባራዊ ጂኦግራፊ ምሳሌ የሆነው ሙያ የትኛው ነው?" },
+        "options": [
+          { "en": "Urban planner", "am": "የከተማ ፕላን ባለሙያ" },
+          { "en": "Opera singer", "am": "የኦፔራ ዘፋኝ" },
+          { "en": "Football player", "am": "የእግር ኳስ ተጫዋች" },
+          { "en": "Novelist", "am": "ልብ ወለድ ደራሲ" }
+        ],
+        "answer": 0,
+        "explanation": {
+          "en": "Urban planners use geographic analysis to decide where homes, roads and services go.",
+          "am": "የከተማ ፕላን ባለሙያዎች ቤቶች፣ መንገዶችና አገልግሎቶች የት እንደሚሆኑ ለመወሰን ጂኦግራፊያዊ ትንተና ይጠቀማሉ።"
+        }
+      }
+    ]
+  }
+}
